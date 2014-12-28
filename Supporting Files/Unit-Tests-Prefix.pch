@@ -25,4 +25,6 @@
     #import "Carrierwave-Features.h"
     #import "Carrierwave-Macros.h"
 
+    #import "UIImage+CRVComposition.h"
+
 #endif
