@@ -1,0 +1,18 @@
+//
+//  Carrierwave-Demo-Prefix.pch
+//
+//  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_8_0
+    #warning "This project uses features only available in iOS SDK 8.0 and later."
+#endif
+
+#ifdef __OBJC__
+
+    #import "Carrierwave-Features.h"
+    #import "Carrierwave-Macros.h"
+
+#endif
