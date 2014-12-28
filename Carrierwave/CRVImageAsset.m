@@ -89,12 +89,10 @@
     // initialize signatures
     const char bmp[2] = {'B', 'M'};
     const char gif[3] = {'G', 'I', 'F'};
-    const char swf[3] = {'F', 'W', 'S'};
-    const char swc[3] = {'C', 'W', 'S'};
     const char jpg[3] = {0xff, 0xd8, 0xff};
-    const char jpc[3] = {0xff, 0x4f, 0xff};
     const char psd[4] = {'8', 'B', 'P', 'S'};
     const char iff[4] = {'F', 'O', 'R', 'M'};
+    const char webp[4] = {'R', 'I', 'F', 'F'};
     const char ico[4] = {0x00, 0x00, 0x01, 0x00};
     const char tif_ii[4] = {'I','I', 0x2A, 0x00};
     const char tif_mm[4] = {'M','M', 0x00, 0x2A};
@@ -106,16 +104,14 @@
         return @"image/x-ms-bmp";
     } else if (!memcmp(bytes, gif, 3)) {
         return @"image/gif";
-    } else if (!memcmp(bytes, swf, 3) || !memcmp(bytes, swc, 3)) {
-        return @"application/x-shockwave-flash";
     } else if (!memcmp(bytes, jpg, 3)) {
         return @"image/jpeg";
-    } else if (!memcmp(bytes, jpc, 3)) {
-        return @"image/octet-stream";
     } else if (!memcmp(bytes, psd, 4)) {
         return @"image/psd";
     } else if (!memcmp(bytes, iff, 4)) {
         return @"image/iff";
+    } else if (!memcmp(bytes, webp, 4)) {
+        return @"image/webp";
     } else if (!memcmp(bytes, ico, 4)) {
         return @"image/vnd.microsoft.icon";
     } else if (!memcmp(bytes, tif_ii, 4) || !memcmp(bytes, tif_mm, 4)) {
@@ -138,7 +134,8 @@
     // try to guess the type
     CFStringRef cfExtension = (__bridge CFStringRef)([url pathExtension]);
     CFStringRef cfUti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, cfExtension, NULL);
-    NSString *type = (__bridge NSString *)(UTTypeCopyPreferredTagWithClass(cfUti, kUTTagClassMIMEType));
+    NSString *type = (__bridge_transfer NSString *)(UTTypeCopyPreferredTagWithClass(cfUti, kUTTagClassMIMEType));
+    CFRelease(cfUti);
 
     // successful guess
     if (type != nil) {
@@ -148,7 +145,6 @@
     // default
     return @"application/octet-stream";
 }
-
 
 #pragma mark - Property accessors
 
