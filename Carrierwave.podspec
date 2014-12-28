@@ -25,6 +25,8 @@ Pod::Spec.new do |spec|
   spec.source_files  = 'Carrierwave/**/*.{h,m}'
   spec.requires_arc  = true
 
+  spec.frameworks    = 'MobileCoreServices', 'UIKit'
+
   spec.dependency      'AFNetworking', '~> 2.5'
 
 end

@@ -8,4 +8,7 @@
 
     #define _CARRIERWAVE_H_
 
+    #import <Carrierwave/CRVAssetType.h>
+    #import <Carrierwave/CRVImageAsset.h>
+
 #endif
