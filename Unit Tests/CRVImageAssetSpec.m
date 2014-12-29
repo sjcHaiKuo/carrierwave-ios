@@ -10,32 +10,24 @@ describe(@"CRVImageAsset", ^{
 
     __block CRVImageAsset *asset = nil;
 
-    context(@"when initialized with image", ^{
+    context(@"when initialized with an image", ^{
 
         beforeEach(^{
             UIImage *image = [UIImage crv_composeImageWithSize:CGSizeMake(5, 5) color:[UIColor redColor]];
             asset = [[CRVImageAsset alloc] initWithImage:image];
         });
 
-        it(@"should have a data representation", ^{
-            expect(asset.data).toNot.beNil();
-        });
-
-        it(@"should have a file name", ^{
-            expect(asset.fileName).toNot.beNil();
-        });
-
-        it(@"should have a png type", ^{
-            expect(asset.mimeType).to.equal(@"image/png");
-        });
-
-        it(@"should have an image", ^{
-            expect(asset.image).toNot.beNil();
+        itShouldBehaveLike(@"asset", ^{
+            return @{
+                @"asset": asset,
+                @"extension": @"png",
+                @"mime": @"image/png",
+            };
         });
 
     });
 
-    context(@"when initialized with local url", ^{
+    context(@"when initialized with a local gif file", ^{
 
         beforeEach(^{
             NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"pixel" ofType:@"gif"];
@@ -43,95 +35,89 @@ describe(@"CRVImageAsset", ^{
             asset = [[CRVImageAsset alloc] initWithLocalURL:fileURL];
         });
 
-        it(@"should have a data representation", ^{
-            expect(asset.data).toNot.beNil();
-        });
-
-        it(@"should have a correct file name", ^{
-            expect(asset.fileName).toNot.beNil();
-        });
-
-        it(@"should have a correct mime type", ^{
-            expect(asset.mimeType).to.equal(@"image/gif");
-        });
-
-        it(@"should have an image", ^{
-            expect(asset.image).toNot.beNil();
+        itShouldBehaveLike(@"asset", ^{
+            return @{
+                @"asset": asset,
+                @"extension": @"gif",
+                @"mime": @"image/gif",
+            };
         });
 
     });
 
-    sharedExamplesFor(@"asset guessing the correct mime type", ^(NSDictionary *data) {
-
-        __block CRVImageAsset *asset = nil;
+    context(@"when initialized with a local jpg file", ^{
 
         beforeEach(^{
-            NSString *fileName = data[@"name"], *fileExtension = data[@"extension"];
-            NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:fileName ofType:fileExtension];
-            NSData *fileData = [[NSData alloc] initWithContentsOfFile:filePath];
-            asset = [[CRVImageAsset alloc] initWithData:fileData];
+            NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"pixel" ofType:@"jpg"];
+            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+            asset = [[CRVImageAsset alloc] initWithLocalURL:fileURL];
         });
 
-        it(@"should have a data representation", ^{
-            expect(asset.data).toNot.beNil();
-        });
-
-        it(@"should not have a file name", ^{
-            expect(asset.fileName).toNot.beNil();
-        });
-
-        it(@"should have a correct mime type", ^{
-            NSString *expectedMimeType = data[@"mime"];
-            expect(asset.mimeType).to.equal(expectedMimeType);
-        });
-
-        it(@"should have an image", ^{
-            expect(asset.image).toNot.beNil();
+        itShouldBehaveLike(@"asset", ^{
+            return @{
+                @"asset": asset,
+                @"extension": @"jpeg",
+                @"mime": @"image/jpeg",
+            };
         });
 
     });
 
-    context(@"when initialized with gif data", ^{
+    context(@"when initialized with a local tiff file", ^{
 
-        itShouldBehaveLike(@"asset guessing the correct mime type", @{
-            @"name": @"pixel",
-            @"extension": @"gif",
-            @"mime": @"image/gif",
+        beforeEach(^{
+            NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"pixel" ofType:@"tiff"];
+            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+            asset = [[CRVImageAsset alloc] initWithLocalURL:fileURL];
+        });
+
+        itShouldBehaveLike(@"asset", ^{
+            return @{
+                @"asset": asset,
+                @"extension": @"tiff",
+                @"mime": @"image/tiff",
+            };
         });
 
     });
 
-    context(@"when initialized with jpg data", ^{
+    context(@"when initialized with a local png file", ^{
 
-        itShouldBehaveLike(@"asset guessing the correct mime type", @{
-            @"name": @"pixel",
-            @"extension": @"jpg",
-            @"mime": @"image/jpeg",
+        beforeEach(^{
+            NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"pixel" ofType:@"png"];
+            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+            asset = [[CRVImageAsset alloc] initWithLocalURL:fileURL];
+        });
+
+        itShouldBehaveLike(@"asset", ^{
+            return @{
+                @"asset": asset,
+                @"extension": @"png",
+                @"mime": @"image/png",
+            };
         });
 
     });
 
-    context(@"when initialized with tiff data", ^{
+    describe(@"compression", ^{
 
-        itShouldBehaveLike(@"asset guessing the correct mime type", @{
-            @"name": @"pixel",
-            @"extension": @"tiff",
-            @"mime": @"image/tiff",
+        __block CRVImageAsset *compressedAsset = nil;
+
+        beforeEach(^{
+            UIImage *image = [UIImage crv_composeImageWithSize:CGSizeMake(500, 500) color:[UIColor greenColor]];
+            asset = [[CRVImageAsset alloc] initWithImage:image];
+            compressedAsset = [asset compressedImageAssetWithQuality:(CGFloat)0.1];
+        });
+
+        specify(@"compressed asset should not be nil", ^{
+            expect(compressedAsset).toNot.beNil();
+        });
+
+        it(@"should decrease the image weight", ^{
+            expect(compressedAsset.data.length).to.beLessThan(asset.data.length);
         });
 
     });
-
-    context(@"when initialized with png data", ^{
-
-        itShouldBehaveLike(@"asset guessing the correct mime type", @{
-            @"name": @"pixel",
-            @"extension": @"png",
-            @"mime": @"image/png",
-        });
-
-    });
-
-    CRVWorkInProgress("Test that asset corrctly guesses the extension");
 
 });
 

@@ -25,6 +25,7 @@
     #import "Carrierwave-Features.h"
     #import "Carrierwave-Macros.h"
 
+    #import "EXPMatchers+CRVAssetType.h"
     #import "UIImage+CRVComposition.h"
 
 #endif
