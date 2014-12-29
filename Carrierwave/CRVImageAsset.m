@@ -10,12 +10,14 @@
 
 @interface CRVImageAsset ()
 
+@property (strong, nonatomic, readwrite) NSString *fileNameBase;
 @property (strong, nonatomic, readwrite) NSString *mimeType;
-@property (strong, nonatomic, readwrite) NSString *fileName;
 @property (strong, nonatomic, readwrite) NSData *data;
 
 - (NSString *)mimeTypeByGuessingFromData:(NSData *)data;
 - (NSString *)mimeTypeByGuessingFromURL:(NSURL *)url;
+
+- (NSString *)fileExtensionByGuessingFromMimeType:(NSString *)mimeType;
 
 @end
 
@@ -25,17 +27,16 @@
 
 #pragma mark - Object lifecycle
 
-- (instancetype)initWithData:(NSData *)data fileName:(NSString *)name mimeType:(NSString *)type {
+- (instancetype)initWithData:(NSData *)data mimeType:(NSString *)type {
     self = [super init];
     if (self == nil) return nil;
     self.data = data;
-    self.fileName = name;
     self.mimeType = type;
     return self;
 }
 
-- (instancetype)initWithImage:(UIImage *)image fileName:(NSString *)name {
-    return [self initWithData:UIImagePNGRepresentation(image) fileName:name mimeType:nil];
+- (instancetype)initWithImage:(UIImage *)image {
+    return [self initWithData:UIImagePNGRepresentation(image) mimeType:nil];
 }
 
 - (instancetype)initWithLocalURL:(NSURL *)url error:(NSError * __autoreleasing *)error {
@@ -52,14 +53,13 @@
         }
         return nil;
     }
-    NSString *fileName = [url lastPathComponent];
     NSString *mimeType = [self mimeTypeByGuessingFromURL:url];
     NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-    return [self initWithData:data fileName:fileName mimeType:mimeType];
+    return [self initWithData:data mimeType:mimeType];
 }
 
 - (instancetype)init {
-    return [self initWithData:nil fileName:nil mimeType:nil];
+    return [self initWithData:nil mimeType:nil];
 }
 
 #pragma mark - Asynchronous fetch
@@ -67,16 +67,15 @@
 + (void)fetchAssetWithRemoteURL:(NSURL *)url completion:(void (^)(CRVImageAsset *, NSError *))completion {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:[url absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, NSData *responseData) {
-        NSString *fileName = operation.response.URL.lastPathComponent;
         NSString *mimeType = operation.response.MIMEType;
-        CRVImageAsset *asset = [[self alloc] initWithData:responseData fileName:fileName mimeType:mimeType];
+        CRVImageAsset *asset = [[self alloc] initWithData:responseData mimeType:mimeType];
         if (completion != NULL) completion(asset, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (completion != NULL) completion(nil, error);
     }];
 }
 
-#pragma mark - Guessing mime types
+#pragma mark - Mime type helpers
 
 - (NSString *)mimeTypeByGuessingFromData:(NSData *)data {
 
@@ -146,11 +145,49 @@
     return @"application/octet-stream";
 }
 
+- (NSString *)fileExtensionByGuessingFromMimeType:(NSString *)mimeType {
+
+    // inspired by AFNetworking/AFNetworking/AFURLRequestSerialization.m
+
+    // try to guess the type
+    CFStringRef cfMimeType = (__bridge CFStringRef)(mimeType);
+    CFStringRef cfUti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, cfMimeType, NULL);
+    NSString *ext = (__bridge_transfer NSString *)(UTTypeCopyPreferredTagWithClass(cfUti, kUTTagClassFilenameExtension));
+    CFRelease(cfUti);
+
+    // successful guess
+    if (ext != nil) {
+        return ext;
+    }
+
+    // default
+    return nil;
+
+}
+
+#pragma mark - Compressing images
+
+- (instancetype)compressedImageAssetWithQuality:(CGFloat)quality {
+    NSData *compressedData = UIImageJPEGRepresentation(self.image, quality);
+    return [[[self class] alloc] initWithData:compressedData mimeType:nil];
+}
+
 #pragma mark - Property accessors
+
+- (NSString *)fileName {
+    NSString *base = self.fileNameBase != nil ? self.fileNameBase : (self.fileNameBase = [NSUUID UUID].UUIDString);
+    NSString *extBase = [self fileExtensionByGuessingFromMimeType:self.mimeType];
+    NSString *ext = extBase != nil ? [NSString stringWithFormat:@".%@", extBase] : @"";
+    return [NSString stringWithFormat:@"%@%@", base, ext];
+}
 
 - (NSString *)mimeType {
     if (_mimeType != nil) return _mimeType;
     return _mimeType = [self mimeTypeByGuessingFromData:self.data];
+}
+
+- (UIImage *)image {
+    return [UIImage imageWithData:self.data];
 }
 
 @end

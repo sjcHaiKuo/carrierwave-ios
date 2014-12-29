@@ -22,12 +22,11 @@
  * If the image's MIME type is not specified, it will be guessed.
  *
  * @param image The data of the image to be represented by the asset.
- * @param name A file name to be associated with the asset, or nil.
  * @param type A MIME type to be associated with the asset, or nil.
  *
  * @return An initialized receiver.
  */
-- (instancetype)initWithData:(NSData *)data fileName:(NSString *)name mimeType:(NSString *)type NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithData:(NSData *)data mimeType:(NSString *)type NS_DESIGNATED_INITIALIZER;
 
 /**
  * Creates the image asset using the existing image instance.
@@ -36,11 +35,10 @@
  * converted to a PNG file.
  *
  * @param image The image to be represented by the asset.
- * @param name A file name to be associated with the asset, or nil.
  *
  * @return An initialized receiver.
  */
-- (instancetype)initWithImage:(UIImage *)image fileName:(NSString *)name;
+- (instancetype)initWithImage:(UIImage *)image;
 
 /**
  * Creates the image asset by loading a local image under the specified URL.
@@ -63,5 +61,23 @@
  * @param completion The block to be executed on the completion of a request.
  */
 + (void)fetchAssetWithRemoteURL:(NSURL *)url completion:(void (^)(CRVImageAsset *asset, NSError *error))completion;
+
+/**
+ * The image represented by the asset.
+ */
+@property (strong, nonatomic, readonly) UIImage *image;
+
+/**
+ * Compresses the image asset and returns it as a new one.
+ *
+ * As certain file types cannot be compressed, this method converts the
+ * represented image to image/jpeg.
+ *
+ * @param quality The compression quality (a.k.a. level).
+ *
+ * @return A compressed image asset.
+ */
+- (instancetype)compressedImageAssetWithQuality:(CGFloat)quality;
+
 
 @end
