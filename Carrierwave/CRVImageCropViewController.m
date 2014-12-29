@@ -12,6 +12,8 @@
 @property (assign, nonatomic) CRVImageCrop crop;
 
 @property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UIView *maskView;
+@property (strong, nonatomic) UIImageView *croppingControlImageView;
 
 @property (strong, nonatomic) UIRotationGestureRecognizer *rotationRecognizer;
 @property (strong, nonatomic) UIPinchGestureRecognizer *pinchRecognizer;
@@ -50,6 +52,23 @@
 
 #pragma mark - View lifecycle
 
+- (void)loadView {
+    [super loadView];
+    self.imageView = [[UIImageView alloc] init];
+    self.imageView.userInteractionEnabled = YES;
+    self.imageView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.imageView];
+    self.maskView = [[UIView alloc] init];
+    self.maskView.userInteractionEnabled = NO;
+    self.maskView.backgroundColor = self.maskBackgroundColor;
+    [self.view insertSubview:self.maskView aboveSubview:self.imageView];
+    self.croppingControlImageView = [[UIImageView alloc] init];
+    self.croppingControlImageView.image = self.croppingControlImage;
+    self.croppingControlImageView.userInteractionEnabled = NO;
+    self.croppingControlImageView.backgroundColor = [UIColor clearColor];
+    [self.view insertSubview:self.croppingControlImageView aboveSubview:self.maskView];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.imageView addGestureRecognizer:self.rotationRecognizer];
@@ -86,6 +105,18 @@
     [recognizer addTarget:self action:@selector(handlePinchRecognizer:)];
     recognizer.delegate = self;
     return _pinchRecognizer = recognizer;
+}
+
+- (void)setMaskBackgroundColor:(UIColor *)maskBackgroundColor {
+    if (![self.maskBackgroundColor isEqual:maskBackgroundColor]) {
+         self.maskView.backgroundColor = _maskBackgroundColor = maskBackgroundColor;
+    }
+}
+
+- (void)setCroppingControlImage:(UIImage *)croppingControlImage {
+    if (![self.croppingControlImage isEqual:croppingControlImage]) {
+        self.croppingControlImageView.image = _croppingControlImage = croppingControlImage;
+    }
 }
 
 #pragma mark - Defaults
