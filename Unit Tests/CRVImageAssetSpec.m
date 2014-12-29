@@ -37,16 +37,10 @@ describe(@"CRVImageAsset", ^{
 
     context(@"when initialized with local url", ^{
 
-        __block NSError *error = nil;
-
         beforeEach(^{
             NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"pixel" ofType:@"gif"];
             NSURL *fileURL = [NSURL fileURLWithPath:filePath];
-            asset = [[CRVImageAsset alloc] initWithLocalURL:fileURL error:&error];
-        });
-
-        specify(@"there should be no error", ^{
-            expect(error).to.beNil();
+            asset = [[CRVImageAsset alloc] initWithLocalURL:fileURL];
         });
 
         it(@"should have a data representation", ^{
@@ -75,7 +69,7 @@ describe(@"CRVImageAsset", ^{
             NSString *fileName = data[@"name"], *fileExtension = data[@"extension"];
             NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:fileName ofType:fileExtension];
             NSData *fileData = [[NSData alloc] initWithContentsOfFile:filePath];
-            asset = [[CRVImageAsset alloc] initWithData:fileData mimeType:nil];
+            asset = [[CRVImageAsset alloc] initWithData:fileData];
         });
 
         it(@"should have a data representation", ^{
@@ -93,16 +87,6 @@ describe(@"CRVImageAsset", ^{
 
         it(@"should have an image", ^{
             expect(asset.image).toNot.beNil();
-        });
-
-    });
-
-    context(@"when initialized with bmp data", ^{
-
-        itShouldBehaveLike(@"asset guessing the correct mime type", @{
-            @"name": @"pixel",
-            @"extension": @"bmp",
-            @"mime": @"image/x-ms-bmp",
         });
 
     });
@@ -127,26 +111,6 @@ describe(@"CRVImageAsset", ^{
 
     });
 
-    context(@"when initialized with png data", ^{
-
-        itShouldBehaveLike(@"asset guessing the correct mime type", @{
-            @"name": @"pixel",
-            @"extension": @"png",
-            @"mime": @"image/png",
-        });
-
-    });
-
-    context(@"when initialized with psd data", ^{
-
-        itShouldBehaveLike(@"asset guessing the correct mime type", @{
-            @"name": @"pixel",
-            @"extension": @"psd",
-            @"mime": @"image/psd",
-        });
-
-    });
-
     context(@"when initialized with tiff data", ^{
 
         itShouldBehaveLike(@"asset guessing the correct mime type", @{
@@ -157,18 +121,17 @@ describe(@"CRVImageAsset", ^{
 
     });
 
-    context(@"when initialized with bmp data", ^{
+    context(@"when initialized with png data", ^{
 
         itShouldBehaveLike(@"asset guessing the correct mime type", @{
             @"name": @"pixel",
-            @"extension": @"webp",
-            @"mime": @"image/webp",
+            @"extension": @"png",
+            @"mime": @"image/png",
         });
 
     });
 
     CRVWorkInProgress("Test that asset corrctly guesses the extension");
-    CRVWorkInProgress("Test that asset correctly guesses the mime type based on url");
 
 });
 

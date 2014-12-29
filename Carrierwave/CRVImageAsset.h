@@ -13,26 +13,29 @@
 /**
  * The CRVImageAsset class is used to represent images which can be uploaded to
  * the carrierwave-powered server backend.
+ *
+ * The CRVImageAsset class can represent the following image types:
+ *   - image/gif (.gif)
+ *   - image/jpeg (.jpg)
+ *   - image/tiff (.tiff, .tif)
+ *   - image/png (.png)
  */
 @interface CRVImageAsset : NSObject <CRVAssetType>
 
 /**
- * Creates the image asset using the data of an image. Designated initializer.
- *
- * If the image's MIME type is not specified, it will be guessed.
+ * Creates the image asset using the data of an image.
  *
  * @param image The data of the image to be represented by the asset.
- * @param type A MIME type to be associated with the asset, or nil.
  *
  * @return An initialized receiver.
  */
-- (instancetype)initWithData:(NSData *)data mimeType:(NSString *)type NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithData:(NSData *)data NS_DESIGNATED_INITIALIZER;
 
 /**
  * Creates the image asset using the existing image instance.
  *
- * As the image's original MIME type is lost using this method, it is implicitly
- * converted to a PNG file.
+ * As the image's original type cannot be determined, it is implicitly
+ * converted to a png file.
  *
  * @param image The image to be represented by the asset.
  *
@@ -43,19 +46,14 @@
 /**
  * Creates the image asset by loading a local image under the specified URL.
  *
- * The image's MIME type and file name are automatically computed.
- *
  * @param url The URL of a local image file to be represented by the asset.
- * @param error An error that occured while reading from the URL, if any.
  *
  * @return An initialized receiver.
  */
-- (instancetype)initWithLocalURL:(NSURL *)url error:(NSError **)error;
+- (instancetype)initWithLocalURL:(NSURL *)url;
 
 /**
  * Asynchronously creates the image asset by fetching an image from remote URL.
- *
- * The image's MIME type and file name are automatically computed.
  *
  * @param url The URL of a remote image file to be represented by the asset.
  * @param completion The block to be executed on the completion of a request.
@@ -70,14 +68,13 @@
 /**
  * Compresses the image asset and returns it as a new one.
  *
- * As certain file types cannot be compressed, this method converts the
- * represented image to image/jpeg.
+ * As certain image types cannot be compressed (such as png), this method
+ * automatically converts the image into a jpeg file.
  *
- * @param quality The compression quality (a.k.a. level).
+ * @param quality The compression quality.
  *
- * @return A compressed image asset.
+ * @return An asset representing a compressed image.
  */
 - (instancetype)compressedImageAssetWithQuality:(CGFloat)quality;
-
 
 @end
