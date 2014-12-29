@@ -36,6 +36,7 @@
     self.rotatable = YES;
     self.zoomable = YES;
     self.maximalZoom = 3.0;
+    self.crop = CRVImageCropZero;
     return self;
 }
 

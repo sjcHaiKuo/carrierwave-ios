@@ -6,7 +6,7 @@
 
 #import "CRVImageCrop.h"
 
-const CRVImageCrop CRVImageCropZero = {{{0, 0}, {0, 0}}, {1, 0, 0, 1, 0, 0}};
+const CRVImageCrop CRVImageCropZero = {{{0, 0}, {0, 0}}, {0, 0, 0, 0, 0, 0}};
 
 CRVImageCrop CRVImageCropMake(CGRect rect, CGAffineTransform transform) {
     return (CRVImageCrop){
