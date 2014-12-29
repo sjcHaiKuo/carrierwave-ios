@@ -14,19 +14,23 @@ describe(@"CRVImageAsset", ^{
 
         beforeEach(^{
             UIImage *image = [UIImage crv_composeImageWithSize:CGSizeMake(5, 5) color:[UIColor redColor]];
-            asset = [[CRVImageAsset alloc] initWithImage:image fileName:nil];
+            asset = [[CRVImageAsset alloc] initWithImage:image];
         });
 
         it(@"should have a data representation", ^{
             expect(asset.data).toNot.beNil();
         });
 
-        it(@"should not have a file name", ^{
-            expect(asset.fileName).to.beNil();
+        it(@"should have a file name", ^{
+            expect(asset.fileName).toNot.beNil();
         });
 
         it(@"should have a png type", ^{
             expect(asset.mimeType).to.equal(@"image/png");
+        });
+
+        it(@"should have an image", ^{
+            expect(asset.image).toNot.beNil();
         });
 
     });
@@ -50,11 +54,15 @@ describe(@"CRVImageAsset", ^{
         });
 
         it(@"should have a correct file name", ^{
-            expect(asset.fileName).to.equal(@"pixel.gif");
+            expect(asset.fileName).toNot.beNil();
         });
 
         it(@"should have a correct mime type", ^{
             expect(asset.mimeType).to.equal(@"image/gif");
+        });
+
+        it(@"should have an image", ^{
+            expect(asset.image).toNot.beNil();
         });
 
     });
@@ -67,7 +75,7 @@ describe(@"CRVImageAsset", ^{
             NSString *fileName = data[@"name"], *fileExtension = data[@"extension"];
             NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:fileName ofType:fileExtension];
             NSData *fileData = [[NSData alloc] initWithContentsOfFile:filePath];
-            asset = [[CRVImageAsset alloc] initWithData:fileData fileName:nil mimeType:nil];
+            asset = [[CRVImageAsset alloc] initWithData:fileData mimeType:nil];
         });
 
         it(@"should have a data representation", ^{
@@ -75,12 +83,16 @@ describe(@"CRVImageAsset", ^{
         });
 
         it(@"should not have a file name", ^{
-            expect(asset.fileName).to.beNil();
+            expect(asset.fileName).toNot.beNil();
         });
 
         it(@"should have a correct mime type", ^{
             NSString *expectedMimeType = data[@"mime"];
             expect(asset.mimeType).to.equal(expectedMimeType);
+        });
+
+        it(@"should have an image", ^{
+            expect(asset.image).toNot.beNil();
         });
 
     });
@@ -154,6 +166,9 @@ describe(@"CRVImageAsset", ^{
         });
 
     });
+
+    CRVWorkInProgress("Test that asset corrctly guesses the extension");
+    CRVWorkInProgress("Test that asset correctly guesses the mime type based on url");
 
 });
 
