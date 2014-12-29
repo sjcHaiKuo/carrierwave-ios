@@ -20,6 +20,11 @@ typedef struct {
 } CRVImageCrop;
 
 /**
+ * The CRVImageCrop structure reprezenting no crop.
+ */
+extern const CRVImageCrop CRVImageCropZero;
+
+/**
  * Creates a crop structure from a rect and a transform.
  *
  * @param rect The rectangle of the crop.
@@ -28,3 +33,10 @@ typedef struct {
  * @return An initialized structure.
  */
 extern CRVImageCrop CRVImageCropMake(CGRect rect, CGAffineTransform transform);
+
+/**
+ * Creates an identity image crop structure.
+ *
+ * @param size The size of the image.
+ */
+extern CRVImageCrop CRVImageCropIdentity(CGSize size);
