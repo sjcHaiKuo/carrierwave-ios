@@ -5,6 +5,7 @@
 //
 
 @import UIKit;
+@import Carrierwave;
 
 @interface CRVAppDelegate : UIResponder <UIApplicationDelegate>
 
