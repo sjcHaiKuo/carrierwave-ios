@@ -14,6 +14,7 @@ xcodeproj 'Carrierwave', 'Development' => :debug, 'Production' => :release, 'Sta
 
 # Global project dependencies
 pod 'AFNetworking', '~> 2.5'
+pod 'Masonry', '~> 0.5'
 
 # Exclusive demo dependencies
 target 'Demo' do link_with 'Carrierwave Demo'

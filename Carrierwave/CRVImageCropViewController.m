@@ -4,21 +4,29 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#import "CRVImageCrop.h"
+#import <Masonry/Masonry.h>
+
+#import "CRVImageAsset.h"
 #import "CRVImageCropViewController.h"
 
 @interface CRVImageCropViewController () <UIGestureRecognizerDelegate>
 
-@property (assign, nonatomic) CRVImageCrop crop;
+@property (assign, nonatomic) CGRect cropRect;
+@property (assign, nonatomic) CGAffineTransform cropTransform;
 
-@property (strong, nonatomic) UIImageView *imageView;
-@property (strong, nonatomic) UIView *maskView;
-@property (strong, nonatomic) UIImageView *croppingControlImageView;
+@property (assign, nonatomic) CGAffineTransform cropRotationTransform;
+@property (assign, nonatomic) CGAffineTransform cropScaleTransform;
+
+@property (assign, nonatomic) CGAffineTransform initialCropRotationTransform;
+@property (assign, nonatomic) CGAffineTransform initialCropScaleTransform;
 
 @property (strong, nonatomic) UIRotationGestureRecognizer *rotationRecognizer;
 @property (strong, nonatomic) UIPinchGestureRecognizer *pinchRecognizer;
 
-+ (UIImage *)defaultCroppingControlImage;
+@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UIView *wrapperView;
+
+- (CGFloat)aspectFillRatioWithInitialSize:(CGSize)initialSize targetSize:(CGSize)targetSize;
 
 @end
 
@@ -31,14 +39,10 @@
 - (instancetype)initWithImageAsset:(CRVImageAsset *)asset {
     self = [super initWithNibName:nil bundle:nil];
     if (self == nil) return nil;
-    self.cancellable = YES;
     self.imageAsset = asset;
-    self.croppingControlImage = [[self class] defaultCroppingControlImage];
-    self.maskBackgroundColor = [UIColor colorWithWhite:0 alpha:0.25];
-    self.rotatable = YES;
-    self.zoomable = YES;
-    self.maximalZoom = 3.0;
-    self.crop = CRVImageCropZero;
+    self.cropRect = CGRectZero;
+    self.cropRotationTransform = CGAffineTransformIdentity;
+    self.cropScaleTransform = CGAffineTransformIdentity;
     return self;
 }
 
@@ -53,26 +57,42 @@
 #pragma mark - View lifecycle
 
 - (void)loadView {
+
     [super loadView];
+
+    self.wrapperView = [[UIView alloc] init];
+    self.wrapperView.userInteractionEnabled = YES;
+    self.wrapperView.backgroundColor = [UIColor greenColor]; CRVTemporary("For debugging purposes");
+    [self.view addSubview:self.wrapperView];
+
     self.imageView = [[UIImageView alloc] init];
-    self.imageView.userInteractionEnabled = YES;
+    self.imageView.image = self.imageAsset.image;
+    self.imageView.userInteractionEnabled = NO;
     self.imageView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:self.imageView];
-    self.maskView = [[UIView alloc] init];
-    self.maskView.userInteractionEnabled = NO;
-    self.maskView.backgroundColor = self.maskBackgroundColor;
-    [self.view insertSubview:self.maskView aboveSubview:self.imageView];
-    self.croppingControlImageView = [[UIImageView alloc] init];
-    self.croppingControlImageView.image = self.croppingControlImage;
-    self.croppingControlImageView.userInteractionEnabled = NO;
-    self.croppingControlImageView.backgroundColor = [UIColor clearColor];
-    [self.view insertSubview:self.croppingControlImageView aboveSubview:self.maskView];
+    [self.wrapperView addSubview:self.imageView];
+
+    [self.wrapperView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+
+    [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.wrapperView);
+    }];
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.imageView addGestureRecognizer:self.rotationRecognizer];
-    [self.imageView addGestureRecognizer:self.pinchRecognizer];
+    [self.wrapperView addGestureRecognizer:self.rotationRecognizer];
+    [self.wrapperView addGestureRecognizer:self.pinchRecognizer];
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    CGSize imageSize = self.imageAsset.image.size, targetSize = CGSizeMake(280, 160);
+    CGFloat imageScale = [self aspectFillRatioWithInitialSize:imageSize targetSize:targetSize];
+    self.imageView.transform = CGAffineTransformMakeScale(imageScale, imageScale);
+    self.wrapperView.transform = self.cropTransform;
 }
 
 #pragma mark - Gesture recognizer delegate
@@ -82,14 +102,42 @@
 }
 
 - (void)handleRotationRecognizer:(UIRotationGestureRecognizer *)recognizer {
-    CRVTemporary("Handle rotation recognizer");
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        self.initialCropRotationTransform = self.cropRotationTransform;
+    }
+    self.cropRotationTransform = CGAffineTransformRotate(self.initialCropRotationTransform, recognizer.rotation);
+    [self.view setNeedsLayout];
 }
 
 - (void)handlePinchRecognizer:(UIPinchGestureRecognizer *)recognizer {
-    CRVTemporary("Handle pinch recognizer");
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        self.initialCropScaleTransform = self.cropScaleTransform;
+    }
+    self.cropScaleTransform = CGAffineTransformScale(self.initialCropScaleTransform, recognizer.scale, recognizer.scale);
+    [self.view setNeedsLayout];
+}
+
+#pragma mark - Geometry
+
+- (CGFloat)aspectFillRatioWithInitialSize:(CGSize)initialSize targetSize:(CGSize)targetSize {
+    CGFloat widthRatio = targetSize.width / initialSize.width;
+    CGFloat heightRatio = targetSize.height / initialSize.height;
+    return MAX(widthRatio, heightRatio);
 }
 
 #pragma mark - Property accessors
+
+- (void)setImageAsset:(CRVImageAsset *)imageAsset {
+    if (![self.imageAsset isEqual:imageAsset]) {
+        _imageAsset = imageAsset;
+        self.imageView.image = self.imageAsset.image;
+        [self.view setNeedsLayout];
+    }
+}
+
+- (CGAffineTransform)cropTransform {
+    return CGAffineTransformConcat(self.cropRotationTransform, self.cropScaleTransform);
+}
 
 - (UIRotationGestureRecognizer *)rotationRecognizer {
     if (_rotationRecognizer != nil) return _rotationRecognizer;
@@ -105,25 +153,6 @@
     [recognizer addTarget:self action:@selector(handlePinchRecognizer:)];
     recognizer.delegate = self;
     return _pinchRecognizer = recognizer;
-}
-
-- (void)setMaskBackgroundColor:(UIColor *)maskBackgroundColor {
-    if (![self.maskBackgroundColor isEqual:maskBackgroundColor]) {
-         self.maskView.backgroundColor = _maskBackgroundColor = maskBackgroundColor;
-    }
-}
-
-- (void)setCroppingControlImage:(UIImage *)croppingControlImage {
-    if (![self.croppingControlImage isEqual:croppingControlImage]) {
-        self.croppingControlImageView.image = _croppingControlImage = croppingControlImage;
-    }
-}
-
-#pragma mark - Defaults
-
-+ (UIImage *)defaultCroppingControlImage {
-    CRVWorkInProgress("Draw a default cropping control image");
-    return nil;
 }
 
 @end

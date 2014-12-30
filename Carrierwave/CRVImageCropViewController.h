@@ -4,7 +4,6 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-@import QuartzCore;
 @import UIKit;
 
 @class CRVImageAsset;
