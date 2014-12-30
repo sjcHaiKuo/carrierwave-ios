@@ -23,7 +23,6 @@
 		3AE3343B1A4ED4B70030F632 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AE334351A4ED4B00030F632 /* Main.storyboard */; };
 		3AE3343C1A4ED4BC0030F632 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE334371A4ED4B00030F632 /* Images.xcassets */; };
 		3AE334471A4EDCB60030F632 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A42F1451A4DBEAD00A6F9CD /* Foundation.framework */; };
-		3AE800F71A53229C00116CA3 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE800F61A53229C00116CA3 /* CoreImage.framework */; };
 		3AF3BD941A50447A005BF9C4 /* CRVImageAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AF3BD921A50447A005BF9C4 /* CRVImageAsset.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3AF3BD951A50447A005BF9C4 /* CRVImageAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3BD931A50447A005BF9C4 /* CRVImageAsset.m */; };
 		3AF3BD9C1A50461D005BF9C4 /* CRVAssetType.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AF3BD9B1A50461D005BF9C4 /* CRVAssetType.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -139,7 +138,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE800F71A53229C00116CA3 /* CoreImage.framework in Frameworks */,
 				3AF3BDA01A5061B0005BF9C4 /* MobileCoreServices.framework in Frameworks */,
 				3AE334471A4EDCB60030F632 /* Foundation.framework in Frameworks */,
 				7DE6841C33D70C5B4DF93E2E /* libPods.a in Frameworks */,
