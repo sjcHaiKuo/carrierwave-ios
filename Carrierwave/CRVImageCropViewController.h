@@ -26,39 +26,9 @@ IB_DESIGNABLE @interface CRVImageCropViewController : UIViewController
 - (instancetype)initWithImageAsset:(CRVImageAsset *)asset NS_DESIGNATED_INITIALIZER;
 
 /**
- * Whether the cropping can be canceled.
- */
-@property (assign, nonatomic) IBInspectable BOOL cancellable;
-
-/**
  * The original image asset to be cropped.
  */
 @property (strong, nonatomic) CRVImageAsset *imageAsset;
-
-/**
- * The image of the cropping control. Should be resizable.
- */
-@property (strong, nonatomic) IBInspectable UIImage *croppingControlImage UI_APPEARANCE_SELECTOR;
-
-/**
- * The background color of the mask.
- */
-@property (strong, nonatomic) IBInspectable UIColor *maskBackgroundColor UI_APPEARANCE_SELECTOR;
-
-/**
- * Whether the image can be rotated.
- */
-@property (assign, nonatomic) IBInspectable BOOL rotatable;
-
-/**
- * Whether the image can be zoomed.
- */
-@property (assign, nonatomic) IBInspectable BOOL zoomable;
-
-/**
- * The maximal allowed zoom of the image.
- */
-@property (assign, nonatomic) IBInspectable CGFloat maximalZoom;
 
 /**
  * The crop view controller's delegate object.
