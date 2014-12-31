@@ -30,6 +30,29 @@ IB_DESIGNABLE @interface CRVImageCropViewController : UIViewController
 @property (strong, nonatomic) CRVImageAsset *imageAsset;
 
 /**
+ * The target size ratio (width/height) of the cropped image.
+ *
+ * The value of zero means that target image will have the same size ratio as
+ * the original image.
+ */
+@property (assign, nonatomic) IBInspectable CGFloat ratio;
+
+/**
+ * Whether the image can be rotated.
+ */
+@property (assign, nonatomic) IBInspectable BOOL rotatable;
+
+/**
+ * Whether the image can be zoomed.
+ */
+@property (assign, nonatomic) IBInspectable BOOL zoomable;
+
+/**
+ * The maximal allowed zoom of the image.
+ */
+@property (assign, nonatomic) IBInspectable CGFloat maximalZoom;
+
+/**
  * The crop view controller's delegate object.
  */
 @property (weak, nonatomic) IBOutlet id<CRVImageCropViewControllerDelegate> delegate;
