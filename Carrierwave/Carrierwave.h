@@ -11,6 +11,6 @@
     #import <Carrierwave/CRVAssetType.h>
     #import <Carrierwave/CRVImageAsset.h>
 
-    #import <Carrierwave/CRVImageCropViewController.h>
+    #import <Carrierwave/CRVImageEditViewController.h>
 
 #endif

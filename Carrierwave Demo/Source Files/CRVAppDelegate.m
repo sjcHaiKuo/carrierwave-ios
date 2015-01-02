@@ -11,7 +11,7 @@
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     CRVImageAsset *asset = [[CRVImageAsset alloc] initWithImage:[UIImage imageNamed:@"Landscape"]];
-    CRVImageCropViewController *controller = [[CRVImageCropViewController alloc] initWithImageAsset:asset];
+    CRVImageEditViewController *controller = [[CRVImageEditViewController alloc] initWithImageAsset:asset];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = controller;
