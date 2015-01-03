@@ -48,7 +48,7 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 
 @end
 
-@protocol CRVImageCropViewControllerDelegate <NSObject> @optional
+@protocol CRVImageEditViewControllerDelegate <NSObject> @optional
 
 /**
  * Called when the user finishes cropping the image.

@@ -11,6 +11,8 @@
 
 @interface CRVImageEditViewController () <UIScrollViewDelegate>
 
+@property (strong, nonatomic) UIToolbar *bottomToolbar;
+
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIView *glassView;
@@ -118,11 +120,40 @@
     self.glassImageView.backgroundColor = [UIColor clearColor];
     [self.glassView addSubview:self.glassImageView];
 
+    self.bottomToolbar = [[UIToolbar alloc] init];
+    self.bottomToolbar.barTintColor = self.view.backgroundColor;
+    self.bottomToolbar.translucent = NO;
+    [self.view addSubview:self.bottomToolbar];
+
     [self.view setNeedsUpdateConstraints];
 
 }
 
+- (void)viewDidLoad {
+
+    [super viewDidLoad];
+
+    UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped:)];
+    cancelButtonItem.tintColor = [UIColor colorWithHue:0.588 saturation:0.979 brightness:0.986 alpha:1];
+
+    UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+
+    UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(cancelButtonTapped:)];
+    doneButtonItem.tintColor = [UIColor colorWithHue:0.124 saturation:0.710 brightness:0.963 alpha:1];
+
+    self.bottomToolbar.items = @[
+        cancelButtonItem,
+        spaceButtonItem,
+        doneButtonItem,
+    ];
+
+}
+
 - (void)updateViewConstraints {
+
+    [self.bottomToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.and.bottom.and.right.equalTo(self.view);
+    }];
 
     [self.maskView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -161,6 +192,21 @@
     [self updateScrollViewZoomScales];
     [self updateScrollViewContentSize];
     [self updateScrollViewContentInset];
+}
+
+#pragma mark - Button actions
+
+- (void)cancelButtonTapped:(UIBarButtonItem *)sender {
+    if ([self.delegate respondsToSelector:@selector(imageEditViewControllerDidCancelCropping:)]) {
+        [self.delegate imageEditViewControllerDidCancelCropping:self];
+    }
+}
+
+- (void)doneButtonTapped:(UIBarButtonItem *)sender {
+    if ([self.delegate respondsToSelector:@selector(imageEditViewController:didFinishCroppingWithImageAsset:)]) {
+        CRVImageAsset *asset = [[CRVImageAsset alloc] initWithImage:self.croppedImage];
+        [self.delegate imageEditViewController:self didFinishCroppingWithImageAsset:asset];
+    }
 }
 
 #pragma mark - Mask view management
@@ -264,7 +310,7 @@
 }
 
 - (UIEdgeInsets)glassViewEdgeInsets {
-    return UIEdgeInsetsMake(20, 20, 20, 20);
+    return UIEdgeInsetsMake(10, 10, 54, 10);
 }
 
 - (CGFloat)imageRatio {
