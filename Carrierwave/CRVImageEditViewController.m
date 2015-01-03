@@ -13,8 +13,14 @@
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIImageView *imageView;
-@property (strong, nonatomic) UIView *imageWrapperView;
 @property (strong, nonatomic) UIView *glassView;
+@property (strong, nonatomic) UIView *maskView;
+
+@property (strong, nonatomic) UIView *imageWrapperView;
+@property (strong, nonatomic) UIImageView *glassImageView;
+
+@property (strong, nonatomic) UIImage *glassImage;
+@property (assign, nonatomic) UIEdgeInsets glassImageInsets;
 
 @property (assign, nonatomic, readonly) UIEdgeInsets glassViewEdgeInsets;
 
@@ -30,6 +36,8 @@
 
 @property (assign, nonatomic, readonly) CGRect cropRect;
 @property (assign, nonatomic, readonly) CGAffineTransform cropTransform;
+
+@property (strong, nonatomic, readonly) CAShapeLayer *maskViewMaskLayer;
 
 @property (strong, nonatomic, readonly) UIImage *croppedImage;
 
@@ -47,6 +55,8 @@
     self.imageAsset = asset;
     self.maximalZoom = 3.0;
     self.preserveOriginalImageSize = NO;
+    self.glassImage = [[self class] defaultGlassImage];
+    self.glassImageInsets = [[self class] defaultGlassImageInsets];
     return self;
 }
 
@@ -60,9 +70,15 @@
 
 #pragma mark - View lifecycle
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)loadView {
 
     [super loadView];
+
+    self.view.backgroundColor = [UIColor colorWithWhite:(CGFloat)0.1 alpha:1];
 
     self.scrollView = [[UIScrollView alloc] init];
     self.scrollView.delegate = self;
@@ -71,7 +87,7 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.userInteractionEnabled = YES;
-    self.scrollView.backgroundColor = [UIColor redColor];
+    self.scrollView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.scrollView];
 
     self.imageWrapperView = [[UIView alloc] init];
@@ -86,10 +102,21 @@
     self.imageView.backgroundColor = [UIColor clearColor];
     [self.imageWrapperView addSubview:self.imageView];
 
+    self.maskView = [[UIView alloc] init];
+    self.maskView.userInteractionEnabled = NO;
+    self.maskView.backgroundColor = [self.view.backgroundColor colorWithAlphaComponent:(CGFloat)0.75];
+    [self.view addSubview:self.maskView];
+
     self.glassView = [[UIView alloc] init];
     self.glassView.userInteractionEnabled = NO;
-    self.glassView.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:(CGFloat)0.2];
+    self.glassView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.glassView];
+
+    self.glassImageView = [[UIImageView alloc] init];
+    self.glassImageView.image = [[self class] defaultGlassImage];
+    self.glassImageView.userInteractionEnabled = NO;
+    self.glassImageView.backgroundColor = [UIColor clearColor];
+    [self.glassView addSubview:self.glassImageView];
 
     [self.view setNeedsUpdateConstraints];
 
@@ -97,17 +124,25 @@
 
 - (void)updateViewConstraints {
 
+    [self.maskView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+
     [self.glassView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view).with.insets(self.glassViewEdgeInsets).priorityHigh();
         make.center.equalTo(self.view);
         make.height.equalTo(self.glassView.mas_width).dividedBy(self.imageRatio);
     }];
 
+    [self.glassImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.glassView).with.insets(self.glassImageInsets);
+    }];
+
     [self.scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
 
-    [self.imageWrapperView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.imageWrapperView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.scrollView);
     }];
 
@@ -122,9 +157,16 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    [self updateMaskViewLayerMask];
     [self updateScrollViewZoomScales];
     [self updateScrollViewContentSize];
     [self updateScrollViewContentInset];
+}
+
+#pragma mark - Mask view management
+
+- (void)updateMaskViewLayerMask {
+    self.maskView.layer.mask = self.maskViewMaskLayer;
 }
 
 #pragma mark - Scroll view management
@@ -194,6 +236,33 @@
 
 #pragma mark - Private property accessors
 
+- (CAShapeLayer *)maskViewMaskLayer {
+
+    CGRect boundsRect = self.maskView.bounds;
+    CGRect holeRect = [self.maskView convertRect:self.glassView.bounds fromView:self.glassView];
+
+    UIBezierPath *maskPath = [UIBezierPath bezierPath];
+    [maskPath moveToPoint:CGPointMake(CGRectGetMinX(boundsRect), CGRectGetMinY(boundsRect))];
+    [maskPath addLineToPoint:CGPointMake(CGRectGetMinX(boundsRect), CGRectGetMaxY(boundsRect))];
+    [maskPath addLineToPoint:CGPointMake(CGRectGetMaxX(boundsRect), CGRectGetMaxY(boundsRect))];
+    [maskPath addLineToPoint:CGPointMake(CGRectGetMaxX(boundsRect), CGRectGetMinY(boundsRect))];
+    [maskPath addLineToPoint:CGPointMake(CGRectGetMinX(boundsRect), CGRectGetMinY(boundsRect))];
+
+    [maskPath moveToPoint:CGPointMake(CGRectGetMinX(holeRect), CGRectGetMinY(holeRect))];
+    [maskPath addLineToPoint:CGPointMake(CGRectGetMinX(holeRect), CGRectGetMaxY(holeRect))];
+    [maskPath addLineToPoint:CGPointMake(CGRectGetMaxX(holeRect), CGRectGetMaxY(holeRect))];
+    [maskPath addLineToPoint:CGPointMake(CGRectGetMaxX(holeRect), CGRectGetMinY(holeRect))];
+    [maskPath addLineToPoint:CGPointMake(CGRectGetMinX(holeRect), CGRectGetMinY(holeRect))];
+
+    CAShapeLayer *layer = [CAShapeLayer layer];
+    [layer setPath:maskPath.CGPath];
+    [layer setFillRule:kCAFillRuleEvenOdd];
+    [layer setFillColor:[UIColor blackColor].CGColor];
+
+    return layer;
+
+}
+
 - (UIEdgeInsets)glassViewEdgeInsets {
     return UIEdgeInsetsMake(20, 20, 20, 20);
 }
@@ -228,6 +297,54 @@
 
 - (CGFloat)scrollViewActualZoom {
     return self.scrollView.zoomScale / self.imageViewScale;
+}
+
+#pragma mark - Glass image
+
++ (UIImage *)defaultGlassImage {
+
+    CGFloat scale = [UIScreen mainScreen].scale;
+    CGSize size = CGSizeMake((40 * scale), (40 * scale));
+    UIEdgeInsets insets = UIEdgeInsetsMake(18, 18, 18, 18);
+
+    UIGraphicsBeginImageContext(size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextScaleCTM(context, scale, scale);
+
+    CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:(CGFloat)0.9 alpha:1].CGColor);
+    CGContextSetLineWidth(context, 2);
+
+    CGContextMoveToPoint(context, 1, 16);
+    CGContextAddLineToPoint(context, 1, 1);
+    CGContextAddLineToPoint(context, 16, 1);
+
+    CGContextMoveToPoint(context, 24, 1);
+    CGContextAddLineToPoint(context, 39, 1);
+    CGContextAddLineToPoint(context, 39, 16);
+
+    CGContextMoveToPoint(context, 39, 24);
+    CGContextAddLineToPoint(context, 39, 39);
+    CGContextAddLineToPoint(context, 24, 39);
+
+    CGContextMoveToPoint(context, 16, 39);
+    CGContextAddLineToPoint(context, 1, 39);
+    CGContextAddLineToPoint(context, 1, 24);
+
+    CGContextStrokePath(context);
+    CGContextSetLineWidth(context, 1);
+
+    CGContextAddRect(context, CGRectMake(2.5, 2.5, 35, 35));
+
+    CGContextStrokePath(context);
+
+    CGImageRef cgImage = CGBitmapContextCreateImage(context); UIGraphicsEndImageContext();
+    UIImage *image = [UIImage imageWithCGImage:cgImage scale:scale orientation:UIImageOrientationUp]; CFRelease(cgImage);
+    return [image resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeTile];
+
+}
+
++ (UIEdgeInsets)defaultGlassImageInsets {
+    return UIEdgeInsetsMake(-2, -2, -2, -2);
 }
 
 @end
