@@ -12,5 +12,6 @@
     #import <Carrierwave/CRVImageAsset.h>
 
     #import <Carrierwave/CRVImageEditViewController.h>
+    #import <Carrierwave/CRVNetworkManager.h>
 
 #endif
