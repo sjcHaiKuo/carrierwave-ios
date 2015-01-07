@@ -4,6 +4,7 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
+@import CoreGraphics;
 @import CoreImage;
 @import UIKit;
 
@@ -17,7 +18,7 @@
 IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 
 /**
- * Creates the crop view controllew with an image asset.
+ * Creates the edit view controllew with an image asset.
  *
  * @param asset The image asset to be cropped.
  *
@@ -26,7 +27,7 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 - (instancetype)initWithImageAsset:(CRVImageAsset *)asset NS_DESIGNATED_INITIALIZER;
 
 /**
- * The original image asset to be cropped.
+ * The original image asset to be edited.
  */
 @property (strong, nonatomic) CRVImageAsset *imageAsset;
 
@@ -34,12 +35,6 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
  * The maximal allowed zoom of the image (default: 3x).
  */
 @property (assign, nonatomic) IBInspectable CGFloat maximalZoom;
-
-/**
- * Whether or not the cropped image should also be upscaled to match the
- * original image dimensions (default: no).
- */
-@property (assign, nonatomic) IBInspectable BOOL preserveOriginalImageSize;
 
 /**
  * The crop view controller's delegate object.
@@ -51,18 +46,18 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 @protocol CRVImageEditViewControllerDelegate <NSObject> @optional
 
 /**
- * Called when the user finishes cropping the image.
+ * Called when the user finishes editing the image.
  *
- * @param ctrl The crop view controller sending the delegate message.
- * @param asset The new image asset representing the cropped image.
+ * @param ctrl The edit view controller sending the delegate message.
+ * @param asset The new image asset representing the edited image.
  */
-- (void)imageEditViewController:(CRVImageEditViewController *)ctrl didFinishCroppingWithImageAsset:(CRVImageAsset *)asset;
+- (void)imageEditViewController:(CRVImageEditViewController *)ctrl didFinishEditingWithImageAsset:(CRVImageAsset *)asset;
 
 /**
- * Called when the user cancels cropping the image.
+ * Called when the user cancels editing the image.
  *
- * @param ctrl The crop view controller sending the delegate message.
+ * @param ctrl The edit view controller sending the delegate message.
  */
-- (void)imageEditViewControllerDidCancelCropping:(CRVImageEditViewController *)ctrl;
+- (void)imageEditViewControllerDidCancelEditing:(CRVImageEditViewController *)ctrl;
 
 @end

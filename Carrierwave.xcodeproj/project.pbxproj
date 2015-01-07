@@ -13,6 +13,10 @@
 		3A3FE8691A517CE60052C58E /* CRVImageEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8671A517CE60052C58E /* CRVImageEditViewController.m */; };
 		3A6F28681A5039BB0049DC9F /* Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A6F28671A5039BB0049DC9F /* Carrierwave.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A6F286B1A5039C30049DC9F /* CRVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6F286A1A5039C30049DC9F /* CRVAppDelegate.m */; };
+		3ADC0E711A5ADB10009F4D4B /* CRVImageEditGlassView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ADC0E6F1A5ADB10009F4D4B /* CRVImageEditGlassView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		3ADC0E721A5ADB10009F4D4B /* CRVImageEditGlassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADC0E701A5ADB10009F4D4B /* CRVImageEditGlassView.m */; };
+		3ADC0E751A5AE7AA009F4D4B /* CRVImageEditScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ADC0E731A5AE7AA009F4D4B /* CRVImageEditScrollView.h */; };
+		3ADC0E761A5AE7AA009F4D4B /* CRVImageEditScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADC0E741A5AE7AA009F4D4B /* CRVImageEditScrollView.m */; };
 		3AE3341E1A4ED2B10030F632 /* Carrierwave.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */; };
 		3AE334271A4ED2F30030F632 /* Carrierwave.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */; };
 		3AE334281A4ED2F30030F632 /* Carrierwave.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -92,6 +96,10 @@
 		3A6F28691A5039C30049DC9F /* CRVAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVAppDelegate.h; sourceTree = "<group>"; };
 		3A6F286A1A5039C30049DC9F /* CRVAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVAppDelegate.m; sourceTree = "<group>"; };
 		3AC7D2411A4DE8CE00DCBA4A /* Carrierwave-Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Carrierwave-Macros.h"; sourceTree = "<group>"; };
+		3ADC0E6F1A5ADB10009F4D4B /* CRVImageEditGlassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVImageEditGlassView.h; sourceTree = "<group>"; };
+		3ADC0E701A5ADB10009F4D4B /* CRVImageEditGlassView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVImageEditGlassView.m; sourceTree = "<group>"; };
+		3ADC0E731A5AE7AA009F4D4B /* CRVImageEditScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVImageEditScrollView.h; sourceTree = "<group>"; };
+		3ADC0E741A5AE7AA009F4D4B /* CRVImageEditScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVImageEditScrollView.m; sourceTree = "<group>"; };
 		3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Carrierwave.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE333EF1A4ED0AC0030F632 /* Carrierwave Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Carrierwave Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE3341A1A4ED11E0030F632 /* Demo-Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Demo-Development.xcconfig"; sourceTree = "<group>"; };
@@ -159,13 +167,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3A3FE8651A517CC90052C58E /* Cropping */ = {
+		3A3FE8651A517CC90052C58E /* Image Editing */ = {
 			isa = PBXGroup;
 			children = (
 				3A3FE8661A517CE60052C58E /* CRVImageEditViewController.h */,
 				3A3FE8671A517CE60052C58E /* CRVImageEditViewController.m */,
+				3ADC0E6F1A5ADB10009F4D4B /* CRVImageEditGlassView.h */,
+				3ADC0E701A5ADB10009F4D4B /* CRVImageEditGlassView.m */,
+				3ADC0E731A5AE7AA009F4D4B /* CRVImageEditScrollView.h */,
+				3ADC0E741A5AE7AA009F4D4B /* CRVImageEditScrollView.m */,
 			);
-			name = Cropping;
+			name = "Image Editing";
 			sourceTree = "<group>";
 		};
 		3A42F1261A4DBD5300A6F9CD /* Unit Tests */ = {
@@ -297,7 +309,7 @@
 			children = (
 				3A6F28671A5039BB0049DC9F /* Carrierwave.h */,
 				3AF3BD911A504392005BF9C4 /* Asset Models */,
-				3A3FE8651A517CC90052C58E /* Cropping */,
+				3A3FE8651A517CC90052C58E /* Image Editing */,
 			);
 			path = Carrierwave;
 			sourceTree = "<group>";
@@ -392,7 +404,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ADC0E711A5ADB10009F4D4B /* CRVImageEditGlassView.h in Headers */,
 				3A6F28681A5039BB0049DC9F /* Carrierwave.h in Headers */,
+				3ADC0E751A5AE7AA009F4D4B /* CRVImageEditScrollView.h in Headers */,
 				3AF3BD9C1A50461D005BF9C4 /* CRVAssetType.h in Headers */,
 				3AF3BD941A50447A005BF9C4 /* CRVImageAsset.h in Headers */,
 				3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */,
@@ -708,6 +722,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A3FE8691A517CE60052C58E /* CRVImageEditViewController.m in Sources */,
+				3ADC0E761A5AE7AA009F4D4B /* CRVImageEditScrollView.m in Sources */,
+				3ADC0E721A5ADB10009F4D4B /* CRVImageEditGlassView.m in Sources */,
 				3AF3BD951A50447A005BF9C4 /* CRVImageAsset.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

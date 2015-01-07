@@ -16,7 +16,7 @@
  *
  * The CRVImageAsset class can represent the following image types:
  *   - image/gif (.gif)
- *   - image/jpeg (.jpg)
+ *   - image/jpeg (.jpeg, .jpg)
  *   - image/tiff (.tiff, .tif)
  *   - image/png (.png)
  */
