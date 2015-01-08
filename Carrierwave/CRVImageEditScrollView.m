@@ -102,6 +102,7 @@
     [super layoutSubviews];
     [self updateScrollViewContentInset];
     [self updateScrollViewZoomScales];
+    [self resetScrollViewZoomScale];
 }
 
 #pragma mark - Glass view management
@@ -118,17 +119,31 @@
 
 - (void)updateScrollViewContentInset {
     CGRect glassRect = [self.glassView convertGlassRectToCoordinateSpace:self];
-    CGFloat top = CGRectGetMinY(glassRect) - CGRectGetMinY(self.scrollView.frame);
-    CGFloat left = CGRectGetMinX(glassRect) - CGRectGetMinX(self.scrollView.frame);
-    CGFloat bottom = CGRectGetMaxY(self.scrollView.frame) - CGRectGetMaxY(glassRect);
-    CGFloat right = CGRectGetMaxX(self.scrollView.frame) - CGRectGetMaxX(glassRect);
-    self.scrollView.contentInset = UIEdgeInsetsMake(top, left, bottom, right);
+    self.scrollView.contentInset = [self contentInsetForScrollView:self.scrollView constrainedInRect:glassRect];
 }
 
 - (void)updateScrollViewZoomScales {
     self.scrollView.minimumZoomScale = self.minimalScale * self.scaleMultiplier;
     self.scrollView.maximumZoomScale = self.maximalScale * self.scaleMultiplier;
+}
+
+- (void)resetScrollViewZoomScale {
     self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
+}
+
+#pragma mark - Geometry additions
+
+- (UIEdgeInsets)contentInsetForScrollView:(UIScrollView *)scrollView constrainedInRect:(CGRect)rect {
+    CGFloat top = CGRectGetMinY(rect) - CGRectGetMinY(scrollView.frame);
+    CGFloat left = CGRectGetMinX(rect) - CGRectGetMinX(scrollView.frame);
+    CGFloat bottom = CGRectGetMaxY(scrollView.frame) - CGRectGetMaxY(rect);
+    CGFloat right = CGRectGetMaxX(scrollView.frame) - CGRectGetMaxX(rect);
+    return UIEdgeInsetsMake(top, left, bottom, right);
+}
+
+- (CGRect)invertRect:(CGRect)rect inCoordinateSpace:(id<UICoordinateSpace>)coordinateSpace {
+    rect.origin.y = CGRectGetHeight(coordinateSpace.bounds) - CGRectGetMinY(rect) - CGRectGetHeight(rect);
+    return rect;
 }
 
 #pragma mark - Public property accessors
@@ -141,6 +156,7 @@
     self.imageView.image = image;
     self.scrollView.contentSize = image.size;
     [self updateScrollViewZoomScales];
+    [self resetScrollViewZoomScale];
 }
 
 - (void)setMinimalScale:(CGFloat)minimalScale {
@@ -170,9 +186,8 @@
 }
 
 - (CGRect)imageExtent {
-    CGRect extentRect = [self.glassView convertGlassRectToCoordinateSpace:self.imageView];
-    extentRect.origin.y = self.image.size.height - CGRectGetMinY(extentRect) - CGRectGetHeight(extentRect);
-    return extentRect;
+    CGRect extentRect = [self.glassView convertGlassRectToCoordinateSpace:self.wrapperView];
+    return [self invertRect:extentRect inCoordinateSpace:self.wrapperView];
 }
 
 #pragma mark - Private property accessors

@@ -144,8 +144,6 @@
 }
 
 - (UIImage *)editedImage {
-    __unused CGAffineTransform transform = self.scrollView.imageTransform;
-    __unused CGRect extent = self.scrollView.imageExtent;
     CIImage *ciImage = [[CIImage alloc] initWithCGImage:self.imageAsset.image.CGImage];
     ciImage = [ciImage imageByCroppingToRect:self.scrollView.imageExtent];
     CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:ciImage fromRect:ciImage.extent];

@@ -67,6 +67,11 @@
 
 @protocol CRVImageEditGlassViewDelegate <NSObject> @optional
 
-- (void)imageEditGlassViewDidChangeGlassRect:(CRVImageEditGlassView *)glassView;
+/**
+ * Called when the glass frame changes in the glass view.
+ *
+ * @param view The glass view sending the delegate message.
+ */
+- (void)imageEditGlassViewDidChangeGlassRect:(CRVImageEditGlassView *)view;
 
 @end
