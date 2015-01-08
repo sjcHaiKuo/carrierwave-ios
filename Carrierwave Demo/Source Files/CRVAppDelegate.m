@@ -8,16 +8,6 @@
 
 @implementation CRVAppDelegate
 
-- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-    CRVImageAsset *asset = [[CRVImageAsset alloc] initWithImage:[UIImage imageNamed:@"Landscape"]];
-    CRVImageEditViewController *controller = [[CRVImageEditViewController alloc] initWithImageAsset:asset];
-
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = controller;
-    [self.window makeKeyAndVisible];
-
-    return YES;
-}
+// nothing here...
 
 @end

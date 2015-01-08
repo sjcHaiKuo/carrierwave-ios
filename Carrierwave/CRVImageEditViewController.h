@@ -37,6 +37,16 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 @property (assign, nonatomic) IBInspectable CGFloat maximalZoom;
 
 /**
+ * The bar button item that sends a cancel mesage.
+ */
+@property (strong, nonatomic, readonly) UIBarButtonItem *cancelBarButtonItem;
+
+/**
+ * The bar button item that sends a done message.
+ */
+@property (strong, nonatomic, readonly) UIBarButtonItem *doneBarButtonItem;
+
+/**
  * The crop view controller's delegate object.
  */
 @property (weak, nonatomic) IBOutlet id<CRVImageEditViewControllerDelegate> delegate;
