@@ -5,7 +5,7 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @protocol CRVAssetType;
 @class CRVImageAsset;
@@ -35,7 +35,7 @@ typedef void (^CRVUploadCompletionBlock)(BOOL success, NSError *error);
  *  @param url        The server URL of the server backend used during upload.
  *  @param completion The completion block performed on server response. Returns success flag and error, if any.
  */
-- (void)uploadAsset:(id<CRVAssetType>)asset onURL:(NSURL *)url completion:(CRVUploadCompletionBlock)completion;
+- (void)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url completion:(CRVUploadCompletionBlock)completion;
 
 /**
  *  Downloads asset asynchronously from serverURL concatenated with given path. Returns CRVImageAsset object or error, if any.

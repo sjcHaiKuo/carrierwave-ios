@@ -51,7 +51,7 @@
     }];
 }
 
-- (void)uploadAsset:(id<CRVAssetType>)asset onURL:(NSURL *)url completion:(CRVUploadCompletionBlock)completion {
+- (void)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url completion:(CRVUploadCompletionBlock)completion {
     [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:[url absoluteString] completion:^(BOOL success, NSError *error) {
         if (completion != NULL) completion(success, error);
     }];
