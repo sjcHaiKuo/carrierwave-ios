@@ -7,14 +7,14 @@
 //
 
 #import "CRVNetworkManager.h"
-#import "CRVHTTPSessionManager.h"
+#import "CRVSessionManager.h"
 #import "CRVAssetType.h"
 #import "CRVImageAsset.h"
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
 @interface CRVNetworkManager ()
 
-@property (strong, nonatomic) CRVHTTPSessionManager *sessionManager;
+@property (strong, nonatomic) CRVSessionManager *sessionManager;
 
 @end
 
@@ -27,7 +27,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _sessionManager = [[CRVHTTPSessionManager alloc] init];
+        _sessionManager = [[CRVSessionManager alloc] init];
     }
     return self;
 }
@@ -43,31 +43,35 @@
 
 #pragma mark - Public Methods
 
-- (void)uploadAsset:(id<CRVAssetType>)asset completion:(CRVUploadCompletionBlock)completion {
-    NSAssert(self.serverURL != nil, @"Server URL cannot be nil.");
-    NSString *url;
-    [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:url completion:^(BOOL success, NSError *error) {
+- (void)uploadAsset:(id<CRVAssetType>)asset progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
+    NSString *URLString = [self URLStringByAppendingPath:self.uploadPath];
+    [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:URLString progress:^(double aProgress) {
+        if (progress != NULL) progress(aProgress);
+    } completion:^(BOOL success, NSError *error) {
         if (completion != NULL) completion(success, error);
     }];
 }
 
-- (void)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url completion:(CRVUploadCompletionBlock)completion {
-    [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:[url absoluteString] completion:^(BOOL success, NSError *error) {
+- (void)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
+    [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:[url absoluteString] progress:^(double aProgress) {
+        if (progress != NULL) progress(aProgress);
+    } completion:^(BOOL success, NSError *error) {
         if (completion != NULL) completion(success, error);
     }];
 }
 
-- (void)downloadAssetFromPath:(NSString *)path completion:(CRVDownloadCompletionBlock)completion {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[self absoluteURLStringForPath:path]]];
-    [self.sessionManager downloadTaskWithRequest:request completion:^(NSData *data, NSError *error) {
+- (void)downloadAssetFromPath:(NSString *)path progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
+    [self.sessionManager downloadAssetFromURL:[self URLStringByAppendingPath:path] progress:^(double aProgress) {
+        if (progress != NULL) progress(aProgress);
+    } completion:^(NSData *data, NSError *error) {
         [self performDownloadCompletionBlock:completion withData:data error:error];
     }];
 }
 
-- (void)downloadAssetFromURL:(NSURL *)url completion:(CRVDownloadCompletionBlock)completion {
-    NSAssert(self.serverURL != nil, @"Server URL cannot be nil.");
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [self.sessionManager downloadTaskWithRequest:request completion:^(NSData *data, NSError *error) {
+- (void)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
+    [self.sessionManager downloadAssetFromURL:url.absoluteString progress:^(double aProgress) {
+        if (progress != NULL) progress(aProgress);
+    } completion:^(NSData *data, NSError *error) {
         [self performDownloadCompletionBlock:completion withData:data error:error];
     }];
 }
@@ -78,17 +82,17 @@
         _showsNetworkActivityIndicator = shows;
     }
 }
-    
+
 #pragma mark - Private Methods
 
-- (NSString *)absoluteURLStringForPath:(NSString *)path {
+- (NSString *)URLStringByAppendingPath:(NSString *)path {
     NSAssert(self.serverURL != nil, @"Server URL cannot be nil.");
     return [self.serverURL URLByAppendingPathComponent:path].absoluteString;
 }
 
 - (void)performDownloadCompletionBlock:(CRVDownloadCompletionBlock)block withData:(NSData *)data error:(NSError *)error {
     if (block != NULL) {
-        CRVImageAsset *asset = [[CRVImageAsset alloc] initWithData:data];
+        CRVImageAsset *asset = (data.length > 0) ? [[CRVImageAsset alloc] initWithData:data] : nil;
         block(asset, error);
     }
 }
