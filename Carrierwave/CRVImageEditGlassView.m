@@ -14,6 +14,7 @@
 @property (assign, nonatomic, readwrite) UIEdgeInsets glassImageInsets;
 
 @property (strong, nonatomic) UIImageView *glassImageView;
+@property (strong, nonatomic) UIView *glassGhostWrapperView;
 @property (strong, nonatomic) UIView *glassGhostView;
 @property (strong, nonatomic) UIView *maskView;
 
@@ -29,10 +30,16 @@
     self = [super initWithFrame:frame];
     if (self == nil) return nil;
 
+    self.glassGhostWrapperView = [[UIView alloc] init];
+    self.glassGhostWrapperView.hidden = YES;
+    self.glassGhostWrapperView.userInteractionEnabled = NO;
+    self.glassGhostWrapperView.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.glassGhostWrapperView];
+
     self.glassGhostView = [[UIView alloc] init];
     self.glassGhostView.userInteractionEnabled = NO;
     self.glassGhostView.backgroundColor = [UIColor clearColor];
-    [self addSubview:self.glassGhostView];
+    [self.glassGhostWrapperView addSubview:self.glassGhostView];
 
     self.maskView = [[UIView alloc] init];
     self.maskView.userInteractionEnabled = NO;
@@ -44,6 +51,7 @@
     self.glassImageView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.glassImageView];
 
+    self.translatesAutoresizingMaskIntoConstraints = NO;
     self.userInteractionEnabled = NO;
     self.backgroundColor = [UIColor clearColor];
 
@@ -58,12 +66,21 @@
 
 #pragma mark - View lifecycle
 
++ (BOOL)requiresConstraintBasedLayout {
+    return YES;
+}
+
 - (void)updateConstraints {
 
+    [self.glassGhostWrapperView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self).with.insets(self.glassInsets);
+    }];
+
     [self.glassGhostView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self).with.insets(self.glassInsets).priorityHigh();
+        make.size.lessThanOrEqualTo(self.glassGhostWrapperView);
+        make.size.equalTo(self.glassGhostWrapperView).priorityHigh();
         make.height.equalTo(self.glassGhostView.mas_width).dividedBy(self.glassRatio);
-        make.center.equalTo(self);
+        make.center.equalTo(self.glassGhostWrapperView);
     }];
 
     [self.glassImageView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -75,24 +92,23 @@
     }];
 
     [super updateConstraints];
+
 }
 
-- (void)layoutSubviews {
-
+- (void)layoutSubviews { CRVWorkInProgress("Layout mechanism has to be improved");
     [super layoutSubviews];
-
     [self updateMaskViewMaskLayer];
-
     if([self.delegate respondsToSelector:@selector(imageEditGlassViewDidChangeGlassRect:)]) {
         [self.delegate imageEditGlassViewDidChangeGlassRect:self];
     }
-    
 }
 
 - (void)updateMaskViewMaskLayer {
 
+    [self layoutIfNeeded];
+
     CGRect boundsRect = self.maskView.bounds;
-    CGRect holeRect = [self.maskView convertRect:self.glassGhostView.bounds fromView:self.glassGhostView];
+    CGRect holeRect = [self convertGlassRectToCoordinateSpace:self.maskView];
 
     CGMutablePathRef path = CGPathCreateMutable();
 
@@ -137,7 +153,6 @@
     if (_glassRatio != glassRatio) {
         _glassRatio = glassRatio;
         [self setNeedsUpdateConstraints];
-        [self setNeedsLayout];
     }
 }
 
@@ -145,7 +160,6 @@
     if (!UIEdgeInsetsEqualToEdgeInsets(_glassInsets, glassInsets)) {
         _glassInsets = glassInsets;
         [self setNeedsUpdateConstraints];
-        [self setNeedsLayout];
     }
 }
 

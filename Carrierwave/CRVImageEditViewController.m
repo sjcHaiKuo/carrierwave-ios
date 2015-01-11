@@ -79,6 +79,13 @@
 
     self.view.backgroundColor = [UIColor colorWithWhite:(CGFloat)0.1 alpha:1];
 
+    self.scrollView = [[CRVImageEditScrollView alloc] init];
+    self.scrollView.image = self.imageAsset.image;
+    self.scrollView.glassView.maskColor = [self.view.backgroundColor colorWithAlphaComponent:(CGFloat)0.8];
+    self.scrollView.glassView.glassRatio = self.imageRatio;
+    self.scrollView.glassView.glassInsets = UIEdgeInsetsMake(10, 10, 54, 10);
+    [self.view addSubview:self.scrollView];
+
     self.bottomToolbar = [[UIToolbar alloc] init];
     self.bottomToolbar.translucent = NO;
     self.bottomToolbar.barTintColor = self.view.backgroundColor;
@@ -86,26 +93,13 @@
 
     [self updateViewsBasedOnImageAsset];
 
-    [self.view setNeedsUpdateConstraints];
+    [self updateViewConstraints];
 
 }
 
 - (void)updateViewsBasedOnImageAsset {
-
-    if (self.imageAsset != nil && self.scrollView == nil) {
-        self.scrollView = [[CRVImageEditScrollView alloc] init];
-        self.scrollView.image = self.imageAsset.image;
-        self.scrollView.glassView.maskColor = [self.view.backgroundColor colorWithAlphaComponent:(CGFloat)0.9];
-        self.scrollView.glassView.glassRatio = self.imageRatio;
-        self.scrollView.glassView.glassInsets = UIEdgeInsetsMake(10, 10, 54, 10);
-        [self.view insertSubview:self.scrollView belowSubview:self.bottomToolbar];
-    } else if (self.imageAsset == nil && self.scrollView != nil) {
-        [self.scrollView removeFromSuperview];
-        self.scrollView = nil;
-    }
-
+    self.scrollView.hidden = self.imageAsset == nil;
     self.doneBarButtonItem.enabled = self.imageAsset != nil;
-
 }
 
 - (void)viewDidLoad {
@@ -158,11 +152,9 @@
 - (void)setImageAsset:(CRVImageAsset *)imageAsset {
     if (![self.imageAsset isEqual:imageAsset]) {
         _imageAsset = imageAsset;
-        [self updateViewsBasedOnImageAsset];
         self.scrollView.image = _imageAsset.image;
         self.scrollView.glassView.glassRatio = self.imageRatio;
-        [self.view setNeedsUpdateConstraints];
-        [self.view setNeedsLayout];
+        [self updateViewsBasedOnImageAsset];
     }
 }
 

@@ -9,7 +9,7 @@
 #import "CRVImageEditGlassView.h"
 #import "CRVImageEditScrollView.h"
 
-@interface CRVImageEditScrollView () <UIScrollViewDelegate, CRVImageEditGlassViewDelegate>
+@interface CRVImageEditScrollView () <UIScrollViewDelegate, CRVImageEditGlassViewDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic, readwrite) CRVImageEditGlassView *glassView;
 
@@ -20,6 +20,12 @@
 @property (assign, nonatomic, readonly) CGFloat scaleMultiplier;
 
 @property (assign, nonatomic, readonly) CGAffineTransform scaleTransform;
+@property (assign, nonatomic, readonly) CGAffineTransform rotationTransform;
+
+@property (assign, nonatomic) CGFloat initialRotationAngle;
+@property (assign, nonatomic) CGFloat rotationAngle;
+
+@property (strong, nonatomic) UIRotationGestureRecognizer *rotationRecognizer;
 
 @end
 
@@ -59,6 +65,12 @@
     self.glassView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.glassView];
 
+    self.rotationRecognizer = [[UIRotationGestureRecognizer alloc] init];
+    self.rotationRecognizer.delegate = self;
+    [self.rotationRecognizer addTarget:self action:@selector(handleRotationRecognizer:)];
+    [self.scrollView addGestureRecognizer:self.rotationRecognizer];
+
+    self.translatesAutoresizingMaskIntoConstraints = NO;
     self.userInteractionEnabled = YES;
     self.backgroundColor = [UIColor clearColor];
 
@@ -75,6 +87,10 @@
 
 #pragma mark - View lifecycle
 
++ (BOOL)requiresConstraintBasedLayout {
+    return YES;
+}
+
 - (void)updateConstraints {
 
     [self.scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -87,7 +103,6 @@
 
     [self.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.wrapperView);
-        make.center.equalTo(self.wrapperView);
     }];
 
     [self.glassView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -98,7 +113,7 @@
 
 }
 
-- (void)layoutSubviews {
+- (void)layoutSubviews { CRVWorkInProgress("Layout mechanism has to be improved");
     [super layoutSubviews];
     [self updateScrollViewContentInset];
     [self updateScrollViewZoomScales];
@@ -129,6 +144,16 @@
 
 - (void)resetScrollViewZoomScale {
     self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
+}
+
+#pragma mark - Gesture recognizer management
+
+- (void)handleRotationRecognizer:(UIRotationGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        self.initialRotationAngle = self.rotationAngle;
+    } else if (recognizer.state == UIGestureRecognizerStateChanged) {
+        self.rotationAngle = self.initialRotationAngle + recognizer.rotation;
+    }
 }
 
 #pragma mark - Geometry additions
@@ -201,6 +226,10 @@
 
 - (CGAffineTransform)scaleTransform {
     return CGAffineTransformMakeScale(self.currentScale, self.currentScale);
+}
+
+- (CGAffineTransform)rotationTransform {
+    return CGAffineTransformMakeRotation(self.rotationAngle);
 }
 
 @end
