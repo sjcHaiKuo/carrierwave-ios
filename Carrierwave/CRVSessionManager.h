@@ -10,6 +10,8 @@
 
 @interface CRVSessionManager : AFHTTPSessionManager
 
+@property (assign, nonatomic) NSUInteger numberOfRetries;
+
 - (void)uploadAssetRepresentedByData:(NSData *)data withName:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double aProgress))progress completion:(void (^)(BOOL success, NSError *error))completion;
 
 - (void)downloadAssetFromURL:(NSString *)URLString progress:(void (^)(double aProgress))progress completion:(void (^)(NSData *data, NSError *error))completion;

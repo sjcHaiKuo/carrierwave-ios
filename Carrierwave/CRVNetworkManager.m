@@ -28,6 +28,7 @@
     self = [super init];
     if (self) {
         _sessionManager = [[CRVSessionManager alloc] init];
+        self.numberOfRetries = 0;
     }
     return self;
 }
@@ -81,6 +82,16 @@
         [AFNetworkActivityIndicatorManager sharedManager].enabled = shows;
         _showsNetworkActivityIndicator = shows;
     }
+}
+
+#pragma mark - Accessors
+
+- (void)setNumberOfRetries:(NSUInteger)numberOfRetries {
+    self.sessionManager.numberOfRetries = numberOfRetries;
+}
+
+- (NSUInteger)numberOfRetries {
+    return self.sessionManager.numberOfRetries;
 }
 
 #pragma mark - Private Methods
