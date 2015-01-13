@@ -12,8 +12,10 @@
 #import "CRVImageAsset.h"
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
+NSString * const CRVDomainErrorName = @"com.carrierwave.domain.network.error";
 NSUInteger const CRVDefaultNumberOfRetries = 2;
 NSTimeInterval const CRVDefaultReconnectionTime = 3;
+
 
 @interface CRVNetworkManager ()
 
@@ -58,6 +60,7 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 }
 
 - (void)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
+    NSParameterAssert(url);
     [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:[url absoluteString] progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(BOOL success, NSError *error) {
@@ -74,6 +77,7 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 }
 
 - (void)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
+    NSParameterAssert(url);
     [self.sessionManager downloadAssetFromURL:url.absoluteString progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(NSData *data, NSError *error) {
@@ -124,8 +128,14 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 - (void)performDownloadCompletionBlock:(CRVDownloadCompletionBlock)block withData:(NSData *)data error:(NSError *)error {
     if (block != NULL) {
         CRVImageAsset *asset = (data.length > 0) ? [[CRVImageAsset alloc] initWithData:data] : nil;
+        error = (!error && data && data.length == 0) ? [self errorForEmptyFile] : error;
         block(asset, error);
     }
+}
+
+- (NSError *)errorForEmptyFile {
+    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : @"Downloaded file is empty."};
+    return [NSError errorWithDomain:CRVDomainErrorName code:0 userInfo:userInfo];
 }
 
 @end

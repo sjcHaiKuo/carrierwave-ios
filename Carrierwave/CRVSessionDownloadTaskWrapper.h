@@ -15,13 +15,13 @@ typedef void (^CRVDownloadCompletionHandler)(NSData *, NSError *);
 /**
  *  Designed initializer for CRVSessionDownloadTaskWrapper class.
  *
- *  @param task       The download task which belongs to wrapper.
+ *  @param task       The task which belongs to wrapper.
  *  @param progress   The progress block invoked every time when task will receive data.
  *  @param completion The completion block invoked when task downloading will complete with success or error.
  *
  *  @return An initialized receiver.
  */
-- (instancetype)initWithTask:(NSURLSessionDownloadTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVDownloadCompletionHandler)completion;
+- (instancetype)initWithTask:(NSURLSessionTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVDownloadCompletionHandler)completion;
 
 /**
  *  Downloaded and stored data for task.
@@ -36,11 +36,6 @@ typedef void (^CRVDownloadCompletionHandler)(NSData *, NSError *);
  *  @return If task is new or completed with success returns YES. Otherwise NO.
  */
 - (BOOL)canResumeTask;
-
-/**
- *  Dowload task around wrapper is build on.
- */
-@property (strong, nonatomic) NSURLSessionDownloadTask *task;
 
 /**
  *  The completion block invoked when task downloading will complete with success or break with an error.

@@ -10,13 +10,18 @@
 
 @implementation CRVSessionTaskWrapper
 
-- (instancetype)initWithProgress:(CRVSessionTaskProgress)progress {
+- (instancetype)initWithTask:(NSURLSessionTask *)task progress:(CRVSessionTaskProgress)progress {
     self = [super init];
     if (self) {
+        _task = task;
         _retriesCount = 0;
         _progress = progress;
     }
     return self;
+}
+
+- (NSString *)fileNameByGuessingFromURLPath {
+    return [[self.task.originalRequest.URL.path componentsSeparatedByString:@"/"] lastObject];
 }
 
 @end

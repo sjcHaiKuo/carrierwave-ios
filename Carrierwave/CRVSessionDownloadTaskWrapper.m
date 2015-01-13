@@ -10,11 +10,10 @@
 
 @implementation CRVSessionDownloadTaskWrapper
 
-- (instancetype)initWithTask:(NSURLSessionDownloadTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVDownloadCompletionHandler)completion {
-    self = [self initWithProgress:progress];
+- (instancetype)initWithTask:(NSURLSessionTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVDownloadCompletionHandler)completion {
+    self = [self initWithTask:task progress:progress];
     if (self) {
         _completion = completion;
-        _task = task;
     }
     return self;
 }
@@ -24,9 +23,7 @@
 }
 
 - (BOOL)canResumeTask {
-    return (self.task.countOfBytesExpectedToReceive != self.task.countOfBytesReceived
-            && self.task.countOfBytesExpectedToReceive != 0
-            && [self resumeData].length > 0);
+    return [self resumeData].length > 0;
 }
 
 @end

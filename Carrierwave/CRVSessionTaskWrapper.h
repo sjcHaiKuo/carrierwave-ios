@@ -15,11 +15,24 @@ typedef void (^CRVSessionTaskProgress)(double);
 /**
  *  Designed initializer for CRVSessionTaskWrapper class.
  *
+ *  @param task     The task which belongs to wrapper.
  *  @param progress The progress block invoked every time when task will receive data.
  *
  *  @return An initialized receiver.
  */
-- (instancetype)initWithProgress:(CRVSessionTaskProgress)progress NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTask:(NSURLSessionTask *)task progress:(CRVSessionTaskProgress)progress NS_DESIGNATED_INITIALIZER;
+
+/**
+ *  File name which has been received from URL.
+ *
+ *  @return Guessed file name.
+ */
+- (NSString *)fileNameByGuessingFromURLPath;
+
+/**
+ *  Task around wrapper is build on.
+ */
+@property (strong, nonatomic) NSURLSessionTask *task;
 
 /**
  *  A progress block which is invoked every time when task will receive data.
