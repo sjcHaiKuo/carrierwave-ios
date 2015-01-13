@@ -42,7 +42,7 @@ Assuming the above tools are already installed, run the following commands after
  *
  *  @param trick The magic trick to perform.
  *
- *  @returns Whether the magician suceeded in performing the magic trick.
+ *  @returns Whether the magician succeeded in performing the magic trick.
  */
 - (BOOL)performMagicTrick:(CRVMagicTrick *)trick;
 ```
