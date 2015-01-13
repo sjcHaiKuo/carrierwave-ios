@@ -45,14 +45,6 @@
     return [wrappers copy];
 }
 
-- (void)removeDowloadTaskWrapper:(CRVSessionDownloadTaskWrapper *)taskWrapper {
-    [self.downloadTaskWrappers removeObject:taskWrapper];
-}
-
-- (void)removeUploadTaskWrapper:(CRVSessionUploadTaskWrapper *)taskWrapper {
-    [self.uploadTaskWrappers removeObject:taskWrapper];
-}
-
 - (void)invokeProgressForDownloadTask:(NSURLSessionTask *)task {
     CRVSessionTaskProgress progressBlock = [self wrapperForTask:task].progress;
     if (progressBlock != NULL) progressBlock([task crv_dowloadProgress]);
@@ -60,14 +52,14 @@
 
 - (void)invokeCompletionForDownloadTaskWrapper:(CRVSessionDownloadTaskWrapper *)wrapper data:(NSData *)data error:(NSError *)error {
     if (wrapper.completion != NULL) wrapper.completion(data, error);
-    [self removeDowloadTaskWrapper:wrapper];
+    [self.downloadTaskWrappers removeObject:wrapper];
 }
 
-- (CRVSessionDownloadTaskWrapper *)downloadWrapperForTask:(NSURLSessionDownloadTask *)task {
+- (CRVSessionDownloadTaskWrapper *)downloadTaskWrapperForTask:(NSURLSessionDownloadTask *)task {
     return [[self.downloadTaskWrappers filteredArrayUsingPredicate:[self predicateForTask:task]] firstObject];
 }
 
-- (CRVSessionUploadTaskWrapper *)uploadWrapperForTask:(NSURLSessionTask *)task {
+- (CRVSessionUploadTaskWrapper *)uploadTaskWrapperForTask:(NSURLSessionUploadTask *)task {
     return [[self.uploadTaskWrappers filteredArrayUsingPredicate:[self predicateForTask:task]] firstObject];
 }
 

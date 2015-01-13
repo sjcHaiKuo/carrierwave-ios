@@ -13,22 +13,61 @@
 
 @interface CRVSessionTaskManager : NSObject
 
-- (void)invokeProgressForDownloadTask:(NSURLSessionTask *)task;
-
-- (void)invokeCompletionForDownloadTaskWrapper:(CRVSessionDownloadTaskWrapper *)wrapper data:(NSData *)data error:(NSError *)error;
-
+/**
+ *  Initializes CRVSessionDownloadTaskWrapper object and adds it to downloadTaskWrapper array.
+ *
+ *  @param task       The download task with which wrapper is initialized.
+ *  @param progress   The progress block with which wrapper is initialized.
+ *  @param completion The completion block with which wrapper is initialized.
+ */
 - (void)addDownloadTask:(NSURLSessionDownloadTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVDownloadCompletionHandler)completion;
 
+/**
+ *  Initializes CRVSessionUploadTaskWrapper object and adds it to uploadTaskWrapper array.
+ *
+ *  @param task       The upload task with which wrapper is initialized.
+ *  @param progress   The progress block with which wrapper is initialized.
+ *  @param completion The completion block with which wrapper is initialized.
+ */
 - (void)addUploadTask:(NSURLSessionUploadTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVUploadCompletionHandler)completion;
 
-- (void)removeDowloadTaskWrapper:(CRVSessionDownloadTaskWrapper *)taskWrapper;
+/**
+ *  Invokes progress block stored in approperiate wrapper for given task.
+ *
+ *  @param task The task which is used to find appropriate wrapper.
+ */
+- (void)invokeProgressForDownloadTask:(NSURLSessionTask *)task;
 
-- (void)removeUploadTaskWrapper:(CRVSessionUploadTaskWrapper *)taskWrapper;
+/**
+ *  Invokes completion block stored in download task wrapper.
+ *
+ *  @param wrapper The wrapper which completion block should be invoked.
+ *  @param data    A data used as a paramater in completion block invocation.
+ *  @param error   An error used as a paramater in completion block invocation.
+ */
+- (void)invokeCompletionForDownloadTaskWrapper:(CRVSessionDownloadTaskWrapper *)wrapper data:(NSData *)data error:(NSError *)error;
 
-- (CRVSessionDownloadTaskWrapper *)downloadWrapperForTask:(NSURLSessionTask *)task;
+/**
+ *  Finds appropriate wrapper for specified download task. If doesn't exist, returns nil.
+ *
+ *  @param task The download task around which wrapper has been built around.
+ *
+ *  @return An instance of CRVSessionDownloadTaskWrapper object build around specified download task.
+ */
+- (CRVSessionDownloadTaskWrapper *)downloadTaskWrapperForTask:(NSURLSessionDownloadTask *)task;
 
-- (CRVSessionUploadTaskWrapper *)uploadWrapperForTask:(NSURLSessionTask *)task;
+/**
+ *  Finds appropriate wrapper for specified upload task. If doesn't exist, returns nil.
+ *
+ *  @param task The upload task around which wrapper has been built around.
+ *
+ *  @return An instance of CRVSessionUploadTaskWrapper object build around specified upload task.
+ */
+- (CRVSessionUploadTaskWrapper *)uploadTaskWrapperForTask:(NSURLSessionUploadTask *)task;
 
+/**
+ *  Cancel all tasks and removes all wrappers gathered in download and upload wrapper arrays.
+ */
 - (void)cancelAllTasks;
 
 /**

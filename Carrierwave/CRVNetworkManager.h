@@ -77,7 +77,7 @@ typedef void (^CRVProgressBlock)(double progress);
 @property (assign, nonatomic) BOOL showsNetworkActivityIndicator;
 
 /**
- *  The number of retries in case of connection issues (default: CRVDefaultNumberOfRetries).
+ *  The number of retries used in case of connection issues (default: CRVDefaultNumberOfRetries).
  */
 @property (assign, nonatomic) NSUInteger numberOfRetries;
 
