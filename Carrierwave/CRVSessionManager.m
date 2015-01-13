@@ -81,7 +81,7 @@ CRVWorkInProgress("Check chunked transfer encoding")
 }
 
 - (void)downloadTaskDidPerformCompletionHandler:(NSURLSessionDownloadTask *)task filePath:(NSURL *)filePath error:(NSError *)error {
-    CRVSessionDownloadTaskWrapper *wrapper = [self.taskManager downloadWrapperForTask:task];
+    CRVSessionDownloadTaskWrapper *wrapper = [self.taskManager downloadTaskWrapperForTask:task];
     
     //success:
     if (!error) {
