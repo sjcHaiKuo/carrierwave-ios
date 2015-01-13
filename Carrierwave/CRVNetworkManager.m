@@ -12,6 +12,9 @@
 #import "CRVImageAsset.h"
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
+NSUInteger const CRVDefaultNumberOfRetries = 2;
+NSTimeInterval const CRVDefaultReconnectionTime = 3;
+
 @interface CRVNetworkManager ()
 
 @property (strong, nonatomic) CRVSessionManager *sessionManager;
@@ -28,7 +31,8 @@
     self = [super init];
     if (self) {
         _sessionManager = [[CRVSessionManager alloc] init];
-        self.numberOfRetries = 0;
+        self.numberOfRetries = CRVDefaultNumberOfRetries;
+        self.reconnectionTime = CRVDefaultReconnectionTime;
     }
     return self;
 }
@@ -92,6 +96,22 @@
 
 - (NSUInteger)numberOfRetries {
     return self.sessionManager.numberOfRetries;
+}
+
+- (void)setReconnectionTime:(NSTimeInterval)reconnectionTime {
+    self.sessionManager.reconnectionTime = reconnectionTime;
+}
+
+- (NSTimeInterval)reconnectionTime {
+    return self.sessionManager.reconnectionTime;
+}
+
+- (void)setCheckCache:(BOOL)checkCache {
+    self.sessionManager.checkCache = checkCache;
+}
+
+- (BOOL)checkCache {
+    return self.sessionManager.checkCache;
 }
 
 #pragma mark - Private Methods

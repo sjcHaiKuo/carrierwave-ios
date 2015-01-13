@@ -7,26 +7,47 @@
 //
 
 @import Foundation;
-#import "CRVSessionTaskWrapper.h"
+
+#import "CRVSessionDownloadTaskWrapper.h"
+#import "CRVSessionUploadTaskWrapper.h"
 
 @interface CRVSessionTaskManager : NSObject
 
-- (void)invokeProgressBlockForTask:(NSURLSessionTask *)task;
+- (void)invokeProgressForDownloadTask:(NSURLSessionTask *)task;
 
-- (void)addDownloadTask:(NSURLSessionDownloadTask *)task withProgressBlock:(CRVProgressBlock)progressBlock completionBlock:(CRVDownloadCompletionBlock)completionBlock;
+- (void)invokeCompletionForDownloadTaskWrapper:(CRVSessionDownloadTaskWrapper *)wrapper data:(NSData *)data error:(NSError *)error;
 
-- (void)addUploadTask:(NSURLSessionUploadTask *)task withProgressBlock:(CRVProgressBlock)progressBlock completionBlock:(CRVUploadCompletionBlock)completionBlock;
+- (void)addDownloadTask:(NSURLSessionDownloadTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVDownloadCompletionHandler)completion;
 
-- (void)removeDowloadTask:(NSURLSessionDownloadTask *)task;
+- (void)addUploadTask:(NSURLSessionUploadTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVUploadCompletionHandler)completion;
 
-- (void)removeUploadTask:(NSURLSessionUploadTask *)task;
+- (void)removeDowloadTaskWrapper:(CRVSessionDownloadTaskWrapper *)taskWrapper;
 
-- (NSArray *)taskWrappers;
+- (void)removeUploadTaskWrapper:(CRVSessionUploadTaskWrapper *)taskWrapper;
 
-- (CRVSessionTaskWrapper *)wrapperForTask:(NSURLSessionTask *)task;
+- (CRVSessionDownloadTaskWrapper *)downloadWrapperForTask:(NSURLSessionTask *)task;
 
+- (CRVSessionUploadTaskWrapper *)uploadWrapperForTask:(NSURLSessionTask *)task;
+
+- (void)cancelAllTasks;
+
+/**
+ *  Set from concatanated arrays of download and upload task wrappers.
+ *
+ *  @return The set populated with CRVSessionDownloadTaskWrapper and CRVSessionUploadTaskWrapper objects.
+ */
+- (NSSet *)taskWrappers;
+
+/**
+ *  An array populated with CRVSessionDownloadTaskWrapper objects.
+ *  Objects are in array till will be downloaded, canceled or exceeded number of retries.
+ */
 @property (strong, nonatomic, readonly) NSMutableArray *downloadTaskWrappers;
 
+/**
+ *  An array populated with CRVSessionUploadTaskWrapper objects.
+ *  Objects are in array till will be uploaded, canceled or exceeded number of retries.
+ */
 @property (strong, nonatomic, readonly) NSMutableArray *uploadTaskWrappers;
 
 @end

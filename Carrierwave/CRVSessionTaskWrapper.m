@@ -10,43 +10,13 @@
 
 @implementation CRVSessionTaskWrapper
 
-- (instancetype)initWithUploadTask:(NSURLSessionUploadTask *)task progressBlock:(CRVProgressBlock)progressBlock completionBlock:(CRVUploadCompletionBlock)completionBlock {
-    self = [self initWithTask:task progressBlock:progressBlock];
-    if (self) {
-        _type = CRVSessionTaskWrapperTypeUpload;
-        _uploadCompletionBlock = completionBlock;
-    }
-    return self;
-}
-
-- (instancetype)initWithDownloadTask:(NSURLSessionDownloadTask *)task progressBlock:(CRVProgressBlock)progressBlock completionBlock:(CRVDownloadCompletionBlock)completionBlock {
-    self = [self initWithTask:task progressBlock:progressBlock];
-    if (self) {
-        _type = CRVSessionTaskWrapperTypeDownload;
-        _downloadCompletionBlock = completionBlock;
-    }
-    return self;
-}
-
-- (instancetype)initWithTask:(NSURLSessionTask *)task progressBlock:(CRVProgressBlock)progressBlock {
+- (instancetype)initWithProgress:(CRVSessionTaskProgress)progress {
     self = [super init];
     if (self) {
-        _reconnectionCount = 0;
-        _task = task;
-        _progressBlock = progressBlock;
+        _retriesCount = 0;
+        _progress = progress;
     }
     return self;
-}
-
-- (NSData *)resumeData {
-    return self.task.error.userInfo[NSURLSessionDownloadTaskResumeData];
-}
-
-#pragma mark - Private Methods
-
-- (BOOL)isDownloadIncomplete {
-    return (self.task.countOfBytesExpectedToReceive != self.task.countOfBytesReceived &&
-            self.task.countOfBytesExpectedToReceive != 0);
 }
 
 @end

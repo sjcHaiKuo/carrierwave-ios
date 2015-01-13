@@ -10,6 +10,9 @@
 @protocol CRVAssetType;
 @class CRVImageAsset;
 
+extern NSUInteger const CRVDefaultNumberOfRetries;
+extern NSTimeInterval const CRVDefaultReconnectionTime;
+
 typedef void (^CRVDownloadCompletionBlock)(CRVImageAsset *asset, NSError *error);
 typedef void (^CRVUploadCompletionBlock)(BOOL success, NSError *error);
 typedef void (^CRVProgressBlock)(double progress);
@@ -74,8 +77,18 @@ typedef void (^CRVProgressBlock)(double progress);
 @property (assign, nonatomic) BOOL showsNetworkActivityIndicator;
 
 /**
- *  The number of retries in case of connection issues (default: 0).
+ *  The number of retries in case of connection issues (default: CRVDefaultNumberOfRetries).
  */
 @property (assign, nonatomic) NSUInteger numberOfRetries;
+
+/**
+ *  The time (in seconds) to reconnect after failure (default: CRVDefaultReconnectionTime).
+ */
+@property (assign, nonatomic) NSTimeInterval reconnectionTime;
+
+/**
+ *  Whether should check temporary directory before downloading (default: YES).
+ */
+@property (assign, nonatomic) BOOL checkCache;
 
 @end
