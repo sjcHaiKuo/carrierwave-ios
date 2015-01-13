@@ -46,7 +46,7 @@ Assuming the above tools are already installed, run the following commands after
  */
 - (BOOL)performMagicTrick:(CRVMagicTrick *)trick;
 ```
-
+Do you think it takes too much time? Try [this plugin](https://github.com/onevcat/VVDocumenter-Xcode) and change your mind!
 ### Authors
 
 **Adrian Kashivskyy**
