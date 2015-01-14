@@ -68,10 +68,13 @@ CRVWorkInProgress("Check chunked transfer encoding")
 
 - (void)uploadAssetRepresentedByData:(NSData *)data withName:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(BOOL, NSError *))completion {
     
-    NSURLSessionTask *task = [self uploadTaskForData:data name:name mimeType:mimeType URLString:URLString];
+    __weak typeof(self)weakSelf = self;
+    
+    NSURLSessionTask *task = [self uploadTaskForData:data name:name mimeType:mimeType URLString:URLString withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
+        [weakSelf uploadTaskDidPerformCompletionHandler:task response:response error:error];
+    }];
     [self.taskManager addUploadTask:task data:data name:name mimeType:mimeType progress:progress completion:completion];
 
-    __weak typeof(self)weakSelf = self;
     [self setTaskDidSendBodyDataBlock:^(NSURLSession *session, NSURLSessionTask *task, int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend) {
         [weakSelf.taskManager invokeProgressForTask:task];
     }];
@@ -81,11 +84,27 @@ CRVWorkInProgress("Check chunked transfer encoding")
 
 #pragma mark - Private Methods
 
-- (void)resumeDownloadTasks {
-    for (CRVSessionDownloadTaskWrapper *wrapper in self.taskManager.downloadTaskWrappers) {
-        [self executeRetriableDownloadTaskForWrapper:wrapper];
-    }
+#pragma mark Task initializing:
+
+- (NSURLSessionTask *)uploadTaskForData:(NSData *)data name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString withCompletionHandler:(void (^)(NSURLSessionTask *task, NSError *error, id response))completion {
+    return [self POST:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:data name:CRVServerUploadMethodArgumentName fileName:name mimeType:mimeType];
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        completion(task, nil, responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completion(task, error, nil);
+    }];
 }
+
+- (NSURLSessionDownloadTask *)downloadTaskForRequest:(NSURLRequest *)request withCompletionHandler:(void (^)(NSURL *filePath, NSError *error))completion {
+    return [self downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        return [self targetDirectoryByAppendingFileName:[response suggestedFilename]];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        completion(filePath, error);
+    }];
+}
+
+#pragma mark Tasks completion handlers:
 
 - (void)uploadTaskDidPerformCompletionHandler:(NSURLSessionTask *)task response:(id)response error:(NSError *)error {
     CRVSessionUploadTaskWrapper *wrapper = [self.taskManager uploadTaskWrapperForTask:task];
@@ -112,8 +131,10 @@ CRVWorkInProgress("Check chunked transfer encoding")
     }
 }
 
+#pragma mark Tasks retry logic:
+
+//does number of retries has been exceeded?
 - (BOOL)shouldPerformCompletionBlockForTaskWrapper:(CRVSessionTaskWrapper *)wrapper {
-    //number of retries exceeded:
     if (wrapper.retriesCount >= self.numberOfRetries) {
         NSString *action = [self.taskManager isDownloadTaskWrapper:wrapper] ? @"download" : @"upload";
         NSLog(@"Number of retries limit has been exceeded for asset \"%@\". %@ failed", action, [wrapper fileNameByGuessingFromURLPath]);
@@ -129,19 +150,24 @@ CRVWorkInProgress("Check chunked transfer encoding")
     NSInteger retriesLeft = self.numberOfRetries - wrapper.retriesCount;
     NSString *action = isDownloadTaskWrapper? @"download" : @"upload";
     NSLog(@"Retries %@ asset (%@) in %.1f second(s). Retries left: %ld", action, [wrapper fileNameByGuessingFromURLPath], self.reconnectionTime, (long)retriesLeft);
+    
+    __weak typeof(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.reconnectionTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (isDownloadTaskWrapper) {
-            [self executeRetriableDownloadTaskForWrapper:(CRVSessionDownloadTaskWrapper *)wrapper];
+            [weakSelf executeRetriableDownloadTaskForWrapper:(CRVSessionDownloadTaskWrapper *)wrapper];
         } else {
-            [self executeRetriableUploadTaskForWrapper:(CRVSessionUploadTaskWrapper *)wrapper];
+            [weakSelf executeRetriableUploadTaskForWrapper:(CRVSessionUploadTaskWrapper *)wrapper];
         }
     });
 }
 
 - (void)executeRetriableUploadTaskForWrapper:(CRVSessionUploadTaskWrapper *)wrapper {
     wrapper.retriesCount ++;
+    __weak typeof(self)weakSelf = self;
     
-    NSURLSessionTask *task = [self uploadTaskForData:wrapper.data name:wrapper.name mimeType:wrapper.mimeType URLString:wrapper.task.originalRequest.URL.path];
+    NSURLSessionTask *task = [self uploadTaskForData:wrapper.data name:wrapper.name mimeType:wrapper.mimeType URLString:wrapper.task.originalRequest.URL.path withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
+        [weakSelf uploadTaskDidPerformCompletionHandler:task response:response error:error];
+    }];
     
     wrapper.task = task;
     [task resume];
@@ -172,24 +198,7 @@ CRVWorkInProgress("Check chunked transfer encoding")
     }
 }
 
-- (NSURLSessionTask *)uploadTaskForData:(NSData *)data name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString {
-    return [self POST:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:data name:CRVServerUploadMethodArgumentName fileName:name mimeType:mimeType];
-    } success:^(NSURLSessionDataTask *task, id responseObject) {
-        [self uploadTaskDidPerformCompletionHandler:task response:responseObject error:nil];
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        [self uploadTaskDidPerformCompletionHandler:task response:nil error:error];
-    }];
-}
-
-- (NSURLSessionDownloadTask *)downloadTaskForRequest:(NSURLRequest *)request withCompletionHandler:(void (^)(NSURL *filePath, NSError *error))completion {
-    return [self downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        return [self targetDirectoryByAppendingFileName:[response suggestedFilename]];
-    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-        completion(filePath, error);
-    }];
-}
+#pragma mark - Helpers
 
 - (NSURL *)targetDirectoryByAppendingFileName:(NSString *)name {
     return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:name]];
@@ -200,6 +209,12 @@ CRVWorkInProgress("Check chunked transfer encoding")
     NSURL *filePath = [self targetDirectoryByAppendingFileName:[[URLString componentsSeparatedByString:@"/"] lastObject]];
     *data = [[NSFileManager defaultManager] contentsAtPath:[filePath path]];
     return *data ? YES : NO;
+}
+
+- (void)resumeDownloadTasks {
+    for (CRVSessionDownloadTaskWrapper *wrapper in self.taskManager.downloadTaskWrappers) {
+        [self executeRetriableDownloadTaskForWrapper:wrapper];
+    }
 }
 
 @end
