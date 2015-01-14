@@ -6,9 +6,7 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-@import Foundation;
-
-typedef void (^CRVSessionTaskProgress)(double);
+#import "CRVNetworkTypedefs.h"
 
 @interface CRVSessionTaskWrapper : NSObject
 
@@ -20,7 +18,7 @@ typedef void (^CRVSessionTaskProgress)(double);
  *
  *  @return An initialized receiver.
  */
-- (instancetype)initWithTask:(NSURLSessionTask *)task progress:(CRVSessionTaskProgress)progress NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSUInteger)identifier progress:(CRVProgressBlock)progress NS_DESIGNATED_INITIALIZER;
 
 /**
  *  File name which has been received from URL.
@@ -38,11 +36,16 @@ typedef void (^CRVSessionTaskProgress)(double);
  *  A progress block which is invoked every time when task will receive data.
  *  Holds reference to appropriate asset progress block.
  */
-@property (copy, nonatomic, readonly) CRVSessionTaskProgress progress;
+@property (copy, nonatomic, readonly) CRVProgressBlock progress;
 
 /**
- *  Count of connection retries incremented after every task download/upload failure
+ *  Count of connection retries incremented after every task download/upload failure.
  */
 @property (assign, nonatomic) NSUInteger retriesCount;
+
+/**
+ *  An identifier for this wrapper, assigned by CRVSessionTaskManager and unique accross an app.
+ */
+@property (assign, nonatomic, readonly) NSUInteger identifier;
 
 @end

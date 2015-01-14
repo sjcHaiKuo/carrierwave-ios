@@ -10,12 +10,13 @@
 
 @implementation CRVSessionTaskWrapper
 
-- (instancetype)initWithTask:(NSURLSessionTask *)task progress:(CRVSessionTaskProgress)progress {
+- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSUInteger)identifier progress:(CRVProgressBlock)progress {
     self = [super init];
     if (self) {
         _task = task;
         _retriesCount = 0;
         _progress = progress;
+        _identifier = identifier;
     }
     return self;
 }

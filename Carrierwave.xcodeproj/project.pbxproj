@@ -50,6 +50,7 @@
 		5E56EBF91A5D68D2002E2484 /* CRVSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E56EBF51A5D68D2002E2484 /* CRVSessionManager.m */; };
 		5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E56EBFB1A5D68D2002E2484 /* CRVNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */; };
+		5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EBC01B01A5FFF8700B1860D /* NSURLSessionTask+Category.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBC01AE1A5FFF8700B1860D /* NSURLSessionTask+Category.h */; };
 		5EBC01B11A5FFF8700B1860D /* NSURLSessionTask+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBC01AF1A5FFF8700B1860D /* NSURLSessionTask+Category.m */; };
 		69AA0B9A7A138526C4B55648 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3272BDCF977EEC32EE0EE1EE /* libPods-Tests.a */; };
@@ -157,6 +158,7 @@
 		5E56EBF51A5D68D2002E2484 /* CRVSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionManager.m; sourceTree = "<group>"; };
 		5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkManager.h; sourceTree = "<group>"; };
 		5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVNetworkManager.m; sourceTree = "<group>"; };
+		5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkTypedefs.h; sourceTree = "<group>"; };
 		5EBC01AE1A5FFF8700B1860D /* NSURLSessionTask+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionTask+Category.h"; sourceTree = "<group>"; };
 		5EBC01AF1A5FFF8700B1860D /* NSURLSessionTask+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionTask+Category.m"; sourceTree = "<group>"; };
 		861E339756711F9AC576711A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -457,6 +459,7 @@
 		5E56EBF31A5D68C7002E2484 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */,
 				5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */,
 				5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */,
 				5E56EBF41A5D68D2002E2484 /* CRVSessionManager.h */,
@@ -480,6 +483,7 @@
 				5E4C99331A651228009AA040 /* CRVSessionUploadTaskWrapper.h in Headers */,
 				3ADC0E751A5AE7AA009F4D4B /* CRVImageEditScrollView.h in Headers */,
 				5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */,
+				5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */,
 				5E4C992F1A651210009AA040 /* CRVSessionDownloadTaskWrapper.h in Headers */,
 				3AF3BD9C1A50461D005BF9C4 /* CRVAssetType.h in Headers */,
 				5E56EBF81A5D68D2002E2484 /* CRVSessionManager.h in Headers */,

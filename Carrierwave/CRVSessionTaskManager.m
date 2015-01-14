@@ -9,6 +9,8 @@
 #import "CRVSessionTaskManager.h"
 #import "NSURLSessionTask+Category.h"
 
+static NSUInteger CVRWrapperIdentifier = 0;
+
 @interface CRVSessionTaskManager ()
 
 @property (strong, nonatomic, readwrite) NSMutableArray *downloadTaskWrappers;
@@ -23,23 +25,29 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _downloadTaskWrappers = [NSMutableArray array];
         _uploadTaskWrappers = [NSMutableArray array];
+        _downloadTaskWrappers = [NSMutableArray array];
     }
     return self;
 }
 
-- (void)addDownloadTask:(NSURLSessionTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVDownloadCompletionHandler)completion {
-    CRVSessionDownloadTaskWrapper *wrapper = [[CRVSessionDownloadTaskWrapper alloc] initWithTask:task progress:progress completion:completion];
+- (NSUInteger)addDownloadTask:(NSURLSessionTask *)task progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionDataBlock)completion {
+    CVRWrapperIdentifier++;
+    CRVSessionDownloadTaskWrapper *wrapper = [[CRVSessionDownloadTaskWrapper alloc] initWithTask:task identifier:CVRWrapperIdentifier progress:progress completion:completion];
     [self.downloadTaskWrappers addObject:wrapper];
+    
+    return CVRWrapperIdentifier;
 }
 
-- (void)addUploadTask:(NSURLSessionTask *)task data:(NSData *)data name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVSessionTaskProgress)progress completion:(CRVUploadCompletionHandler)completion {
-    CRVSessionUploadTaskWrapper *wrapper = [[CRVSessionUploadTaskWrapper alloc] initWithTask:task progress:progress completion:completion];
+- (NSUInteger)addUploadTask:(NSURLSessionTask *)task data:(NSData *)data name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
+    CVRWrapperIdentifier++;
+    CRVSessionUploadTaskWrapper *wrapper = [[CRVSessionUploadTaskWrapper alloc] initWithTask:task identifier:CVRWrapperIdentifier progress:progress completion:completion];
     wrapper.mimeType = mimeType;
     wrapper.data = data;
     wrapper.name = name;
     [self.uploadTaskWrappers addObject:wrapper];
+    
+    return CVRWrapperIdentifier;
 }
 
 - (NSSet *)taskWrappers {
@@ -49,24 +57,31 @@
 }
 
 - (void)invokeProgressForTask:(NSURLSessionTask *)task {
-    CRVSessionTaskWrapper *wrapper = [self wrapperForTask:task];
     
-    if ([wrapper isMemberOfClass:[CRVSessionDownloadTaskWrapper class]]) {
-        if (wrapper.progress != NULL) wrapper.progress([task crv_dowloadProgress]);
-    } else if ([wrapper isMemberOfClass:[CRVSessionUploadTaskWrapper class]]) {
-        if (wrapper.progress != NULL) wrapper.progress([task crv_uploadProgress]);
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CRVSessionTaskWrapper *wrapper = [self wrapperForTask:task];
+        
+        if ([wrapper isMemberOfClass:[CRVSessionDownloadTaskWrapper class]]) {
+            if (wrapper.progress != NULL) wrapper.progress([task crv_dowloadProgress]);
+        } else if ([wrapper isMemberOfClass:[CRVSessionUploadTaskWrapper class]]) {
+            if (wrapper.progress != NULL) wrapper.progress([task crv_uploadProgress]);
+        }
+    });
 }
 
 - (void)invokeCompletionForDownloadTaskWrapper:(CRVSessionDownloadTaskWrapper *)wrapper data:(NSData *)data error:(NSError *)error {
-    if (wrapper.completion != NULL) wrapper.completion(data, error);
-    [self.downloadTaskWrappers removeObject:wrapper];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (wrapper.completion != NULL) wrapper.completion(data, error);
+        [self.downloadTaskWrappers removeObject:wrapper];
+    });
 }
 
 - (void)invokeCompletionForUploadTaskWrapper:(CRVSessionUploadTaskWrapper *)wrapper error:(NSError *)error {
-    BOOL success = error ? NO : YES;
-    if (wrapper.completion != NULL) wrapper.completion(success, error);
-    [self.uploadTaskWrappers removeObject:wrapper];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL success = error ? NO : YES;
+        if (wrapper.completion != NULL) wrapper.completion(success, error);
+        [self.uploadTaskWrappers removeObject:wrapper];
+    });
 }
 
 - (CRVSessionDownloadTaskWrapper *)downloadTaskWrapperForTask:(NSURLSessionTask *)task {
@@ -93,10 +108,31 @@
     return [wrapper isKindOfClass:[CRVSessionDownloadTaskWrapper class]];
 }
 
+- (void)cancelTaskForTaskWrapperIdentifier:(NSUInteger)identifier {
+    CRVSessionTaskWrapper *wrapper = [self wrapperForIdentifier:identifier];
+    [wrapper.task cancel];
+    [self.downloadTaskWrappers removeObject:wrapper];
+    [self.uploadTaskWrappers removeObject:wrapper];
+}
+
+- (void)pauseTaskForTaskWrapperIdentifier:(NSUInteger)identifier {
+    [[self wrapperForIdentifier:identifier].task suspend];
+}
+
+- (void)resumeTaskForTaskWrapperIdentifier:(NSUInteger)identifier {
+    [[self wrapperForIdentifier:identifier].task resume];
+}
+
 #pragma mark - Private Methods
 
 - (CRVSessionTaskWrapper *)wrapperForTask:(NSURLSessionTask *)task {
     NSSet *set = [self.taskWrappers filteredSetUsingPredicate:[self predicateForTask:task]];
+    return [set.allObjects firstObject];
+}
+
+- (CRVSessionTaskWrapper *)wrapperForIdentifier:(NSUInteger)identifier {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.identifier == %d", identifier];
+    NSSet *set = [self.taskWrappers filteredSetUsingPredicate:predicate];
     return [set.allObjects firstObject];
 }
 

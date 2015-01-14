@@ -6,16 +6,13 @@
 //
 
 @import Foundation;
+#import "CRVNetworkTypedefs.h"
 
 @protocol CRVAssetType;
 @class CRVImageAsset;
 
 extern NSUInteger const CRVDefaultNumberOfRetries;
 extern NSTimeInterval const CRVDefaultReconnectionTime;
-
-typedef void (^CRVDownloadCompletionBlock)(CRVImageAsset *asset, NSError *error);
-typedef void (^CRVUploadCompletionBlock)(BOOL success, NSError *error);
-typedef void (^CRVProgressBlock)(double progress);
 
 @interface CRVNetworkManager : NSObject
 
@@ -30,8 +27,10 @@ typedef void (^CRVProgressBlock)(double progress);
  *  @param asset      The asset object to upload.
  *  @param progress   The progress block used to monitor upload progress. Takes values from 0 to 1.
  *  @param completion The completion block performed on server response. Returns success flag and error, if any.
+ *
+ *  @return Identifier of uploading proccess. Unique accross an app. Store it to play with proccess later.
  */
-- (void)uploadAsset:(id<CRVAssetType>)asset progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
+- (NSString *)uploadAsset:(id<CRVAssetType>)asset progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
 
 /**
  *  Uploads given asset asynchronously to specified URL.
@@ -40,8 +39,10 @@ typedef void (^CRVProgressBlock)(double progress);
  *  @param progress   The progress block used to monitor upload progress. Takes values from 0 to 1.
  *  @param url        The server URL of the server backend used during upload.
  *  @param completion The completion block performed on server response. Returns success flag and error, if any.
+ *
+ *  @return Identifier of uploading proccess. Unique accross an app. Store it to play with proccess later.
  */
-- (void)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
+- (NSString *)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
 
 /**
  *  Downloads asset asynchronously from serverURL concatenated with given path. Returns CRVImageAsset object or error, if any.
@@ -49,8 +50,10 @@ typedef void (^CRVProgressBlock)(double progress);
  *  @param path       The path which will be concatenated with serverURL.
  *  @param progress   The progress block used to monitor download progress. Takes values from 0 to 1.
  *  @param completion The completion block performed on server response.
+ *
+ *  @return Identifier of dowloading proccess. Unique accross an app. Store it to play with proccess later.
  */
-- (void)downloadAssetFromPath:(NSString *)path progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion;
+- (NSString *)downloadAssetFromPath:(NSString *)path progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion;
 
 /**
  *  Downloads asset asynchronously from specified URL and returns CRVImageAsset object or error, if any.
@@ -58,8 +61,31 @@ typedef void (^CRVProgressBlock)(double progress);
  *  @param url        The server URL of the server backend used during download.
  *  @param progress   The progress block used to monitor download progress. Takes values from 0 to 1.
  *  @param completion The completion block performed on server response.
+ *
+ *  @return Identifier of dowloading proccess. Unique accross an app. Store it to play with proccess later.
  */
-- (void)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion;
+- (NSString *)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion;
+
+/**
+ *  Cancels a proccess with given identifier.
+ *
+ *  @param identifier Identifier of running proccess. Unique accross an app.
+ */
+- (void)cancelProccessWithIdentifier:(NSString *)identifier;
+
+/**
+ *  Pauses a proccess with given identifier.
+ *
+ *  @param identifier Identifier of running proccess. Unique accross an app.
+ */
+- (void)pauseProccessWithIdentifier:(NSString *)identifier;
+
+/**
+ *  Resumes a proccess with given identifier.
+ *
+ *  @param identifier Identifier of running proccess. Unique accross an app.
+ */
+- (void)resumeProccessWithIdentifier:(NSString *)identifier;
 
 /**
  *  The root URL of the server backend.

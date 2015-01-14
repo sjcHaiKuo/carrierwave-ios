@@ -16,14 +16,11 @@ NSString * const CRVDomainErrorName = @"com.carrierwave.domain.network.error";
 NSUInteger const CRVDefaultNumberOfRetries = 2;
 NSTimeInterval const CRVDefaultReconnectionTime = 3;
 
-
 @interface CRVNetworkManager ()
 
 @property (strong, nonatomic) CRVSessionManager *sessionManager;
 
 @end
-
-#pragma mark -
 
 @implementation CRVNetworkManager
 
@@ -50,35 +47,35 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 
 #pragma mark - Public Methods
 
-- (void)uploadAsset:(id<CRVAssetType>)asset progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
+- (NSString *)uploadAsset:(id<CRVAssetType>)asset progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
     NSString *URLString = [self URLStringByAppendingPath:self.uploadPath];
-    [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:URLString progress:^(double aProgress) {
+    return [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:URLString progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(BOOL success, NSError *error) {
         if (completion != NULL) completion(success, error);
     }];
 }
 
-- (void)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
+- (NSString *)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
     NSParameterAssert(url);
-    [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:[url absoluteString] progress:^(double aProgress) {
+    return [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:[url absoluteString] progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(BOOL success, NSError *error) {
         if (completion != NULL) completion(success, error);
     }];
 }
 
-- (void)downloadAssetFromPath:(NSString *)path progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
-    [self.sessionManager downloadAssetFromURL:[self URLStringByAppendingPath:path] progress:^(double aProgress) {
+- (NSString *)downloadAssetFromPath:(NSString *)path progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
+    return [self.sessionManager downloadAssetFromURL:[self URLStringByAppendingPath:path] progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(NSData *data, NSError *error) {
         [self performDownloadCompletionBlock:completion withData:data error:error];
     }];
 }
 
-- (void)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
+- (NSString *)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
     NSParameterAssert(url);
-    [self.sessionManager downloadAssetFromURL:url.absoluteString progress:^(double aProgress) {
+    return [self.sessionManager downloadAssetFromURL:url.absoluteString progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(NSData *data, NSError *error) {
         [self performDownloadCompletionBlock:completion withData:data error:error];
@@ -92,30 +89,16 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
     }
 }
 
-#pragma mark - Accessors
-
-- (void)setNumberOfRetries:(NSUInteger)numberOfRetries {
-    self.sessionManager.numberOfRetries = numberOfRetries;
+- (void)cancelProccessWithIdentifier:(NSString *)identifier {
+    [self.sessionManager cancelProccessWithIdentifier:identifier];
 }
 
-- (NSUInteger)numberOfRetries {
-    return self.sessionManager.numberOfRetries;
+- (void)pauseProccessWithIdentifier:(NSString *)identifier {
+    [self.sessionManager pauseProccessWithIdentifier:identifier];
 }
 
-- (void)setReconnectionTime:(NSTimeInterval)reconnectionTime {
-    self.sessionManager.reconnectionTime = reconnectionTime;
-}
-
-- (NSTimeInterval)reconnectionTime {
-    return self.sessionManager.reconnectionTime;
-}
-
-- (void)setCheckCache:(BOOL)checkCache {
-    self.sessionManager.checkCache = checkCache;
-}
-
-- (BOOL)checkCache {
-    return self.sessionManager.checkCache;
+- (void)resumeProccessWithIdentifier:(NSString *)identifier {
+    [self.sessionManager resumeProccessWithIdentifier:identifier];
 }
 
 #pragma mark - Private Methods

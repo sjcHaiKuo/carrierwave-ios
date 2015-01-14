@@ -20,7 +20,7 @@
  *  @param progress   The progress block with which wrapper is initialized.
  *  @param completion The completion block with which wrapper is initialized.
  */
-- (void)addDownloadTask:(NSURLSessionTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVDownloadCompletionHandler)completion;
+- (NSUInteger)addDownloadTask:(NSURLSessionTask *)task progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionDataBlock)completion;
 
 /**
  *  Initializes CRVSessionUploadTaskWrapper object and adds it to uploadTaskWrapper array.
@@ -29,7 +29,7 @@
  *  @param progress   The progress block with which wrapper is initialized.
  *  @param completion The completion block with which wrapper is initialized.
  */
-- (void)addUploadTask:(NSURLSessionTask *)task data:(NSData *)data name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVSessionTaskProgress)progress completion:(CRVUploadCompletionHandler)completion;
+- (NSUInteger)addUploadTask:(NSURLSessionTask *)task data:(NSData *)data name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
 
 /**
  *  Invokes progress block stored in approperiate wrapper for given task.
@@ -77,6 +77,29 @@
  *  Cancel all tasks and removes all wrappers gathered in download and upload wrapper arrays.
  */
 - (void)cancelAllTasks;
+
+/**
+ *  Cancels a task assigned to task wrapper with given identifier. Also removes wrapper from queue.
+ *  NOTICE: Task cancelation will not invoke completion block. May be sent to a wrapper wih task that has been suspended.
+ *
+ *  @param identifier An identifier for task wrapper, assigned by CRVSessionTaskManager and unique accross an app.
+ */
+- (void)cancelTaskForTaskWrapperIdentifier:(NSUInteger)identifier;
+
+/**
+ *  Pauses a task assigned to task wrapper with given identifier.
+ *  The timeout timer associated with the task will be disabled while a task is paused.
+ *
+ *  @param identifier An identifier for task wrapper, assigned by CRVSessionTaskManager and unique accross an app.
+ */
+- (void)pauseTaskForTaskWrapperIdentifier:(NSUInteger)identifier;
+
+/**
+ *  Resumes a task assigned to task wrapper with given identifier.
+ *
+ *  @param identifier An identifier for task wrapper, assigned by CRVSessionTaskManager and unique accross an app.
+ */
+- (void)resumeTaskForTaskWrapperIdentifier:(NSUInteger)identifier;
 
 /**
  *  Set from concatanated arrays of download and upload task wrappers.

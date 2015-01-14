@@ -8,7 +8,7 @@
 
 #import "CRVSessionTaskWrapper.h"
 
-typedef void (^CRVDownloadCompletionHandler)(NSData *, NSError *);
+typedef void (^CRVDownloadCompletionDataBlock)(NSData *, NSError *);
 
 @interface CRVSessionDownloadTaskWrapper : CRVSessionTaskWrapper
 
@@ -21,7 +21,7 @@ typedef void (^CRVDownloadCompletionHandler)(NSData *, NSError *);
  *
  *  @return An initialized receiver.
  */
-- (instancetype)initWithTask:(NSURLSessionTask *)task progress:(CRVSessionTaskProgress)progress completion:(CRVDownloadCompletionHandler)completion;
+- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSUInteger)identifier progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionDataBlock)completion;
 
 /**
  *  Downloaded and stored data for task.
@@ -40,6 +40,6 @@ typedef void (^CRVDownloadCompletionHandler)(NSData *, NSError *);
 /**
  *  The completion block invoked when task downloading will complete with success or break with an error.
  */
-@property (copy, nonatomic, readonly) CRVDownloadCompletionHandler completion;
+@property (copy, nonatomic, readonly) CRVDownloadCompletionDataBlock completion;
 
 @end
