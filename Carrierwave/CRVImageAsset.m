@@ -4,8 +4,6 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#import <AFNetworking/AFNetworking.h>
-
 #import "CRVImageAsset.h"
 
 @interface CRVImageAsset ()
@@ -13,9 +11,6 @@
 @property (strong, nonatomic, readwrite) NSString *fileName;
 @property (strong, nonatomic, readwrite) NSString *mimeType;
 @property (strong, nonatomic, readwrite) NSData *data;
-
-- (NSString *)mimeTypeByGuessingFromData:(NSData *)data;
-- (NSString *)fileExtensionByGuessingFromMimeType:(NSString *)mimeType;
 
 @end
 
@@ -44,18 +39,6 @@
 
 - (instancetype)init {
     return [self initWithData:nil];
-}
-
-#pragma mark - Asynchronous fetch
-
-+ (void)fetchAssetWithRemoteURL:(NSURL *)url completion:(void (^)(CRVImageAsset *, NSError *))completion {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:[url absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, NSData *responseData) {
-        CRVImageAsset *asset = [[self alloc] initWithData:responseData];
-        if (completion != NULL) completion(asset, nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (completion != NULL) completion(nil, error);
-    }];
 }
 
 #pragma mark - Mime type helpers

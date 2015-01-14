@@ -53,14 +53,6 @@
 - (instancetype)initWithLocalURL:(NSURL *)url;
 
 /**
- * Asynchronously creates the image asset by fetching an image from remote URL.
- *
- * @param url The URL of a remote image file to be represented by the asset.
- * @param completion The block to be executed on the completion of a request.
- */
-+ (void)fetchAssetWithRemoteURL:(NSURL *)url completion:(void (^)(CRVImageAsset *asset, NSError *error))completion;
-
-/**
  * The image represented by the asset.
  */
 @property (strong, nonatomic, readonly) UIImage *image;
