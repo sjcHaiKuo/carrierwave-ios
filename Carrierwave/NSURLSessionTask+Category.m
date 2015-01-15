@@ -14,7 +14,7 @@
     if (self.countOfBytesExpectedToReceive > 0) {
         return (double)self.countOfBytesReceived/(double)self.countOfBytesExpectedToReceive;
     }
-    CRVTemporary("If response header doesn't contain Content-Length, it should be handle respectively");
+    CRVTemporary("If response header doesn't contain Content-Length, it should be handle respectively.");
     return 0.5;
 }
 
