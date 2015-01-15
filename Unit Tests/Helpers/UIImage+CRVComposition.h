@@ -13,7 +13,7 @@
 @interface UIImage (CRVComposition)
 
 /**
- * Creates a image of the given size and opaque background of the given color.
+ * Creates an image of the given size and opaque background of the given color.
  *
  * @param size The size of the image.
  * @param color The background color of the image.

@@ -58,6 +58,8 @@
 		5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EBC01B01A5FFF8700B1860D /* NSURLSessionTask+Category.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBC01AE1A5FFF8700B1860D /* NSURLSessionTask+Category.h */; };
 		5EBC01B11A5FFF8700B1860D /* NSURLSessionTask+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBC01AF1A5FFF8700B1860D /* NSURLSessionTask+Category.m */; };
+		5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */; };
+		5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */; };
 		69AA0B9A7A138526C4B55648 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3272BDCF977EEC32EE0EE1EE /* libPods-Tests.a */; };
 		7DE6841C33D70C5B4DF93E2E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 861E339756711F9AC576711A /* libPods.a */; };
 		8D072AAE03FBD8A20CAE8FFF /* libPods-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BFF2822CEF1BC7F260BB3C /* libPods-Demo.a */; };
@@ -171,6 +173,10 @@
 		5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkTypedefs.h; sourceTree = "<group>"; };
 		5EBC01AE1A5FFF8700B1860D /* NSURLSessionTask+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionTask+Category.h"; sourceTree = "<group>"; };
 		5EBC01AF1A5FFF8700B1860D /* NSURLSessionTask+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionTask+Category.m"; sourceTree = "<group>"; };
+		5EBDBE4B1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OHHTTPStubs+CRVTests.h"; sourceTree = "<group>"; };
+		5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubs+CRVTests.m"; sourceTree = "<group>"; };
+		5EBDBE541A67FA4F001C8ED5 /* NSData+CRVComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CRVComposition.h"; sourceTree = "<group>"; };
+		5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CRVComposition.m"; sourceTree = "<group>"; };
 		861E339756711F9AC576711A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4BFF2822CEF1BC7F260BB3C /* libPods-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -421,6 +427,10 @@
 				3A3FE8601A5161490052C58E /* EXPMatchers+CRVAssetType.m */,
 				3AF3BDB51A5092E6005BF9C4 /* UIImage+CRVComposition.h */,
 				3AF3BDB61A5092E6005BF9C4 /* UIImage+CRVComposition.m */,
+				5EBDBE541A67FA4F001C8ED5 /* NSData+CRVComposition.h */,
+				5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */,
+				5EBDBE4B1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.h */,
+				5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -819,8 +829,10 @@
 			files = (
 				5E36AD0C1A67BFE50080FF80 /* CRVNetworkManagerSpec.m in Sources */,
 				3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */,
+				5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */,
 				3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */,
 				3A3FE8631A51660E0052C58E /* CRVAssetTypeBehavior.m in Sources */,
+				5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */,
 				3AF3BDB41A5077A6005BF9C4 /* CRVImageAssetSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
