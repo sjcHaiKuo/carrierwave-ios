@@ -73,13 +73,13 @@ static inline NSString * intToString(NSUInteger x) {
     return intToString(wrapperIdentifier);
 }
 
-- (NSString *)uploadAssetRepresentedByData:(NSData *)data withName:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(BOOL, NSError *))completion {
+- (NSString *)uploadAssetRepresentedByDataStream:(NSInputStream *)dataStream withLength:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(BOOL, NSError *))completion {
     
     __weak typeof(self)weakSelf = self;
-    NSURLSessionTask *task = [self uploadTaskForData:data name:name mimeType:mimeType URLString:URLString withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
+    NSURLSessionTask *task = [self uploadTaskForDataStream:dataStream length:length name:name mimeType:mimeType URLString:URLString withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
         [weakSelf uploadTaskDidPerformCompletionHandler:task response:response error:error];
     }];
-    NSUInteger wrapperIdentifier = [self.taskManager addUploadTask:task data:data name:name mimeType:mimeType progress:progress completion:completion];
+    NSUInteger wrapperIdentifier = [self.taskManager addUploadTask:task dataStream:dataStream length:length name:name mimeType:mimeType progress:progress completion:completion];
 
     [self setTaskDidSendBodyDataBlock:^(NSURLSession *session, NSURLSessionTask *task, int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend) {
         [weakSelf.taskManager invokeProgressForTask:task];
@@ -105,9 +105,9 @@ static inline NSString * intToString(NSUInteger x) {
 
 #pragma mark Task initializing:
 
-- (NSURLSessionTask *)uploadTaskForData:(NSData *)data name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString withCompletionHandler:(void (^)(NSURLSessionTask *task, NSError *error, id response))completion {
+- (NSURLSessionTask *)uploadTaskForDataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString withCompletionHandler:(void (^)(NSURLSessionTask *task, NSError *error, id response))completion {
     return [self POST:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:data name:CRVServerUploadMethodArgumentName fileName:name mimeType:mimeType];
+        [formData appendPartWithInputStream:dataStream name:CRVServerUploadMethodArgumentName fileName:name length:length.longLongValue mimeType:mimeType];
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         completion(task, nil, responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -189,7 +189,12 @@ static inline NSString * intToString(NSUInteger x) {
     wrapper.retriesCount ++;
     
     __weak typeof(self)weakSelf = self;
-    NSURLSessionTask *task = [self uploadTaskForData:wrapper.data name:wrapper.name mimeType:wrapper.mimeType URLString:wrapper.task.originalRequest.URL.path withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
+    NSURLSessionTask *task = [self uploadTaskForDataStream:wrapper.dataStream
+                                                    length:wrapper.length
+                                                      name:wrapper.name
+                                                  mimeType:wrapper.mimeType
+                                                 URLString:wrapper.task.originalRequest.URL.path
+                                     withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
         [weakSelf uploadTaskDidPerformCompletionHandler:task response:response error:error];
     }];
     

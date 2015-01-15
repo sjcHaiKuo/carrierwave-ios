@@ -39,11 +39,12 @@ static NSUInteger CVRWrapperIdentifier = 0;
     return CVRWrapperIdentifier;
 }
 
-- (NSUInteger)addUploadTask:(NSURLSessionTask *)task data:(NSData *)data name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
+- (NSUInteger)addUploadTask:(NSURLSessionTask *)task dataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
     CVRWrapperIdentifier++;
     CRVSessionUploadTaskWrapper *wrapper = [[CRVSessionUploadTaskWrapper alloc] initWithTask:task identifier:CVRWrapperIdentifier progress:progress completion:completion];
     wrapper.mimeType = mimeType;
-    wrapper.data = data;
+    wrapper.dataStream = dataStream;
+    wrapper.length = length;
     wrapper.name = name;
     [self.uploadTaskWrappers addObject:wrapper];
     

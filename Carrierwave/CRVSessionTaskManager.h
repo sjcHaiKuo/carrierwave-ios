@@ -25,11 +25,13 @@
 /**
  *  Initializes CRVSessionUploadTaskWrapper object and adds it to uploadTaskWrapper array.
  *
+ *  @param dataStrem  The data stream object which represents uploaded file.
+ *  @param length     The length of data stream.
  *  @param task       The upload task with which wrapper is initialized.
  *  @param progress   The progress block with which wrapper is initialized.
  *  @param completion The completion block with which wrapper is initialized.
  */
-- (NSUInteger)addUploadTask:(NSURLSessionTask *)task data:(NSData *)data name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
+- (NSUInteger)addUploadTask:(NSURLSessionTask *)task dataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
 
 /**
  *  Invokes progress block stored in approperiate wrapper for given task.

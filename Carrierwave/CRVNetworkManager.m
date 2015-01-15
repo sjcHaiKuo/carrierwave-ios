@@ -49,7 +49,12 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
     NSString *URLString = [self URLStringByAppendingPath:self.uploadPath];
-    return [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:URLString progress:^(double aProgress) {
+    return [self.sessionManager uploadAssetRepresentedByDataStream:asset.dataStream
+                                                        withLength:asset.dataLength
+                                                              name:asset.fileName
+                                                          mimeType:asset.mimeType
+                                                         URLString:URLString
+                                                          progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(BOOL success, NSError *error) {
         if (completion != NULL) completion(success, error);
@@ -58,7 +63,12 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
     NSParameterAssert(url);
-    return [self.sessionManager uploadAssetRepresentedByData:asset.data withName:asset.fileName mimeType:asset.mimeType URLString:[url absoluteString] progress:^(double aProgress) {
+    return [self.sessionManager uploadAssetRepresentedByDataStream:asset.dataStream
+                                                        withLength:asset.dataLength
+                                                              name:asset.fileName
+                                                          mimeType:asset.mimeType
+                                                         URLString:[url absoluteString]
+                                                          progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(BOOL success, NSError *error) {
         if (completion != NULL) completion(success, error);

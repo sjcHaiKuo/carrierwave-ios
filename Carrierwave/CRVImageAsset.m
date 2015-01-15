@@ -10,7 +10,10 @@
 
 @property (strong, nonatomic, readwrite) NSString *fileName;
 @property (strong, nonatomic, readwrite) NSString *mimeType;
-@property (strong, nonatomic, readwrite) NSData *data;
+@property (strong, nonatomic, readwrite) NSInputStream *dataStream;
+@property (strong, nonatomic, readwrite) NSNumber *dataLength;
+
+@property (strong, nonatomic) NSData *data;
 
 @end
 
@@ -113,6 +116,14 @@
 - (NSString *)mimeType {
     if (_mimeType != nil) return _mimeType;
     return _mimeType = [self mimeTypeByGuessingFromData:self.data];
+}
+
+- (NSInputStream *)dataStream {
+    return [[NSInputStream alloc] initWithData:self.data];
+}
+
+- (NSNumber *)dataLength {
+    return @(self.data.length);
 }
 
 - (UIImage *)image {

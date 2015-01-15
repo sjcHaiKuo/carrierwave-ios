@@ -32,9 +32,14 @@
 @property (strong, nonatomic) NSString *mimeType;
 
 /**
- *  Data representing file to upload.
+ *  Data stream representing file to upload.
  */
-@property (strong, nonatomic) NSData *data;
+@property (strong, nonatomic) NSInputStream *dataStream;
+
+/**
+ *  Length of data stream.
+ */
+@property (strong, nonatomic) NSNumber *length;
 
 /**
  *  Name of file to upload.

@@ -114,7 +114,7 @@ describe(@"CRVImageAsset", ^{
         });
 
         it(@"should decrease the image weight", ^{
-            expect(compressedAsset.data.length).to.beLessThan(asset.data.length);
+            expect(compressedAsset.dataLength).to.beLessThan(asset.dataLength);
         });
 
     });

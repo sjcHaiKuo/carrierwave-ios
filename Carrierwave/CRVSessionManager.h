@@ -13,7 +13,8 @@
 /**
  *  Tells manager to start uploading file specified by data, name, mimeType on given URL.
  *
- *  @param data       The data object which represents uploaded file.
+ *  @param dataStream The data stream object which represents uploaded file.
+ *  @param length     The length of data stream in bytes.
  *  @param name       The name of uploaded file.
  *  @param mimeType   The mime type of uploaded file.
  *  @param URLString  The relative path of the request.
@@ -22,7 +23,7 @@
  *
  *  @return Identifier of uploading proccess. Unique accross an app. Store it to play with proccess later.
  */
-- (NSString *)uploadAssetRepresentedByData:(NSData *)data withName:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double aProgress))progress completion:(void (^)(BOOL success, NSError *error))completion;
+- (NSString *)uploadAssetRepresentedByDataStream:(NSInputStream *)dataStream withLength:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double aProgress))progress completion:(void (^)(BOOL success, NSError *error))completion;
 
 /**
  *  Tells manager to start downloading file from specified URL.

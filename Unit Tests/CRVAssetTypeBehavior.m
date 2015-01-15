@@ -15,7 +15,7 @@ sharedExamplesFor(@"asset", ^(NSDictionary *data) {
     });
 
     it(@"should have a data representation", ^{
-        expect(asset.data).toNot.beNil();
+        expect(asset.dataStream).toNot.beNil();
     });
 
     it(@"should have a correct file extension", ^{

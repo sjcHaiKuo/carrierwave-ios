@@ -23,8 +23,13 @@
 @property (strong, nonatomic, readonly) NSString *fileName;
 
 /**
- * The data of the object represented by the asset.
+ * The data stream of the object represented by the asset.
  */
-@property (strong, nonatomic, readonly) NSData *data;
+@property (strong, nonatomic, readonly) NSInputStream *dataStream;
+
+/**
+ * The length of data stream.
+ */
+@property (strong, nonatomic, readonly) NSNumber *dataLength;
 
 @end
