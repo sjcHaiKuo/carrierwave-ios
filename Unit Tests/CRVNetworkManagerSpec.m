@@ -48,54 +48,59 @@ describe(@"CRVNetworkManagerSpec", ^{
     
     describe(@"when dowloading", ^{
         
-        beforeEach(^{
-            manager.serverURL = nil;
-        });
-        
-        it(@"should raise an exception with no provided path", ^{
-            expect(^{
-                manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
-                [manager downloadAssetFromPath:nil progress:nil completion:nil];
-            }).to.raise(NSInternalInconsistencyException);
-        });
-        
-        it(@"should raise an exception with no provided url", ^{
-            expect(^{
-                manager.serverURL = [NSURL URLWithString:@"sdsad"];
-                [manager downloadAssetFromPath:nil progress:nil completion:nil];
-            }).to.raise(NSInternalInconsistencyException);
-        });
-        
-        it(@"should raise an exception with no provided url", ^{
-            expect(^{
-                [manager downloadAssetFromURL:nil progress:nil completion:nil];
-            }).to.raise(NSInternalInconsistencyException);
+        context(@"should raise an exception", ^{
+            
+            beforeEach(^{
+                manager.serverURL = nil;
+            });
+            
+            it(@"with no provided url", ^{
+                expect(^{
+                    [manager downloadAssetFromPath:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+            
+            it(@"with no provided url", ^{
+                expect(^{
+                    [manager downloadAssetFromURL:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+            
+            it(@"with no provided path", ^{
+                expect(^{
+                    manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
+                    [manager downloadAssetFromPath:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
         });
     });
     
     describe(@"when uploading", ^{
         
-        beforeEach(^{
-            manager.serverURL = nil;
-        });
-        
-        it(@"should raise an exception with no provided url", ^{
-            expect(^{
-                manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
-                [manager uploadAsset:nil progress:nil completion:nil];
-            }).to.raise(NSInternalInconsistencyException);
-        });
-        
-        it(@"should raise an exception with no provided url", ^{
-            expect(^{
-                [manager uploadAsset:nil progress:nil completion:nil];
-            }).to.raise(NSInternalInconsistencyException);
-        });
-        
-        it(@"should raise an exception with no provided url", ^{
-            expect(^{
-                [manager uploadAsset:nil toURL:nil progress:nil completion:nil];
-            }).to.raise(NSInternalInconsistencyException);
+        context(@"should raise an exception", ^{
+            beforeEach(^{
+                manager.serverURL = nil;
+            });
+            
+            it(@"with no provided url", ^{
+                expect(^{
+                    [manager uploadAsset:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+            
+            it(@"with no provided url", ^{
+                expect(^{
+                    [manager uploadAsset:nil toURL:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+            
+            
+            it(@"with no provided upload path", ^{
+                expect(^{
+                    manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
+                    [manager uploadAsset:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
         });
     });
     
