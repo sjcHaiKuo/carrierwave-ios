@@ -115,6 +115,7 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 
 - (NSString *)URLStringByAppendingPath:(NSString *)path {
     NSAssert(self.serverURL != nil, @"Server URL cannot be nil.");
+    NSAssert(path != nil, @"Path cannot be nil.");
     return [self.serverURL URLByAppendingPathComponent:path].absoluteString;
 }
 
