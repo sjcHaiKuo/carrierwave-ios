@@ -6,6 +6,8 @@
 
 #import "CRVImageAsset.h"
 
+#import "CRVAssertTypeUtils.h"
+
 @interface CRVImageAsset ()
 
 @property (strong, nonatomic, readwrite) NSString *fileName;
@@ -77,26 +79,6 @@
 
 }
 
-- (NSString *)fileExtensionByGuessingFromMimeType:(NSString *)mimeType {
-
-    // inspired by AFNetworking/AFNetworking/AFURLRequestSerialization.m
-
-    // try to guess the type
-    CFStringRef cfMimeType = (__bridge CFStringRef)(mimeType);
-    CFStringRef cfUti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, cfMimeType, NULL);
-    NSString *ext = (__bridge_transfer NSString *)(UTTypeCopyPreferredTagWithClass(cfUti, kUTTagClassFilenameExtension));
-    CFRelease(cfUti);
-
-    // successful guess
-    if (ext != nil) {
-        return ext;
-    }
-
-    // default
-    return nil;
-
-}
-
 #pragma mark - Compressing images
 
 - (instancetype)compressedImageAssetWithQuality:(CGFloat)quality {
@@ -108,9 +90,7 @@
 
 - (NSString *)fileName {
     if (_fileName != nil) return _fileName;
-    NSString *baseName = [NSUUID UUID].UUIDString;
-    NSString *extension = [self fileExtensionByGuessingFromMimeType:self.mimeType];
-    return _fileName = [NSString stringWithFormat:@"%@.%@", baseName, extension];
+    return _fileName = [CRVAssertTypeUtils fileNameForMimeType:self.mimeType];
 }
 
 - (NSString *)mimeType {

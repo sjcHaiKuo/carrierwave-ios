@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 210E159D1A67C92700342A39 /* CRVVideoAsset.h */; };
+		210E15A01A67C92700342A39 /* CRVVideoAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 210E159E1A67C92700342A39 /* CRVVideoAsset.m */; };
+		210E15A31A67EB4700342A39 /* CRVAssertTypeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */; };
+		210E15A41A67EB4700342A39 /* CRVAssertTypeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 210E15A21A67EB4700342A39 /* CRVAssertTypeUtils.m */; };
 		3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8601A5161490052C58E /* EXPMatchers+CRVAssetType.m */; };
 		3A3FE8631A51660E0052C58E /* CRVAssetTypeBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8621A51660E0052C58E /* CRVAssetTypeBehavior.m */; };
 		3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A3FE8661A517CE60052C58E /* CRVImageEditViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -91,6 +95,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		210E159D1A67C92700342A39 /* CRVVideoAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVVideoAsset.h; sourceTree = "<group>"; };
+		210E159E1A67C92700342A39 /* CRVVideoAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVVideoAsset.m; sourceTree = "<group>"; };
+		210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVAssertTypeUtils.h; sourceTree = "<group>"; };
+		210E15A21A67EB4700342A39 /* CRVAssertTypeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVAssertTypeUtils.m; sourceTree = "<group>"; };
 		3272BDCF977EEC32EE0EE1EE /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A05FEF81A4E00C5005E3C29 /* Tests-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Test.xcconfig"; sourceTree = "<group>"; };
 		3A05FEF91A4E018B005E3C29 /* Tests-Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Development.xcconfig"; sourceTree = "<group>"; };
@@ -202,6 +210,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		210E159C1A67C90B00342A39 /* Video Asset */ = {
+			isa = PBXGroup;
+			children = (
+				210E159D1A67C92700342A39 /* CRVVideoAsset.h */,
+				210E159E1A67C92700342A39 /* CRVVideoAsset.m */,
+			);
+			name = "Video Asset";
+			sourceTree = "<group>";
+		};
 		3A3FE8651A517CC90052C58E /* Image Editing */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,6 +429,9 @@
 			isa = PBXGroup;
 			children = (
 				3AF3BD9B1A50461D005BF9C4 /* CRVAssetType.h */,
+				210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */,
+				210E15A21A67EB4700342A39 /* CRVAssertTypeUtils.m */,
+				210E159C1A67C90B00342A39 /* Video Asset */,
 				3AF3BD9D1A5046B1005BF9C4 /* Image Asset */,
 			);
 			name = "Asset Models";
@@ -491,7 +511,9 @@
 				3AF3BD9C1A50461D005BF9C4 /* CRVAssetType.h in Headers */,
 				5E56EBF81A5D68D2002E2484 /* CRVSessionManager.h in Headers */,
 				3AF3BD941A50447A005BF9C4 /* CRVImageAsset.h in Headers */,
+				210E15A31A67EB4700342A39 /* CRVAssertTypeUtils.h in Headers */,
 				5EBC01B01A5FFF8700B1860D /* NSURLSessionTask+Category.h in Headers */,
+				210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */,
 				3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */,
 				5E4C992B1A642E5F009AA040 /* CRVSessionTaskWrapper.h in Headers */,
 				5E4D0A6B1A60982100A1729B /* CRVSessionTaskManager.h in Headers */,
@@ -814,7 +836,9 @@
 				5E56EBF91A5D68D2002E2484 /* CRVSessionManager.m in Sources */,
 				3ADC0E721A5ADB10009F4D4B /* CRVImageEditGlassView.m in Sources */,
 				5E4C99341A651228009AA040 /* CRVSessionUploadTaskWrapper.m in Sources */,
+				210E15A41A67EB4700342A39 /* CRVAssertTypeUtils.m in Sources */,
 				5E4D0A6C1A60982100A1729B /* CRVSessionTaskManager.m in Sources */,
+				210E15A01A67C92700342A39 /* CRVVideoAsset.m in Sources */,
 				5E56EBFB1A5D68D2002E2484 /* CRVNetworkManager.m in Sources */,
 				5EBC01B11A5FFF8700B1860D /* NSURLSessionTask+Category.m in Sources */,
 				3AF3BD951A50447A005BF9C4 /* CRVImageAsset.m in Sources */,
