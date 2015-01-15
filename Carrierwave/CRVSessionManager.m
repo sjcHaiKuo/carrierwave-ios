@@ -21,6 +21,7 @@ static inline NSString * intToString(NSUInteger x) {
 @interface CRVSessionManager ()
 
 @property (strong, nonatomic) CRVSessionTaskManager *taskManager;
+@property (weak, nonatomic) CRVNetworkManager *networkManager;
 
 @end
 
@@ -28,8 +29,12 @@ static inline NSString * intToString(NSUInteger x) {
 
 #pragma mark - Object lifecycle
 
-- (instancetype)init {
-    return [self initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+- (instancetype)initWithNetworkManager:(CRVNetworkManager *)manager {
+    self = [self initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    if (self) {
+        _networkManager = manager ?: [CRVNetworkManager sharedManager];
+    }
+    return self;
 }
 
 - (instancetype)initWithSessionConfiguration:(NSURLSessionConfiguration *)configuration {
@@ -51,14 +56,14 @@ static inline NSString * intToString(NSUInteger x) {
 - (NSString *)downloadAssetFromURL:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(NSData *, NSError *))completion {
     
     NSData *data = nil;
-    if ([CRVNetworkManager sharedManager].checkCache && [self fileDataFromURLString:URLString data:&data]) {
+    if (self.networkManager.checkCache && [self fileDataFromURLString:URLString data:&data]) {
         completion(data, nil);
         return nil;
     }
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
     
-    __weak typeof(self)weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     __block NSURLSessionDownloadTask *task = [self downloadTaskForRequest:request withCompletionHandler:^(NSURL *filePath, NSError *error) {
         [weakSelf downloadTaskDidPerformCompletionHandler:task filePath:filePath error:error];
     }];
@@ -75,7 +80,7 @@ static inline NSString * intToString(NSUInteger x) {
 
 - (NSString *)uploadAssetRepresentedByDataStream:(NSInputStream *)dataStream withLength:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(BOOL, NSError *))completion {
     
-    __weak typeof(self)weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     NSURLSessionTask *task = [self uploadTaskForDataStream:dataStream length:length name:name mimeType:mimeType URLString:URLString withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
         [weakSelf uploadTaskDidPerformCompletionHandler:task response:response error:error];
     }];
@@ -158,7 +163,7 @@ static inline NSString * intToString(NSUInteger x) {
 
 //does number of retries has been exceeded?
 - (BOOL)shouldPerformCompletionBlockForTaskWrapper:(CRVSessionTaskWrapper *)wrapper {
-    if (wrapper.retriesCount >= [CRVNetworkManager sharedManager].numberOfRetries) {
+    if (wrapper.retriesCount >= self.networkManager.numberOfRetries) {
         NSString *action = [self.taskManager isDownloadTaskWrapper:wrapper] ? @"download" : @"upload";
         NSLog(@"Number of retries limit has been exceeded for asset \"%@\". %@ failed", action, [wrapper fileNameByGuessingFromURLPath]);
         return YES;
@@ -171,8 +176,8 @@ static inline NSString * intToString(NSUInteger x) {
     
     BOOL isDownloadTaskWrapper = [self.taskManager isDownloadTaskWrapper:wrapper];
     NSString *action = isDownloadTaskWrapper? @"download" : @"upload";
-    NSInteger retriesLeft = [CRVNetworkManager sharedManager].numberOfRetries - wrapper.retriesCount;
-    NSTimeInterval reconnectionTime = [CRVNetworkManager sharedManager].reconnectionTime;
+    NSInteger retriesLeft = self.networkManager.numberOfRetries - wrapper.retriesCount;
+    NSTimeInterval reconnectionTime = self.networkManager.reconnectionTime;
     NSLog(@"Retries %@ asset (%@) in %.1f second(s). Retries left: %ld", action, [wrapper fileNameByGuessingFromURLPath], reconnectionTime, (long)retriesLeft);
     
     __weak typeof(self) weakSelf = self;
@@ -188,7 +193,7 @@ static inline NSString * intToString(NSUInteger x) {
 - (void)executeRetriableUploadTaskForWrapper:(CRVSessionUploadTaskWrapper *)wrapper {
     wrapper.retriesCount ++;
     
-    __weak typeof(self)weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     NSURLSessionTask *task = [self uploadTaskForDataStream:wrapper.dataStream
                                                     length:wrapper.length
                                                       name:wrapper.name
@@ -205,7 +210,7 @@ static inline NSString * intToString(NSUInteger x) {
 - (void)executeRetriableDownloadTaskForWrapper:(CRVSessionDownloadTaskWrapper *)wrapper {
     wrapper.retriesCount ++;
     
-    __weak typeof(self)weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     __block NSURLSessionDownloadTask *task = nil;
     
     if ([wrapper canResumeTask]) {

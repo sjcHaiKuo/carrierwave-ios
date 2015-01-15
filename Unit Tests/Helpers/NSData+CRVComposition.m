@@ -7,11 +7,10 @@
 //
 
 #import "NSData+CRVComposition.h"
-#import "UIImage+CRVComposition.h"
 
 @implementation NSData (CRVComposition)
 
-+ (instancetype)crv_defaultImageRepresentedByData {
++ (instancetype)crv_defaultImageDataRepresentation {
     return UIImagePNGRepresentation([UIImage crv_composeImageWithSize:CGSizeMake(20.f, 20.f) color:[UIColor redColor]]);
 }
 

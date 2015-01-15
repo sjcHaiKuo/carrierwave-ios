@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSData (CRVComposition)
 
@@ -15,6 +15,6 @@
  *
  * @return An initialized receiver.
  */
-+ (instancetype)crv_defaultImageRepresentedByData;
++ (instancetype)crv_defaultImageDataRepresentation;
 
 @end

@@ -4,9 +4,6 @@
 //  Copyright 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#import "OHHTTPStubs+CRVTests.h"
-#import "NSData+CRVComposition.h"
-
 #define kImageName @"testIMG.png"
 #define kSwizzledCRVDefaultReconnectionTime 0.5
 
@@ -20,11 +17,15 @@ describe(@"CRVNetworkManagerSpec", ^{
         [Expecta setAsynchronousTestTimeout:(kSwizzledCRVDefaultReconnectionTime * CRVDefaultNumberOfRetries + 0.5)];
     });
     
-    beforeEach(^{
-        manager = [CRVNetworkManager sharedManager];
-    });
-    
     context(@"when newly created", ^{
+        
+        beforeEach(^{
+            manager = [[CRVNetworkManager alloc] init];
+        });
+        
+        afterEach(^{
+            manager = nil;
+        });
 
         it(@"should have no server url", ^{
             expect(manager.serverURL).to.beNil;
@@ -56,59 +57,85 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
     });
     
-    describe(@"when dowloading", ^{
+    context(@"with no provided url", ^{
         
-        context(@"should raise an exception", ^{
+        beforeEach(^{
+            manager = [[CRVNetworkManager alloc] init];
+        });
+        
+        context(@"when downloading", ^{
             
-            beforeEach(^{
-                manager.serverURL = nil;
-            });
-            
-            it(@"with no provided url", ^{
-                expect(^{
-                    [manager downloadAssetFromPath:nil progress:nil completion:nil];
-                }).to.raise(NSInternalInconsistencyException);
-            });
-            
-            it(@"with no provided url", ^{
+            it(@"should raise an exception", ^{
                 expect(^{
                     [manager downloadAssetFromURL:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
+        });
+        
+        context(@"when uploading", ^{
             
-            it(@"with no provided path", ^{
+            it(@"should raise an exception", ^{
                 expect(^{
-                    manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
+                    [manager uploadAsset:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+        });
+    });
+    
+    context(@"with no provided path", ^{
+        
+        beforeEach(^{
+            manager = [[CRVNetworkManager alloc] init];
+            manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
+        });
+        
+        context(@"when downloading", ^{
+            
+            it(@"should raise an exception", ^{
+                expect(^{
                     [manager downloadAssetFromPath:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
         });
         
+        context(@"when uploading", ^{
+            
+            it(@"should raise an exception", ^{
+                expect(^{
+                    [manager uploadAsset:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+        });
+        
+    });
+    
+    CRVWorkInProgress("Queue not define here yet.")
+    context(@"when dowloading", ^{
+        
+        NSString *filePath = [[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:kImageName]] path];
+        __block id<OHHTTPStubsDescriptor> stub = nil;
+        __block CRVImageAsset *anAsset = nil;
+        __block NSError *anError = nil;
+        
+        beforeAll(^{
+            stub = [OHHTTPStubs crv_stubDownloadRequestForIdentifier:@"STUB_1"];
+            [[NSData crv_defaultImageDataRepresentation] writeToFile:filePath atomically:YES];
+        });
+        
+        afterAll(^{
+            [OHHTTPStubs removeStub:stub];
+            [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+        });
+        
+        beforeEach(^{
+            manager = [[CRVNetworkManager alloc] init];
+            manager.reconnectionTime = kSwizzledCRVDefaultReconnectionTime;
+            anAsset = nil;
+            anError = nil;
+        });
+        
         context(@"using correct data", ^{
-            
-            __block id<OHHTTPStubsDescriptor> stub = nil;
-            __block CRVImageAsset *anAsset = nil;
-            __block NSError *anError = nil;
-            
-            NSString *filePath = [[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:kImageName]] path];
-            
-            beforeAll(^{
-                stub = [OHHTTPStubs crv_stubDownloadRequestForIdentifier:@"STUB_1"];
-                [[NSData crv_defaultImageRepresentedByData] writeToFile:filePath atomically:YES];
-                manager.reconnectionTime = kSwizzledCRVDefaultReconnectionTime;
-            });
-            
-            afterAll(^{
-                [OHHTTPStubs removeStub:stub];
-                [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
-                manager.reconnectionTime = CRVDefaultReconnectionTime;
-            });
-            
-            beforeEach(^{
-                anAsset = nil;
-                anError = nil;
-            });
-            
+        
             it(@"should download asset with success", ^{
                 
                 NSURL *anyURL = [NSURL URLWithString:[NSString stringWithFormat:@"httt://www.example.com/%@", kImageName]];
@@ -119,36 +146,7 @@ describe(@"CRVNetworkManagerSpec", ^{
                 
                 expect(anError).will.beNil();
                 expect(anAsset).will.notTo.beNil();
-                expect(anAsset.dataLength).will.equal([NSData crv_defaultImageRepresentedByData].length);
-            });
-        });
-    });
-    
-    describe(@"when uploading", ^{
-        
-        context(@"should raise an exception", ^{
-            beforeEach(^{
-                manager.serverURL = nil;
-            });
-            
-            it(@"with no provided url", ^{
-                expect(^{
-                    [manager uploadAsset:nil progress:nil completion:nil];
-                }).to.raise(NSInternalInconsistencyException);
-            });
-            
-            it(@"with no provided url", ^{
-                expect(^{
-                    [manager uploadAsset:nil toURL:nil progress:nil completion:nil];
-                }).to.raise(NSInternalInconsistencyException);
-            });
-            
-            
-            it(@"with no provided upload path", ^{
-                expect(^{
-                    manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
-                    [manager uploadAsset:nil progress:nil completion:nil];
-                }).to.raise(NSInternalInconsistencyException);
+                expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
             });
         });
     });

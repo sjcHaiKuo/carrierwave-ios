@@ -29,7 +29,7 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _sessionManager = [[CRVSessionManager alloc] init];
+        _sessionManager = [[CRVSessionManager alloc] initWithNetworkManager:self];
         self.numberOfRetries = CRVDefaultNumberOfRetries;
         self.reconnectionTime = CRVDefaultReconnectionTime;
     }

@@ -8,7 +8,18 @@
 
 #import "AFHTTPSessionManager.h"
 
+@class CRVNetworkManager;
+
 @interface CRVSessionManager : AFHTTPSessionManager
+
+/**
+ *  Designed initializer for CRVSessionManager class. Has to be initialize with CRVNetworkManager ownership.
+ *
+ *  @param manager CRVNetworkManager for which CRVSessionManager belongs to.
+ *
+ *  @return An initialized receiver.
+ */
+- (instancetype)initWithNetworkManager:(CRVNetworkManager *)manager;
 
 /**
  *  Tells manager to start uploading file specified by data, name, mimeType on given URL.

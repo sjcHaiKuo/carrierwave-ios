@@ -27,5 +27,7 @@
 
     #import "EXPMatchers+CRVAssetType.h"
     #import "UIImage+CRVComposition.h"
+    #import "NSData+CRVComposition.h"
+    #import "OHHTTPStubs+CRVTests.h"
 
 #endif
