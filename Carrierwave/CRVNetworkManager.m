@@ -16,7 +16,7 @@ NSString * const CRVDomainErrorName = @"com.carrierwave.domain.network.error";
 NSUInteger const CRVDefaultNumberOfRetries = 2;
 NSTimeInterval const CRVDefaultReconnectionTime = 3;
 
-@interface CRVNetworkManager ()
+@interface CRVNetworkManager () <CRVSessionManagerDelegate>
 
 @property (strong, nonatomic) CRVSessionManager *sessionManager;
 
@@ -29,7 +29,8 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _sessionManager = [[CRVSessionManager alloc] initWithNetworkManager:self];
+        _sessionManager = [[CRVSessionManager alloc] init];
+        _sessionManager.delegate = self;
         self.numberOfRetries = CRVDefaultNumberOfRetries;
         self.reconnectionTime = CRVDefaultReconnectionTime;
     }
@@ -130,6 +131,20 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 - (NSError *)errorForEmptyFile {
     NSDictionary *userInfo = @{NSLocalizedDescriptionKey : @"Downloaded file is empty."};
     return [NSError errorWithDomain:CRVDomainErrorName code:0 userInfo:userInfo];
+}
+
+#pragma mark - CRVSessionManagerDelegate Methods
+
+- (BOOL)shouldSessionMangerCheckCache:(CRVSessionManager *)manager {
+    return self.checkCache;
+}
+
+- (NSTimeInterval)reconnectionTimeSessionManagerShouldWait:(CRVSessionManager *)manager {
+    return self.reconnectionTime;
+}
+
+- (NSUInteger)numberOfRetriesSessionManagerShouldPrepare:(CRVSessionManager *)manager {
+    return self.numberOfRetries;
 }
 
 @end

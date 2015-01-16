@@ -17,7 +17,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         [Expecta setAsynchronousTestTimeout:(kSwizzledCRVDefaultReconnectionTime * CRVDefaultNumberOfRetries + 0.5)];
     });
     
-    context(@"when newly created", ^{
+    describe(@"when newly created", ^{
         
         beforeEach(^{
             manager = [[CRVNetworkManager alloc] init];
@@ -48,7 +48,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
     });
 
-    context(@"when using a shared instance", ^{
+    describe(@"when using a shared instance", ^{
         
         it(@"should return the same instance", ^{
             CRVNetworkManager *first = [CRVNetworkManager sharedManager];
@@ -57,7 +57,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
     });
     
-    context(@"with no provided url", ^{
+    describe(@"with no provided url", ^{
         
         beforeEach(^{
             manager = [[CRVNetworkManager alloc] init];
@@ -82,7 +82,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
     });
     
-    context(@"with no provided path", ^{
+    describe(@"with no provided path", ^{
         
         beforeEach(^{
             manager = [[CRVNetworkManager alloc] init];
@@ -110,7 +110,7 @@ describe(@"CRVNetworkManagerSpec", ^{
     });
     
     CRVWorkInProgress("Queue not define here yet.")
-    context(@"when dowloading", ^{
+    describe(@"when dowloading", ^{
         
         NSString *filePath = [[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:kImageName]] path];
         __block id<OHHTTPStubsDescriptor> stub = nil;

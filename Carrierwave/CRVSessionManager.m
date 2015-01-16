@@ -21,7 +21,6 @@ static inline NSString * intToString(NSUInteger x) {
 @interface CRVSessionManager ()
 
 @property (strong, nonatomic) CRVSessionTaskManager *taskManager;
-@property (weak, nonatomic) CRVNetworkManager *networkManager;
 
 @end
 
@@ -29,12 +28,8 @@ static inline NSString * intToString(NSUInteger x) {
 
 #pragma mark - Object lifecycle
 
-- (instancetype)initWithNetworkManager:(CRVNetworkManager *)manager {
-    self = [self initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    if (self) {
-        _networkManager = manager ?: [CRVNetworkManager sharedManager];
-    }
-    return self;
+- (instancetype)init {
+    return [self initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 }
 
 - (instancetype)initWithSessionConfiguration:(NSURLSessionConfiguration *)configuration {
@@ -56,7 +51,7 @@ static inline NSString * intToString(NSUInteger x) {
 - (NSString *)downloadAssetFromURL:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(NSData *, NSError *))completion {
     
     NSData *data = nil;
-    if (self.networkManager.checkCache && [self fileDataFromURLString:URLString data:&data]) {
+    if ([self checkCache] && [self fileDataFromURLString:URLString data:&data]) {
         completion(data, nil);
         return nil;
     }
@@ -163,7 +158,7 @@ static inline NSString * intToString(NSUInteger x) {
 
 //does number of retries has been exceeded?
 - (BOOL)shouldPerformCompletionBlockForTaskWrapper:(CRVSessionTaskWrapper *)wrapper {
-    if (wrapper.retriesCount >= self.networkManager.numberOfRetries) {
+    if (wrapper.retriesCount >= [self numberOfRetries]) {
         NSString *action = [self.taskManager isDownloadTaskWrapper:wrapper] ? @"download" : @"upload";
         NSLog(@"Number of retries limit has been exceeded for asset \"%@\". %@ failed", action, [wrapper fileNameByGuessingFromURLPath]);
         return YES;
@@ -176,12 +171,11 @@ static inline NSString * intToString(NSUInteger x) {
     
     BOOL isDownloadTaskWrapper = [self.taskManager isDownloadTaskWrapper:wrapper];
     NSString *action = isDownloadTaskWrapper? @"download" : @"upload";
-    NSInteger retriesLeft = self.networkManager.numberOfRetries - wrapper.retriesCount;
-    NSTimeInterval reconnectionTime = self.networkManager.reconnectionTime;
-    NSLog(@"Retries %@ asset (%@) in %.1f second(s). Retries left: %ld", action, [wrapper fileNameByGuessingFromURLPath], reconnectionTime, (long)retriesLeft);
+    NSInteger retriesLeft = [self numberOfRetries] - wrapper.retriesCount;
+    NSLog(@"Retries %@ asset (%@) in %.1f second(s). Retries left: %ld", action, [wrapper fileNameByGuessingFromURLPath], [self reconnectionTime], (long)retriesLeft);
     
     __weak typeof(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(reconnectionTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([self reconnectionTime] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (isDownloadTaskWrapper) {
             [weakSelf executeRetriableDownloadTaskForWrapper:(CRVSessionDownloadTaskWrapper *)wrapper];
         } else {
@@ -246,10 +240,33 @@ static inline NSString * intToString(NSUInteger x) {
     return *data ? YES : NO;
 }
 
+#pragma mark - CRVSessionManagerDelegate Methods
+
 - (void)resumeDownloadTasks {
     for (CRVSessionDownloadTaskWrapper *wrapper in self.taskManager.downloadTaskWrappers) {
         [self executeRetriableDownloadTaskForWrapper:wrapper];
     }
+}
+
+- (BOOL)checkCache {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(shouldSessionMangerCheckCache:)]) {
+        return [self.delegate shouldSessionMangerCheckCache:self];
+    }
+    return [CRVNetworkManager sharedManager].checkCache;
+}
+
+- (NSUInteger)numberOfRetries {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(numberOfRetriesSessionManagerShouldPrepare:)]) {
+        return [self.delegate numberOfRetriesSessionManagerShouldPrepare:self];
+    }
+    return [CRVNetworkManager sharedManager].numberOfRetries;
+}
+
+- (NSTimeInterval)reconnectionTime {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(reconnectionTimeSessionManagerShouldWait:)]) {
+        return [self.delegate reconnectionTimeSessionManagerShouldWait:self];
+    }
+    return [CRVNetworkManager sharedManager].reconnectionTime;
 }
 
 @end

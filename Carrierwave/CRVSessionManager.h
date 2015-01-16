@@ -8,18 +8,30 @@
 
 #import "AFHTTPSessionManager.h"
 
-@class CRVNetworkManager;
+@class CRVNetworkManager, CRVSessionManager;
 
-@interface CRVSessionManager : AFHTTPSessionManager
+@protocol CRVSessionManagerDelegate <NSObject>
+
+@required
 
 /**
- *  Designed initializer for CRVSessionManager class. Has to be initialize with CRVNetworkManager ownership.
- *
- *  @param manager CRVNetworkManager for which CRVSessionManager belongs to.
- *
- *  @return An initialized receiver.
+ *  Whether manager should check temporary directory before downloading.
  */
-- (instancetype)initWithNetworkManager:(CRVNetworkManager *)manager;
+- (BOOL)shouldSessionMangerCheckCache:(CRVSessionManager *)manager;
+
+/**
+ *  The number of retries used by manager in case of connection issues.
+ */
+- (NSUInteger)numberOfRetriesSessionManagerShouldPrepare:(CRVSessionManager *)manager;
+
+/**
+ *  The time (in seconds) to reconnect after failure which manager should wait.
+ */
+- (NSTimeInterval)reconnectionTimeSessionManagerShouldWait:(CRVSessionManager *)manager;
+
+@end
+
+@interface CRVSessionManager : AFHTTPSessionManager
 
 /**
  *  Tells manager to start uploading file specified by data, name, mimeType on given URL.
@@ -67,5 +79,10 @@
  *  @param identifier Identifier of running proccess. Unique accross an app.
  */
 - (void)resumeProccessWithIdentifier:(NSString *)identifier;
+
+/**
+ * The receiver's delegate.
+ */
+@property (weak, nonatomic) id <CRVSessionManagerDelegate> delegate;
 
 @end
