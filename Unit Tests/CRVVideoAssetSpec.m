@@ -11,6 +11,24 @@ describe(@"CRVVideoAsset", ^{
     
     __block CRVVideoAsset *asset = nil;
     
+    context(@"when initialized with an data object", ^{
+        
+        beforeEach(^{
+            NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"seconds" ofType:@"mov"];
+            NSData *fileData = [[NSFileManager defaultManager] contentsAtPath:filePath];
+            asset = [[CRVVideoAsset alloc] initWithData:fileData];
+        });
+        
+        itShouldBehaveLike(@"asset", ^{
+            return @{
+                     @"asset": asset,
+                     @"extension": @"mov",
+                     @"mime": @"video/quicktime",
+                     };
+        });
+        
+    });
+    
     context(@"when initialized with a local mov file", ^{
         
         beforeEach(^{
