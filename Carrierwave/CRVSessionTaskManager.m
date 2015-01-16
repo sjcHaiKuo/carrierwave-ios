@@ -58,7 +58,6 @@ static NSUInteger CVRWrapperIdentifier = 0;
 }
 
 - (void)invokeProgressForTask:(NSURLSessionTask *)task {
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         CRVSessionTaskWrapper *wrapper = [self wrapperForTask:task];
         

@@ -107,7 +107,7 @@ describe(@"CRVNetworkManagerSpec", ^{
     describe(@"when dowloading", ^{
         
         NSString *filePath = [[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:kImageName]] path];
-        NSURL *anyURL = [NSURL URLWithString:[NSString stringWithFormat:@"httt://www.example.com/%@", kImageName]];
+        NSURL *anyURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.example.com/%@", kImageName]];
         __block id<OHHTTPStubsDescriptor> stub = nil;
         __block CRVImageAsset *anAsset = nil;
         __block NSError *anError = nil;
@@ -124,7 +124,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             manager = [[CRVNetworkManager alloc] init];
             manager.reconnectionTime = 0.2;
             manager.numberOfRetries = 4;
-            manager.serverURL = [NSURL URLWithString:@"httt://www.example.com"];
+            manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
             [Expecta setAsynchronousTestTimeout:(manager.reconnectionTime * manager.numberOfRetries + 0.5)];
             anAsset = nil;
             anError = nil;
@@ -235,6 +235,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
     });
     
+    //OHHTTPStubs don't simulate data upload. Test for this stub has been omited.
 });
 
 SpecEnd
