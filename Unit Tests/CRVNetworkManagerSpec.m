@@ -5,17 +5,12 @@
 //
 
 #define kImageName @"testIMG.png"
-#define kSwizzledCRVDefaultReconnectionTime 0.5
 
 SpecBegin(CRVNetworkManagerSpec)
 
 describe(@"CRVNetworkManagerSpec", ^{
     
     __block CRVNetworkManager *manager = nil;
-    
-    beforeAll(^{
-        [Expecta setAsynchronousTestTimeout:(kSwizzledCRVDefaultReconnectionTime * CRVDefaultNumberOfRetries + 0.5)];
-    });
 
     describe(@"when newly created", ^{
         
@@ -127,7 +122,9 @@ describe(@"CRVNetworkManagerSpec", ^{
         
         beforeEach(^{
             manager = [[CRVNetworkManager alloc] init];
-            manager.reconnectionTime = kSwizzledCRVDefaultReconnectionTime;
+            manager.reconnectionTime = 0.5;
+            manager.numberOfRetries = 4;
+            [Expecta setAsynchronousTestTimeout:(manager.reconnectionTime * manager.numberOfRetries + 0.5)];
             anAsset = nil;
             anError = nil;
         });
@@ -135,7 +132,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         context(@"without retries", ^{
             
             beforeEach(^{
-                stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorNoone];
+                stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorNoone  manager:manager];
             });
             
             afterEach(^{
@@ -158,7 +155,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         context(@"with retries limit", ^{
             
             beforeEach(^{
-                stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriedAtLeastOnce];
+                stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriedAtLeastOnce manager:manager];
             });
             
             afterEach(^{
@@ -182,7 +179,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         context(@"with retries limit exceeded", ^{
             
             beforeEach(^{
-                stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesLimitExceeded];
+                stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesLimitExceeded manager:manager];
                 
             });
             

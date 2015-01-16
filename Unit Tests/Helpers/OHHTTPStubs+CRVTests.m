@@ -14,21 +14,21 @@ static NSUInteger CRVStubbedNumberOfRetries;
 
 #pragma mark - Public Methods
 
-+ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestWithError:(CRVStubError)stubbedError {
++ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager {
     
     CRVStubbedNumberOfRetries = 0;
     
-    return [self crv_stubRequestsWithError:stubbedError response:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    return [self crv_stubRequestsWithError:stubbedError manager:manager response:^OHHTTPStubsResponse *(NSURLRequest *request) {
         NSData *data = [NSData crv_defaultImageDataRepresentation];
         return [OHHTTPStubsResponse responseWithData:data statusCode:200 headers:nil];
     }];
 }
 
-+ (id<OHHTTPStubsDescriptor>)crv_stubUploadRequestWithError:(CRVStubError)stubbedError {
++ (id<OHHTTPStubsDescriptor>)crv_stubUploadRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager {
     
     CRVStubbedNumberOfRetries = 0;
     
-    return [self crv_stubRequestsWithError:stubbedError response:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    return [self crv_stubRequestsWithError:stubbedError manager:manager response:^OHHTTPStubsResponse *(NSURLRequest *request) {
         NSData *data = [NSData crv_defaultImageDataRepresentation];
         return [OHHTTPStubsResponse responseWithData:data statusCode:200 headers:nil];
     }];
@@ -40,7 +40,7 @@ static NSUInteger CRVStubbedNumberOfRetries;
 
 #pragma mark - Private Methods
 
-+ (id<OHHTTPStubsDescriptor>)crv_stubRequestsWithError:(CRVStubError)stubbedError response:(OHHTTPStubsResponseBlock)response {
++ (id<OHHTTPStubsDescriptor>)crv_stubRequestsWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager response:(OHHTTPStubsResponseBlock)response {
     
     return [self stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return YES;
@@ -54,7 +54,7 @@ static NSUInteger CRVStubbedNumberOfRetries;
                 break;
             case CRVStubErrorRetriedAtLeastOnce: {
                 CRVStubbedNumberOfRetries ++;
-                if (CRVStubbedNumberOfRetries < [CRVNetworkManager sharedManager].numberOfRetries) {
+                if (CRVStubbedNumberOfRetries < manager.numberOfRetries) {
                     error = [NSError errorWithDomain:NSURLErrorDomain code:kCFURLErrorNotConnectedToInternet userInfo:nil];
                 }
                 break;

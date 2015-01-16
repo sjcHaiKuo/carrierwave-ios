@@ -16,7 +16,7 @@ typedef NS_ENUM (NSInteger, CRVStubError) {
 
 @interface OHHTTPStubs (CRVTests)
 
-+ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestWithError:(CRVStubError)stubbedError;
++ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager;
 
 + (NSUInteger)retriesMade;
 
