@@ -18,4 +18,8 @@
     return image;
 }
 
++ (instancetype)crv_composeTestImage {
+    return [UIImage crv_composeImageWithSize:CGSizeMake(20.f, 20.f) color:[UIColor redColor]];
+}
+
 @end

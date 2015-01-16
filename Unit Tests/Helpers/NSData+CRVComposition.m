@@ -11,7 +11,7 @@
 @implementation NSData (CRVComposition)
 
 + (instancetype)crv_defaultImageDataRepresentation {
-    return UIImagePNGRepresentation([UIImage crv_composeImageWithSize:CGSizeMake(20.f, 20.f) color:[UIColor redColor]]);
+    return UIImagePNGRepresentation([UIImage crv_composeTestImage]);
 }
 
 @end

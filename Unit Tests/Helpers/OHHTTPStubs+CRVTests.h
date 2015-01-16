@@ -10,14 +10,25 @@
 
 typedef NS_ENUM (NSInteger, CRVStubError) {
     CRVStubErrorNoone,
-    CRVStubErrorRetriedAtLeastOnce,
+    CRVStubErrorRetriesReachedRetriesLimit,
     CRVStubErrorRetriesLimitExceeded
 };
 
 @interface OHHTTPStubs (CRVTests)
 
+/**
+ *  Stubs all incoming requests.
+ *
+ *  @param stubbedError Defines a behaviour of OHHTTPStubsDescriptor.
+ *  @param manager      Network manager used for request.
+ *
+ *  @return A stub description object.
+ */
 + (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager;
 
+/**
+ *  Number of retries made by manager. Incremented every time request will fail. Depends on CRVStubError.
+ */
 + (NSUInteger)retriesMade;
 
 @end

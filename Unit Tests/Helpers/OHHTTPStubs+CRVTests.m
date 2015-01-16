@@ -24,16 +24,6 @@ static NSUInteger CRVStubbedNumberOfRetries;
     }];
 }
 
-+ (id<OHHTTPStubsDescriptor>)crv_stubUploadRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager {
-    
-    CRVStubbedNumberOfRetries = 0;
-    
-    return [self crv_stubRequestsWithError:stubbedError manager:manager response:^OHHTTPStubsResponse *(NSURLRequest *request) {
-        NSData *data = [NSData crv_defaultImageDataRepresentation];
-        return [OHHTTPStubsResponse responseWithData:data statusCode:200 headers:nil];
-    }];
-}
-
 + (NSUInteger)retriesMade {
     return CRVStubbedNumberOfRetries;
 }
@@ -52,7 +42,7 @@ static NSUInteger CRVStubbedNumberOfRetries;
             default:
             case CRVStubErrorNoone:
                 break;
-            case CRVStubErrorRetriedAtLeastOnce: {
+            case CRVStubErrorRetriesReachedRetriesLimit: {
                 CRVStubbedNumberOfRetries ++;
                 if (CRVStubbedNumberOfRetries < manager.numberOfRetries) {
                     error = [NSError errorWithDomain:NSURLErrorDomain code:kCFURLErrorNotConnectedToInternet userInfo:nil];

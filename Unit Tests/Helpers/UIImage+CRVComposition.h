@@ -22,4 +22,11 @@
  */
 + (instancetype)crv_composeImageWithSize:(CGSize)size color:(UIColor *)color;
 
+/**
+ *  Creates an image for test purposes.
+ *
+ *  @return An initialized receiver.
+ */
++ (instancetype)crv_composeTestImage;
+
 @end
