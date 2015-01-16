@@ -64,7 +64,6 @@ describe(@"CRVVideoAsset", ^{
         });
         
     });
-    
 });
 
 SpecEnd

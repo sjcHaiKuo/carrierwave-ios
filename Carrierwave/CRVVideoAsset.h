@@ -24,7 +24,7 @@
  *
  * @return An initialized receiver.
  */
-- (instancetype)initWithDataStream:(NSInputStream *)dataStream length:(NSNumber *)length NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDataStream:(NSInputStream *)dataStream length:(NSNumber *)length mimeType:(NSString *)mimeType NS_DESIGNATED_INITIALIZER;
 
 /**
  * Creates the video asset using the data of an video.
