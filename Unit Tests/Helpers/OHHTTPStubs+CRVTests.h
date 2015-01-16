@@ -8,8 +8,16 @@
 
 #import "OHHTTPStubs.h"
 
+typedef NS_ENUM (NSInteger, CRVStubError) {
+    CRVStubErrorNoone,
+    CRVStubErrorRetriedAtLeastOnce,
+    CRVStubErrorRetriesLimitExceeded
+};
+
 @interface OHHTTPStubs (CRVTests)
 
-+ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestForIdentifier:(NSString *)identifier;
++ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestWithError:(CRVStubError)stubbedError;
+
++ (NSUInteger)retriesMade;
 
 @end

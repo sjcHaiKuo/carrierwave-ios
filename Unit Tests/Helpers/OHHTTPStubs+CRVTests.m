@@ -14,33 +14,60 @@ static NSUInteger CRVStubbedNumberOfRetries;
 
 #pragma mark - Public Methods
 
-+ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestForIdentifier:(NSString *)identifier {
++ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestWithError:(CRVStubError)stubbedError {
     
     CRVStubbedNumberOfRetries = 0;
     
-    return [self crv_stubRequestsWithIdentifier:identifier response:^OHHTTPStubsResponse *(NSURLRequest *request) {
+    return [self crv_stubRequestsWithError:stubbedError response:^OHHTTPStubsResponse *(NSURLRequest *request) {
         NSData *data = [NSData crv_defaultImageDataRepresentation];
         return [OHHTTPStubsResponse responseWithData:data statusCode:200 headers:nil];
     }];
 }
 
++ (id<OHHTTPStubsDescriptor>)crv_stubUploadRequestWithError:(CRVStubError)stubbedError {
+    
+    CRVStubbedNumberOfRetries = 0;
+    
+    return [self crv_stubRequestsWithError:stubbedError response:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        NSData *data = [NSData crv_defaultImageDataRepresentation];
+        return [OHHTTPStubsResponse responseWithData:data statusCode:200 headers:nil];
+    }];
+}
+
++ (NSUInteger)retriesMade {
+    return CRVStubbedNumberOfRetries;
+}
+
 #pragma mark - Private Methods
 
-+ (id<OHHTTPStubsDescriptor>)crv_stubRequestsWithIdentifier:(NSString *)identifier response:(OHHTTPStubsResponseBlock)response {
++ (id<OHHTTPStubsDescriptor>)crv_stubRequestsWithError:(CRVStubError)stubbedError response:(OHHTTPStubsResponseBlock)response {
     
     return [self stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return YES;
     } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
         
-        if (CRVStubbedNumberOfRetries < [CRVNetworkManager sharedManager].numberOfRetries) {
-            CRVStubbedNumberOfRetries ++;
-            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:kCFURLErrorNotConnectedToInternet userInfo:nil];
-            return [OHHTTPStubsResponse responseWithError:error];
-        } else {
-            CRVStubbedNumberOfRetries = 0;
-            return response(request);
+        NSError *error = nil;
+        
+        switch (stubbedError) {
+            default:
+            case CRVStubErrorNoone:
+                break;
+            case CRVStubErrorRetriedAtLeastOnce: {
+                CRVStubbedNumberOfRetries ++;
+                if (CRVStubbedNumberOfRetries < [CRVNetworkManager sharedManager].numberOfRetries) {
+                    error = [NSError errorWithDomain:NSURLErrorDomain code:kCFURLErrorNotConnectedToInternet userInfo:nil];
+                }
+                break;
+            }
+            case CRVStubErrorRetriesLimitExceeded: {
+                CRVStubbedNumberOfRetries ++;
+                error = [NSError errorWithDomain:NSURLErrorDomain code:kCFURLErrorNotConnectedToInternet userInfo:nil];
+                break;
+            }
         }
+        return error ? [OHHTTPStubsResponse responseWithError:error] : response(request);
     }];
 }
+
 
 @end

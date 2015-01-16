@@ -251,8 +251,8 @@
 				3AF3BDA31A506D6B005BF9C4 /* Resources */,
 				3A3FE8621A51660E0052C58E /* CRVAssetTypeBehavior.m */,
 				3AF3BDA11A50671F005BF9C4 /* CRVImageAssetSpec.m */,
-				5E36AD0B1A67BFE50080FF80 /* CRVNetworkManagerSpec.m */,
 				21E6F6671A68FF7F001505F8 /* CRVVideoAssetSpec.m */,
+				5E36AD0B1A67BFE50080FF80 /* CRVNetworkManagerSpec.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
