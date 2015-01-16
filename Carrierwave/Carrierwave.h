@@ -10,6 +10,7 @@
 
     #import <Carrierwave/CRVAssetType.h>
     #import <Carrierwave/CRVImageAsset.h>
+    #import <Carrierwave/CRVVideoAsset.h>
 
     #import <Carrierwave/CRVImageEditViewController.h>
     #import <Carrierwave/CRVNetworkManager.h>

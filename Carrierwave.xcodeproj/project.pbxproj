@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 210E159D1A67C92700342A39 /* CRVVideoAsset.h */; };
+		210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 210E159D1A67C92700342A39 /* CRVVideoAsset.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		210E15A01A67C92700342A39 /* CRVVideoAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 210E159E1A67C92700342A39 /* CRVVideoAsset.m */; };
 		210E15A31A67EB4700342A39 /* CRVAssertTypeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */; };
 		210E15A41A67EB4700342A39 /* CRVAssertTypeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 210E15A21A67EB4700342A39 /* CRVAssertTypeUtils.m */; };
+		219BBFB71A690624003A97D3 /* seconds.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 219BBFB61A690624003A97D3 /* seconds.mp4 */; };
+		21E6F6681A68FF7F001505F8 /* CRVVideoAssetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E6F6671A68FF7F001505F8 /* CRVVideoAssetSpec.m */; };
+		21E6F66C1A690273001505F8 /* seconds.mov in Resources */ = {isa = PBXBuildFile; fileRef = 21E6F66B1A690273001505F8 /* seconds.mov */; };
 		3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8601A5161490052C58E /* EXPMatchers+CRVAssetType.m */; };
 		3A3FE8631A51660E0052C58E /* CRVAssetTypeBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8621A51660E0052C58E /* CRVAssetTypeBehavior.m */; };
 		3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A3FE8661A517CE60052C58E /* CRVImageEditViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -101,6 +104,9 @@
 		210E159E1A67C92700342A39 /* CRVVideoAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVVideoAsset.m; sourceTree = "<group>"; };
 		210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVAssertTypeUtils.h; sourceTree = "<group>"; };
 		210E15A21A67EB4700342A39 /* CRVAssertTypeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVAssertTypeUtils.m; sourceTree = "<group>"; };
+		219BBFB61A690624003A97D3 /* seconds.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = seconds.mp4; sourceTree = "<group>"; };
+		21E6F6671A68FF7F001505F8 /* CRVVideoAssetSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVVideoAssetSpec.m; sourceTree = "<group>"; };
+		21E6F66B1A690273001505F8 /* seconds.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = seconds.mov; sourceTree = "<group>"; };
 		3272BDCF977EEC32EE0EE1EE /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A05FEF81A4E00C5005E3C29 /* Tests-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Test.xcconfig"; sourceTree = "<group>"; };
 		3A05FEF91A4E018B005E3C29 /* Tests-Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Development.xcconfig"; sourceTree = "<group>"; };
@@ -246,6 +252,7 @@
 				3A3FE8621A51660E0052C58E /* CRVAssetTypeBehavior.m */,
 				3AF3BDA11A50671F005BF9C4 /* CRVImageAssetSpec.m */,
 				5E36AD0B1A67BFE50080FF80 /* CRVNetworkManagerSpec.m */,
+				21E6F6671A68FF7F001505F8 /* CRVVideoAssetSpec.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -463,6 +470,8 @@
 				3AF3BDA71A506D6B005BF9C4 /* pixel.jpg */,
 				3AF3BDAA1A506D6B005BF9C4 /* pixel.tiff */,
 				3AF3BDA81A506D6B005BF9C4 /* pixel.png */,
+				21E6F66B1A690273001505F8 /* seconds.mov */,
+				219BBFB61A690624003A97D3 /* seconds.mp4 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -517,13 +526,13 @@
 				3ADC0E751A5AE7AA009F4D4B /* CRVImageEditScrollView.h in Headers */,
 				5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */,
 				5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */,
+				210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */,
 				5E4C992F1A651210009AA040 /* CRVSessionDownloadTaskWrapper.h in Headers */,
 				3AF3BD9C1A50461D005BF9C4 /* CRVAssetType.h in Headers */,
 				5E56EBF81A5D68D2002E2484 /* CRVSessionManager.h in Headers */,
 				3AF3BD941A50447A005BF9C4 /* CRVImageAsset.h in Headers */,
 				210E15A31A67EB4700342A39 /* CRVAssertTypeUtils.h in Headers */,
 				5EBC01B01A5FFF8700B1860D /* NSURLSessionTask+Category.h in Headers */,
-				210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */,
 				3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */,
 				5E4C992B1A642E5F009AA040 /* CRVSessionTaskWrapper.h in Headers */,
 				5E4D0A6B1A60982100A1729B /* CRVSessionTaskManager.h in Headers */,
@@ -646,6 +655,8 @@
 			files = (
 				3AF3BDB21A506D6B005BF9C4 /* pixel.tiff in Resources */,
 				3AF3BDAD1A506D6B005BF9C4 /* pixel.gif in Resources */,
+				21E6F66C1A690273001505F8 /* seconds.mov in Resources */,
+				219BBFB71A690624003A97D3 /* seconds.mp4 in Resources */,
 				3AF3BDAF1A506D6B005BF9C4 /* pixel.jpg in Resources */,
 				3AF3BDB01A506D6B005BF9C4 /* pixel.png in Resources */,
 			);
@@ -830,6 +841,7 @@
 				5E36AD0C1A67BFE50080FF80 /* CRVNetworkManagerSpec.m in Sources */,
 				3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */,
 				5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */,
+				21E6F6681A68FF7F001505F8 /* CRVVideoAssetSpec.m in Sources */,
 				3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */,
 				3A3FE8631A51660E0052C58E /* CRVAssetTypeBehavior.m in Sources */,
 				5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */,
