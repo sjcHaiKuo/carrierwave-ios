@@ -8,8 +8,6 @@
 
 #import "CRVSaveAssetTask.h"
 
-#import "NSError+Carrierwave.h"
-
 @interface CRVSaveAssetTask () <NSStreamDelegate>
 
 @property (strong, nonatomic) id<CRVAssetType> asset;
