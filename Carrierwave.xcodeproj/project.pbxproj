@@ -15,6 +15,9 @@
 		219BBFB81A691EFD003A97D3 /* CRVAssetTypeBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8621A51660E0052C58E /* CRVAssetTypeBehavior.m */; };
 		219BBFB91A691EFD003A97D3 /* CRVImageAssetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3BDA11A50671F005BF9C4 /* CRVImageAssetSpec.m */; };
 		219BBFBA1A691EFD003A97D3 /* CRVNetworkManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E36AD0B1A67BFE50080FF80 /* CRVNetworkManagerSpec.m */; };
+		219BBFBC1A693BD3003A97D3 /* CRVVideoAssetTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 219BBFBB1A693AD5003A97D3 /* CRVVideoAssetTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		219BBFC71A6959DB003A97D3 /* CRVSaveAssetTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 219BBFC51A6959DB003A97D3 /* CRVSaveAssetTask.h */; };
+		219BBFC81A6959DB003A97D3 /* CRVSaveAssetTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 219BBFC61A6959DB003A97D3 /* CRVSaveAssetTask.m */; };
 		21E6F6681A68FF7F001505F8 /* CRVVideoAssetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E6F6671A68FF7F001505F8 /* CRVVideoAssetSpec.m */; };
 		21E6F66C1A690273001505F8 /* seconds.mov in Resources */ = {isa = PBXBuildFile; fileRef = 21E6F66B1A690273001505F8 /* seconds.mov */; };
 		3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8601A5161490052C58E /* EXPMatchers+CRVAssetType.m */; };
@@ -106,6 +109,9 @@
 		210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVAssertTypeUtils.h; sourceTree = "<group>"; };
 		210E15A21A67EB4700342A39 /* CRVAssertTypeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVAssertTypeUtils.m; sourceTree = "<group>"; };
 		219BBFB61A690624003A97D3 /* seconds.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = seconds.mp4; sourceTree = "<group>"; };
+		219BBFBB1A693AD5003A97D3 /* CRVVideoAssetTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CRVVideoAssetTypedefs.h; sourceTree = "<group>"; };
+		219BBFC51A6959DB003A97D3 /* CRVSaveAssetTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVSaveAssetTask.h; sourceTree = "<group>"; };
+		219BBFC61A6959DB003A97D3 /* CRVSaveAssetTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSaveAssetTask.m; sourceTree = "<group>"; };
 		21E6F6671A68FF7F001505F8 /* CRVVideoAssetSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVVideoAssetSpec.m; sourceTree = "<group>"; };
 		21E6F66B1A690273001505F8 /* seconds.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = seconds.mov; sourceTree = "<group>"; };
 		3272BDCF977EEC32EE0EE1EE /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -227,10 +233,22 @@
 		210E159C1A67C90B00342A39 /* Video Asset */ = {
 			isa = PBXGroup;
 			children = (
+				219BBFBB1A693AD5003A97D3 /* CRVVideoAssetTypedefs.h */,
 				210E159D1A67C92700342A39 /* CRVVideoAsset.h */,
 				210E159E1A67C92700342A39 /* CRVVideoAsset.m */,
 			);
 			name = "Video Asset";
+			sourceTree = "<group>";
+		};
+		219BBFC91A695D34003A97D3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */,
+				210E15A21A67EB4700342A39 /* CRVAssertTypeUtils.m */,
+				219BBFC51A6959DB003A97D3 /* CRVSaveAssetTask.h */,
+				219BBFC61A6959DB003A97D3 /* CRVSaveAssetTask.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		3A3FE8651A517CC90052C58E /* Image Editing */ = {
@@ -449,8 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				3AF3BD9B1A50461D005BF9C4 /* CRVAssetType.h */,
-				210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */,
-				210E15A21A67EB4700342A39 /* CRVAssertTypeUtils.m */,
+				219BBFC91A695D34003A97D3 /* Utils */,
 				210E159C1A67C90B00342A39 /* Video Asset */,
 				3AF3BD9D1A5046B1005BF9C4 /* Image Asset */,
 			);
@@ -524,11 +541,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ADC0E711A5ADB10009F4D4B /* CRVImageEditGlassView.h in Headers */,
+				219BBFC71A6959DB003A97D3 /* CRVSaveAssetTask.h in Headers */,
 				3A6F28681A5039BB0049DC9F /* Carrierwave.h in Headers */,
 				5E4C99331A651228009AA040 /* CRVSessionUploadTaskWrapper.h in Headers */,
 				3ADC0E751A5AE7AA009F4D4B /* CRVImageEditScrollView.h in Headers */,
 				5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */,
 				5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */,
+				219BBFBC1A693BD3003A97D3 /* CRVVideoAssetTypedefs.h in Headers */,
 				210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */,
 				5E4C992F1A651210009AA040 /* CRVSessionDownloadTaskWrapper.h in Headers */,
 				3AF3BD9C1A50461D005BF9C4 /* CRVAssetType.h in Headers */,
@@ -868,6 +887,7 @@
 				5E4D0A6C1A60982100A1729B /* CRVSessionTaskManager.m in Sources */,
 				210E15A01A67C92700342A39 /* CRVVideoAsset.m in Sources */,
 				5E56EBFB1A5D68D2002E2484 /* CRVNetworkManager.m in Sources */,
+				219BBFC81A6959DB003A97D3 /* CRVSaveAssetTask.m in Sources */,
 				5EBC01B11A5FFF8700B1860D /* NSURLSessionTask+Category.m in Sources */,
 				3AF3BD951A50447A005BF9C4 /* CRVImageAsset.m in Sources */,
 			);

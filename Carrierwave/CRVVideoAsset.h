@@ -2,19 +2,22 @@
 //  CRVVideoAsset.h
 //  Carrierwave
 //
-//  Created by Wojciech Trzasko on 15.01.2015.
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
 @import Foundation;
+@import AVFoundation;
 
 #import "CRVAssetType.h"
+#import "CRVVideoAssetTypedefs.h"
 
 /**
  * The CRVImageAsset class is used to represent video which can be uploaded to
  * the carrierwave-powered server backend.
  */
 @interface CRVVideoAsset : NSObject <CRVAssetType>
+
+@property (strong, nonatomic, readonly) NSURL *videoUrl;
 
 /**
  * Creates the video asset using the data stream of an image.
@@ -43,5 +46,12 @@
  * @return An initialized receiver.
  */
 - (instancetype)initWithLocalURL:(NSURL *)url;
+
+/**
+ * Loads video to AVPlayerItem object.
+ *
+ * @param completion The completion block executed when load operation finishes with error or success. If failed returns an error. Otherwise nil.
+ */
+- (void)loadVideoWithCompletion:(CRVVideoLoadCompletionBlock)completion;
 
 @end

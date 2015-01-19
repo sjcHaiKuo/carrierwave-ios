@@ -2,13 +2,13 @@
 //  CRVVideoAsset.m
 //  Carrierwave
 //
-//  Created by Wojciech Trzasko on 15.01.2015.
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
 #import "CRVVideoAsset.h"
 
 #import "CRVAssertTypeUtils.h"
+#import "CRVSaveAssetTask.h"
 
 static NSString * const CRVMimeTypeMp4 = @"video/mp4";
 static NSString * const CRVMimeTypeMov = @"video/quicktime";
@@ -19,6 +19,8 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
 @property (strong, nonatomic, readwrite) NSString *fileName;
 @property (strong, nonatomic, readwrite) NSInputStream *dataStream;
 @property (strong, nonatomic, readwrite) NSNumber *dataLength;
+
+@property (strong, nonatomic, readwrite) NSURL *videoUrl;
 
 @end
 
@@ -48,9 +50,14 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
     NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:[url path] error:nil];
     NSAssert(fileAttributes, @"Can't find attributes for file at given path.");
     
-    return [self initWithDataStream:[[NSInputStream alloc] initWithURL:url]
+    self = [self initWithDataStream:[[NSInputStream alloc] initWithURL:url]
                              length:[fileAttributes objectForKey:NSFileSize]
                            mimeType:[self mimeTypeFormFileExtension:[url pathExtension]]];
+    if (self) {
+        self.videoUrl = url;
+    }
+    
+    return self;
 }
 
 #pragma mark - Mimetypes helpers
@@ -90,6 +97,25 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
     
     // default
     return nil;
+}
+
+#pragma makr - Load video
+
+- (void)loadVideoWithCompletion:(CRVVideoLoadCompletionBlock)completion {
+    if (!completion) {
+        return;
+    }
+    
+    if (self.videoUrl) {
+        AVPlayerItem *videoItem = [AVPlayerItem playerItemWithURL:self.videoUrl];
+        completion(videoItem, nil);
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    [[[CRVSaveAssetTask alloc] initWithAsset:self] saveInTemporaryWithCompletion:^(NSString *outputFilePath, NSError *error) {
+        weakSelf.videoUrl = [NSURL URLWithString:outputFilePath];
+        weakSelf.dataStream = [[NSInputStream alloc] initWithFileAtPath:outputFilePath];
+    }];
 }
 
 #pragma mark - Property accessors
