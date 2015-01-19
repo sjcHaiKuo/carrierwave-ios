@@ -6,6 +6,8 @@
 
 #define kImageName @"testIMG.png"
 
+#import "CRVSessionManager.h"
+
 SpecBegin(CRVNetworkManagerSpec)
 
 describe(@"CRVNetworkManagerSpec", ^{
@@ -40,6 +42,22 @@ describe(@"CRVNetworkManagerSpec", ^{
         
         it(@"should reconnection time be set to default value", ^{
             expect(manager.reconnectionTime).to.equal(CRVDefaultReconnectionTime);
+        });
+        
+        it(@"shoul conform CRVSessionManagerDelegate", ^{
+            expect(manager).conformTo(@protocol(CRVSessionManagerDelegate));
+        });
+        
+        it(@"should respond to check cache delegate", ^{
+            expect(manager).to.respondTo(@selector(shouldSessionMangerCheckCache:));
+        });
+        
+        it(@"should respond to number of retries delegate", ^{
+            expect(manager).to.respondTo(@selector(numberOfRetriesSessionManagerShouldPrepare:));
+        });
+        
+        it(@"should respond to reconnection time delegate", ^{
+            expect(manager).to.respondTo(@selector(reconnectionTimeSessionManagerShouldWait:));
         });
     });
     

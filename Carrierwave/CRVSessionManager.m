@@ -75,6 +75,9 @@ static inline NSString * intToString(NSUInteger x) {
 
 - (NSString *)uploadAssetRepresentedByDataStream:(NSInputStream *)dataStream withLength:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(BOOL, NSError *))completion {
     
+     NSParameterAssert(dataStream); NSParameterAssert(length);      NSParameterAssert(name);
+     NSParameterAssert(mimeType);   NSParameterAssert(URLString);
+    
     __weak typeof(self) weakSelf = self;
     NSURLSessionTask *task = [self uploadTaskForDataStream:dataStream length:length name:name mimeType:mimeType URLString:URLString withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
         [weakSelf uploadTaskDidPerformCompletionHandler:task response:response error:error];
