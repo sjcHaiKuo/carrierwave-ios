@@ -8,6 +8,8 @@
 
 #import "CRVSaveAssetTask.h"
 
+#import "NSError+Carrierwave.h"
+
 @interface CRVSaveAssetTask () <NSStreamDelegate>
 
 @property (strong, nonatomic) id<CRVAssetType> asset;
@@ -73,16 +75,16 @@
     NSInputStream *inputStream = (NSInputStream *)stream;
     
     uint8_t buffer[1024];
-    NSInteger length = [inputStream read:buffer maxLength:sizeof(buffer)];
+    NSInteger readLength = [inputStream read:buffer maxLength:sizeof(buffer)];
     
-    CRVTemporary("[WIP] Should we end reading if length < 0? Need small research!");
-    CRVTemporary("[WIP] What if error occurs when reading from stream inited by NSData?");
-    // According to Apple Docs stream after close can't be reopen. What if error occurs while
-    // reading from stream? In case of file => no problem, recreate stream with file.
-    // What in case of reading from NSData? Are data lost? Should we retain NSData for reading?
-    // Need a better error handling in here.
-    if (length > 0) {
-        [self.outputStream write:buffer maxLength:sizeof(buffer)];
+    CRVTemporary("[WIP] A lot of potential dangers. Needs complex testing.");
+    if (readLength > 0) {
+        NSInteger writeLength = [self.outputStream write:buffer maxLength:sizeof(buffer)];
+        if (writeLength < 0) {
+            [self streamErrorOccured:self.outputStream];
+        }
+    } else if (readLength < 0) {
+        [self streamErrorOccured:stream];
     }
 }
 

@@ -20,7 +20,8 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
 @property (strong, nonatomic, readwrite) NSInputStream *dataStream;
 @property (strong, nonatomic, readwrite) NSNumber *dataLength;
 
-@property (strong, nonatomic, readwrite) NSURL *videoUrl;
+@property (strong, nonatomic) NSURL *videoUrl;
+@property (strong, nonatomic) NSData *inputData;
 
 @end
 
@@ -39,9 +40,13 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
 }
 
 - (instancetype)initWithData:(NSData *)data {
-    return [self initWithDataStream:[[NSInputStream alloc] initWithData:data]
+    self = [self initWithDataStream:[[NSInputStream alloc] initWithData:data]
                              length:@(data.length)
                            mimeType:[self mimeTypeByGuessingFromData:data]];
+    if (self) {
+        self.inputData = data;
+    }
+    return self;
 }
 
 - (instancetype)initWithLocalURL:(NSURL *)url {
@@ -114,8 +119,26 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
     __weak typeof(self) weakSelf = self;
     CRVSaveAssetTask *saveTask = [[CRVSaveAssetTask alloc] initWithAsset:self];
     [saveTask saveAssetAs:CRVAssetFileTemporary completion:^(NSString *outputFilePath, NSError *error) {
-        weakSelf.videoUrl = [NSURL URLWithString:outputFilePath];
-        weakSelf.dataStream = [[NSInputStream alloc] initWithFileAtPath:outputFilePath];
+        if (!error) {
+            
+            weakSelf.videoUrl = [NSURL URLWithString:outputFilePath];
+            weakSelf.dataStream = [[NSInputStream alloc] initWithFileAtPath:outputFilePath];
+            weakSelf.inputData = nil;
+            
+            AVPlayerItem *videoItem = [AVPlayerItem playerItemWithURL:self.videoUrl];
+            completion(videoItem, nil);
+            
+        } else {
+            
+            // Recreate stream
+            if (self.videoUrl) {
+                weakSelf.dataStream = [[NSInputStream alloc] initWithURL:self.videoUrl];
+            } else if (self.inputData) {
+                weakSelf.dataStream = [[NSInputStream alloc] initWithData:self.inputData];
+            }
+            
+            completion(nil, error);
+        }
     }];
 }
 
