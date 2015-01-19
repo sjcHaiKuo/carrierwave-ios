@@ -112,7 +112,8 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
     }
     
     __weak typeof(self) weakSelf = self;
-    [[[CRVSaveAssetTask alloc] initWithAsset:self] saveInTemporaryWithCompletion:^(NSString *outputFilePath, NSError *error) {
+    CRVSaveAssetTask *saveTask = [[CRVSaveAssetTask alloc] initWithAsset:self];
+    [saveTask saveAssetAs:CRVAssetFileTemporary completion:^(NSString *outputFilePath, NSError *error) {
         weakSelf.videoUrl = [NSURL URLWithString:outputFilePath];
         weakSelf.dataStream = [[NSInputStream alloc] initWithFileAtPath:outputFilePath];
     }];

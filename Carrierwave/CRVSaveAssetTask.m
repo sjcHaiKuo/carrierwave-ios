@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) id<CRVAssetType> asset;
 @property (strong, nonatomic) NSOutputStream *outputStream;
+@property (assign, nonatomic) CRVAssetFileType fileType;
 
 @property (copy) CRVSaveAssetToFileBlock saveTempCompletion;
 
@@ -31,10 +32,12 @@
 
 #pragma mark - Save operations
 
-- (void)saveInTemporaryWithCompletion:(CRVSaveAssetToFileBlock)completion {
+- (void)saveAssetAs:(CRVAssetFileType)type completion:(CRVSaveAssetToFileBlock)completion; {
     self.saveTempCompletion = completion;
+    self.fileType = type;
 
-    self.outputStream = [NSOutputStream outputStreamToFileAtPath:[self outputFilePath] append:NO];
+    NSString *filePath = [self filePathForName:self.asset.fileName type:self.fileType];
+    self.outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
     [self.outputStream open];
     
     self.asset.dataStream.delegate = self;
@@ -88,7 +91,8 @@
     [self freeOutputStream];
     
     if (self.saveTempCompletion) {
-        self.saveTempCompletion([self outputFilePath], nil);
+        NSString *filePath = [self filePathForName:self.asset.fileName type:self.fileType];
+        self.saveTempCompletion(filePath, nil);
     }
 }
 
@@ -103,6 +107,37 @@
     }
 }
 
+#pragma mark - Output paths
+
+- (NSString *)filePathForName:(NSString *)fileName type:(CRVAssetFileType)type {
+    switch (type) {
+        case CRVAssetFileCache:
+            return [self filePathInCacheDirectoryForName:fileName];
+            
+        case CRVAssetFileDocument:
+            return [self filePathInLibraryDirectoryForName:fileName];
+            
+        case CRVAssetFileTemporary:
+            return [self filePathInTempDirectoryForName:fileName];
+    }
+}
+
+- (NSString *)filePathInTempDirectoryForName:(NSString *)name {
+    return [NSTemporaryDirectory() stringByAppendingString:name];
+}
+
+- (NSString *)filePathInCacheDirectoryForName:(NSString *)name {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectoryPath = paths[0];
+    return [cachesDirectoryPath stringByAppendingString:name];
+}
+
+- (NSString *)filePathInLibraryDirectoryForName:(NSString *)name {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *libraryDirectoryPath = paths[0];
+    return [libraryDirectoryPath stringByAppendingString:name];
+}
+
 #pragma mark - Helpers
 
 - (void)freeAssetDataStream {
@@ -113,10 +148,6 @@
 - (void)freeOutputStream {
     [self.outputStream close];
     self.outputStream = nil;
-}
-
-- (NSString *)outputFilePath {
-    return [NSTemporaryDirectory() stringByAppendingString:self.asset.fileName];
 }
 
 @end

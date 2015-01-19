@@ -12,15 +12,16 @@
 
 typedef void (^CRVSaveAssetToFileBlock)(NSString *outputFilePath, NSError *error);
 
+typedef NS_ENUM(NSUInteger, CRVAssetFileType) {
+    CRVAssetFileTemporary,
+    CRVAssetFileCache,
+    CRVAssetFileDocument
+};
+
 @interface CRVSaveAssetTask : NSObject
 
 - (instancetype)initWithAsset:(id<CRVAssetType>)asset;
 
-CRVTemporary("[WIP] Make one method to rule theam all.");
-// One of next steps.
-// Method should get type enum that will point where to save file.
-// Example: [saveAssetAs:DVSTemporaryFile completion:some_block];
-//          [saveAssetAs:DVSCacheFile completion:some_block];
-- (void)saveInTemporaryWithCompletion:(CRVSaveAssetToFileBlock)completion;
+- (void)saveAssetAs:(CRVAssetFileType)type completion:(CRVSaveAssetToFileBlock)completion;
 
 @end
