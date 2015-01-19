@@ -11,7 +11,7 @@ SpecBegin(CRVNetworkManagerSpec)
 describe(@"CRVNetworkManagerSpec", ^{
     
     __block CRVNetworkManager *manager = nil;
-
+    
     describe(@"when newly created", ^{
         
         beforeEach(^{
@@ -21,7 +21,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         afterEach(^{
             manager = nil;
         });
-
+        
         it(@"should have no server url", ^{
             expect(manager.serverURL).to.beNil;
         });
@@ -42,7 +42,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             expect(manager.reconnectionTime).to.equal(CRVDefaultReconnectionTime);
         });
     });
-
+    
     describe(@"when using a shared instance", ^{
         
         it(@"should return the same instance", ^{
@@ -152,7 +152,7 @@ describe(@"CRVNetworkManagerSpec", ^{
                 expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
             });
             
-            it(@"should succed", ^{
+            it(@"should succeed", ^{
                 [manager downloadAssetFromPath:kImageName progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                     anError = error;
                     anAsset = asset;
@@ -235,7 +235,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
     });
     
-    //OHHTTPStubs don't simulate data upload. Test for this stub has been omited.
+    //OHHTTPStubs doesn't simulate data upload. Test for this stub has been omited.
 });
 
 SpecEnd
