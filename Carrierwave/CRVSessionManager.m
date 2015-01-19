@@ -50,6 +50,7 @@ static inline NSString * intToString(NSUInteger x) {
 
 - (NSString *)downloadAssetFromURL:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(NSData *, NSError *))completion {
     
+    NSParameterAssert(URLString);
     NSData *data = nil;
     if ([self checkCache] && [self fileDataFromURLString:URLString data:&data]) {
         completion(data, nil);

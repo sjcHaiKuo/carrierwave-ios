@@ -57,6 +57,7 @@
 		5E4C99341A651228009AA040 /* CRVSessionUploadTaskWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4C99321A651228009AA040 /* CRVSessionUploadTaskWrapper.m */; };
 		5E4D0A6B1A60982100A1729B /* CRVSessionTaskManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E4D0A691A60982100A1729B /* CRVSessionTaskManager.h */; };
 		5E4D0A6C1A60982100A1729B /* CRVSessionTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4D0A6A1A60982100A1729B /* CRVSessionTaskManager.m */; };
+		5E50069C1A6D33EA00444E5D /* CRVSessionManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50069B1A6D33EA00444E5D /* CRVSessionManagerSpec.m */; };
 		5E56EBF81A5D68D2002E2484 /* CRVSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E56EBF41A5D68D2002E2484 /* CRVSessionManager.h */; };
 		5E56EBF91A5D68D2002E2484 /* CRVSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E56EBF51A5D68D2002E2484 /* CRVSessionManager.m */; };
 		5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -179,6 +180,7 @@
 		5E4C99321A651228009AA040 /* CRVSessionUploadTaskWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionUploadTaskWrapper.m; sourceTree = "<group>"; };
 		5E4D0A691A60982100A1729B /* CRVSessionTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVSessionTaskManager.h; sourceTree = "<group>"; };
 		5E4D0A6A1A60982100A1729B /* CRVSessionTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionTaskManager.m; sourceTree = "<group>"; };
+		5E50069B1A6D33EA00444E5D /* CRVSessionManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionManagerSpec.m; sourceTree = "<group>"; };
 		5E56EBF41A5D68D2002E2484 /* CRVSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVSessionManager.h; sourceTree = "<group>"; };
 		5E56EBF51A5D68D2002E2484 /* CRVSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionManager.m; sourceTree = "<group>"; };
 		5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkManager.h; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				3AF3BDA11A50671F005BF9C4 /* CRVImageAssetSpec.m */,
 				21E6F6671A68FF7F001505F8 /* CRVVideoAssetSpec.m */,
 				5E36AD0B1A67BFE50080FF80 /* CRVNetworkManagerSpec.m */,
+				5E50069B1A6D33EA00444E5D /* CRVSessionManagerSpec.m */,
 				5E758E4A1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m */,
 			);
 			path = "Unit Tests";
@@ -865,6 +868,7 @@
 				219BBFB91A691EFD003A97D3 /* CRVImageAssetSpec.m in Sources */,
 				21E6F6681A68FF7F001505F8 /* CRVVideoAssetSpec.m in Sources */,
 				5E758E4B1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m in Sources */,
+				5E50069C1A6D33EA00444E5D /* CRVSessionManagerSpec.m in Sources */,
 				3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */,
 				219BBFBA1A691EFD003A97D3 /* CRVNetworkManagerSpec.m in Sources */,
 				219BBFB81A691EFD003A97D3 /* CRVAssetTypeBehavior.m in Sources */,

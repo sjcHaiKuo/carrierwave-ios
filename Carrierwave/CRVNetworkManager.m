@@ -63,7 +63,6 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 }
 
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
-    NSParameterAssert(url);
     return [self.sessionManager uploadAssetRepresentedByDataStream:asset.dataStream
                                                         withLength:asset.dataLength
                                                               name:asset.fileName
@@ -85,7 +84,6 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 }
 
 - (NSString *)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
-    NSParameterAssert(url);
     return [self.sessionManager downloadAssetFromURL:url.absoluteString progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(NSData *data, NSError *error) {

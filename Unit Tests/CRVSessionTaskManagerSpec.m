@@ -4,7 +4,7 @@
 //  Copyright 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-static NSUInteger CRVTestPurposeWrapperIdentifier; //to follow static wrapper identifier in SUT
+static NSUInteger CRVSessionTaskManagerTestWrapperIdentifier; //to follow static wrapper identifier in SUT
 
 SpecBegin(CRVSessionTaskManagerSpec)
 
@@ -47,7 +47,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
         context(@"download task", ^{
             
             beforeEach(^{
-                CRVTestPurposeWrapperIdentifier ++;
+                CRVSessionTaskManagerTestWrapperIdentifier ++;
                 identifier = [manager addDownloadTask:task progress:nil completion:nil];
             });
             
@@ -58,7 +58,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
             context(@"download task wrapper", ^{
                 
                 it(@"identifier should be incremented.", ^{
-                    expect(identifier - initialIdentifier).to.equal(CRVTestPurposeWrapperIdentifier);
+                    expect(identifier - initialIdentifier).to.equal(CRVSessionTaskManagerTestWrapperIdentifier);
                 });
                 
                 it(@"should exist for created task.", ^{
@@ -149,7 +149,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
         context(@"upload task", ^{
             
             beforeEach(^{
-                CRVTestPurposeWrapperIdentifier ++;
+                CRVSessionTaskManagerTestWrapperIdentifier ++;
                 identifier = [manager addUploadTask:task dataStream:nil length:nil name:nil mimeType:nil progress:nil completion:nil];
             });
             
@@ -160,7 +160,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
             context(@"upload task wrapper", ^{
                 
                 it(@"identifier should be incremented.", ^{
-                    expect(identifier - initialIdentifier).to.equal(CRVTestPurposeWrapperIdentifier);
+                    expect(identifier - initialIdentifier).to.equal(CRVSessionTaskManagerTestWrapperIdentifier);
                 });
                 
                 it(@"should exist for created task.", ^{
