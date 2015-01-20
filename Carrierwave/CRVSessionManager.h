@@ -60,6 +60,14 @@
 - (NSString *)downloadAssetFromURL:(NSString *)URLString progress:(void (^)(double aProgress))progress completion:(void (^)(NSData *data, NSError *error))completion;
 
 /**
+ *  Deletes asset from given url.
+ *
+ *  @param URLString  The relative path of request.
+ *  @param completion The completion block executed on server response. If failed completion block will return error, otherwise nil;
+ */
+- (void)deleteAssetFromURL:(NSString *)URLString completion:(void (^)(BOOL success, NSError *error))completion;
+
+/**
  *  Cancels a proccess with given identifier.
  *
  *  @param identifier Identifier of running proccess. Unique accross an app.

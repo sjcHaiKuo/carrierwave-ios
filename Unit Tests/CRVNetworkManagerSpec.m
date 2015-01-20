@@ -23,15 +23,15 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
         
         it(@"should have no server url", ^{
-            expect(manager.serverURL).to.beNil;
+            expect(manager.serverURL).to.beNil();
         });
         
-        it(@"should have no upload path", ^{
-            expect(manager.uploadPath).to.beNil;
+        it(@"should have upload path equal to default value", ^{
+            expect(manager.path).to.equal(CRVDefaultPath);
         });
         
         it(@"should check cache", ^{
-            expect(manager.checkCache).to.beTruthy;
+            expect(manager.checkCache).to.beTruthy();
         });
         
         it(@"should number of retries be set to default value", ^{
@@ -42,7 +42,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             expect(manager.reconnectionTime).to.equal(CRVDefaultReconnectionTime);
         });
         
-        it(@"shoul conform CRVSessionManagerDelegate", ^{
+        it(@"should conform CRVSessionManagerDelegate", ^{
             expect(manager).conformTo(@protocol(CRVSessionManagerDelegate));
         });
         
@@ -88,6 +88,15 @@ describe(@"CRVNetworkManagerSpec", ^{
             it(@"should raise an exception", ^{
                 expect(^{
                     [manager uploadAsset:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+        });
+        
+        context(@"when deleting", ^{
+            
+            it(@"should raise an exception", ^{
+                expect(^{
+                    [manager deleteAssetWithIdentifier:@"anyIdentifier" fromURL:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
         });
@@ -138,6 +147,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         
         beforeEach(^{
             manager = [[CRVNetworkManager alloc] init];
+            manager.checkCache = NO;
             manager.reconnectionTime = 0.2;
             manager.numberOfRetries = 4;
             manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
@@ -203,7 +213,7 @@ describe(@"CRVNetworkManagerSpec", ^{
                 expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
             });
             
-            it(@"should succed", ^{
+            it(@"should succeed", ^{
                 [manager downloadAssetFromPath:kImageName progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                     anError = error;
                     anAsset = asset;

@@ -14,6 +14,7 @@
 
 extern NSUInteger const CRVDefaultNumberOfRetries;
 extern NSTimeInterval const CRVDefaultReconnectionTime;
+extern NSString * const CRVDefaultPath;
 
 @interface CRVNetworkManager : NSObject
 
@@ -23,7 +24,7 @@ extern NSTimeInterval const CRVDefaultReconnectionTime;
 + (instancetype)sharedManager;
 
 /**
- *  Uploads given asset asynchronously to serverURL concatenated with uploadPath param.
+ *  Uploads given asset asynchronously to serverURL concatenated with path param.
  *
  *  @param asset      The asset object to upload.
  *  @param progress   The progress block used to monitor upload progress. Takes values from 0 to 1.
@@ -68,6 +69,24 @@ extern NSTimeInterval const CRVDefaultReconnectionTime;
 - (NSString *)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion;
 
 /**
+ *  Asynchronously deletes asset with given identifier for default path (param path).
+ *
+ *  @param identifier The identifier of an asset to delete. It's same identifier as CRVUploadInfo object identifier returned from upload methods.
+ *  @param completion The completion block executed on server response. If failed completion block will return error, otherwise nil;
+ */
+- (void)deleteAssetWithIdentifier:(NSString *)identifier completion:(CRVCompletionBlock)completion;
+
+/**
+ *  Asynchronously deletes asset with given identifier from specified url.
+ *
+ *  @param identifier The identifier of an asset to delete. It's same identifier as CRVUploadInfo object identifier returned from upload methods.
+ *  @param url        The url used in request.
+ *  @param completion The completion block executed on server response. If failed completion block will return error, otherwise nil;
+ */
+- (void)deleteAssetWithIdentifier:(NSString *)identifier fromURL:(NSURL *)url completion:(CRVCompletionBlock)completion;
+
+
+/**
  *  Cancels a proccess with given identifier.
  *
  *  @param identifier Identifier of running proccess. Unique accross an app.
@@ -94,9 +113,9 @@ extern NSTimeInterval const CRVDefaultReconnectionTime;
 @property (copy, nonatomic) NSURL *serverURL;
 
 /**
- *  The upload path used in file upload.
+ *  The path append to server URL. Used in all requests (default: CRVDefaultPath);
  */
-@property (strong, nonatomic) NSString *uploadPath;
+@property (strong, nonatomic) NSString *path;
 
 /**
  *  Whether the network activity indicator should be visible (default: NO).

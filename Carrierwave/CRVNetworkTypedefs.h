@@ -11,5 +11,6 @@
 
 typedef void (^CRVDownloadCompletionBlock)(CRVImageAsset *asset, NSError *error);
 typedef void (^CRVUploadCompletionBlock)(CRVUploadInfo *info, NSError *error);
+typedef void (^CRVCompletionBlock)(BOOL success, NSError *error);
 typedef void (^CRVProgressBlock)(double progress);
 

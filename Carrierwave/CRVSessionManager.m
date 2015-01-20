@@ -18,6 +18,11 @@ static inline NSString * intToString(NSUInteger x) {
     return [NSString stringWithFormat:@"%lu", (unsigned long)x];
 }
 
+static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) {
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
+}
+
 @interface CRVSessionManager ()
 
 @property (strong, nonatomic) CRVSessionTaskManager *taskManager;
@@ -89,8 +94,18 @@ static inline NSString * intToString(NSUInteger x) {
         [weakSelf.taskManager invokeProgressForTask:task];
     }];
     
-    [task resume];
     return intToString(wrapperIdentifier);
+}
+
+- (void)deleteAssetFromURL:(NSString *)URLString completion:(void (^)(BOOL, NSError *))completion {
+   
+    [self executeNumberOfTimes:[self numberOfRetries] retriableBlock:^(CRVCompletionBlock completion) {
+        [self DELETE:URLString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            if (completion != NULL) completion(YES, nil);
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if (completion != NULL) completion(NO, error);
+        }];
+    } completion:completion];
 }
 
 - (void)cancelProccessWithIdentifier:(NSString *)identifier {
@@ -160,11 +175,32 @@ static inline NSString * intToString(NSUInteger x) {
 
 #pragma mark Tasks retry logic:
 
+- (void)executeNumberOfTimes:(NSInteger)numberOfTimes retriableBlock:(void (^)(CRVCompletionBlock block))retriable completion:(CRVCompletionBlock)completion {
+    
+    __block NSInteger retriesCounter = numberOfTimes;
+    
+    retriable(^(BOOL success, NSError *error) {
+        BOOL retryPossible = (retriesCounter >= 0);
+        
+        if (error && retryPossible) {
+            [self logRetryInfoForOperation:@"delete" fileName:nil retriesLeft:retriesCounter];
+            retriesCounter--;
+            __weak typeof(self) weakSelf = self;
+            executeAfter([self reconnectionTime], ^{
+                [weakSelf executeNumberOfTimes:retriesCounter retriableBlock:retriable completion:completion];
+            });
+        } else {
+            if (!retryPossible) [self logRetriesExceededInfoForOperation:@"Deletion" fileName:nil];
+            if (completion != NULL) completion(success, error);
+        }
+    });
+}
+
 //does number of retries has been exceeded?
 - (BOOL)shouldPerformCompletionBlockForTaskWrapper:(CRVSessionTaskWrapper *)wrapper {
     if (wrapper.retriesCount >= [self numberOfRetries]) {
-        NSString *action = [self.taskManager isDownloadTaskWrapper:wrapper] ? @"download" : @"upload";
-        NSLog(@"Number of retries limit has been exceeded for asset \"%@\". %@ failed", action, [wrapper fileNameByGuessingFromURLPath]);
+        NSString *operation = [self.taskManager isDownloadTaskWrapper:wrapper] ? @"Download" : @"Upload";
+        [self logRetriesExceededInfoForOperation:operation fileName:[wrapper fileNameByGuessingFromURLPath]];
         return YES;
     }
     return NO;
@@ -174,12 +210,12 @@ static inline NSString * intToString(NSUInteger x) {
 - (void)performDelayedRetriableTaskForTaskWrapper:(CRVSessionTaskWrapper *)wrapper {
     
     BOOL isDownloadTaskWrapper = [self.taskManager isDownloadTaskWrapper:wrapper];
-    NSString *action = isDownloadTaskWrapper? @"download" : @"upload";
+    NSString *operation = isDownloadTaskWrapper? @"download" : @"upload";
     NSInteger retriesLeft = [self numberOfRetries] - wrapper.retriesCount;
-    NSLog(@"Retries %@ asset (%@) in %.1f second(s). Retries left: %ld", action, [wrapper fileNameByGuessingFromURLPath], [self reconnectionTime], (long)retriesLeft);
+    [self logRetryInfoForOperation:operation fileName:[wrapper fileNameByGuessingFromURLPath] retriesLeft:retriesLeft];
     
     __weak typeof(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([self reconnectionTime] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    executeAfter([self reconnectionTime], ^{
         if (isDownloadTaskWrapper) {
             [weakSelf executeRetriableDownloadTaskForWrapper:(CRVSessionDownloadTaskWrapper *)wrapper];
         } else {
@@ -238,10 +274,19 @@ static inline NSString * intToString(NSUInteger x) {
 }
 
 - (BOOL)fileDataFromURLString:(NSString *)URLString data:(NSData **)data{
-    CRVWorkInProgress("should file name be encoded?")
     NSURL *filePath = [self targetDirectoryByAppendingFileName:[[URLString componentsSeparatedByString:@"/"] lastObject]];
     *data = [[NSFileManager defaultManager] contentsAtPath:[filePath path]];
     return *data ? YES : NO;
+}
+
+- (void)logRetryInfoForOperation:(NSString *)operation fileName:(NSString *)fileName retriesLeft:(NSUInteger)retriesLeft {
+    NSString *helper = fileName ? [NSString stringWithFormat:@"(%@) ", fileName] : @"";
+    NSLog(@"Retries %@ asset %@in %.1f second(s). Retries left: %ld", operation, helper, [self reconnectionTime], (long)retriesLeft);
+}
+
+- (void)logRetriesExceededInfoForOperation:(NSString *)operation fileName:(NSString *)fileName {
+    NSString *helper = fileName ? [NSString stringWithFormat:@" for asset \"%@\"", fileName] : @"";
+    NSLog(@"Number of retries limit has been exceeded%@. %@ failed", helper, operation);
 }
 
 #pragma mark - CRVSessionManagerDelegate Methods

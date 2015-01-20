@@ -15,6 +15,7 @@
 NSString * const CRVDomainErrorName = @"com.carrierwave.domain.network.error";
 NSUInteger const CRVDefaultNumberOfRetries = 2;
 NSTimeInterval const CRVDefaultReconnectionTime = 3;
+NSString * const CRVDefaultPath = @"api/v1/attachments";
 
 @interface CRVNetworkManager () <CRVSessionManagerDelegate>
 
@@ -31,8 +32,10 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
     if (self) {
         _sessionManager = [[CRVSessionManager alloc] init];
         _sessionManager.delegate = self;
-        self.numberOfRetries = CRVDefaultNumberOfRetries;
-        self.reconnectionTime = CRVDefaultReconnectionTime;
+        _checkCache = YES;
+        _path = CRVDefaultPath;
+        _numberOfRetries = CRVDefaultNumberOfRetries;
+        _reconnectionTime = CRVDefaultReconnectionTime;
     }
     return self;
 }
@@ -49,7 +52,7 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 #pragma mark - Public Methods
 
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
-    NSString *URLString = [self URLStringByAppendingPath:self.uploadPath];
+    NSString *URLString = [self URLStringByAppendingPath:self.path];
     return [self.sessionManager uploadAssetRepresentedByDataStream:asset.dataStream
                                                         withLength:asset.dataLength
                                                               name:asset.fileName
@@ -91,11 +94,15 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
     }];
 }
 
-- (void)setShowsNetworkActivityIndicator:(BOOL)shows {
-    if (_showsNetworkActivityIndicator != shows) {
-        [AFNetworkActivityIndicatorManager sharedManager].enabled = shows;
-        _showsNetworkActivityIndicator = shows;
-    }
+- (void)deleteAssetWithIdentifier:(NSString *)identifier completion:(CRVCompletionBlock)completion {
+    NSURL *url = [NSURL URLWithString:[self URLStringByAppendingPath:self.path]];
+    [self deleteAssetWithIdentifier:identifier fromURL:url completion:completion];
+}
+
+- (void)deleteAssetWithIdentifier:(NSString *)identifier fromURL:(NSURL *)url completion:(CRVCompletionBlock)completion {
+    NSParameterAssert(identifier); NSParameterAssert(url);
+    NSString *URLString = [NSString stringWithFormat:@"%@/%@", [url absoluteString], identifier];
+    [self.sessionManager deleteAssetFromURL:URLString completion:completion];
 }
 
 - (void)cancelProccessWithIdentifier:(NSString *)identifier {
@@ -108,6 +115,13 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
 
 - (void)resumeProccessWithIdentifier:(NSString *)identifier {
     [self.sessionManager resumeProccessWithIdentifier:identifier];
+}
+
+- (void)setShowsNetworkActivityIndicator:(BOOL)shows {
+    if (_showsNetworkActivityIndicator != shows) {
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = shows;
+        _showsNetworkActivityIndicator = shows;
+    }
 }
 
 #pragma mark - Private Methods
