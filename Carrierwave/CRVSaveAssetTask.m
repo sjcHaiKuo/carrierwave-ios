@@ -42,13 +42,15 @@ static NSUInteger const CRVBufferSize = 4096;
     
     self.fileType = type;
     
-    NSString *filePath = [CRVSaveAssetTask filePathForName:self.asset.fileName type:self.fileType];
+    NSString *fileName = self.asset.fileName;
+    CRVAssetFileType fileType = self.fileType;
+    
+    NSString *filePath = [CRVSaveAssetTask filePathForName:fileName type:fileType];
     NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
     NSInputStream *inputStream = self.asset.dataStream;
     
     __block NSError *error = nil;
-
-    __weak typeof(self) weakSelf = self;
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
         NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
@@ -89,8 +91,8 @@ static NSUInteger const CRVBufferSize = 4096;
             if (error) {
                 completion(nil, error);
             } else {
-                NSString *filePath = [CRVSaveAssetTask filePathForName:weakSelf.asset.fileName
-                                                                  type:weakSelf.fileType];
+                NSString *filePath = [CRVSaveAssetTask filePathForName:fileName
+                                                                  type:fileType];
                 completion(filePath, nil);
             }
         }
