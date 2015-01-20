@@ -9,6 +9,8 @@
 
 #import "CRVAssertTypeUtils.h"
 #import "CRVSaveAssetTask.h"
+#import "CRVVideoFileStreamProvider.h"
+#import "CRVVideoDataStreamProvider.h"
 
 static NSString * const CRVMimeTypeMp4 = @"video/mp4";
 static NSString * const CRVMimeTypeMov = @"video/quicktime";
@@ -17,11 +19,8 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
 
 @property (strong, nonatomic, readwrite) NSString *mimeType;
 @property (strong, nonatomic, readwrite) NSString *fileName;
-@property (strong, nonatomic, readwrite) NSInputStream *dataStream;
-@property (strong, nonatomic, readwrite) NSNumber *dataLength;
 
-@property (strong, nonatomic) NSURL *videoUrl;
-@property (strong, nonatomic) NSData *inputData;
+@property (strong, nonatomic) id<CRVVideoStreamProvider> streamProvider;
 
 @end
 
@@ -29,40 +28,23 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
 
 #pragma mark - Object lifecycle
 
-- (instancetype)initWithDataStream:(NSInputStream *)dataStream length:(NSNumber *)length mimeType:(NSString *)mimeType {
-    NSParameterAssert(dataStream != nil && length != nil);
-    self = [super init];
-    if (self == nil) return nil;
-    self.dataStream = dataStream;
-    self.dataLength = length;
-    self.mimeType = mimeType;
+- (instancetype)initWithStreamProvider:(id<CRVVideoStreamProvider>)provider mimeType:(NSString *)mimeType {
+    NSParameterAssert(provider != nil);
+    if (self = [super init]) {
+        self.streamProvider = provider;
+        self.mimeType = mimeType;
+    }
     return self;
 }
 
 - (instancetype)initWithData:(NSData *)data {
-    self = [self initWithDataStream:[[NSInputStream alloc] initWithData:data]
-                             length:@(data.length)
-                           mimeType:[self mimeTypeByGuessingFromData:data]];
-    if (self) {
-        self.inputData = data;
-    }
-    return self;
+    CRVVideoDataStreamProvider *provider = [[CRVVideoDataStreamProvider alloc] initWithData:data];
+    return [self initWithStreamProvider:provider mimeType:[self mimeTypeByGuessingFromData:data]];
 }
 
-- (instancetype)initWithLocalURL:(NSURL *)url {
-    NSParameterAssert([url isFileURL] && [url checkResourceIsReachableAndReturnError:nil]);
-    
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:[url path] error:nil];
-    NSAssert(fileAttributes, @"Can't find attributes for file at given path.");
-    
-    self = [self initWithDataStream:[[NSInputStream alloc] initWithURL:url]
-                             length:[fileAttributes objectForKey:NSFileSize]
-                           mimeType:[self mimeTypeFormFileExtension:[url pathExtension]]];
-    if (self) {
-        self.videoUrl = url;
-    }
-    
-    return self;
+- (instancetype)initWithLocalURL:(NSURL *)url {    
+    CRVVideoFileStreamProvider *provider = [[CRVVideoFileStreamProvider alloc] initWithFileUrl:url];
+    return [self initWithStreamProvider:provider mimeType:[self mimeTypeFormFileExtension:[url pathExtension]]];
 }
 
 #pragma mark - Mimetypes helpers
@@ -121,28 +103,27 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
     [saveTask saveAssetAs:CRVAssetFileTemporary completion:^(NSString *outputFilePath, NSError *error) {
         if (!error) {
             
-            weakSelf.videoUrl = [NSURL URLWithString:outputFilePath];
-            weakSelf.dataStream = [[NSInputStream alloc] initWithFileAtPath:outputFilePath];
-            weakSelf.inputData = nil;
-            
+            // Update file provider to cached file
+            weakSelf.streamProvider = [[CRVVideoFileStreamProvider alloc] initWithFilePath:outputFilePath];
+        
             AVPlayerItem *videoItem = [AVPlayerItem playerItemWithURL:self.videoUrl];
             completion(videoItem, nil);
             
         } else {
-            
-            // Recreate stream
-            if (self.videoUrl) {
-                weakSelf.dataStream = [[NSInputStream alloc] initWithURL:self.videoUrl];
-            } else if (self.inputData) {
-                weakSelf.dataStream = [[NSInputStream alloc] initWithData:self.inputData];
-            }
-            
             completion(nil, error);
         }
     }];
 }
 
 #pragma mark - Property accessors
+
+- (NSInputStream *)dataStream {
+    return self.streamProvider.inputStream;
+}
+
+- (NSNumber *)dataLength {
+    return self.streamProvider.inputStreamLength;
+}
 
 - (NSString *)fileName {
     if (_fileName != nil) return _fileName;

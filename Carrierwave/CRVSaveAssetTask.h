@@ -2,7 +2,6 @@
 //  CRVSaveAssetTask.h
 //  Carrierwave
 //
-//  Created by Wojciech Trzasko on 16.01.2015.
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 

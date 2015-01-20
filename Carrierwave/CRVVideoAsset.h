@@ -20,16 +20,6 @@
 @property (strong, nonatomic, readonly) NSURL *videoUrl;
 
 /**
- * Creates the video asset using the data stream of an image.
- *
- * @param dataStream The data stream of the video to be represented by the asset.
- * @param length     The length of data stream.
- *
- * @return An initialized receiver.
- */
-- (instancetype)initWithDataStream:(NSInputStream *)dataStream length:(NSNumber *)length mimeType:(NSString *)mimeType NS_DESIGNATED_INITIALIZER;
-
-/**
  * Creates the video asset using the data of an video.
  *
  * @param image The data of the video to be represented by the asset.
@@ -50,7 +40,7 @@
 /**
  * Loads video to AVPlayerItem object.
  *
- * @param completion The completion block executed when load operation finishes with error or success. If failed returns an error. Otherwise nil.
+ * @param completion The completion block executed when load operation finishes with error or success. If failed returns an error. Otherwise nil. If succeed returns an configured AVPlayerItem object.
  */
 - (void)loadVideoWithCompletion:(CRVVideoLoadCompletionBlock)completion;
 
