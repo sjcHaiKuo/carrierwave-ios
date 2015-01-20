@@ -13,6 +13,6 @@
 
 @property (strong, nonatomic, readonly) NSData *data;
 
-- (instancetype)initWithData:(NSData *)data;
+- (instancetype)initWithData:(NSData *)data NS_DESIGNATED_INITIALIZER;
 
 @end

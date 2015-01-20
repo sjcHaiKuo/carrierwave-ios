@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic, readonly) NSURL *fileURL;
 
-- (instancetype)initWithFileUrl:(NSURL *)url;
+- (instancetype)initWithFileUrl:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithFilePath:(NSString *)filePath;
 
 @end
