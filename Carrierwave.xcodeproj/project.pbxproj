@@ -62,14 +62,18 @@
 		5E4D0A6B1A60982100A1729B /* CRVSessionTaskManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E4D0A691A60982100A1729B /* CRVSessionTaskManager.h */; };
 		5E4D0A6C1A60982100A1729B /* CRVSessionTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4D0A6A1A60982100A1729B /* CRVSessionTaskManager.m */; };
 		5E50069C1A6D33EA00444E5D /* CRVSessionManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50069B1A6D33EA00444E5D /* CRVSessionManagerSpec.m */; };
+		5E50069F1A6E84E900444E5D /* CRVUploadInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E50069D1A6E84E900444E5D /* CRVUploadInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E5006A01A6E84E900444E5D /* CRVUploadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50069E1A6E84E900444E5D /* CRVUploadInfo.m */; };
+		5E5006A31A6E866600444E5D /* NSDictionary+Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E5006A11A6E866600444E5D /* NSDictionary+Carrierwave.h */; };
+		5E5006A41A6E866600444E5D /* NSDictionary+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E5006A21A6E866600444E5D /* NSDictionary+Carrierwave.m */; };
+		5E5006A71A6E867B00444E5D /* NSURLSessionTask+Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E5006A51A6E867B00444E5D /* NSURLSessionTask+Carrierwave.h */; };
+		5E5006A81A6E867B00444E5D /* NSURLSessionTask+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E5006A61A6E867B00444E5D /* NSURLSessionTask+Carrierwave.m */; };
 		5E56EBF81A5D68D2002E2484 /* CRVSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E56EBF41A5D68D2002E2484 /* CRVSessionManager.h */; };
 		5E56EBF91A5D68D2002E2484 /* CRVSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E56EBF51A5D68D2002E2484 /* CRVSessionManager.m */; };
 		5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E56EBFB1A5D68D2002E2484 /* CRVNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */; };
 		5E758E4B1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E758E4A1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m */; };
 		5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5EBC01B01A5FFF8700B1860D /* NSURLSessionTask+Category.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBC01AE1A5FFF8700B1860D /* NSURLSessionTask+Category.h */; };
-		5EBC01B11A5FFF8700B1860D /* NSURLSessionTask+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBC01AF1A5FFF8700B1860D /* NSURLSessionTask+Category.m */; };
 		5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */; };
 		5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */; };
 		69AA0B9A7A138526C4B55648 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3272BDCF977EEC32EE0EE1EE /* libPods-Tests.a */; };
@@ -190,14 +194,18 @@
 		5E4D0A691A60982100A1729B /* CRVSessionTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVSessionTaskManager.h; sourceTree = "<group>"; };
 		5E4D0A6A1A60982100A1729B /* CRVSessionTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionTaskManager.m; sourceTree = "<group>"; };
 		5E50069B1A6D33EA00444E5D /* CRVSessionManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionManagerSpec.m; sourceTree = "<group>"; };
+		5E50069D1A6E84E900444E5D /* CRVUploadInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVUploadInfo.h; sourceTree = "<group>"; };
+		5E50069E1A6E84E900444E5D /* CRVUploadInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVUploadInfo.m; sourceTree = "<group>"; };
+		5E5006A11A6E866600444E5D /* NSDictionary+Carrierwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Carrierwave.h"; sourceTree = "<group>"; };
+		5E5006A21A6E866600444E5D /* NSDictionary+Carrierwave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Carrierwave.m"; sourceTree = "<group>"; };
+		5E5006A51A6E867B00444E5D /* NSURLSessionTask+Carrierwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionTask+Carrierwave.h"; sourceTree = "<group>"; };
+		5E5006A61A6E867B00444E5D /* NSURLSessionTask+Carrierwave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionTask+Carrierwave.m"; sourceTree = "<group>"; };
 		5E56EBF41A5D68D2002E2484 /* CRVSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVSessionManager.h; sourceTree = "<group>"; };
 		5E56EBF51A5D68D2002E2484 /* CRVSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionManager.m; sourceTree = "<group>"; };
 		5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkManager.h; sourceTree = "<group>"; };
 		5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVNetworkManager.m; sourceTree = "<group>"; };
 		5E758E4A1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionTaskManagerSpec.m; sourceTree = "<group>"; };
 		5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkTypedefs.h; sourceTree = "<group>"; };
-		5EBC01AE1A5FFF8700B1860D /* NSURLSessionTask+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionTask+Category.h"; sourceTree = "<group>"; };
-		5EBC01AF1A5FFF8700B1860D /* NSURLSessionTask+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionTask+Category.m"; sourceTree = "<group>"; };
 		5EBDBE4B1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OHHTTPStubs+CRVTests.h"; sourceTree = "<group>"; };
 		5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubs+CRVTests.m"; sourceTree = "<group>"; };
 		5EBDBE541A67FA4F001C8ED5 /* NSData+CRVComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CRVComposition.h"; sourceTree = "<group>"; };
@@ -537,8 +545,10 @@
 		5E4C99361A652F76009AA040 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				5EBC01AE1A5FFF8700B1860D /* NSURLSessionTask+Category.h */,
-				5EBC01AF1A5FFF8700B1860D /* NSURLSessionTask+Category.m */,
+				5E5006A11A6E866600444E5D /* NSDictionary+Carrierwave.h */,
+				5E5006A21A6E866600444E5D /* NSDictionary+Carrierwave.m */,
+				5E5006A51A6E867B00444E5D /* NSURLSessionTask+Carrierwave.h */,
+				5E5006A61A6E867B00444E5D /* NSURLSessionTask+Carrierwave.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -547,6 +557,8 @@
 			isa = PBXGroup;
 			children = (
 				5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */,
+				5E50069D1A6E84E900444E5D /* CRVUploadInfo.h */,
+				5E50069E1A6E84E900444E5D /* CRVUploadInfo.m */,
 				5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */,
 				5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */,
 				5E56EBF41A5D68D2002E2484 /* CRVSessionManager.h */,
@@ -566,11 +578,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ADC0E711A5ADB10009F4D4B /* CRVImageEditGlassView.h in Headers */,
+				5E5006A71A6E867B00444E5D /* NSURLSessionTask+Carrierwave.h in Headers */,
+				5E5006A31A6E866600444E5D /* NSDictionary+Carrierwave.h in Headers */,
 				219BBFC71A6959DB003A97D3 /* CRVSaveAssetTask.h in Headers */,
 				3A6F28681A5039BB0049DC9F /* Carrierwave.h in Headers */,
 				5E4C99331A651228009AA040 /* CRVSessionUploadTaskWrapper.h in Headers */,
 				3ADC0E751A5AE7AA009F4D4B /* CRVImageEditScrollView.h in Headers */,
 				5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */,
+				5E50069F1A6E84E900444E5D /* CRVUploadInfo.h in Headers */,
 				5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */,
 				219BBFBC1A693BD3003A97D3 /* CRVVideoAssetTypedefs.h in Headers */,
 				210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */,
@@ -581,7 +596,6 @@
 				3AF3BD941A50447A005BF9C4 /* CRVImageAsset.h in Headers */,
 				210E15A31A67EB4700342A39 /* CRVAssertTypeUtils.h in Headers */,
 				21A75BEF1A6E514E003A7E0A /* CRVVideoFileStreamProvider.h in Headers */,
-				5EBC01B01A5FFF8700B1860D /* NSURLSessionTask+Category.h in Headers */,
 				3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */,
 				5E4C992B1A642E5F009AA040 /* CRVSessionTaskWrapper.h in Headers */,
 				5E4D0A6B1A60982100A1729B /* CRVSessionTaskManager.h in Headers */,
@@ -907,8 +921,11 @@
 				21A75BF01A6E514E003A7E0A /* CRVVideoFileStreamProvider.m in Sources */,
 				3A3FE8691A517CE60052C58E /* CRVImageEditViewController.m in Sources */,
 				5E4C99301A651210009AA040 /* CRVSessionDownloadTaskWrapper.m in Sources */,
+				5E5006A41A6E866600444E5D /* NSDictionary+Carrierwave.m in Sources */,
+				5E5006A01A6E84E900444E5D /* CRVUploadInfo.m in Sources */,
 				3ADC0E761A5AE7AA009F4D4B /* CRVImageEditScrollView.m in Sources */,
 				5E4C992C1A642E5F009AA040 /* CRVSessionTaskWrapper.m in Sources */,
+				5E5006A81A6E867B00444E5D /* NSURLSessionTask+Carrierwave.m in Sources */,
 				5E56EBF91A5D68D2002E2484 /* CRVSessionManager.m in Sources */,
 				3ADC0E721A5ADB10009F4D4B /* CRVImageEditGlassView.m in Sources */,
 				5E4C99341A651228009AA040 /* CRVSessionUploadTaskWrapper.m in Sources */,
@@ -918,7 +935,6 @@
 				210E15A01A67C92700342A39 /* CRVVideoAsset.m in Sources */,
 				5E56EBFB1A5D68D2002E2484 /* CRVNetworkManager.m in Sources */,
 				219BBFC81A6959DB003A97D3 /* CRVSaveAssetTask.m in Sources */,
-				5EBC01B11A5FFF8700B1860D /* NSURLSessionTask+Category.m in Sources */,
 				3AF3BD951A50447A005BF9C4 /* CRVImageAsset.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

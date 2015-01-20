@@ -74,7 +74,7 @@ static inline NSString * intToString(NSUInteger x) {
     return intToString(wrapperIdentifier);
 }
 
-- (NSString *)uploadAssetRepresentedByDataStream:(NSInputStream *)dataStream withLength:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(BOOL, NSError *))completion {
+- (NSString *)uploadAssetRepresentedByDataStream:(NSInputStream *)dataStream withLength:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(NSDictionary *, NSError *))completion {
     
      NSParameterAssert(dataStream); NSParameterAssert(length);      NSParameterAssert(name);
      NSParameterAssert(mimeType);   NSParameterAssert(URLString);
@@ -135,9 +135,9 @@ static inline NSString * intToString(NSUInteger x) {
     if (!wrapper) { //task has been canceled
         return;
     } else if (!error) {
-        [self.taskManager invokeCompletionForUploadTaskWrapper:wrapper error:error];
+        [self.taskManager invokeCompletionForUploadTaskWrapper:wrapper response:response error:error];
     } else if ([self shouldPerformCompletionBlockForTaskWrapper:wrapper]) {
-        [self.taskManager invokeCompletionForUploadTaskWrapper:wrapper error:error];
+        [self.taskManager invokeCompletionForUploadTaskWrapper:wrapper response:response error:error];
     } else {
         [self performDelayedRetriableTaskForTaskWrapper:wrapper];
     }

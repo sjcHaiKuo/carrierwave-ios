@@ -7,7 +7,7 @@
 //
 
 #import "CRVSessionTaskManager.h"
-#import "NSURLSessionTask+Category.h"
+#import "NSURLSessionTask+Carrierwave.h"
 
 static NSUInteger CVRWrapperIdentifier = 0;
 
@@ -39,7 +39,7 @@ static NSUInteger CVRWrapperIdentifier = 0;
     return CVRWrapperIdentifier;
 }
 
-- (NSUInteger)addUploadTask:(NSURLSessionTask *)task dataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
+- (NSUInteger)addUploadTask:(NSURLSessionTask *)task dataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionResponseBlock)completion {
     CVRWrapperIdentifier++;
     CRVSessionUploadTaskWrapper *wrapper = [[CRVSessionUploadTaskWrapper alloc] initWithTask:task identifier:CVRWrapperIdentifier progress:progress completion:completion];
     wrapper.mimeType = mimeType;
@@ -76,10 +76,10 @@ static NSUInteger CVRWrapperIdentifier = 0;
     });
 }
 
-- (void)invokeCompletionForUploadTaskWrapper:(CRVSessionUploadTaskWrapper *)wrapper error:(NSError *)error {
+- (void)invokeCompletionForUploadTaskWrapper:(CRVSessionUploadTaskWrapper *)wrapper response:(NSDictionary *)response error:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
-        BOOL success = error ? NO : YES;
-        if (wrapper.completion != NULL) wrapper.completion(success, error);
+        
+        if (wrapper.completion != NULL) wrapper.completion(response, error);
         [self.uploadTaskWrappers removeObject:wrapper];
     });
 }

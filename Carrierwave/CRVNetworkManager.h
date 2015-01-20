@@ -7,6 +7,7 @@
 
 @import Foundation;
 #import "CRVNetworkTypedefs.h"
+#import "CRVUploadInfo.h"
 
 @protocol CRVAssetType;
 @class CRVImageAsset;
@@ -26,7 +27,7 @@ extern NSTimeInterval const CRVDefaultReconnectionTime;
  *
  *  @param asset      The asset object to upload.
  *  @param progress   The progress block used to monitor upload progress. Takes values from 0 to 1.
- *  @param completion The completion block performed on server response. Returns success flag and error, if any.
+ *  @param completion The completion block performed on server response. If success returns info about upload. Otherwise error.
  *
  *  @return Identifier of uploading proccess. Unique accross an app. Store it to play with proccess later.
  */
@@ -38,7 +39,7 @@ extern NSTimeInterval const CRVDefaultReconnectionTime;
  *  @param asset      The asset object to upload.
  *  @param progress   The progress block used to monitor upload progress. Takes values from 0 to 1.
  *  @param url        The server URL of the server backend used during upload.
- *  @param completion The completion block performed on server response. Returns success flag and error, if any.
+ *  @param completion The completion block performed on server response. If success returns info about upload. Otherwise error.
  *
  *  @return Identifier of uploading proccess. Unique accross an app. Store it to play with proccess later.
  */

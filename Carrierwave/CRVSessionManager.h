@@ -42,11 +42,11 @@
  *  @param mimeType   The mime type of uploaded file.
  *  @param URLString  The relative path of the request.
  *  @param progress   The progress block executed when when manager will receive data from server.
- *  @param completion The completion block executed when the request finishes with error or success. If failed returns an error. Otherwise nil.
+ *  @param completion The completion block executed when the request finishes with error or success. If failed returns an error. Otherwise response object.
  *
  *  @return Identifier of uploading proccess. Unique accross an app. Store it to play with proccess later.
  */
-- (NSString *)uploadAssetRepresentedByDataStream:(NSInputStream *)dataStream withLength:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double aProgress))progress completion:(void (^)(BOOL success, NSError *error))completion;
+- (NSString *)uploadAssetRepresentedByDataStream:(NSInputStream *)dataStream withLength:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double aProgress))progress completion:(void (^)(NSDictionary *response, NSError *error))completion;
 
 /**
  *  Tells manager to start downloading file from specified URL.

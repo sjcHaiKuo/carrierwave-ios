@@ -1,14 +1,14 @@
 //
-//  NSURLSessionTask+Category.m
+//  NSURLSessionTask+Carrierwave.m
 //  Carrierwave
 //
-//  Created by Patryk Kaczmarek on 09.01.2015.
+//  Created by Patryk Kaczmarek on 20.01.2015.
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#import "NSURLSessionTask+Category.h"
+#import "NSURLSessionTask+Carrierwave.h"
 
-@implementation NSURLSessionTask (Category)
+@implementation NSURLSessionTask (Carrierwave)
 
 - (double)crv_dowloadProgress {
     if (self.countOfBytesExpectedToReceive > 0) {

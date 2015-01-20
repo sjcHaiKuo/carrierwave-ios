@@ -57,8 +57,9 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
                                                          URLString:URLString
                                                           progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
-    } completion:^(BOOL success, NSError *error) {
-        if (completion != NULL) completion(success, error);
+    } completion:^(NSDictionary *response, NSError *error) {
+        CRVUploadInfo *info = error ? nil : [[CRVUploadInfo alloc] initWithDictionary:response];
+        if (completion != NULL) completion(info, error);
     }];
 }
 
@@ -70,8 +71,9 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
                                                          URLString:[url absoluteString]
                                                           progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
-    } completion:^(BOOL success, NSError *error) {
-        if (completion != NULL) completion(success, error);
+    } completion:^(NSDictionary *response, NSError *error) {
+        CRVUploadInfo *info = error ? nil : [[CRVUploadInfo alloc] initWithDictionary:response];
+        if (completion != NULL) completion(info, error);
     }];
 }
 

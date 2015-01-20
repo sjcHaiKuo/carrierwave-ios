@@ -10,7 +10,7 @@
 
 @implementation CRVSessionUploadTaskWrapper
 
-- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSUInteger)identifier progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
+- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSUInteger)identifier progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionResponseBlock)completion {
     self = [self initWithTask:task identifier:identifier progress:progress];
     if (self) {
         _completion = completion;

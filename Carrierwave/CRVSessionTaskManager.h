@@ -31,7 +31,7 @@
  *  @param progress   The progress block with which wrapper is initialized.
  *  @param completion The completion block with which wrapper is initialized.
  */
-- (NSUInteger)addUploadTask:(NSURLSessionTask *)task dataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
+- (NSUInteger)addUploadTask:(NSURLSessionTask *)task dataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionResponseBlock)completion;
 
 /**
  *  Invokes progress block stored in approperiate wrapper for given task.
@@ -52,10 +52,11 @@
 /**
  *  Invokes completion block stored in upload task wrapper.
  *
- *  @param wrapper The wrapper which completion block should be invoked.
- *  @param error   An error used as a paramater in completion block invocation.
+ *  @param wrapper  The wrapper which completion block should be invoked.
+ *  @param error    An error used as a paramater in completion block invocation.
+ *  @param response An dictionary with response from server;
  */
-- (void)invokeCompletionForUploadTaskWrapper:(CRVSessionUploadTaskWrapper *)wrapper error:(NSError *)error;
+- (void)invokeCompletionForUploadTaskWrapper:(CRVSessionUploadTaskWrapper *)wrapper response:(NSDictionary *)response error:(NSError *)error;
 
 /**
  *  Finds appropriate wrapper for specified download task. If doesn't exist, returns nil.

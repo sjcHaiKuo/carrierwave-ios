@@ -7,9 +7,9 @@
 //
 
 @import Foundation;
-@class CRVImageAsset;
+@class CRVImageAsset, CRVUploadInfo;
 
 typedef void (^CRVDownloadCompletionBlock)(CRVImageAsset *asset, NSError *error);
-typedef void (^CRVUploadCompletionBlock)(BOOL success, NSError *error);
+typedef void (^CRVUploadCompletionBlock)(CRVUploadInfo *info, NSError *error);
 typedef void (^CRVProgressBlock)(double progress);
 

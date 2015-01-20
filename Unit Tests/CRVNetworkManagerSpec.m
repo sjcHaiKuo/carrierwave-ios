@@ -6,8 +6,6 @@
 
 #define kImageName @"testIMG.png"
 
-#import "CRVSessionManager.h"
-
 SpecBegin(CRVNetworkManagerSpec)
 
 describe(@"CRVNetworkManagerSpec", ^{

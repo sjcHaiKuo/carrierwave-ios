@@ -8,6 +8,8 @@
 
 #import "CRVSessionTaskWrapper.h"
 
+typedef void (^CRVUploadCompletionResponseBlock)(NSDictionary *, NSError *);
+
 @interface CRVSessionUploadTaskWrapper : CRVSessionTaskWrapper
 
 /**
@@ -19,12 +21,12 @@
  *
  *  @return An initialized receiver.
  */
-- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSUInteger)identifier progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
+- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSUInteger)identifier progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionResponseBlock)completion;
 
 /**
  *  The completion block invoked when task uploading will complete with success or break with an error.
  */
-@property (copy, nonatomic, readonly) CRVUploadCompletionBlock completion;
+@property (copy, nonatomic, readonly) CRVUploadCompletionResponseBlock completion;
 
 /**
  *  Mime type of file to upload.
