@@ -8,13 +8,13 @@
 
 #import "CRVSaveAssetTask.h"
 
+static NSUInteger const CRVBufferSize = 4096;
+
 @interface CRVSaveAssetTask () <NSStreamDelegate>
 
 @property (strong, nonatomic) id<CRVAssetType> asset;
 @property (strong, nonatomic) NSOutputStream *outputStream;
 @property (assign, nonatomic) CRVAssetFileType fileType;
-
-@property (copy) CRVSaveAssetToFileBlock saveTempCompletion;
 
 @end
 
@@ -33,78 +33,69 @@
 #pragma mark - Save operations
 
 - (void)saveAssetAs:(CRVAssetFileType)type completion:(CRVSaveAssetToFileBlock)completion; {
-    self.saveTempCompletion = completion;
+    
+    // Inspirated by AFNetworking AFURLRequestSerialization
+    // https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking/AFURLRequestSerialization.m#L379
+    
+    if (!completion) {
+        return;
+    }
+    
     self.fileType = type;
-
+    
     NSString *filePath = [self filePathForName:self.asset.fileName type:self.fileType];
-    self.outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
-    [self.outputStream open];
+    NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
+    NSInputStream *inputStream = self.asset.dataStream;
     
-    self.asset.dataStream.delegate = self;
-    [self.asset.dataStream scheduleInRunLoop:[NSRunLoop currentRunLoop]
-                                     forMode:NSDefaultRunLoopMode];
-    [self.asset.dataStream open];
-}
+    __block NSError *error = nil;
 
-#pragma mark - NSInputStreamDelegate
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
-    switch (eventCode) {
-        case NSStreamEventHasBytesAvailable:
-            [self streamHasBytesAvailable:aStream];
-            break;
+        NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
+        NSString *runLoopMode = NSDefaultRunLoopMode;
+        
+        [inputStream scheduleInRunLoop:currentRunLoop forMode:runLoopMode];
+        [inputStream open];
+
+        [outputStream scheduleInRunLoop:currentRunLoop forMode:runLoopMode];
+        [outputStream open];
+        
+        while ([inputStream hasBytesAvailable] && [outputStream hasSpaceAvailable]) {
             
-        case NSStreamEventEndEncountered:
-            [self streamEndEncountered:aStream];
-            break;
+            uint8_t buffer[CRVBufferSize];
             
-        case NSStreamEventErrorOccurred:
-            [self streamErrorOccured:aStream];
-            break;
+            NSInteger readLength = [inputStream read:buffer maxLength:sizeof(buffer)];
+            if (readLength < 0) {
+                error = inputStream.streamError;
+                break;
+            }
             
-        default:
-            break;
-    }
-}
-
-#pragma mark - Stream actions
-
-- (void)streamHasBytesAvailable:(NSStream *)stream {
-    NSInputStream *inputStream = (NSInputStream *)stream;
-    
-    uint8_t buffer[1024];
-    NSInteger readLength = [inputStream read:buffer maxLength:sizeof(buffer)];
-    
-    CRVTemporary("[WIP] A lot of potential dangers. Needs complex testing.");
-    if (readLength > 0) {
-        NSInteger writeLength = [self.outputStream write:buffer maxLength:sizeof(buffer)];
-        if (writeLength < 0) {
-            [self streamErrorOccured:self.outputStream];
+            NSInteger writeLength = [self.outputStream write:buffer maxLength:sizeof(buffer)];
+            if (writeLength < 0) {
+                error = outputStream.streamError;
+                break;
+            }
+            
+            if (readLength == 0 && writeLength == 0) break;
         }
-    } else if (readLength < 0) {
-        [self streamErrorOccured:stream];
-    }
-}
-
-- (void)streamEndEncountered:(NSStream *)stream {
-    [self freeAssetDataStream];
-    [self freeOutputStream];
-    
-    if (self.saveTempCompletion) {
-        NSString *filePath = [self filePathForName:self.asset.fileName type:self.fileType];
-        self.saveTempCompletion(filePath, nil);
-    }
-}
-
-- (void)streamErrorOccured:(NSStream *)stream {
-    NSError *error = [stream streamError];
-    
-    [self freeAssetDataStream];
-    [self freeOutputStream];
-    
-    if (self.saveTempCompletion) {
-        self.saveTempCompletion(nil, error);
-    }
+        
+        [inputStream close];
+        [inputStream removeFromRunLoop:currentRunLoop forMode:runLoopMode];
+        
+        [outputStream close];
+        [outputStream removeFromRunLoop:currentRunLoop forMode:runLoopMode];
+        
+        if (completion) {
+            if (error) {
+                completion(nil, error);
+            } else {
+                NSString *filePath = [weakSelf filePathForName:weakSelf.asset.fileName
+                                                          type:weakSelf.fileType];
+                completion(filePath, nil);
+            }
+        }
+    });
 }
 
 #pragma mark - Output paths
