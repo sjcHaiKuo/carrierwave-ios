@@ -42,7 +42,7 @@ static NSUInteger const CRVBufferSize = 4096;
     
     self.fileType = type;
     
-    NSString *filePath = [self filePathForName:self.asset.fileName type:self.fileType];
+    NSString *filePath = [CRVSaveAssetTask filePathForName:self.asset.fileName type:self.fileType];
     NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
     NSInputStream *inputStream = self.asset.dataStream;
     
@@ -89,8 +89,8 @@ static NSUInteger const CRVBufferSize = 4096;
             if (error) {
                 completion(nil, error);
             } else {
-                NSString *filePath = [weakSelf filePathForName:weakSelf.asset.fileName
-                                                          type:weakSelf.fileType];
+                NSString *filePath = [CRVSaveAssetTask filePathForName:weakSelf.asset.fileName
+                                                                  type:weakSelf.fileType];
                 completion(filePath, nil);
             }
         }
@@ -99,7 +99,7 @@ static NSUInteger const CRVBufferSize = 4096;
 
 #pragma mark - Output paths
 
-- (NSString *)filePathForName:(NSString *)fileName type:(CRVAssetFileType)type {
++ (NSString *)filePathForName:(NSString *)fileName type:(CRVAssetFileType)type {
     switch (type) {
         case CRVAssetFileCache:
             return [self filePathInCacheDirectoryForName:fileName];
@@ -112,17 +112,17 @@ static NSUInteger const CRVBufferSize = 4096;
     }
 }
 
-- (NSString *)filePathInTempDirectoryForName:(NSString *)name {
++ (NSString *)filePathInTempDirectoryForName:(NSString *)name {
     return [NSTemporaryDirectory() stringByAppendingString:name];
 }
 
-- (NSString *)filePathInCacheDirectoryForName:(NSString *)name {
++ (NSString *)filePathInCacheDirectoryForName:(NSString *)name {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cachesDirectoryPath = paths[0];
     return [cachesDirectoryPath stringByAppendingString:name];
 }
 
-- (NSString *)filePathInLibraryDirectoryForName:(NSString *)name {
++ (NSString *)filePathInLibraryDirectoryForName:(NSString *)name {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *libraryDirectoryPath = paths[0];
     return [libraryDirectoryPath stringByAppendingString:name];
