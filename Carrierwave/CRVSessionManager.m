@@ -180,11 +180,10 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
     __block NSInteger retriesCounter = numberOfTimes;
     
     retriable(^(BOOL success, NSError *error) {
-        BOOL retryPossible = (retriesCounter >= 0);
-        
+        BOOL retryPossible = (retriesCounter > 0);
         if (error && retryPossible) {
-            [self logRetryInfoForOperation:@"delete" fileName:nil retriesLeft:retriesCounter];
             retriesCounter--;
+            [self logRetryInfoForOperation:@"delete" fileName:nil retriesLeft:retriesCounter];
             __weak typeof(self) weakSelf = self;
             executeAfter([self reconnectionTime], ^{
                 [weakSelf executeNumberOfTimes:retriesCounter retriableBlock:retriable completion:completion];

@@ -17,7 +17,7 @@ typedef NS_ENUM (NSInteger, CRVStubError) {
 @interface OHHTTPStubs (CRVTests)
 
 /**
- *  Stubs all incoming requests.
+ *  Stubs all incoming download requests.
  *
  *  @param stubbedError Defines a behaviour of OHHTTPStubsDescriptor.
  *  @param manager      Network manager used for request.
@@ -25,6 +25,16 @@ typedef NS_ENUM (NSInteger, CRVStubError) {
  *  @return A stub description object.
  */
 + (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager;
+
+/**
+ *  Stubs all incoming delete requests.
+ *
+ *  @param stubbedError Defines a behaviour of OHHTTPStubsDescriptor.
+ *  @param manager      Network manager used for request.
+ *
+ *  @return A stub description object.
+ */
++ (id<OHHTTPStubsDescriptor>)crv_stubDeletionRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager;
 
 /**
  *  Number of retries made by manager. Incremented every time request will fail. Depends on CRVStubError.

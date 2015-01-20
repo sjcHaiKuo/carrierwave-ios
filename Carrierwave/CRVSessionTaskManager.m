@@ -78,7 +78,6 @@ static NSUInteger CVRWrapperIdentifier = 0;
 
 - (void)invokeCompletionForUploadTaskWrapper:(CRVSessionUploadTaskWrapper *)wrapper response:(NSDictionary *)response error:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         if (wrapper.completion != NULL) wrapper.completion(response, error);
         [self.uploadTaskWrappers removeObject:wrapper];
     });

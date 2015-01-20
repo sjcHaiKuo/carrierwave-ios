@@ -24,6 +24,16 @@ static NSUInteger CRVStubbedNumberOfRetries;
     }];
 }
 
++ (id<OHHTTPStubsDescriptor>)crv_stubDeletionRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager {
+    
+    CRVStubbedNumberOfRetries = 0;
+    
+    return [self crv_stubRequestsWithError:stubbedError manager:manager response:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        NSDictionary *json = @{@"success" : @"YES"};
+        return [OHHTTPStubsResponse responseWithJSONObject:json statusCode:200 headers:nil];
+    }];
+}
+
 + (NSUInteger)retriesMade {
     return CRVStubbedNumberOfRetries;
 }

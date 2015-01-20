@@ -102,7 +102,9 @@ NSString * const CRVDefaultPath = @"api/v1/attachments";
 - (void)deleteAssetWithIdentifier:(NSString *)identifier fromURL:(NSURL *)url completion:(CRVCompletionBlock)completion {
     NSParameterAssert(identifier); NSParameterAssert(url);
     NSString *URLString = [NSString stringWithFormat:@"%@/%@", [url absoluteString], identifier];
-    [self.sessionManager deleteAssetFromURL:URLString completion:completion];
+    [self.sessionManager deleteAssetFromURL:URLString completion:^(BOOL success, NSError *error) {
+        if (completion != NULL) completion(success, error);
+    }];
 }
 
 - (void)cancelProccessWithIdentifier:(NSString *)identifier {
@@ -118,10 +120,8 @@ NSString * const CRVDefaultPath = @"api/v1/attachments";
 }
 
 - (void)setShowsNetworkActivityIndicator:(BOOL)shows {
-    if (_showsNetworkActivityIndicator != shows) {
-        [AFNetworkActivityIndicatorManager sharedManager].enabled = shows;
-        _showsNetworkActivityIndicator = shows;
-    }
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = shows;
+    _showsNetworkActivityIndicator = shows;
 }
 
 #pragma mark - Private Methods
