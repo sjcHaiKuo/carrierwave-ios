@@ -58,8 +58,7 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
                                                           progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(NSDictionary *response, NSError *error) {
-        CRVUploadInfo *info = error ? nil : [[CRVUploadInfo alloc] initWithDictionary:response];
-        if (completion != NULL) completion(info, error);
+        [self performUploadCompletionBlock:completion withResponse:response error:error];
     }];
 }
 
@@ -72,8 +71,7 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
                                                           progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(NSDictionary *response, NSError *error) {
-        CRVUploadInfo *info = error ? nil : [[CRVUploadInfo alloc] initWithDictionary:response];
-        if (completion != NULL) completion(info, error);
+        [self performUploadCompletionBlock:completion withResponse:response error:error];
     }];
 }
 
@@ -126,6 +124,11 @@ NSTimeInterval const CRVDefaultReconnectionTime = 3;
         error = (!error && data && data.length == 0) ? [self errorForEmptyFile] : error;
         block(asset, error);
     }
+}
+
+- (void)performUploadCompletionBlock:(CRVUploadCompletionBlock)block withResponse:(NSDictionary *)response error:(NSError *)error {
+    CRVUploadInfo *info = error ? nil : [[CRVUploadInfo alloc] initWithDictionary:response];
+    if (block != NULL) block(info, error);
 }
 
 - (NSError *)errorForEmptyFile {
