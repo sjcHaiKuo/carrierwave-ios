@@ -72,7 +72,7 @@ static NSUInteger const CRVBufferSize = 4096;
                 break;
             }
             
-            NSInteger writeLength = [self.outputStream write:buffer maxLength:sizeof(buffer)];
+            NSInteger writeLength = [outputStream write:buffer maxLength:sizeof(buffer)];
             if (writeLength < 0) {
                 error = outputStream.streamError;
                 break;
