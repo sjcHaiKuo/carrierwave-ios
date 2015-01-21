@@ -18,7 +18,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
             sut = [[CRVSessionTaskManager alloc] init];
         });
         
-        it(@"should have no task wrappers", ^{
+        it(@"should have no task wrappers.", ^{
             expect([sut taskWrappers]).to.haveCountOf(0);
         });
     });
@@ -124,7 +124,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
                     expect([sut downloadTaskWrappers]).to.beEmpty();
                 });
                 
-                it(@"should manager any wrapper.", ^{
+                it(@"should manager have any wrapper.", ^{
                     expect([sut taskWrappers]).to.beEmpty();
                 });
             });
@@ -139,7 +139,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
                     expect([sut downloadTaskWrappers]).to.beEmpty();
                 });
                 
-                it(@"should manager any wrapper.", ^{
+                it(@"should manager have any wrapper.", ^{
                     expect([sut taskWrappers]).to.beEmpty();
                 });
             });
@@ -226,7 +226,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
                     expect([sut downloadTaskWrappers]).to.beEmpty();
                 });
                 
-                it(@"should manager any wrapper.", ^{
+                it(@"should manager have any wrapper.", ^{
                     expect([sut taskWrappers]).to.beEmpty();
                 });
             });
@@ -241,7 +241,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
                     expect([sut downloadTaskWrappers]).to.beEmpty();
                 });
                 
-                it(@"should manager any wrapper.", ^{
+                it(@"should manager have any wrapper.", ^{
                     expect([sut taskWrappers]).to.beEmpty();
                 });
             });

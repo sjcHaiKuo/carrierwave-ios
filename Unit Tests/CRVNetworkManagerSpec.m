@@ -22,46 +22,46 @@ describe(@"CRVNetworkManagerSpec", ^{
             sut = nil;
         });
         
-        it(@"should have no server url", ^{
+        it(@"should have no server url.", ^{
             expect(sut.serverURL).to.beNil();
         });
         
-        it(@"should have upload path equal to default value", ^{
+        it(@"should have upload path equal to default value.", ^{
             expect(sut.path).to.equal(CRVDefaultPath);
         });
         
-        it(@"should check cache", ^{
+        it(@"should check cache.", ^{
             expect(sut.checkCache).to.beTruthy();
         });
         
-        it(@"should number of retries be set to default value", ^{
+        it(@"should number of retries be set to default value.", ^{
             expect(sut.numberOfRetries).to.equal(CRVDefaultNumberOfRetries);
         });
         
-        it(@"should reconnection time be set to default value", ^{
+        it(@"should reconnection time be set to default value.", ^{
             expect(sut.reconnectionTime).to.equal(CRVDefaultReconnectionTime);
         });
         
-        it(@"should conform CRVSessionManagerDelegate", ^{
+        it(@"should conform CRVSessionManagerDelegate.", ^{
             expect(sut).conformTo(@protocol(CRVSessionManagerDelegate));
         });
         
-        it(@"should respond to check cache delegate", ^{
+        it(@"should respond to check cache delegate.", ^{
             expect(sut).to.respondTo(@selector(shouldSessionMangerCheckCache:));
         });
         
-        it(@"should respond to number of retries delegate", ^{
+        it(@"should respond to number of retries delegate.", ^{
             expect(sut).to.respondTo(@selector(numberOfRetriesSessionManagerShouldPrepare:));
         });
         
-        it(@"should respond to reconnection time delegate", ^{
+        it(@"should respond to reconnection time delegate.", ^{
             expect(sut).to.respondTo(@selector(reconnectionTimeSessionManagerShouldWait:));
         });
     });
     
     describe(@"when using a shared instance", ^{
         
-        it(@"should return the same instance", ^{
+        it(@"should return the same instance.", ^{
             CRVNetworkManager *first = [CRVNetworkManager sharedManager];
             CRVNetworkManager *second = [CRVNetworkManager sharedManager];
             expect(first).to.beIdenticalTo(second);
@@ -76,7 +76,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         
         context(@"when downloading", ^{
             
-            it(@"should raise an exception", ^{
+            it(@"should raise an exception.", ^{
                 expect(^{
                     [sut downloadAssetFromURL:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
@@ -85,7 +85,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         
         context(@"when uploading", ^{
             
-            it(@"should raise an exception", ^{
+            it(@"should raise an exception.", ^{
                 expect(^{
                     [sut uploadAsset:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
@@ -94,7 +94,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         
         context(@"when deleting", ^{
             
-            it(@"should raise an exception", ^{
+            it(@"should raise an exception.", ^{
                 expect(^{
                     [sut deleteAssetWithIdentifier:@"anyIdentifier" fromURL:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
@@ -111,7 +111,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         
         context(@"when downloading", ^{
             
-            it(@"should raise an exception", ^{
+            it(@"should raise an exception.", ^{
                 expect(^{
                     [sut downloadAssetFromPath:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
@@ -120,7 +120,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         
         context(@"when uploading", ^{
             
-            it(@"should raise an exception", ^{
+            it(@"should raise an exception.", ^{
                 expect(^{
                     [sut uploadAsset:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
@@ -299,7 +299,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             anError = nil;
         });
         
-        context(@"witthout identifier", ^{
+        context(@"without identifier", ^{
             
             it(@"should raise an exception.", ^{
                 expect(^{
