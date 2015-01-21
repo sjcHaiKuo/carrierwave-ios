@@ -10,52 +10,52 @@ SpecBegin(CRVNetworkManagerSpec)
 
 describe(@"CRVNetworkManagerSpec", ^{
     
-    __block CRVNetworkManager *manager = nil;
+    __block CRVNetworkManager *sut = nil;
     
     describe(@"when newly created", ^{
         
         beforeEach(^{
-            manager = [[CRVNetworkManager alloc] init];
+            sut = [[CRVNetworkManager alloc] init];
         });
         
         afterEach(^{
-            manager = nil;
+            sut = nil;
         });
         
         it(@"should have no server url", ^{
-            expect(manager.serverURL).to.beNil();
+            expect(sut.serverURL).to.beNil();
         });
         
         it(@"should have upload path equal to default value", ^{
-            expect(manager.path).to.equal(CRVDefaultPath);
+            expect(sut.path).to.equal(CRVDefaultPath);
         });
         
         it(@"should check cache", ^{
-            expect(manager.checkCache).to.beTruthy();
+            expect(sut.checkCache).to.beTruthy();
         });
         
         it(@"should number of retries be set to default value", ^{
-            expect(manager.numberOfRetries).to.equal(CRVDefaultNumberOfRetries);
+            expect(sut.numberOfRetries).to.equal(CRVDefaultNumberOfRetries);
         });
         
         it(@"should reconnection time be set to default value", ^{
-            expect(manager.reconnectionTime).to.equal(CRVDefaultReconnectionTime);
+            expect(sut.reconnectionTime).to.equal(CRVDefaultReconnectionTime);
         });
         
         it(@"should conform CRVSessionManagerDelegate", ^{
-            expect(manager).conformTo(@protocol(CRVSessionManagerDelegate));
+            expect(sut).conformTo(@protocol(CRVSessionManagerDelegate));
         });
         
         it(@"should respond to check cache delegate", ^{
-            expect(manager).to.respondTo(@selector(shouldSessionMangerCheckCache:));
+            expect(sut).to.respondTo(@selector(shouldSessionMangerCheckCache:));
         });
         
         it(@"should respond to number of retries delegate", ^{
-            expect(manager).to.respondTo(@selector(numberOfRetriesSessionManagerShouldPrepare:));
+            expect(sut).to.respondTo(@selector(numberOfRetriesSessionManagerShouldPrepare:));
         });
         
         it(@"should respond to reconnection time delegate", ^{
-            expect(manager).to.respondTo(@selector(reconnectionTimeSessionManagerShouldWait:));
+            expect(sut).to.respondTo(@selector(reconnectionTimeSessionManagerShouldWait:));
         });
     });
     
@@ -71,14 +71,14 @@ describe(@"CRVNetworkManagerSpec", ^{
     describe(@"with no provided url", ^{
         
         beforeEach(^{
-            manager = [[CRVNetworkManager alloc] init];
+            sut = [[CRVNetworkManager alloc] init];
         });
         
         context(@"when downloading", ^{
             
             it(@"should raise an exception", ^{
                 expect(^{
-                    [manager downloadAssetFromURL:nil progress:nil completion:nil];
+                    [sut downloadAssetFromURL:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
         });
@@ -87,7 +87,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             
             it(@"should raise an exception", ^{
                 expect(^{
-                    [manager uploadAsset:nil progress:nil completion:nil];
+                    [sut uploadAsset:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
         });
@@ -96,7 +96,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             
             it(@"should raise an exception", ^{
                 expect(^{
-                    [manager deleteAssetWithIdentifier:@"anyIdentifier" fromURL:nil completion:nil];
+                    [sut deleteAssetWithIdentifier:@"anyIdentifier" fromURL:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
         });
@@ -105,15 +105,15 @@ describe(@"CRVNetworkManagerSpec", ^{
     describe(@"with no provided path", ^{
         
         beforeEach(^{
-            manager = [[CRVNetworkManager alloc] init];
-            manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
+            sut = [[CRVNetworkManager alloc] init];
+            sut.serverURL = [NSURL URLWithString:@"http://www.example.com"];
         });
         
         context(@"when downloading", ^{
             
             it(@"should raise an exception", ^{
                 expect(^{
-                    [manager downloadAssetFromPath:nil progress:nil completion:nil];
+                    [sut downloadAssetFromPath:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
         });
@@ -122,11 +122,10 @@ describe(@"CRVNetworkManagerSpec", ^{
             
             it(@"should raise an exception", ^{
                 expect(^{
-                    [manager uploadAsset:nil progress:nil completion:nil];
+                    [sut uploadAsset:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
         });
-        
     });
     
     describe(@"when dowloading", ^{
@@ -146,11 +145,11 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
         
         beforeEach(^{
-            manager = [[CRVNetworkManager alloc] init];
-            manager.reconnectionTime = 0.2;
-            manager.numberOfRetries = 4;
-            manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
-            [Expecta setAsynchronousTestTimeout:(manager.reconnectionTime * manager.numberOfRetries + 0.5)];
+            sut = [[CRVNetworkManager alloc] init];
+            sut.reconnectionTime = 0.2;
+            sut.numberOfRetries = 4;
+            sut.serverURL = [NSURL URLWithString:@"http://www.example.com"];
+            [Expecta setAsynchronousTestTimeout:(sut.reconnectionTime * sut.numberOfRetries + 0.5)];
             anAsset = nil;
             anError = nil;
         });
@@ -158,11 +157,11 @@ describe(@"CRVNetworkManagerSpec", ^{
         context(@"and checking cache", ^{
             
             beforeEach(^{
-                manager.checkCache = YES;
+                sut.checkCache = YES;
             });
             
             it(@"should succeed without connection.", ^{
-                [manager downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                [sut downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                     anError = error;
                     anAsset = asset;
                     expect([OHHTTPStubs retriesMade]).to.equal(0);
@@ -177,13 +176,13 @@ describe(@"CRVNetworkManagerSpec", ^{
         context(@"without checking cache", ^{
             
             beforeEach(^{
-                manager.checkCache = NO;
+                sut.checkCache = NO;
             });
             
             context(@"without retries", ^{
                 
                 beforeEach(^{
-                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorNoone manager:manager];
+                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorNoone manager:sut];
                 });
                 
                 afterEach(^{
@@ -191,7 +190,7 @@ describe(@"CRVNetworkManagerSpec", ^{
                 });
                 
                 it(@"should succeed.", ^{
-                    [manager downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    [sut downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                         anError = error;
                         anAsset = asset;
                         expect([OHHTTPStubs retriesMade]).to.equal(0);
@@ -203,7 +202,7 @@ describe(@"CRVNetworkManagerSpec", ^{
                 });
                 
                 it(@"should succeed.", ^{
-                    [manager downloadAssetFromPath:kImageName progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    [sut downloadAssetFromPath:kImageName progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                         anError = error;
                         anAsset = asset;
                         expect([OHHTTPStubs retriesMade]).to.equal(0);
@@ -218,7 +217,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             context(@"with retries limit", ^{
                 
                 beforeEach(^{
-                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesReachedRetriesLimit manager:manager];
+                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesReachedRetriesLimit manager:sut];
                 });
                 
                 afterEach(^{
@@ -226,10 +225,10 @@ describe(@"CRVNetworkManagerSpec", ^{
                 });
                 
                 it(@"should succeed.", ^{
-                    [manager downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    [sut downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                         anError = error;
                         anAsset = asset;
-                        expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries);
+                        expect([OHHTTPStubs retriesMade]).to.equal(sut.numberOfRetries);
                     }];
                     
                     expect(anError).will.beNil();
@@ -238,10 +237,10 @@ describe(@"CRVNetworkManagerSpec", ^{
                 });
                 
                 it(@"should succeed.", ^{
-                    [manager downloadAssetFromPath:kImageName progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    [sut downloadAssetFromPath:kImageName progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                         anError = error;
                         anAsset = asset;
-                        expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries);
+                        expect([OHHTTPStubs retriesMade]).to.equal(sut.numberOfRetries);
                     }];
                     
                     expect(anError).will.beNil();
@@ -253,7 +252,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             context(@"with retries limit exceeded", ^{
                 
                 beforeEach(^{
-                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesLimitExceeded manager:manager];
+                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesLimitExceeded manager:sut];
                 });
                 
                 afterEach(^{
@@ -261,10 +260,10 @@ describe(@"CRVNetworkManagerSpec", ^{
                 });
                 
                 it(@"should fail.", ^{
-                    [manager downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    [sut downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                         anError = error;
                         anAsset = asset;
-                        expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries + 1);
+                        expect([OHHTTPStubs retriesMade]).to.equal(sut.numberOfRetries + 1);
                     }];
                     
                     expect(anError).will.notTo.beNil();
@@ -272,10 +271,10 @@ describe(@"CRVNetworkManagerSpec", ^{
                 });
                 
                 it(@"should fail.", ^{
-                    [manager downloadAssetFromPath:kImageName progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    [sut downloadAssetFromPath:kImageName progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                         anError = error;
                         anAsset = asset;
-                        expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries + 1);
+                        expect([OHHTTPStubs retriesMade]).to.equal(sut.numberOfRetries + 1);
                     }];
                     
                     expect(anError).will.notTo.beNil();
@@ -292,18 +291,33 @@ describe(@"CRVNetworkManagerSpec", ^{
         __block BOOL aSuccess;
         
         beforeEach(^{
-            manager = [[CRVNetworkManager alloc] init];
-            manager.reconnectionTime = 0.2;
-            manager.numberOfRetries = 4;
-            manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
-            [Expecta setAsynchronousTestTimeout:(manager.reconnectionTime * manager.numberOfRetries + 0.5)];
+            sut = [[CRVNetworkManager alloc] init];
+            sut.reconnectionTime = 0.2;
+            sut.numberOfRetries = 4;
+            sut.serverURL = [NSURL URLWithString:@"http://www.example.com"];
+            [Expecta setAsynchronousTestTimeout:(sut.reconnectionTime * sut.numberOfRetries + 0.5)];
             anError = nil;
+        });
+        
+        context(@"witthout identifier", ^{
+            
+            it(@"should raise an exception.", ^{
+                expect(^{
+                    [sut deleteAssetWithIdentifier:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+            
+            it(@"should raise an exception.", ^{
+                expect(^{
+                    [sut deleteAssetWithIdentifier:nil fromURL:[NSURL URLWithString:@"http://www.example.com"] completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
         });
         
         context(@"without retries", ^{
             
             beforeEach(^{
-                stub = [OHHTTPStubs crv_stubDeletionRequestWithError:CRVStubErrorNoone manager:manager];
+                stub = [OHHTTPStubs crv_stubDeletionRequestWithError:CRVStubErrorNoone manager:sut];
                 aSuccess = NO;
             });
             
@@ -312,7 +326,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             });
             
             it(@"should succeed.", ^{
-                [manager deleteAssetWithIdentifier:@"1" completion:^(BOOL success, NSError *error) {
+                [sut deleteAssetWithIdentifier:@"1" completion:^(BOOL success, NSError *error) {
                     aSuccess = success;
                     anError = error;
                     expect([OHHTTPStubs retriesMade]).to.equal(0);
@@ -323,7 +337,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             });
             
             it(@"should succeed.", ^{
-                [manager deleteAssetWithIdentifier:@"1" fromURL:[NSURL URLWithString:@"http://www.example.com"] completion:^(BOOL success, NSError *error) {
+                [sut deleteAssetWithIdentifier:@"1" fromURL:[NSURL URLWithString:@"http://www.example.com"] completion:^(BOOL success, NSError *error) {
                     aSuccess = success;
                     anError = error;
                     expect([OHHTTPStubs retriesMade]).to.equal(0);
@@ -337,7 +351,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         context(@"with retries limit", ^{
             
             beforeEach(^{
-                stub = [OHHTTPStubs crv_stubDeletionRequestWithError:CRVStubErrorRetriesReachedRetriesLimit manager:manager];
+                stub = [OHHTTPStubs crv_stubDeletionRequestWithError:CRVStubErrorRetriesReachedRetriesLimit manager:sut];
                 aSuccess = NO;
             });
             
@@ -346,10 +360,10 @@ describe(@"CRVNetworkManagerSpec", ^{
             });
             
             it(@"should succeed.", ^{
-                [manager deleteAssetWithIdentifier:@"1" completion:^(BOOL success, NSError *error) {
+                [sut deleteAssetWithIdentifier:@"1" completion:^(BOOL success, NSError *error) {
                     aSuccess = success;
                     anError = error;
-                    expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries);
+                    expect([OHHTTPStubs retriesMade]).to.equal(sut.numberOfRetries);
                 }];
                 
                 expect(anError).will.beNil();
@@ -357,10 +371,10 @@ describe(@"CRVNetworkManagerSpec", ^{
             });
             
             it(@"should succeed.", ^{
-                [manager deleteAssetWithIdentifier:@"1" fromURL:[NSURL URLWithString:@"http://www.example.com"] completion:^(BOOL success, NSError *error) {
+                [sut deleteAssetWithIdentifier:@"1" fromURL:[NSURL URLWithString:@"http://www.example.com"] completion:^(BOOL success, NSError *error) {
                     aSuccess = success;
                     anError = error;
-                    expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries);
+                    expect([OHHTTPStubs retriesMade]).to.equal(sut.numberOfRetries);
                 }];
                 
                 expect(anError).will.beNil();
@@ -371,7 +385,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         context(@"with retries limit exceeded", ^{
             
             beforeEach(^{
-                stub = [OHHTTPStubs crv_stubDeletionRequestWithError:CRVStubErrorRetriesLimitExceeded manager:manager];
+                stub = [OHHTTPStubs crv_stubDeletionRequestWithError:CRVStubErrorRetriesLimitExceeded manager:sut];
                 aSuccess = YES;
             });
             
@@ -380,10 +394,10 @@ describe(@"CRVNetworkManagerSpec", ^{
             });
             
             it(@"should fail.", ^{
-                [manager deleteAssetWithIdentifier:@"1" completion:^(BOOL success, NSError *error) {
+                [sut deleteAssetWithIdentifier:@"1" completion:^(BOOL success, NSError *error) {
                     aSuccess = success;
                     anError = error;
-                    expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries + 1);
+                    expect([OHHTTPStubs retriesMade]).to.equal(sut.numberOfRetries + 1);
                 }];
                 
                 expect(anError).will.toNot.beNil();
@@ -391,10 +405,10 @@ describe(@"CRVNetworkManagerSpec", ^{
             });
             
             it(@"should fail.", ^{
-                [manager deleteAssetWithIdentifier:@"1" fromURL:[NSURL URLWithString:@"http://www.example.com"] completion:^(BOOL success, NSError *error) {
+                [sut deleteAssetWithIdentifier:@"1" fromURL:[NSURL URLWithString:@"http://www.example.com"] completion:^(BOOL success, NSError *error) {
                     aSuccess = success;
                     anError = error;
-                    expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries + 1);
+                    expect([OHHTTPStubs retriesMade]).to.equal(sut.numberOfRetries + 1);
                 }];
                 
                 expect(anError).will.toNot.beNil();

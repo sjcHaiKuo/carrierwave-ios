@@ -29,6 +29,7 @@ static NSUInteger CRVStubbedNumberOfRetries;
     CRVStubbedNumberOfRetries = 0;
     
     return [self crv_stubRequestsWithError:stubbedError manager:manager response:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        CRVWorkInProgress("temporary JSON");
         NSDictionary *json = @{@"success" : @"YES"};
         return [OHHTTPStubsResponse responseWithJSONObject:json statusCode:200 headers:nil];
     }];
@@ -47,7 +48,6 @@ static NSUInteger CRVStubbedNumberOfRetries;
     } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
         
         NSError *error = nil;
-        
         switch (stubbedError) {
             default:
             case CRVStubErrorNoone:
@@ -68,6 +68,5 @@ static NSUInteger CRVStubbedNumberOfRetries;
         return error ? [OHHTTPStubsResponse responseWithError:error] : response(request);
     }];
 }
-
 
 @end
