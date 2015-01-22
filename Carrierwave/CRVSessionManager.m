@@ -10,9 +10,7 @@
 #import "CRVSessionTaskManager.h"
 #import "CRVNetworkManager.h"
 
-NSString * const CRVServerUploadMethodArgumentName = @"uploadedfile";
-
-CRVWorkInProgress("Check chunked transfer encoding")
+NSString * const CRVBackendParameterName = @"attachment[file]";
 
 static inline NSString * intToString(NSUInteger x) {
     return [NSString stringWithFormat:@"%lu", (unsigned long)x];
@@ -126,9 +124,10 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 
 - (NSURLSessionTask *)uploadTaskForDataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString withCompletionHandler:(void (^)(NSURLSessionTask *task, NSError *error, id response))completion {
     return [self POST:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithInputStream:dataStream name:CRVServerUploadMethodArgumentName fileName:name length:length.longLongValue mimeType:mimeType];
+        [formData appendPartWithInputStream:dataStream name:CRVBackendParameterName fileName:name length:length.longLongValue mimeType:mimeType];
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        completion(task, nil, responseObject);
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:NULL];
+        completion(task, nil, json);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completion(task, error, nil);
     }];

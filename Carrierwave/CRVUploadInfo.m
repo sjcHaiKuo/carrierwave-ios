@@ -15,8 +15,8 @@
     self = [super init];
     if (self) {
         if ([dictionary isKindOfClass:[NSDictionary class]]) {
-            _assetIdentifier = [dictionary crv_stringValueForKey:@"id"];
-            _assetPath = dictionary[@"file"];
+            _assetIdentifier = [dictionary[@"attachment"] crv_stringValueForKey:@"id"];
+            _assetPath = dictionary[@"attachment"][@"file"];
         }
     }
     return self;
