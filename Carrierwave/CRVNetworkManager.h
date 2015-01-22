@@ -24,7 +24,7 @@ extern NSString * const CRVDefaultPath;
 + (instancetype)sharedManager;
 
 /**
- *  Uploads given asset asynchronously to serverURL concatenated with path param.
+ *  Uploads given asset asynchronously.
  *
  *  @param asset      The asset object to upload.
  *  @param progress   The progress block used to monitor upload progress. Takes values from 0 to 1.
@@ -47,7 +47,7 @@ extern NSString * const CRVDefaultPath;
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
 
 /**
- *  Downloads asset asynchronously from serverURL concatenated with given path. Returns CRVImageAsset object or error, if any.
+ *  Downloads asset asynchronously with given identifier. Returns CRVImageAsset object or error, if any.
  *
  *  @param path       The path which will be concatenated with serverURL.
  *  @param progress   The progress block used to monitor download progress. Takes values from 0 to 1.
@@ -55,10 +55,10 @@ extern NSString * const CRVDefaultPath;
  *
  *  @return Identifier of dowloading proccess. Unique accross an app. Store it to play with proccess later.
  */
-- (NSString *)downloadAssetFromPath:(NSString *)path progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion;
+- (NSString *)downloadAssetWithIdentifier:(NSString *)identifier progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion;
 
 /**
- *  Downloads asset asynchronously from specified URL and returns CRVImageAsset object or error, if any.
+ *  Downloads asset asynchronously from specified URL. Returns CRVImageAsset object or error, if any.
  *
  *  @param url        The server URL of the server backend used during download.
  *  @param progress   The progress block used to monitor download progress. Takes values from 0 to 1.
@@ -77,14 +77,12 @@ extern NSString * const CRVDefaultPath;
 - (void)deleteAssetWithIdentifier:(NSString *)identifier completion:(CRVCompletionBlock)completion;
 
 /**
- *  Asynchronously deletes asset with given identifier from specified url.
+ *  Asynchronously deletes asset from specified url.
  *
- *  @param identifier The identifier of an asset to delete. It's same identifier as CRVUploadInfo object identifier returned from upload methods.
  *  @param url        The url used in request.
  *  @param completion The completion block executed on server response. If failed completion block will return error, otherwise nil;
  */
-- (void)deleteAssetWithIdentifier:(NSString *)identifier fromURL:(NSURL *)url completion:(CRVCompletionBlock)completion;
-
+- (void)deleteAssetFromURL:(NSURL *)url completion:(CRVCompletionBlock)completion;
 
 /**
  *  Cancels a proccess with given identifier.

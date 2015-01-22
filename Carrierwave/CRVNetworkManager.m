@@ -52,17 +52,8 @@ NSString * const CRVDefaultPath = @"api/v1/attachments";
 #pragma mark - Public Methods
 
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
-    NSString *URLString = [self URLStringByAppendingPath:self.path];
-    return [self.sessionManager uploadAssetRepresentedByDataStream:asset.dataStream
-                                                        withLength:asset.dataLength
-                                                              name:asset.fileName
-                                                          mimeType:asset.mimeType
-                                                         URLString:URLString
-                                                          progress:^(double aProgress) {
-        if (progress != NULL) progress(aProgress);
-    } completion:^(NSDictionary *response, NSError *error) {
-        [self performUploadCompletionBlock:completion withResponse:response error:error];
-    }];
+    NSURL *url = [NSURL URLWithString:[self URLString]];
+    return [self uploadAsset:asset toURL:url progress:progress completion:completion];
 }
 
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
@@ -74,35 +65,38 @@ NSString * const CRVDefaultPath = @"api/v1/attachments";
                                                           progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(NSDictionary *response, NSError *error) {
-        [self performUploadCompletionBlock:completion withResponse:response error:error];
+        CRVUploadInfo *info = error ? nil : [[CRVUploadInfo alloc] initWithDictionary:response];
+        if (completion != NULL) completion(info, error);
     }];
 }
 
-- (NSString *)downloadAssetFromPath:(NSString *)path progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
-    return [self.sessionManager downloadAssetFromURL:[self URLStringByAppendingPath:path] progress:^(double aProgress) {
-        if (progress != NULL) progress(aProgress);
-    } completion:^(NSData *data, NSError *error) {
-        [self performDownloadCompletionBlock:completion withData:data error:error];
-    }];
+- (NSString *)downloadAssetWithIdentifier:(NSString *)identifier progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
+    NSParameterAssert(identifier);
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/download", [self URLString], identifier]];
+    return [self downloadAssetFromURL:url progress:progress completion:completion];
 }
 
 - (NSString *)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
     return [self.sessionManager downloadAssetFromURL:url.absoluteString progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(NSData *data, NSError *error) {
-        [self performDownloadCompletionBlock:completion withData:data error:error];
+        if (completion != NULL) {
+            CRVImageAsset *asset = (data.length > 0) ? [[CRVImageAsset alloc] initWithData:data] : nil;
+            error = (!error && data && data.length == 0) ? [self errorForEmptyFile] : error;
+            completion(asset, error);
+        }
     }];
 }
 
 - (void)deleteAssetWithIdentifier:(NSString *)identifier completion:(CRVCompletionBlock)completion {
-    NSURL *url = [NSURL URLWithString:[self URLStringByAppendingPath:self.path]];
-    [self deleteAssetWithIdentifier:identifier fromURL:url completion:completion];
+    NSParameterAssert(identifier);
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [self URLString], identifier]];
+    [self deleteAssetFromURL:url completion:completion];
 }
 
-- (void)deleteAssetWithIdentifier:(NSString *)identifier fromURL:(NSURL *)url completion:(CRVCompletionBlock)completion {
-    NSParameterAssert(identifier); NSParameterAssert(url);
-    NSString *URLString = [NSString stringWithFormat:@"%@/%@", [url absoluteString], identifier];
-    [self.sessionManager deleteAssetFromURL:URLString completion:^(BOOL success, NSError *error) {
+- (void)deleteAssetFromURL:(NSURL *)url completion:(CRVCompletionBlock)completion {
+    NSParameterAssert(url);
+    [self.sessionManager deleteAssetFromURL:url.absoluteString completion:^(BOOL success, NSError *error) {
         if (completion != NULL) completion(success, error);
     }];
 }
@@ -126,23 +120,9 @@ NSString * const CRVDefaultPath = @"api/v1/attachments";
 
 #pragma mark - Private Methods
 
-- (NSString *)URLStringByAppendingPath:(NSString *)path {
+- (NSString *)URLString {
     NSAssert(self.serverURL != nil, @"Server URL cannot be nil.");
-    NSAssert(path != nil, @"Path cannot be nil.");
-    return [self.serverURL URLByAppendingPathComponent:path].absoluteString;
-}
-
-- (void)performDownloadCompletionBlock:(CRVDownloadCompletionBlock)block withData:(NSData *)data error:(NSError *)error {
-    if (block != NULL) {
-        CRVImageAsset *asset = (data.length > 0) ? [[CRVImageAsset alloc] initWithData:data] : nil;
-        error = (!error && data && data.length == 0) ? [self errorForEmptyFile] : error;
-        block(asset, error);
-    }
-}
-
-- (void)performUploadCompletionBlock:(CRVUploadCompletionBlock)block withResponse:(NSDictionary *)response error:(NSError *)error {
-    CRVUploadInfo *info = error ? nil : [[CRVUploadInfo alloc] initWithDictionary:response];
-    if (block != NULL) block(info, error);
+    return [self.serverURL URLByAppendingPathComponent:self.path].absoluteString;
 }
 
 - (NSError *)errorForEmptyFile {

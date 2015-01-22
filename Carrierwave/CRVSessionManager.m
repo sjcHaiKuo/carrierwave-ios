@@ -99,7 +99,7 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 
 - (void)deleteAssetFromURL:(NSString *)URLString completion:(void (^)(BOOL, NSError *))completion {
    
-    [self executeNumberOfTimes:[self numberOfRetries] retriableBlock:^(CRVCompletionBlock completion) {
+    [self executeOperationWithName:@"delete" times:[self numberOfRetries] retriableBlock:^(CRVCompletionBlock completion) {
         [self DELETE:URLString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             if (completion != NULL) completion(YES, nil);
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -136,6 +136,7 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 
 - (NSURLSessionDownloadTask *)downloadTaskForRequest:(NSURLRequest *)request withCompletionHandler:(void (^)(NSURL *filePath, NSError *error))completion {
     return [self downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSLog(@"%@", response);
         return [self targetDirectoryByAppendingFileName:[response suggestedFilename]];
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         completion(filePath, error);
@@ -175,21 +176,21 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 
 #pragma mark Tasks retry logic:
 
-- (void)executeNumberOfTimes:(NSInteger)numberOfTimes retriableBlock:(void (^)(CRVCompletionBlock block))retriable completion:(CRVCompletionBlock)completion {
+- (void)executeOperationWithName:(NSString *)name times:(NSInteger)times retriableBlock:(void (^)(CRVCompletionBlock block))retriable completion:(CRVCompletionBlock)completion {
     
-    __block NSInteger retriesCounter = numberOfTimes;
+    __block NSInteger retriesCounter = times;
     
     retriable(^(BOOL success, NSError *error) {
         BOOL retryPossible = (retriesCounter > 0);
         if (error && retryPossible) {
             retriesCounter--;
-            [self logRetryInfoForOperation:@"delete" fileName:nil retriesLeft:retriesCounter];
+            [self logRetryInfoForOperation:name fileName:nil retriesLeft:retriesCounter];
             __weak typeof(self) weakSelf = self;
             executeAfter([self reconnectionTime], ^{
-                [weakSelf executeNumberOfTimes:retriesCounter retriableBlock:retriable completion:completion];
+                [weakSelf executeOperationWithName:name times:retriesCounter retriableBlock:retriable completion:completion];
             });
         } else {
-            if (!retryPossible) [self logRetriesExceededInfoForOperation:@"Deletion" fileName:nil];
+            if (!retryPossible) [self logRetriesExceededInfoForOperation:name fileName:nil];
             if (completion != NULL) completion(success, error);
         }
     });
@@ -273,8 +274,11 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 }
 
 - (BOOL)fileDataFromURLString:(NSString *)URLString data:(NSData **)data{
-    NSURL *filePath = [self targetDirectoryByAppendingFileName:[[URLString componentsSeparatedByString:@"/"] lastObject]];
-    *data = [[NSFileManager defaultManager] contentsAtPath:[filePath path]];
+    NSArray *array = [URLString componentsSeparatedByString:@"/"];
+    if (array.count > 1) { //penultimate value, because in download path is "download" append
+        NSURL *filePath = [self targetDirectoryByAppendingFileName:array[array.count - 2]];
+        *data = [[NSFileManager defaultManager] contentsAtPath:[filePath path]];
+    }
     return *data ? YES : NO;
 }
 
@@ -285,7 +289,7 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 
 - (void)logRetriesExceededInfoForOperation:(NSString *)operation fileName:(NSString *)fileName {
     NSString *helper = fileName ? [NSString stringWithFormat:@" for asset \"%@\"", fileName] : @"";
-    NSLog(@"Number of retries limit has been exceeded%@. %@ failed", helper, operation);
+    NSLog(@"Number of retries limit has been exceeded%@. %@ failed", helper, [operation capitalizedString]);
 }
 
 #pragma mark - CRVSessionManagerDelegate Methods
