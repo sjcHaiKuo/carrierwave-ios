@@ -136,7 +136,6 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 
 - (NSURLSessionDownloadTask *)downloadTaskForRequest:(NSURLRequest *)request withCompletionHandler:(void (^)(NSURL *filePath, NSError *error))completion {
     return [self downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        NSLog(@"%@", response);
         return [self targetDirectoryByAppendingFileName:[response suggestedFilename]];
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         completion(filePath, error);

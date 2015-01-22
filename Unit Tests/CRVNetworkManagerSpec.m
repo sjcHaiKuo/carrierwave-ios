@@ -5,12 +5,28 @@
 //
 
 #define kImageIdentifier @"1"
+typedef void (^CRVRemoveTmpDirectoryContent)();
 
 SpecBegin(CRVNetworkManagerSpec)
 
 describe(@"CRVNetworkManagerSpec", ^{
     
     __block CRVNetworkManager *sut = nil;
+    
+    CRVRemoveTmpDirectoryContent removeTmpDirectoryContent = ^void() {
+        NSFileManager *manager = [NSFileManager defaultManager];
+        for (NSString *file in [manager contentsOfDirectoryAtPath:NSTemporaryDirectory() error:NULL]) {
+            [manager removeItemAtPath:[NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), file] error:NULL];
+        };
+    };
+    
+    beforeAll(^{
+        removeTmpDirectoryContent();
+    });
+    
+    afterAll(^{
+        removeTmpDirectoryContent();
+    });
     
     describe(@"when newly created", ^{
         
@@ -68,74 +84,74 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
     });
     
-//    describe(@"with no provided url", ^{
-//        
-//        beforeEach(^{
-//            sut = [[CRVNetworkManager alloc] init];
-//        });
-//        
-//        context(@"when downloading", ^{
-//            
-//            it(@"should raise an exception.", ^{
-//                expect(^{
-//                    [sut downloadAssetFromURL:nil progress:nil completion:nil];
-//                }).to.raise(NSInternalInconsistencyException);
-//            });
-//        });
-//        
-//        context(@"when uploading", ^{
-//            
-//            it(@"should raise an exception.", ^{
-//                expect(^{
-//                    [sut uploadAsset:nil progress:nil completion:nil];
-//                }).to.raise(NSInternalInconsistencyException);
-//            });
-//        });
-//        
-//        context(@"when deleting", ^{
-//            
-//            it(@"should raise an exception.", ^{
-//                expect(^{
-//                    [sut deleteAssetFromURL:nil completion:nil];
-//                }).to.raise(NSInternalInconsistencyException);
-//            });
-//        });
-//    });
-//    
-//    describe(@"with no provided identifier", ^{
-//        
-//        beforeEach(^{
-//            sut = [[CRVNetworkManager alloc] init];
-//            sut.serverURL = [NSURL URLWithString:@"http://www.example.com"];
-//        });
-//        
-//        context(@"when downloading", ^{
-//            
-//            it(@"should raise an exception.", ^{
-//                expect(^{
-//                    [sut downloadAssetWithIdentifier:nil progress:nil completion:nil];
-//                }).to.raise(NSInternalInconsistencyException);
-//            });
-//        });
-//        
-//        context(@"when uploading", ^{
-//            
-//            it(@"should raise an exception.", ^{
-//                expect(^{
-//                    [sut uploadAsset:nil progress:nil completion:nil];
-//                }).to.raise(NSInternalInconsistencyException);
-//            });
-//        });
-//        
-//        context(@"when deleting", ^{
-//            
-//            it(@"should raise an exception.", ^{
-//                expect(^{
-//                    [sut deleteAssetWithIdentifier:nil completion:nil];
-//                }).to.raise(NSInternalInconsistencyException);
-//            });
-//        });
-//    });
+    describe(@"with no provided url", ^{
+        
+        beforeEach(^{
+            sut = [[CRVNetworkManager alloc] init];
+        });
+        
+        context(@"when downloading", ^{
+            
+            it(@"should raise an exception.", ^{
+                expect(^{
+                    [sut downloadAssetFromURL:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+        });
+        
+        context(@"when uploading", ^{
+            
+            it(@"should raise an exception.", ^{
+                expect(^{
+                    [sut uploadAsset:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+        });
+        
+        context(@"when deleting", ^{
+            
+            it(@"should raise an exception.", ^{
+                expect(^{
+                    [sut deleteAssetFromURL:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+        });
+    });
+    
+    describe(@"with no provided identifier", ^{
+        
+        beforeEach(^{
+            sut = [[CRVNetworkManager alloc] init];
+            sut.serverURL = [NSURL URLWithString:@"http://www.example.com"];
+        });
+        
+        context(@"when downloading", ^{
+            
+            it(@"should raise an exception.", ^{
+                expect(^{
+                    [sut downloadAssetWithIdentifier:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+        });
+        
+        context(@"when uploading", ^{
+            
+            it(@"should raise an exception.", ^{
+                expect(^{
+                    [sut uploadAsset:nil progress:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+        });
+        
+        context(@"when deleting", ^{
+            
+            it(@"should raise an exception.", ^{
+                expect(^{
+                    [sut deleteAssetWithIdentifier:nil completion:nil];
+                }).to.raise(NSInternalInconsistencyException);
+            });
+        });
+    });
     
     describe(@"when dowloading", ^{
         
@@ -169,17 +185,17 @@ describe(@"CRVNetworkManagerSpec", ^{
                 sut.checkCache = YES;
             });
             
-//            it(@"should succeed without connection.", ^{
-//                [sut downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
-//                    anError = error;
-//                    anAsset = asset;
-//                    expect([OHHTTPStubs retriesMade]).to.equal(0);
-//                }];
-//                
-//                expect(anError).will.beNil();
-//                expect(anAsset).will.notTo.beNil();
-//                expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
-//            });
+            it(@"should succeed without connection.", ^{
+                [sut downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    anError = error;
+                    anAsset = asset;
+                    expect([OHHTTPStubs retriesMade]).to.equal(0);
+                }];
+            
+                expect(anError).will.beNil();
+                expect(anAsset).will.notTo.beNil();
+                expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
+            });
             
             it(@"should succeed without connection.", ^{
                 [sut downloadAssetWithIdentifier:kImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
