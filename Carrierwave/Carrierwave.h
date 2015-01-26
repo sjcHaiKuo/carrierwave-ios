@@ -15,5 +15,6 @@
 
     #import <Carrierwave/CRVImageEditViewController.h>
     #import <Carrierwave/CRVNetworkManager.h>
+    #import <Carrierwave/CRVScalableView.h>
 
 #endif
