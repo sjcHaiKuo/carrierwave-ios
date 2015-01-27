@@ -9,8 +9,8 @@
 #import "OHHTTPStubs.h"
 
 typedef NS_ENUM (NSInteger, CRVStubError) {
-    CRVStubErrorNoone,
-    CRVStubErrorRetriesReachedRetriesLimit,
+    CRVStubErrorNone,
+    CRVStubErrorRetriesLimitReached,
     CRVStubErrorRetriesLimitExceeded
 };
 

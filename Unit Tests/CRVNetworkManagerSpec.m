@@ -219,7 +219,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             context(@"without retries", ^{
                 
                 beforeEach(^{
-                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorNoone manager:sut];
+                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorNone manager:sut];
                 });
                 
                 afterEach(^{
@@ -254,7 +254,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             context(@"with retries limit", ^{
                 
                 beforeEach(^{
-                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesReachedRetriesLimit manager:sut];
+                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesLimitReached manager:sut];
                 });
                 
                 afterEach(^{
@@ -339,7 +339,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         context(@"without retries", ^{
             
             beforeEach(^{
-                stub = [OHHTTPStubs crv_stubDeletionRequestWithError:CRVStubErrorNoone manager:sut];
+                stub = [OHHTTPStubs crv_stubDeletionRequestWithError:CRVStubErrorNone manager:sut];
                 aSuccess = NO;
             });
             
@@ -373,7 +373,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         context(@"with retries limit", ^{
             
             beforeEach(^{
-                stub = [OHHTTPStubs crv_stubDeletionRequestWithError:CRVStubErrorRetriesReachedRetriesLimit manager:sut];
+                stub = [OHHTTPStubs crv_stubDeletionRequestWithError:CRVStubErrorRetriesLimitReached manager:sut];
                 aSuccess = NO;
             });
             

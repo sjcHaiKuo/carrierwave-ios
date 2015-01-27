@@ -50,9 +50,9 @@ static NSUInteger CRVStubbedNumberOfRetries;
         NSError *error = nil;
         switch (stubbedError) {
             default:
-            case CRVStubErrorNoone:
+            case CRVStubErrorNone:
                 break;
-            case CRVStubErrorRetriesReachedRetriesLimit: {
+            case CRVStubErrorRetriesLimitReached: {
                 CRVStubbedNumberOfRetries ++;
                 if (CRVStubbedNumberOfRetries < manager.numberOfRetries) {
                     error = [NSError errorWithDomain:NSURLErrorDomain code:kCFURLErrorNotConnectedToInternet userInfo:nil];

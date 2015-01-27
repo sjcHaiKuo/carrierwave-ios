@@ -47,7 +47,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
         context(@"download task", ^{
             
             beforeEach(^{
-                CRVSessionTaskManagerTestWrapperIdentifier ++;
+                CRVSessionTaskManagerTestWrapperIdentifier++;
                 identifier = [sut addDownloadTask:task progress:nil completion:nil];
             });
             
@@ -149,7 +149,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
         context(@"upload task", ^{
             
             beforeEach(^{
-                CRVSessionTaskManagerTestWrapperIdentifier ++;
+                CRVSessionTaskManagerTestWrapperIdentifier++;
                 identifier = [sut addUploadTask:task dataStream:nil length:nil name:nil mimeType:nil progress:nil completion:nil];
             });
             

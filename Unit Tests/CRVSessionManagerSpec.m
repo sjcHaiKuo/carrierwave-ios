@@ -44,7 +44,7 @@ describe(@"CRVSessionManagerSpec", ^{
             });
             
             beforeEach(^{
-                CRVSessionManagerTestWrapperIdentifier ++;
+                CRVSessionManagerTestWrapperIdentifier++;
                 identifier = [sut downloadAssetFromURL:url progress:nil completion:nil];
             });
             
@@ -116,7 +116,7 @@ describe(@"CRVSessionManagerSpec", ^{
             });
 
             beforeEach(^{
-                CRVSessionManagerTestWrapperIdentifier ++;
+                CRVSessionManagerTestWrapperIdentifier++;
                 identifier = [sut uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:mimeType URLString:URLString progress:nil completion:nil];
             });
             
