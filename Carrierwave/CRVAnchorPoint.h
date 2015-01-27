@@ -42,4 +42,11 @@ typedef NS_ENUM(NSInteger, CRVAnchorPointLocation) {
 @property (nonatomic, assign, readonly) CGFloat adjustsH;
 @property (nonatomic, assign, readonly) CGFloat adjustsW;
 
+@property (nonatomic, assign, readonly) CGFloat ratioX1;
+@property (nonatomic, assign, readonly) CGFloat ratioX2;
+@property (nonatomic, assign, readonly) CGFloat ratioY1;
+@property (nonatomic, assign, readonly) CGFloat ratioY2;
+@property (nonatomic, assign, readonly) CGFloat ratioW;
+@property (nonatomic, assign, readonly) CGFloat ratioH;
+
 @end

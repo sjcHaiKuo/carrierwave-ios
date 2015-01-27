@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+#import "CRVScalableBorder.h"
 
 @protocol CRVScalableViewDelegate;
 
@@ -14,11 +15,15 @@
 
 @property (nonatomic, weak) id <CRVScalableViewDelegate> delegate;
 
+@property (strong, nonatomic, readonly) CRVScalableBorder *borderView;
+
 // Default is 300x300 points.
 @property (assign, nonatomic) CGSize maxSize;
 
 // Default is 50x50 points.
 @property (assign, nonatomic) CGSize minSize;
+
+@property (assign, nonatomic, getter=isRatioEnabled) BOOL ratioEnabled;
 
 //ratio W/H. 1.0f means square. 0.0f - unconstrained
 @property (assign, nonatomic) CGFloat ratio;

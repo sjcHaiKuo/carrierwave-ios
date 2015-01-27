@@ -8,12 +8,10 @@
 //  Resizing mechanism made by Stephen Poletto ( http://stephenpoletto.com ). Improved by Patryk Kaczmarek.
 
 #import "CRVScalableView.h"
-#import "CRVScalableBorder.h"
 #import "CRVAnchorPoint.h"
 
 @interface CRVScalableView ()
 
-@property (strong, nonatomic) CRVScalableBorder *borderView;
 @property (strong, nonatomic) CRVAnchorPoint *anchorPoint;
 @property (assign, nonatomic) CGPoint touchStart;
 
@@ -32,9 +30,10 @@
     _borderView = [[CRVScalableBorder alloc] initWithFrame:self.bounds];
     [self addSubview:_borderView];
     
+    self.ratioEnabled = YES;
     self.ratio = 0.5f;
     self.minSize = CGSizeMake(50.f, 50.f);
-    _maxSize = CGSizeMake(300.f, 300.f);
+    self.maxSize = CGSizeMake(320.f, 320.f);
     
     self.animationDuration = 1.0f;
     self.animationCurve = UIViewAnimationOptionCurveEaseInOut;
@@ -172,34 +171,76 @@
     CGFloat newWidth = self.frame.size.width + deltaW;
     CGFloat newHeight = self.frame.size.height + deltaH;
     
-    // If the new frame is too small or too large, cancel the changes.
-    if (newWidth < self.minSize.width || newWidth > self.maxSize.width) {
-        newWidth = self.frame.size.width;
-        newX = self.frame.origin.x;
-    }
-    if (newHeight < self.minSize.height || newHeight > self.maxSize.height) {
-        newHeight = self.frame.size.height;
-        newY = self.frame.origin.y;
-    }
+    CGFloat ratio = CGRectGetWidth(self.bounds)/CGRectGetHeight(self.bounds);
+
+    if (self.isRatioEnabled) {
+        
+        if (self.anchorPoint.ratioX1 != 0.f || self.anchorPoint.ratioX2 != 0.f) {
+            newX += (deltaW * self.anchorPoint.ratioX1) + (deltaH * ratio * self.anchorPoint.ratioX2) - deltaX;
+        }
+        if (self.anchorPoint.ratioY1 != 0.f || self.anchorPoint.ratioY2 != 0.f) {
+            newY += (deltaW/ratio * self.anchorPoint.ratioY1) + (deltaH * self.anchorPoint.ratioY2) - deltaY;
+        }
+        if (self.anchorPoint.ratioW != 0.f) {
+            newWidth += (deltaH * ratio * self.anchorPoint.ratioW) - deltaW;
+        }
+        if (self.anchorPoint.ratioH != 0.f) {
+            newHeight += (deltaW/ratio * self.anchorPoint.ratioH) - deltaH;
+        }
     
-    // Ensure the resize won't cause the view to move offscreen.
-    if (newX < self.superview.bounds.origin.x) {
-        // Calculate how much to grow the width by such that the new X coordintae will align with the superview.
-        deltaW = self.frame.origin.x - self.superview.bounds.origin.x;
-        newWidth = self.frame.size.width + deltaW;
-        newX = self.superview.bounds.origin.x;
-    }
-    if (newX + newWidth > self.superview.bounds.origin.x + self.superview.bounds.size.width) {
-        newWidth = self.superview.bounds.size.width - newX;
-    }
-    if (newY < self.superview.bounds.origin.y) {
-        // Calculate how much to grow the height by such that the new Y coordintae will align with the superview.
-        deltaH = self.frame.origin.y - self.superview.bounds.origin.y;
-        newHeight = self.frame.size.height + deltaH;
-        newY = self.superview.bounds.origin.y;
-    }
-    if (newY + newHeight > self.superview.bounds.origin.y + self.superview.bounds.size.height) {
-        newHeight = self.superview.bounds.size.height - newY;
+        // If the new frame is too small or too large, cancel the changes.
+        if (newHeight < self.minSize.height || newHeight > self.maxSize.height ||
+            newWidth < self.minSize.width || newWidth > self.maxSize.width) {
+            
+            newHeight = self.frame.size.height;
+            newY = self.frame.origin.y;
+            newWidth = self.frame.size.width;
+            newX = self.frame.origin.x;
+        }
+        
+        // Ensure the resize won't cause the view to move offscreen.
+        if (newX < self.superview.bounds.origin.x ||
+            newY < self.superview.bounds.origin.y ||
+            newX + newWidth > self.superview.bounds.origin.x + self.superview.bounds.size.width ||
+            newY + newHeight > self.superview.bounds.origin.y + self.superview.bounds.size.height) {
+            
+            newHeight = self.frame.size.height;
+            newY = self.frame.origin.y;
+            newWidth = self.frame.size.width;
+            newX = self.frame.origin.x;
+        }
+        
+    } else {
+        
+        // If the new frame is too small or too large, cancel the changes.
+        if (newWidth < self.minSize.width || newWidth > self.maxSize.width) {
+            newWidth = self.frame.size.width;
+            newX = self.frame.origin.x;
+        }
+        if (newHeight < self.minSize.height || newHeight > self.maxSize.height) {
+            newHeight = self.frame.size.height;
+            newY = self.frame.origin.y;
+        }
+        
+        // Ensure the resize won't cause the view to move offscreen.
+        if (newX < self.superview.bounds.origin.x) {
+            // Calculate how much to grow the width by such that the new X coordintae will align with the superview.
+            deltaW = self.frame.origin.x - self.superview.bounds.origin.x;
+            newWidth = self.frame.size.width + deltaW;
+            newX = self.superview.bounds.origin.x;
+        }
+        if (newX + newWidth > self.superview.bounds.origin.x + self.superview.bounds.size.width) {
+            newWidth = self.superview.bounds.size.width - newX;
+        }
+        if (newY < self.superview.bounds.origin.y) {
+            // Calculate how much to grow the height by such that the new Y coordintae will align with the superview.
+            deltaH = self.frame.origin.y - self.superview.bounds.origin.y;
+            newHeight = self.frame.size.height + deltaH;
+            newY = self.superview.bounds.origin.y;
+        }
+        if (newY + newHeight > self.superview.bounds.origin.y + self.superview.bounds.size.height) {
+            newHeight = self.superview.bounds.size.height - newY;
+        }
     }
     
     self.frame = CGRectMake(newX, newY, newWidth, newHeight);

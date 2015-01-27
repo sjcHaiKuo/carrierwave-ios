@@ -55,7 +55,7 @@
 		3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3BDB61A5092E6005BF9C4 /* UIImage+CRVComposition.m */; };
 		5E11A6AC1A766CE0001924ED /* CRVScalableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E11A6AA1A766CE0001924ED /* CRVScalableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E11A6AD1A766CE0001924ED /* CRVScalableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11A6AB1A766CE0001924ED /* CRVScalableView.m */; };
-		5E11A6B11A766D78001924ED /* CRVScalableBorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E11A6AF1A766D78001924ED /* CRVScalableBorder.h */; };
+		5E11A6B11A766D78001924ED /* CRVScalableBorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E11A6AF1A766D78001924ED /* CRVScalableBorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E11A6B21A766D78001924ED /* CRVScalableBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11A6B01A766D78001924ED /* CRVScalableBorder.m */; };
 		5E11A6B51A766E3C001924ED /* CRVAnchorPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E11A6B31A766E3C001924ED /* CRVAnchorPoint.h */; };
 		5E11A6B61A766E3C001924ED /* CRVAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11A6B41A766E3C001924ED /* CRVAnchorPoint.m */; };
@@ -609,7 +609,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ADC0E711A5ADB10009F4D4B /* CRVImageEditGlassView.h in Headers */,
-				5E11A6B11A766D78001924ED /* CRVScalableBorder.h in Headers */,
 				5E5006A71A6E867B00444E5D /* NSURLSessionTask+Carrierwave.h in Headers */,
 				5E5006A31A6E866600444E5D /* NSDictionary+Carrierwave.h in Headers */,
 				219BBFC71A6959DB003A97D3 /* CRVSaveAssetTask.h in Headers */,
@@ -617,6 +616,7 @@
 				5E4C99331A651228009AA040 /* CRVSessionUploadTaskWrapper.h in Headers */,
 				3ADC0E751A5AE7AA009F4D4B /* CRVImageEditScrollView.h in Headers */,
 				5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */,
+				5E11A6B11A766D78001924ED /* CRVScalableBorder.h in Headers */,
 				5E11A6AC1A766CE0001924ED /* CRVScalableView.h in Headers */,
 				5E50069F1A6E84E900444E5D /* CRVUploadInfo.h in Headers */,
 				5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */,

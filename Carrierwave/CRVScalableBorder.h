@@ -16,6 +16,7 @@ extern CGFloat CRVBorderInset;
 
 //default 5:
 @property (nonatomic, assign) CGFloat borderInset;
+
 //default 2:
 @property (nonatomic, assign) CGFloat anchorThickness;
 
