@@ -9,7 +9,7 @@
 #import "CRVAnchorPoint.h"
 
 static CGFloat crv_distanceBetweenTwoPoints(CGPoint point1, CGPoint point2) {
-    return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2));
+    return (CGFloat)sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2));
 };
 
 @interface CRVAnchorPoint ()
@@ -21,7 +21,6 @@ static CGFloat crv_distanceBetweenTwoPoints(CGPoint point1, CGPoint point2) {
 @property (nonatomic, assign, readwrite) CGFloat adjustsY;
 @property (nonatomic, assign, readwrite) CGFloat adjustsH;
 @property (nonatomic, assign, readwrite) CGFloat adjustsW;
-
 @property (nonatomic, assign, readwrite) CGFloat ratioX1;
 @property (nonatomic, assign, readwrite) CGFloat ratioX2;
 @property (nonatomic, assign, readwrite) CGFloat ratioY1;

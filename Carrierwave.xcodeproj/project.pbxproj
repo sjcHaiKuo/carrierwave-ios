@@ -53,6 +53,8 @@
 		3AF3BDB01A506D6B005BF9C4 /* pixel.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3BDA81A506D6B005BF9C4 /* pixel.png */; };
 		3AF3BDB21A506D6B005BF9C4 /* pixel.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3BDAA1A506D6B005BF9C4 /* pixel.tiff */; };
 		3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3BDB61A5092E6005BF9C4 /* UIImage+CRVComposition.m */; };
+		5E06ABA31A77DE4200155F3E /* CRVScalableBorder+Anchors.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E06ABA11A77DE4200155F3E /* CRVScalableBorder+Anchors.h */; };
+		5E06ABA41A77DE4200155F3E /* CRVScalableBorder+Anchors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E06ABA21A77DE4200155F3E /* CRVScalableBorder+Anchors.m */; };
 		5E11A6AC1A766CE0001924ED /* CRVScalableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E11A6AA1A766CE0001924ED /* CRVScalableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E11A6AD1A766CE0001924ED /* CRVScalableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11A6AB1A766CE0001924ED /* CRVScalableView.m */; };
 		5E11A6B11A766D78001924ED /* CRVScalableBorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E11A6AF1A766D78001924ED /* CRVScalableBorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -191,6 +193,8 @@
 		3AF3BDAA1A506D6B005BF9C4 /* pixel.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = pixel.tiff; sourceTree = "<group>"; };
 		3AF3BDB51A5092E6005BF9C4 /* UIImage+CRVComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CRVComposition.h"; sourceTree = "<group>"; };
 		3AF3BDB61A5092E6005BF9C4 /* UIImage+CRVComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CRVComposition.m"; sourceTree = "<group>"; };
+		5E06ABA11A77DE4200155F3E /* CRVScalableBorder+Anchors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CRVScalableBorder+Anchors.h"; sourceTree = "<group>"; };
+		5E06ABA21A77DE4200155F3E /* CRVScalableBorder+Anchors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CRVScalableBorder+Anchors.m"; sourceTree = "<group>"; };
 		5E11A6AA1A766CE0001924ED /* CRVScalableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVScalableView.h; sourceTree = "<group>"; };
 		5E11A6AB1A766CE0001924ED /* CRVScalableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVScalableView.m; sourceTree = "<group>"; };
 		5E11A6AF1A766D78001924ED /* CRVScalableBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVScalableBorder.h; sourceTree = "<group>"; };
@@ -554,6 +558,8 @@
 				5E11A6AB1A766CE0001924ED /* CRVScalableView.m */,
 				5E11A6AF1A766D78001924ED /* CRVScalableBorder.h */,
 				5E11A6B01A766D78001924ED /* CRVScalableBorder.m */,
+				5E06ABA11A77DE4200155F3E /* CRVScalableBorder+Anchors.h */,
+				5E06ABA21A77DE4200155F3E /* CRVScalableBorder+Anchors.m */,
 				5E11A6B31A766E3C001924ED /* CRVAnchorPoint.h */,
 				5E11A6B41A766E3C001924ED /* CRVAnchorPoint.m */,
 			);
@@ -622,6 +628,7 @@
 				5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */,
 				219BBFBC1A693BD3003A97D3 /* CRVVideoAssetTypedefs.h in Headers */,
 				210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */,
+				5E06ABA31A77DE4200155F3E /* CRVScalableBorder+Anchors.h in Headers */,
 				5E4C992F1A651210009AA040 /* CRVSessionDownloadTaskWrapper.h in Headers */,
 				21A75BEB1A6E513A003A7E0A /* CRVVideoDataStreamProvider.h in Headers */,
 				3AF3BD9C1A50461D005BF9C4 /* CRVAssetType.h in Headers */,
@@ -967,6 +974,7 @@
 				21A75BEC1A6E513A003A7E0A /* CRVVideoDataStreamProvider.m in Sources */,
 				210E15A41A67EB4700342A39 /* CRVAssertTypeUtils.m in Sources */,
 				5E4D0A6C1A60982100A1729B /* CRVSessionTaskManager.m in Sources */,
+				5E06ABA41A77DE4200155F3E /* CRVScalableBorder+Anchors.m in Sources */,
 				210E15A01A67C92700342A39 /* CRVVideoAsset.m in Sources */,
 				5E11A6AD1A766CE0001924ED /* CRVScalableView.m in Sources */,
 				5E56EBFB1A5D68D2002E2484 /* CRVNetworkManager.m in Sources */,
