@@ -16,19 +16,19 @@ static CGFloat crv_distanceBetweenTwoPoints(CGPoint point1, CGPoint point2) {
 
 @property (assign, nonatomic) CGFloat multiplierX;
 @property (assign, nonatomic) CGFloat multiplierY;
-@property (nonatomic, assign, readwrite) CGPoint referencePoint;
-@property (nonatomic, assign, readwrite) CGFloat adjustsX;
-@property (nonatomic, assign, readwrite) CGFloat adjustsY;
-@property (nonatomic, assign, readwrite) CGFloat adjustsH;
-@property (nonatomic, assign, readwrite) CGFloat adjustsW;
-@property (nonatomic, assign, readwrite) CGFloat ratioX1;
-@property (nonatomic, assign, readwrite) CGFloat ratioX2;
-@property (nonatomic, assign, readwrite) CGFloat ratioY1;
-@property (nonatomic, assign, readwrite) CGFloat ratioY2;
-@property (nonatomic, assign, readwrite) CGFloat ratioW;
-@property (nonatomic, assign, readwrite) CGFloat ratioH;
+@property (assign, nonatomic, readwrite) CGPoint referencePoint;
+@property (assign, nonatomic, readwrite) CGFloat adjustsX;
+@property (assign, nonatomic, readwrite) CGFloat adjustsY;
+@property (assign, nonatomic, readwrite) CGFloat adjustsH;
+@property (assign, nonatomic, readwrite) CGFloat adjustsW;
+@property (assign, nonatomic, readwrite) CGFloat ratioX1;
+@property (assign, nonatomic, readwrite) CGFloat ratioX2;
+@property (assign, nonatomic, readwrite) CGFloat ratioY1;
+@property (assign, nonatomic, readwrite) CGFloat ratioY2;
+@property (assign, nonatomic, readwrite) CGFloat ratioW;
+@property (assign, nonatomic, readwrite) CGFloat ratioH;
 
-@property (nonatomic, assign, readwrite) CRVAnchorPointLocation location;
+@property (assign, nonatomic, readwrite) CRVAnchorPointLocation location;
 
 @end
 

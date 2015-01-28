@@ -32,7 +32,6 @@ typedef NS_ENUM(NSInteger, CRVBorderStyle) {
     CRVBorderStyleDotted
 };
 
-extern CGFloat CRVBorderInset;
 
 @interface CRVScalableBorder : UIView
 
@@ -40,7 +39,7 @@ extern CGFloat CRVBorderInset;
  *  Whether user currenly resize border. Property managed and set by CRVScalableBorder. 
  *  Do not change if it is not necessary.
  */
-@property (nonatomic, assign, getter=isResizing) BOOL resizing;
+@property (assign, nonatomic, getter=isResizing) BOOL resizing;
 
 /**
  *  The margin of border draw relative to it's superview (CRVScalableBorder). Default: 5.0f.

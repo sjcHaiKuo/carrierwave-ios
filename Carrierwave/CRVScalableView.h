@@ -13,7 +13,7 @@
 
 @interface CRVScalableView : UIView
 
-@property (nonatomic, weak) id <CRVScalableViewDelegate> delegate;
+@property (weak, nonatomic) id <CRVScalableViewDelegate> delegate;
 
 @property (strong, nonatomic, readonly) CRVScalableBorder *borderView;
 
@@ -36,9 +36,9 @@
 
 @property (assign, nonatomic) CGFloat springDamping; //default 0.9f
 
-- (void)animateToFrame:(CGRect)frame completion:(void (^)(BOOL))completion;
+- (void)animateToFrame:(CGRect)frame completion:(void (^)(BOOL finished))completion;
 
-- (void)animateToSize:(CGSize)size completion:(void (^)(BOOL))completion;
+- (void)animateToSize:(CGSize)size completion:(void (^)(BOOL finished))completion;
 
 @end
 

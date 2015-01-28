@@ -292,9 +292,9 @@
     return value;
 }
 
-- (void)animateSelfToFrame:(CGRect)frame completion:(void (^)(BOOL))completion {
-    
+- (void)animateSelfToFrame:(CGRect)frame completion:(void (^)(BOOL finished))completion {
     frame = [self frameByCheckingBoundaries:frame];
+    
     [UIView animateWithDuration:self.animationDuration delay:0.f usingSpringWithDamping:self.springDamping initialSpringVelocity:self.springVelocity options:self.animationCurve animations:^{
         [self setFrame:frame];
     } completion:completion];

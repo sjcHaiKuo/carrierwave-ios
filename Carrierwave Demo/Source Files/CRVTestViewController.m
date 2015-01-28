@@ -22,6 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    CRVTemporary("Only for test purposes. Will be deleted ASAP:")
+    
     _scalableView = [[CRVScalableView alloc] init];
     [self.view addSubview:_scalableView];
     
@@ -41,7 +43,6 @@
     _ratioSwitch.on = YES;
     [_ratioSwitch addTarget:self action:@selector(ratioSwitchDidChangeValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_ratioSwitch];
-    
 }
 
 - (void)viewDidLayoutSubviews {

@@ -4,7 +4,8 @@
 //  Copyright 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#define kImageIdentifier @"1"
+static NSString * const CRVImageIdentifier = @"1";
+
 typedef void (^CRVRemoveTmpDirectoryContent)();
 
 SpecBegin(CRVNetworkManagerSpec)
@@ -155,8 +156,8 @@ describe(@"CRVNetworkManagerSpec", ^{
     
     describe(@"when dowloading", ^{
         
-        NSString *filePath = [[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", kImageIdentifier]]] path];
-        NSURL *anyURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.example.com/%@/download", kImageIdentifier]];
+        NSString *filePath = [[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", CRVImageIdentifier]]] path];
+        NSURL *anyURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.example.com/%@/download", CRVImageIdentifier]];
         __block id<OHHTTPStubsDescriptor> stub = nil;
         __block CRVImageAsset *anAsset = nil;
         __block NSError *anError = nil;
@@ -198,7 +199,7 @@ describe(@"CRVNetworkManagerSpec", ^{
             });
             
             it(@"should succeed without connection.", ^{
-                [sut downloadAssetWithIdentifier:kImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                [sut downloadAssetWithIdentifier:CRVImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                     anError = error;
                     anAsset = asset;
                     expect([OHHTTPStubs retriesMade]).to.equal(0);
@@ -239,7 +240,7 @@ describe(@"CRVNetworkManagerSpec", ^{
                 });
                 
                 it(@"should succeed.", ^{
-                    [sut downloadAssetWithIdentifier:kImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    [sut downloadAssetWithIdentifier:CRVImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                         anError = error;
                         anAsset = asset;
                         expect([OHHTTPStubs retriesMade]).to.equal(0);
@@ -274,7 +275,7 @@ describe(@"CRVNetworkManagerSpec", ^{
                 });
                 
                 it(@"should succeed.", ^{
-                    [sut downloadAssetWithIdentifier:kImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    [sut downloadAssetWithIdentifier:CRVImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                         anError = error;
                         anAsset = asset;
                         expect([OHHTTPStubs retriesMade]).to.equal(sut.numberOfRetries);
@@ -308,7 +309,7 @@ describe(@"CRVNetworkManagerSpec", ^{
                 });
                 
                 it(@"should fail.", ^{
-                    [sut downloadAssetWithIdentifier:kImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    [sut downloadAssetWithIdentifier:CRVImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                         anError = error;
                         anAsset = asset;
                         expect([OHHTTPStubs retriesMade]).to.equal(sut.numberOfRetries + 1);
