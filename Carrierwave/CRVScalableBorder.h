@@ -41,56 +41,72 @@ typedef NS_ENUM(NSInteger, CRVBorderStyle) {
  */
 @property (assign, nonatomic, getter=isResizing) BOOL resizing;
 
-/**
- *  The margin of border draw relative to it's superview (CRVScalableBorder). Default: 5.0f.
- */
-@property (nonatomic, assign) CGFloat borderInset;
-
-/**
- *  The thickness of anchors. Default 2.0f.
- */
-@property (nonatomic, assign) CGFloat anchorThickness;
+#pragma mark - Grid
 
 /**
  *  Defines behaviour of grid drawing. Default set to CRVGridDrawingModeOnResizing.
  */
-@property (nonatomic, assign) CRVGridDrawingMode gridDrawingMode;
-
-/**
- *  Defines behaviour of anchors drawing. Default set to CRVAnchorsDrawingModeAlways.
- */
-@property (nonatomic, assign) CRVAnchorsDrawingMode anchorsDrawingMode;
+@property (assign, nonatomic) CRVGridDrawingMode gridDrawingMode;
 
 /**
  *  Style of grid line. Default set to CRVGridStyleContinuous.
  */
-@property (nonatomic, assign) CRVGridStyle gridStyle;
-
-/**
- *  Style of border line. Default set to CRVBorderStyleContinuous.
- */
-@property (nonatomic, assign) CRVBorderStyle borderStyle;
+@property (assign, nonatomic) CRVGridStyle gridStyle;
 
 /**
  *  Color of gridline. Default is white color with 0.5 alpha.
  */
-@property (nonatomic, strong) UIColor *gridColor;
+@property (strong, nonatomic) UIColor *gridColor;
 
 /**
- *  Color of anchors. Default is white color.
+ *  The thickness of grid lines. Default is 1 point.
  */
-@property (nonatomic, strong) UIColor *anchorsColor;
+@property (assign, nonatomic) NSUInteger gridThickness;
+
+/**
+ *  Number of drawn gridlines in one direction (x axis). In second direction (y axis) number will be same. 
+ *  Default value: 2 - it means 4 gridlines will be drawn: 2 horizontally and 2 vertically.
+ *  Notice that big number of gridlines can affect performance.
+ */
+@property (assign, nonatomic) NSInteger numberOfGridlines;
+
+#pragma mark - Border
+
+/**
+ *  The margin of border draw relative to it's superview (CRVScalableBorder). Default is 5 points.
+ */
+@property (assign, nonatomic) NSUInteger borderInset;
+
+/**
+ *  The thickness of border. Default is 1 point.
+ */
+@property (assign, nonatomic) NSUInteger borderThickness;
+
+/**
+ *  Style of border line. Default set to CRVBorderStyleContinuous.
+ */
+@property (assign, nonatomic) CRVBorderStyle borderStyle;
 
 /**
  *  Color of border. Default is [UIColor colorWithWhite:0.9f alpha:1] color.
  */
-@property (nonatomic, strong) UIColor *borderColor;
+@property (strong, nonatomic) UIColor *borderColor;
 
+#pragma mark - Anchors
 
 /**
- *  Gap between gridlines. Can take value from 0 to 1. Default is 0.33f which corresponds to rule of thirds.
- *  Notice that huge number of gridlines can lown down performance.
+ *  The thickness of anchors. Default is 2 points.
  */
-@property (nonatomic, assign) CGFloat gridlineGap;
+@property (assign, nonatomic) NSUInteger anchorThickness;
+
+/**
+ *  Defines behaviour of anchors drawing. Default set to CRVAnchorsDrawingModeAlways.
+ */
+@property (assign, nonatomic) CRVAnchorsDrawingMode anchorsDrawingMode;
+
+/**
+ *  Color of anchors. Default is white color.
+ */
+@property (strong, nonatomic) UIColor *anchorsColor;
 
 @end

@@ -28,13 +28,25 @@
 //ratio W/H. 1.0f means square. 0.0f - unconstrained
 @property (assign, nonatomic) CGFloat ratio;
 
-@property (assign, nonatomic) NSTimeInterval animationDuration; //default 1.0
+/**
+ *  Duration of animation. Default 1.0.
+ */
+@property (assign, nonatomic) NSTimeInterval animationDuration;
 
-@property (assign, nonatomic) UIViewAnimationOptions animationCurve; //default UIViewAnimationOptionCurveEaseInOut
+/**
+ *  Animation curve. Default is UIViewAnimationOptionCurveEaseInOut.
+ */
+@property (assign, nonatomic) UIViewAnimationOptions animationCurve;
 
-@property (assign, nonatomic) CGFloat springVelocity; //13.f
+/**
+ *  Initial spring velocity used in animation. Default 13.0f.
+ */
+@property (assign, nonatomic) CGFloat springVelocity;
 
-@property (assign, nonatomic) CGFloat springDamping; //default 0.9f
+/**
+ *  Spring damping used in animation. Default 0.9f.
+ */
+@property (assign, nonatomic) CGFloat springDamping;
 
 - (void)animateToFrame:(CGRect)frame completion:(void (^)(BOOL finished))completion;
 

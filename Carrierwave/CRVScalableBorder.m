@@ -12,21 +12,33 @@
 static CGFloat const crv_dashed[2] = {3 ,3};
 static CGFloat const crv_dotted[2] = {1 ,3};
 
+@interface CRVScalableBorder ()
+
+@property (assign, nonatomic) NSInteger arraySize;
+
+@end
+
 @implementation CRVScalableBorder
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (!self) return nil;
-    self.borderInset = 5.f;
-    self.anchorThickness = 2.f;
-    self.gridlineGap = 1.f/3.f;
-    self.gridDrawingMode = CRVGridDrawingModeOnResizing;
-    self.anchorsDrawingMode = CRVAnchorsDrawingModeAlways;
-    self.gridStyle = CRVGridStyleContinuous;
-    self.borderStyle = CRVBorderStyleContinuous;
-    self.anchorsColor = [UIColor whiteColor];
+    //Grid customizing:
     self.gridColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5f];
+    self.gridDrawingMode = CRVGridDrawingModeOnResizing;
+    self.gridStyle = CRVGridStyleContinuous;
+    self.gridThickness = 1;
+    self.numberOfGridlines = 4;
+    //Border customizing:
     self.borderColor = [UIColor colorWithWhite:0.9f alpha:1];
+    self.borderStyle = CRVBorderStyleContinuous;
+    self.borderThickness = 1;
+    self.borderInset = 5;
+    //Anchors customizing:
+    self.anchorsColor = [UIColor whiteColor];
+    self.anchorsDrawingMode = CRVAnchorsDrawingModeAlways;
+    self.anchorThickness = 2;
+    
     return self;
 }
 
@@ -63,7 +75,7 @@ static CGFloat const crv_dotted[2] = {1 ,3};
             break;
     }
 
-    CGContextSetLineWidth(context, 1.0);
+    CGContextSetLineWidth(context, self.borderThickness);
     CGContextSetStrokeColorWithColor(context, self.borderColor.CGColor);
     CGContextAddRect(context, CGRectInset(self.bounds, self.borderInset, self.borderInset));
     CGContextStrokePath(context);
@@ -76,14 +88,16 @@ static CGFloat const crv_dotted[2] = {1 ,3};
     if (!resizing) [self setNeedsDisplay];
 }
 
-- (void)setGridlineGap:(CGFloat)gridlineGap {
-    _gridlineGap = MAX(MIN(1.f, gridlineGap), 0.f);
+- (void)setNumberOfGridlines:(NSInteger)numberOfGridlines {
+    _numberOfGridlines = MAX(0, numberOfGridlines);
+    self.arraySize = _numberOfGridlines * 4;
 }
 
 #pragma mark - Private Methods
 
 - (void)drawGridInContext:(CGContextRef)context {
     
+    // set line style:
     switch (self.gridStyle) {
         case CRVGridStyleContinuous: {
             CGContextSetLineDash(context, 0.f, NULL, 0.f);
@@ -101,30 +115,44 @@ static CGFloat const crv_dotted[2] = {1 ,3};
             break;
     }
     
-    CRVWorkInProgress("grid dimension doesn't depend on grid gap yet");
-    
-    CGFloat horizontalGap = ceil(CGRectGetWidth(self.bounds) * (CGFloat)self.gridlineGap);
-    CGFloat verticalGap = ceil(CGRectGetHeight(self.bounds) * self.gridlineGap);
+    //create array of points to connect:
+    CGFloat horizontalGap = ceil(CGRectGetWidth(self.bounds) / (self.numberOfGridlines + 1));
+    CGFloat verticalGap = ceil(CGRectGetHeight(self.bounds) / (self.numberOfGridlines + 1));
     CGFloat height = CGRectGetHeight(self.bounds) - self.borderInset;
     CGFloat width = CGRectGetWidth(self.bounds) - self.borderInset;
+    CGPoint array[self.arraySize];
     
-    CGPoint topLeft = CGPointMake(horizontalGap, self.borderInset);
-    CGPoint topRight = CGPointMake(2.f * horizontalGap, self.borderInset);
-    CGPoint bottomLeft = CGPointMake(horizontalGap, height);
-    CGPoint bottomRight = CGPointMake(2.f * horizontalGap, height);
-    CGPoint leftTop = CGPointMake(self.borderInset, verticalGap);
-    CGPoint leftBottom = CGPointMake(self.borderInset, 2.f * verticalGap);
-    CGPoint rightTop = CGPointMake(width, verticalGap);
-    CGPoint rightBottom = CGPointMake(width, 2.f * verticalGap);
+    int helperH = 0; int helperV = 0;
     
-    CGPoint points[8] = {topLeft, bottomLeft, topRight, bottomRight, leftTop, rightTop, leftBottom, rightBottom};
-    
-    CGContextSetStrokeColorWithColor(context, self.gridColor.CGColor);
-    CGContextSetLineWidth(context, 1.0f);
-    
-    for (NSInteger i = 0; i < 8; i++) {
+    for (NSInteger i = 0; i < self.arraySize; i++) {
         
-        CGPoint point = points[i];
+        if (i < self.arraySize * 0.5) { //horizontal
+            
+            if (i % 2) { //bottom
+                array[i] = CGPointMake(horizontalGap * helperH, height);
+            } else { //top
+                helperH++;
+                array[i] = CGPointMake(horizontalGap * helperH, self.borderInset);
+            }
+            
+        } else { //vertical
+            
+            if (i % 2) { //right
+                array[i] = CGPointMake(width, verticalGap * helperV);
+            } else { //left
+                helperV++;
+                array[i] = CGPointMake(self.borderInset, verticalGap * helperV);
+            }
+        }
+    }
+    
+    //draw!
+    CGContextSetStrokeColorWithColor(context, self.gridColor.CGColor);
+    CGContextSetLineWidth(context, self.gridThickness);
+    
+    for (NSInteger i = 0; i < self.arraySize; i++) {
+        
+        CGPoint point = array[i];
         if (i % 2) {
             CGContextAddLineToPoint(context, point.x, point.y);
         } else {
