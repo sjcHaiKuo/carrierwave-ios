@@ -68,6 +68,11 @@
 - (void)deleteAssetFromURL:(NSString *)URLString completion:(void (^)(BOOL success, NSError *error))completion;
 
 /**
+ * Downloads whitelist of acceptable assets types
+ */
+- (void)downloadWhitelistFromURL:(NSURL *)url withCompletion:(void (^)(NSData *, NSError *))completion;
+
+/**
  *  Cancels a proccess with given identifier.
  *
  *  @param identifier Identifier of running proccess. Unique accross an app.
@@ -91,6 +96,6 @@
 /**
  * The receiver's delegate.
  */
-@property (weak, nonatomic) id <CRVSessionManagerDelegate> delegate;
+@property (weak, nonatomic) id<CRVSessionManagerDelegate> delegate;
 
 @end

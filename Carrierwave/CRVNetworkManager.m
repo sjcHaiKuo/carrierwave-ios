@@ -12,10 +12,14 @@
 #import "CRVImageAsset.h"
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
-NSString * const CRVDomainErrorName = @"com.carrierwave.domain.network.error";
+NSString *const CRVDomainErrorName = @"com.carrierwave.domain.network.error";
 NSUInteger const CRVDefaultNumberOfRetries = 2;
 NSTimeInterval const CRVDefaultReconnectionTime = 3;
-NSString * const CRVDefaultPath = @"api/v1/attachments";
+NSTimeInterval const CRVDefaultWhitelistValidity = 111600;
+NSString *const CRVDefaultPath = @"api/v1/attachments";
+NSString *const CRVWebServiceWhitelist = @"/supported_extensions";
+static NSString *const CRVWhitelistItems = @"CRVWhitelistItems";
+static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
 
 @interface CRVNetworkManager () <CRVSessionManagerDelegate>
 
@@ -36,6 +40,8 @@ NSString * const CRVDefaultPath = @"api/v1/attachments";
         _path = CRVDefaultPath;
         _numberOfRetries = CRVDefaultNumberOfRetries;
         _reconnectionTime = CRVDefaultReconnectionTime;
+        _whitelistValidityTime = CRVDefaultWhitelistValidity;
+        [self loadWhitelist];
     }
     return self;
 }
@@ -49,7 +55,65 @@ NSString * const CRVDefaultPath = @"api/v1/attachments";
     return sharedManager;
 }
 
+- (void)loadWhitelist {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSArray *whitelistArray = [userDefaults arrayForKey:CRVWhitelistItems];
+    if (whitelistArray) {
+        self.whitelistArray = whitelistArray;
+    }
+    [self updateWhitelist];
+}
+
+- (void)updateWhitelist {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDate *whitelistDate = (NSDate *)[userDefaults objectForKey:CRVWhitelistDate];
+    if ([self isValidWhitelistWithDate:whitelistDate]) {
+        [self fetchWhitelistWithCompletion:^(BOOL success, NSError *error) {
+            if(success) {
+                [self synchronizeWhitelist];
+            } else {
+                NSLog(@"Error fetching whitelist: %@", error);
+            }
+        }];
+    }
+}
+
+- (BOOL)isValidWhitelistWithDate:(NSDate *)whitelistDate {
+    return whitelistDate ? ([[whitelistDate dateByAddingTimeInterval:self.whitelistValidityTime] compare:[NSDate new]] == NSOrderedAscending) : NO;
+}
+
+- (void)synchronizeWhitelist {
+    if (self.whitelistArray) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:self.whitelistArray forKey:CRVWhitelistItems];
+        [userDefaults setObject:[NSDate new] forKey:CRVWhitelistDate];
+        [userDefaults synchronize];
+    }
+}
+
 #pragma mark - Public Methods
+
+/**
+ * Downloads whitelist of acceptable assets types
+ *
+ *  @param completion The completion block performed on server response.
+ */
+- (void)fetchWhitelistWithCompletion:(CRVCompletionBlock)completion {
+    NSURL *assetsTypesURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self URLString], CRVWebServiceWhitelist]];
+    [self.sessionManager downloadWhitelistFromURL:assetsTypesURL withCompletion:^(NSData *data, NSError *error) {
+        if(error) {
+            completion(NO,error);
+        }
+        NSError *jsonError;
+        NSArray *assetsTypesArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+        if(!jsonError) {
+            self.whitelistArray = assetsTypesArray;
+            completion(YES, nil);
+        } else {
+            completion(NO, jsonError);
+        }
+    }];
+}
 
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
     NSURL *url = [NSURL URLWithString:[self URLString]];
@@ -58,16 +122,17 @@ NSString * const CRVDefaultPath = @"api/v1/attachments";
 
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
     return [self.sessionManager uploadAssetRepresentedByDataStream:asset.dataStream
-                                                        withLength:asset.dataLength
-                                                              name:asset.fileName
-                                                          mimeType:asset.mimeType
-                                                         URLString:[url absoluteString]
-                                                          progress:^(double aProgress) {
+        withLength:asset.dataLength
+        name:asset.fileName
+        mimeType:asset.mimeType
+        URLString:[url absoluteString]
+        progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
-    } completion:^(NSDictionary *response, NSError *error) {
+        }
+        completion:^(NSDictionary *response, NSError *error) {
         CRVUploadInfo *info = error ? nil : [[CRVUploadInfo alloc] initWithDictionary:response];
         if (completion != NULL) completion(info, error);
-    }];
+        }];
 }
 
 - (NSString *)downloadAssetWithIdentifier:(NSString *)identifier progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
@@ -126,7 +191,7 @@ NSString * const CRVDefaultPath = @"api/v1/attachments";
 }
 
 - (NSError *)errorForEmptyFile {
-    NSDictionary *userInfo = @{NSLocalizedDescriptionKey : @"Downloaded file is empty."};
+    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Downloaded file is empty." };
     return [NSError errorWithDomain:CRVDomainErrorName code:0 userInfo:userInfo];
 }
 

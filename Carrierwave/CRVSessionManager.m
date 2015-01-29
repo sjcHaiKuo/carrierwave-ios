@@ -10,9 +10,9 @@
 #import "CRVSessionTaskManager.h"
 #import "CRVNetworkManager.h"
 
-NSString * const CRVBackendParameterName = @"attachment[file]";
+NSString *const CRVBackendParameterName = @"attachment[file]";
 
-static inline NSString * intToString(NSUInteger x) {
+static inline NSString *intToString(NSUInteger x) {
     return [NSString stringWithFormat:@"%lu", (unsigned long)x];
 }
 
@@ -52,36 +52,39 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 #pragma mark - Public Methods
 
 - (NSString *)downloadAssetFromURL:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(NSData *, NSError *))completion {
-    
+
     NSParameterAssert(URLString);
     NSData *data = nil;
     if ([self checkCache] && [self fileDataFromURLString:URLString data:&data]) {
         completion(data, nil);
         return nil;
     }
-    
+
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
-    
+
     __weak typeof(self) weakSelf = self;
     __block NSURLSessionDownloadTask *task = [self downloadTaskForRequest:request withCompletionHandler:^(NSURL *filePath, NSError *error) {
         [weakSelf downloadTaskDidPerformCompletionHandler:task filePath:filePath error:error];
     }];
-    
+
     NSUInteger wrapperIdentifier = [self.taskManager addDownloadTask:task progress:progress completion:completion];
-    
+
     [self setDownloadTaskDidWriteDataBlock:^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
         [weakSelf.taskManager invokeProgressForTask:downloadTask];
     }];
-    
+
     [task resume];
     return intToString(wrapperIdentifier);
 }
 
 - (NSString *)uploadAssetRepresentedByDataStream:(NSInputStream *)dataStream withLength:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(NSDictionary *, NSError *))completion {
-    
-     NSParameterAssert(dataStream); NSParameterAssert(length);      NSParameterAssert(name);
-     NSParameterAssert(mimeType);   NSParameterAssert(URLString);
-    
+
+    NSParameterAssert(dataStream);
+    NSParameterAssert(length);
+    NSParameterAssert(name);
+    NSParameterAssert(mimeType);
+    NSParameterAssert(URLString);
+
     __weak typeof(self) weakSelf = self;
     NSURLSessionTask *task = [self uploadTaskForDataStream:dataStream length:length name:name mimeType:mimeType URLString:URLString withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
         [weakSelf uploadTaskDidPerformCompletionHandler:task response:response error:error];
@@ -91,12 +94,12 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
     [self setTaskDidSendBodyDataBlock:^(NSURLSession *session, NSURLSessionTask *task, int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend) {
         [weakSelf.taskManager invokeProgressForTask:task];
     }];
-    
+
     return intToString(wrapperIdentifier);
 }
 
 - (void)deleteAssetFromURL:(NSString *)URLString completion:(void (^)(BOOL, NSError *))completion {
-   
+
     [self executeOperationWithName:@"delete" times:[self numberOfRetries] retriableBlock:^(CRVCompletionBlock completion) {
         [self DELETE:URLString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             if (completion != NULL) completion(YES, nil);
@@ -104,6 +107,19 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
             if (completion != NULL) completion(NO, error);
         }];
     } completion:completion];
+}
+
+- (void)downloadWhitelistFromURL:(NSURL *)url withCompletion:(void (^)(NSData *, NSError *))completion {
+    NSParameterAssert(url);
+    [self executeOperationWithName:@"whitelist" times:[self numberOfRetries] retriableBlock:^(CRVCompletionBlock block) {
+        [self GET:url.absoluteString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            if (completion != NULL) completion(responseObject, nil);
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if (completion != NULL) completion(nil, error);
+        }];
+    } completion:^(BOOL success, NSError *error) {
+        completion(nil, error);
+    }];
 }
 
 - (void)cancelProccessWithIdentifier:(NSString *)identifier {
@@ -145,7 +161,7 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 
 - (void)uploadTaskDidPerformCompletionHandler:(NSURLSessionTask *)task response:(id)response error:(NSError *)error {
     CRVSessionUploadTaskWrapper *wrapper = [self.taskManager uploadTaskWrapperForTask:task];
-    
+
     if (!wrapper) { //task has been canceled
         return;
     } else if (!error) {
@@ -175,9 +191,9 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 #pragma mark Tasks retry logic:
 
 - (void)executeOperationWithName:(NSString *)name times:(NSInteger)times retriableBlock:(void (^)(CRVCompletionBlock block))retriable completion:(CRVCompletionBlock)completion {
-    
+
     __block NSInteger retriesCounter = times;
-    
+
     retriable(^(BOOL success, NSError *error) {
         BOOL retryPossible = (retriesCounter > 0);
         if (error && retryPossible) {
@@ -206,12 +222,12 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 
 //execute download/upload asset method once again after specified time
 - (void)performDelayedRetriableTaskForTaskWrapper:(CRVSessionTaskWrapper *)wrapper {
-    
+
     BOOL isDownloadTaskWrapper = [self.taskManager isDownloadTaskWrapper:wrapper];
-    NSString *operation = isDownloadTaskWrapper? @"download" : @"upload";
+    NSString *operation = isDownloadTaskWrapper ? @"download" : @"upload";
     NSInteger retriesLeft = [self numberOfRetries] - wrapper.retriesCount;
     [self logRetryInfoForOperation:operation fileName:[wrapper fileNameByGuessingFromURLPath] retriesLeft:retriesLeft];
-    
+
     __weak typeof(self) weakSelf = self;
     executeAfter([self reconnectionTime], ^{
         if (isDownloadTaskWrapper) {
@@ -223,8 +239,8 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 }
 
 - (void)executeRetriableUploadTaskForWrapper:(CRVSessionUploadTaskWrapper *)wrapper {
-    wrapper.retriesCount ++;
-    
+    wrapper.retriesCount++;
+
     __weak typeof(self) weakSelf = self;
     NSURLSessionTask *task = [self uploadTaskForDataStream:wrapper.dataStream
                                                     length:wrapper.length
@@ -233,32 +249,32 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
                                                  URLString:wrapper.task.originalRequest.URL.path
                                      withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
         [weakSelf uploadTaskDidPerformCompletionHandler:task response:response error:error];
-    }];
-    
+                                     }];
+
     wrapper.task = task;
     [task resume];
 }
 
 - (void)executeRetriableDownloadTaskForWrapper:(CRVSessionDownloadTaskWrapper *)wrapper {
-    wrapper.retriesCount ++;
-    
+    wrapper.retriesCount++;
+
     __weak typeof(self) weakSelf = self;
     __block NSURLSessionDownloadTask *task = nil;
-    
+
     if ([wrapper canResumeTask]) {
-        
+
         task = [self downloadTaskWithResumeData:[wrapper resumeData] progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
             return [weakSelf targetDirectoryByAppendingFileName:[response suggestedFilename]];
         } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
             [weakSelf downloadTaskDidPerformCompletionHandler:task filePath:filePath error:error];
         }];
-        
+
     } else {
         task = [self downloadTaskForRequest:wrapper.task.originalRequest withCompletionHandler:^(NSURL *filePath, NSError *error) {
             [weakSelf downloadTaskDidPerformCompletionHandler:task filePath:filePath error:error];
         }];
     }
-    
+
     if (task) {
         wrapper.task = task;
         [task resume];
@@ -271,7 +287,7 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
     return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:name]];
 }
 
-- (BOOL)fileDataFromURLString:(NSString *)URLString data:(NSData **)data{
+- (BOOL)fileDataFromURLString:(NSString *)URLString data:(NSData **)data {
     NSArray *array = [URLString componentsSeparatedByString:@"/"];
     if (array.count > 1) { //penultimate value, because in download path is "download" append
         NSURL *filePath = [self targetDirectoryByAppendingFileName:array[array.count - 2]];
