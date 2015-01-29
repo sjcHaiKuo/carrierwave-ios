@@ -14,7 +14,6 @@
 
 @property (strong, nonatomic) CRVAnchorPoint *anchorPoint;
 @property (assign, nonatomic) CGPoint touchStart;
-
 @property (strong, nonatomic) NSArray *anchorPoints;
 
 @end
@@ -27,21 +26,18 @@
     self = [super initWithFrame:frame];
     if (!self) return nil;
     
-    _borderView = [[CRVScalableBorder alloc] initWithFrame:self.bounds];
+    _borderView = [[CRVScalableBorder alloc] initWithFrame:frame];
     [self addSubview:_borderView];
     
-    self.ratioEnabled = YES;
-    self.ratio = 0.5f;
+    self.anchorPoints = [self anchorPointsMakeArray];
+    self.ratioEnabled = NO;
     self.minSize = CGSizeMake(50.f, 50.f);
-    self.maxSize = CGSizeMake(320.f, 320.f);
-    
+    self.maxSize = CGSizeMake(300.f, 300.f);
     self.animationDuration = 1.0f;
     self.animationCurve = UIViewAnimationOptionCurveEaseInOut;
     self.springDamping = 0.9f;
     self.springVelocity = 13.f;
     
-    self.anchorPoints = [self anchorPointsMakeArray];
-
     return self;
 }
 
@@ -66,8 +62,7 @@
 
 - (void)animateToSize:(CGSize)size completion:(void (^)(BOOL finished))completion {
     
-    CGSize aSize = CGSizeMake([self trueWidthFromValue:size.width],
-                              [self trueHeightFromValue:size.height]);
+    CGSize aSize = CGSizeMake([self trueWidthFromValue:size.width], [self trueHeightFromValue:size.height]);
     
     CGPoint scale = CGPointMake(aSize.width/self.bounds.size.width, aSize.height/self.bounds.size.height);
     
@@ -82,43 +77,66 @@
 #pragma mark - Touches
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    // Notify the delegate we've begun our editing session.
-    if (self.delegate && [self.delegate respondsToSelector:@selector(scalableViewDidBeginEditing:)]) {
-        [self.delegate scalableViewDidBeginEditing:self];
-    }
     
     self.borderView.resizing = YES;
     UITouch *touch = [touches anyObject];
     self.anchorPoint = [self anchorPointForTouchLocation:[touch locationInView:self]];
     
+    if ([self.anchorPoint isStretched]) {
+        if ([self.delegate respondsToSelector:@selector(scalableViewDidBeginScaling:)]) {
+            [self.delegate scalableViewDidBeginScaling:self];
+        }
+    } else {
+        if ([self.delegate respondsToSelector:@selector(scalableViewDidBeginMoving:)]) {
+            [self.delegate scalableViewDidBeginMoving:self];
+            [self.borderView setNeedsDisplay];
+        }
+    }
+    
     // When resizing, all calculations are done in the superview's coordinate space.
     // When translating, all calculations are done in the view's coordinate space.
-    self.touchStart = [touch locationInView:[self.anchorPoint isHold] ? self.superview : self];
+    self.touchStart = [touch locationInView:[self.anchorPoint isStretched] ? self.superview : self];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    self.borderView.resizing = NO;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(scalableViewDidBeginEditing:)]) {
-        [self.delegate scalableViewDidBeginEditing:self];
-    }
+    [self perormDidEndDelegate];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    self.borderView.resizing = NO;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(scalableViewDidBeginEditing:)]) {
-        [self.delegate scalableViewDidBeginEditing:self];
-    }
+    [self perormDidEndDelegate];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    if ([self.anchorPoint isHold]) {
+    if ([self.anchorPoint isStretched]) {
         [self resizeUsingTouchLocation:[[touches anyObject] locationInView:self.superview]];
+        
+        if ([self.delegate respondsToSelector:@selector(scalableViewDidScale:)]) {
+            [self.delegate scalableViewDidScale:self];
+        }
     } else {
         [self translateUsingTouchLocation:[[touches anyObject] locationInView:self]];
+        
+        if ([self.delegate respondsToSelector:@selector(scalableViewDidMove:)]) {
+            [self.delegate scalableViewDidMove:self];
+        }
     }
 }
 
 #pragma mark - Private Methods
+
+- (void)perormDidEndDelegate {
+    self.borderView.resizing = NO;
+    
+    if ([self.anchorPoint isStretched]) {
+        if ([self.delegate respondsToSelector:@selector(scalableViewDidEndScaling:)]) {
+            [self.delegate scalableViewDidEndScaling:self];
+        }
+    } else {
+        if ([self.delegate respondsToSelector:@selector(scalableViewDidEndMoving:)]) {
+            [self.delegate scalableViewDidEndMoving:self];
+        }
+    }
+}
 
 - (CRVAnchorPoint *)anchorPointForTouchLocation:(CGPoint)touchPoint {
     

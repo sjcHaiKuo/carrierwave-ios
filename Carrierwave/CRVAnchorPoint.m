@@ -96,7 +96,7 @@ static CGFloat crv_distanceBetweenTwoPoints(CGPoint point1, CGPoint point2) {
     return crv_distanceBetweenTwoPoints(point, self.referencePoint);
 }
 
-- (BOOL)isHold {
+- (BOOL)isStretched {
     return (self.adjustsH || self.adjustsW || self.adjustsX || self.adjustsY);
 }
 

@@ -9,7 +9,7 @@
 #import "CRVTestViewController.h"
 @import Carrierwave;
 
-@interface CRVTestViewController ()
+@interface CRVTestViewController () <CRVScalableViewDelegate>
 
 @property (strong, nonatomic) CRVScalableView *scalableView;
 @property (strong, nonatomic) UIButton *button;
@@ -25,6 +25,9 @@
     CRVTemporary("Only for test purposes. Will be deleted ASAP:")
     
     _scalableView = [[CRVScalableView alloc] init];
+    _scalableView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4f];
+    _scalableView.borderView.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.4f];
+    _scalableView.delegate = self;
     [self.view addSubview:_scalableView];
     
     self.view.backgroundColor = [UIColor blackColor];
@@ -36,7 +39,7 @@
     [self.view addSubview:_button];
     
     _ratioSwitch = [[UISwitch alloc] init];
-    _ratioSwitch.on = YES;
+    _ratioSwitch.on = NO;
     [_ratioSwitch addTarget:self action:@selector(ratioSwitchDidChangeValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_ratioSwitch];
 }
@@ -44,7 +47,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    self.scalableView.frame = CGRectMake(50, 50, 200, 100);
+    self.scalableView.frame = CGRectMake(50, 50, 200, 200);
     self.button.frame = CGRectMake(0.0f, CGRectGetMaxY(self.view.bounds) - 44.f, CGRectGetWidth(self.view.bounds), 44.f);
     self.ratioSwitch.frame = CGRectMake(CGRectGetWidth(self.view.frame) - CGRectGetWidth(self.ratioSwitch.frame) - 5.f,
                                         CGRectGetMidY(self.button.frame) - CGRectGetHeight(self.ratioSwitch.frame) * .5f,

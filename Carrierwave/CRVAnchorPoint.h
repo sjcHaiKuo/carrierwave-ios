@@ -25,22 +25,58 @@ typedef NS_ENUM(NSInteger, CRVAnchorPointLocation) {
 
 @interface CRVAnchorPoint : NSObject
 
-- (instancetype)initWithLocation:(CRVAnchorPointLocation)location;
+/**
+ *  Initialize anchoe with specified location. Designed initializer for class.
+ *
+ *  @param location The location where anchor should take a place.
+ *
+ *  @return Instance of CRVAnchorPoint class.
+ */
+- (instancetype)initWithLocation:(CRVAnchorPointLocation)location NS_DESIGNATED_INITIALIZER;
 
+
+/**
+ *  Sets reference point calculated on basis of superview size.
+ *
+ *  @param size The size of superview.
+ */
 - (void)setReferencePointWithSize:(CGSize)size;
 
+/**
+ *  Measures distnace between two points and return it.
+ *
+ *  @param point The point from which the distance is calculated.
+ *
+ *  @return Distance between reference point and given point.
+ */
 - (CGFloat)distanceFromReferencePointToPoint:(CGPoint)point;
 
-- (BOOL)isHold;
+/**
+ *  Indicates whether border is stretched.
+ */
+- (BOOL)isStretched;
 
+/**
+ *  Helper method which returns name of anchor location based on location enum.
+ *
+ *  @return Location name.
+ */
 - (NSString *)locationName;
 
+/**
+ *  Location of anchor.
+ */
 @property (assign, nonatomic, readonly) CRVAnchorPointLocation location;
+
+#pragma Scaling factors:
+
 @property (assign, nonatomic, readonly) CGPoint referencePoint;
 @property (assign, nonatomic, readonly) CGFloat adjustsX;
 @property (assign, nonatomic, readonly) CGFloat adjustsY;
 @property (assign, nonatomic, readonly) CGFloat adjustsH;
 @property (assign, nonatomic, readonly) CGFloat adjustsW;
+
+#pragma Ratio factors:
 
 @property (assign, nonatomic, readonly) CGFloat ratioX1;
 @property (assign, nonatomic, readonly) CGFloat ratioX2;

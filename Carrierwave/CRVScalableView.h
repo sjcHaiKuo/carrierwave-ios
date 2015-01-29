@@ -7,26 +7,38 @@
 //
 
 @import UIKit;
+
 #import "CRVScalableBorder.h"
 
 @protocol CRVScalableViewDelegate;
 
 @interface CRVScalableView : UIView
 
+/**
+ * The receiver's delegate object.
+ */
 @property (weak, nonatomic) id <CRVScalableViewDelegate> delegate;
 
+/**
+ *  Border around scalable view. Also scalable.
+ */
 @property (strong, nonatomic, readonly) CRVScalableBorder *borderView;
 
-// Default is 300x300 points.
+/**
+ *  Maximum size of scalable view. Default is 300 x 300 points.
+ */
 @property (assign, nonatomic) CGSize maxSize;
 
-// Default is 50x50 points.
+/**
+ *  Minimum size of scalable view. Default is 50 x 50 points.
+ */
 @property (assign, nonatomic) CGSize minSize;
 
+/**
+ *  Indicates if scalable view should keep ratio or not. Default NO.
+ *  Scalable view refers to ratio calculated on the basis of width/height in moment when ratioEnabled changed to YES.
+ */
 @property (assign, nonatomic, getter=isRatioEnabled) BOOL ratioEnabled;
-
-//ratio W/H. 1.0f means square. 0.0f - unconstrained
-@property (assign, nonatomic) CGFloat ratio;
 
 /**
  *  Duration of animation. Default 1.0.
@@ -48,8 +60,24 @@
  */
 @property (assign, nonatomic) CGFloat springDamping;
 
+/**
+ *  Animates scalable view to given frame. 
+ *  CRVScalableView is smart enough to validate if that frame is located in the superview or not. If not origin (x or y) will be changed to valid ones.
+ *  Takes animationDuration, animationCurve, springVelocity, springDamping under the hood as animation parameters.
+ *
+ *  @param frame      Frame after animation comlpetion.
+ *  @param completion A block object to be executed when the animation sequence ends.
+ */
 - (void)animateToFrame:(CGRect)frame completion:(void (^)(BOOL finished))completion;
 
+/**
+ *  Animates scalable view to given size around center of scalable view.
+ *  CRVScalableView is smart enough to validate if that frame is located in the superview or not. If not origin (x or y) will be changed to valid ones.
+ *  Takes animationDuration, animationCurve, springVelocity, springDamping under the hood as animation parameters.
+ *
+ *  @param size       Size after animation comlpetion.
+ *  @param completion A block object to be executed when the animation sequence ends.
+ */
 - (void)animateToSize:(CGSize)size completion:(void (^)(BOOL finished))completion;
 
 @end
@@ -58,8 +86,36 @@
 
 @optional
 
-- (void)scalableViewDidBeginEditing:(CRVScalableView *)userResizableView;
+/**
+ *  Called when user did begin to scale view.
+ */
+- (void)scalableViewDidBeginScaling:(CRVScalableView *)view;
 
-- (void)scalableViewDidEndEditing:(CRVScalableView *)userResizableView;
+/**
+ *  Called when user did end to scale view.
+ */
+- (void)scalableViewDidEndScaling:(CRVScalableView *)view;
+
+/**
+ *  Called when user did begin to move view.
+ */
+- (void)scalableViewDidBeginMoving:(CRVScalableView *)view;
+
+/**
+ *  Called when user did end to move view.
+ */
+- (void)scalableViewDidEndMoving:(CRVScalableView *)view;
+
+/**
+ *  Called everytime when user did move view.
+ *  Making cpu/memory consuming operations here may affect performance.
+ */
+- (void)scalableViewDidMove:(CRVScalableView *)view;
+
+/**
+ *  Called everytime when user did scale view. 
+ *  Making cpu/memory consuming operations here may affect performance.
+ */
+- (void)scalableViewDidScale:(CRVScalableView *)view;
 
 @end
