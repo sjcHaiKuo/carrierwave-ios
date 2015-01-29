@@ -81,10 +81,12 @@
 		5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E56EBFB1A5D68D2002E2484 /* CRVNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */; };
 		5E758E4B1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E758E4A1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m */; };
+		5E94A4C21A7A878F00F98C18 /* CRVAnchorPointSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E94A4C11A7A878F00F98C18 /* CRVAnchorPointSpec.m */; };
+		5E94A4C51A7A893D00F98C18 /* CRVScalableView+Math.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E94A4C31A7A893D00F98C18 /* CRVScalableView+Math.h */; };
+		5E94A4C61A7A893D00F98C18 /* CRVScalableView+Math.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E94A4C41A7A893D00F98C18 /* CRVScalableView+Math.m */; };
 		5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */; };
 		5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */; };
-		5EDCF3381A71439F0011D5F8 /* CRVTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDCF3371A71439F0011D5F8 /* CRVTestViewController.m */; };
 		69AA0B9A7A138526C4B55648 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3272BDCF977EEC32EE0EE1EE /* libPods-Tests.a */; };
 		7DE6841C33D70C5B4DF93E2E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 861E339756711F9AC576711A /* libPods.a */; };
 		8D072AAE03FBD8A20CAE8FFF /* libPods-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BFF2822CEF1BC7F260BB3C /* libPods-Demo.a */; };
@@ -222,13 +224,14 @@
 		5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkManager.h; sourceTree = "<group>"; };
 		5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVNetworkManager.m; sourceTree = "<group>"; };
 		5E758E4A1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionTaskManagerSpec.m; sourceTree = "<group>"; };
+		5E94A4C11A7A878F00F98C18 /* CRVAnchorPointSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVAnchorPointSpec.m; sourceTree = "<group>"; };
+		5E94A4C31A7A893D00F98C18 /* CRVScalableView+Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CRVScalableView+Math.h"; sourceTree = "<group>"; };
+		5E94A4C41A7A893D00F98C18 /* CRVScalableView+Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CRVScalableView+Math.m"; sourceTree = "<group>"; };
 		5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkTypedefs.h; sourceTree = "<group>"; };
 		5EBDBE4B1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OHHTTPStubs+CRVTests.h"; sourceTree = "<group>"; };
 		5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubs+CRVTests.m"; sourceTree = "<group>"; };
 		5EBDBE541A67FA4F001C8ED5 /* NSData+CRVComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CRVComposition.h"; sourceTree = "<group>"; };
 		5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CRVComposition.m"; sourceTree = "<group>"; };
-		5EDCF3361A71439F0011D5F8 /* CRVTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVTestViewController.h; sourceTree = "<group>"; };
-		5EDCF3371A71439F0011D5F8 /* CRVTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVTestViewController.m; sourceTree = "<group>"; };
 		861E339756711F9AC576711A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4BFF2822CEF1BC7F260BB3C /* libPods-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -326,6 +329,7 @@
 				5E36AD0B1A67BFE50080FF80 /* CRVNetworkManagerSpec.m */,
 				5E50069B1A6D33EA00444E5D /* CRVSessionManagerSpec.m */,
 				5E758E4A1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m */,
+				5E94A4C11A7A878F00F98C18 /* CRVAnchorPointSpec.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -441,8 +445,6 @@
 			children = (
 				3A58AAD21A5E97BF0056E21D /* CRVRootViewController.h */,
 				3A58AAD31A5E97BF0056E21D /* CRVRootViewController.m */,
-				5EDCF3361A71439F0011D5F8 /* CRVTestViewController.h */,
-				5EDCF3371A71439F0011D5F8 /* CRVTestViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -554,12 +556,11 @@
 		5E11A6AE1A766CE8001924ED /* CropFrame */ = {
 			isa = PBXGroup;
 			children = (
+				5E94A4C71A7A894600F98C18 /* Categories */,
 				5E11A6AA1A766CE0001924ED /* CRVScalableView.h */,
 				5E11A6AB1A766CE0001924ED /* CRVScalableView.m */,
 				5E11A6AF1A766D78001924ED /* CRVScalableBorder.h */,
 				5E11A6B01A766D78001924ED /* CRVScalableBorder.m */,
-				5E06ABA11A77DE4200155F3E /* CRVScalableBorder+Anchors.h */,
-				5E06ABA21A77DE4200155F3E /* CRVScalableBorder+Anchors.m */,
 				5E11A6B31A766E3C001924ED /* CRVAnchorPoint.h */,
 				5E11A6B41A766E3C001924ED /* CRVAnchorPoint.m */,
 			);
@@ -607,6 +608,17 @@
 			name = Networking;
 			sourceTree = "<group>";
 		};
+		5E94A4C71A7A894600F98C18 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				5E94A4C31A7A893D00F98C18 /* CRVScalableView+Math.h */,
+				5E94A4C41A7A893D00F98C18 /* CRVScalableView+Math.m */,
+				5E06ABA11A77DE4200155F3E /* CRVScalableBorder+Anchors.h */,
+				5E06ABA21A77DE4200155F3E /* CRVScalableBorder+Anchors.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -636,6 +648,7 @@
 				3AF3BD941A50447A005BF9C4 /* CRVImageAsset.h in Headers */,
 				210E15A31A67EB4700342A39 /* CRVAssertTypeUtils.h in Headers */,
 				21A75BEF1A6E514E003A7E0A /* CRVVideoFileStreamProvider.h in Headers */,
+				5E94A4C51A7A893D00F98C18 /* CRVScalableView+Math.h in Headers */,
 				5E11A6B51A766E3C001924ED /* CRVAnchorPoint.h in Headers */,
 				3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */,
 				5E4C992B1A642E5F009AA040 /* CRVSessionTaskWrapper.h in Headers */,
@@ -943,6 +956,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */,
+				5E94A4C21A7A878F00F98C18 /* CRVAnchorPointSpec.m in Sources */,
 				5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */,
 				219BBFB91A691EFD003A97D3 /* CRVImageAssetSpec.m in Sources */,
 				21E6F6681A68FF7F001505F8 /* CRVVideoAssetSpec.m in Sources */,
@@ -961,6 +975,7 @@
 			files = (
 				21A75BF01A6E514E003A7E0A /* CRVVideoFileStreamProvider.m in Sources */,
 				3A3FE8691A517CE60052C58E /* CRVImageEditViewController.m in Sources */,
+				5E94A4C61A7A893D00F98C18 /* CRVScalableView+Math.m in Sources */,
 				5E4C99301A651210009AA040 /* CRVSessionDownloadTaskWrapper.m in Sources */,
 				5E5006A41A6E866600444E5D /* NSDictionary+Carrierwave.m in Sources */,
 				5E5006A01A6E84E900444E5D /* CRVUploadInfo.m in Sources */,
@@ -988,7 +1003,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EDCF3381A71439F0011D5F8 /* CRVTestViewController.m in Sources */,
 				3A58AAD41A5E97BF0056E21D /* CRVRootViewController.m in Sources */,
 				3A6F286B1A5039C30049DC9F /* CRVAppDelegate.m in Sources */,
 				3AE334321A4ED4840030F632 /* Carrierwave-Demo-Main.m in Sources */,

@@ -24,6 +24,9 @@
 
     #import "CRVSessionTaskManager.h"
     #import "CRVSessionManager.h"
+    #import "CRVScalableView.h"
+    #import "CRVAnchorPoint.h"
+    #import "CRVScalableView.h"
 
     #import "Carrierwave-Features.h"
     #import "Carrierwave-Macros.h"

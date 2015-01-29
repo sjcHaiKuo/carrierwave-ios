@@ -34,7 +34,6 @@ typedef NS_ENUM(NSInteger, CRVAnchorPointLocation) {
  */
 - (instancetype)initWithLocation:(CRVAnchorPointLocation)location NS_DESIGNATED_INITIALIZER;
 
-
 /**
  *  Sets reference point calculated on basis of superview size.
  *

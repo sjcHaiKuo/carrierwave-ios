@@ -47,44 +47,54 @@ static CGFloat crv_distanceBetweenTwoPoints(CGPoint point1, CGPoint point2) {
     
     switch (location) {
             
-        case CRVAnchorPointLocationTopLeft:
+        case CRVAnchorPointLocationTopLeft: {
             self.adjustsX = 1.f, self.adjustsY = 1.f, self.adjustsH = -1.f, self.adjustsW = 1.f, self.multiplierX = 0.f, self.multiplierY = 0.f;
             self.ratioX1 = 0.f; self.ratioX2 = 0.f; self.ratioY1 = -1.f; self.ratioY2 = 0.f; self.ratioW = 0.f; self.ratioH = 1.f;
             break;
-        case CRVAnchorPointLocationMiddleLeft:
+        }
+        case CRVAnchorPointLocationMiddleLeft: {
             self.adjustsX = 1.f, self.adjustsY = 0.f, self.adjustsH = 0.f, self.adjustsW = 1.f, self.multiplierX = 0.f, self.multiplierY = 0.5f;
             self.ratioX1 = -1.f; self.ratioX2 = 0.f; self.ratioY1 = -0.5f; self.ratioY2 = 0.f; self.ratioW = 0.f; self.ratioH = 1.f;
             break;
-        case CRVAnchorPointLocationBottomLeft:
+        }
+        case CRVAnchorPointLocationBottomLeft: {
             self.adjustsX = 1.f, self.adjustsY = 0.f, self.adjustsH = 1.f, self.adjustsW = 1.f, self.multiplierX = 0.f, self.multiplierY = 1.f;
             self.ratioX1 = 0.f; self.ratioX2 = 0.f; self.ratioY1 = 0.f; self.ratioY2 = 0.f; self.ratioW = 0.f; self.ratioH = 1.f;
             break;
-        case CRVAnchorPointLocationTopRight:
+        }
+        case CRVAnchorPointLocationTopRight: {
             self.adjustsX = 0.f, self.adjustsY = 1.f, self.adjustsH = -1.f, self.adjustsW = -1.f, self.multiplierX = 1.f, self.multiplierY = 0.f;
             self.ratioX1 = 0.f; self.ratioX2 = 0.f; self.ratioY1 = -1.f; self.ratioY2 = 0.f; self.ratioW = 0.f; self.ratioH = 1.f;
             break;
-        case CRVAnchorPointLocationMiddleRight:
+        }
+        case CRVAnchorPointLocationMiddleRight: {
             self.adjustsX = 0.f, self.adjustsY = 0.f, self.adjustsH = 0.f, self.adjustsW = -1.f, self.multiplierX = 1.f, self.multiplierY = 0.5f;
             self.ratioX1 = 0.f; self.ratioX2 = 0.f; self.ratioY1 = -0.5f; self.ratioY2 = 0.f; self.ratioW = 0.f; self.ratioH = 1.f;
             break;
-        case CRVAnchorPointLocationBottomRight:
+        }
+        case CRVAnchorPointLocationBottomRight: {
             self.adjustsX = 0.f, self.adjustsY = 0.f, self.adjustsH = 1.f, self.adjustsW = -1.f, self.multiplierX = 1.f, self.multiplierY = 1.f;
             self.ratioX1 = 0.f; self.ratioX2 = 0.f; self.ratioY1 = 0.f; self.ratioY2 = 0.f; self.ratioW = 0.f; self.ratioH = 1.f;
             break;
-        case CRVAnchorPointLocationTopMiddle:
+        }
+        case CRVAnchorPointLocationTopMiddle: {
             self.adjustsX = 0.f, self.adjustsY = 1.f, self.adjustsH = -1.f, self.adjustsW = 0.f, self.multiplierX = 0.5f, self.multiplierY = 0.f;
             self.ratioX1 = 0.f; self.ratioX2 = -0.5f; self.ratioY1 = 0.f; self.ratioY2 = -1.f; self.ratioW = 1.f; self.ratioH = 0.f;
             break;
-        case CRVAnchorPointLocationBottomMiddle:
+        }
+        case CRVAnchorPointLocationBottomMiddle: {
             self.adjustsX = 0.f, self.adjustsY = 0.f, self.adjustsH = 1.f, self.adjustsW = 0.f, self.multiplierX = 0.5f, self.multiplierY = 1.f;
             self.ratioX1 = 0.f; self.ratioX2 = -0.5f; self.ratioY1 = 0.f; self.ratioY2 = 0.f; self.ratioW = 1.f; self.ratioH = 0.f;
             break;
+        }
             
         case CRVAnchorPointLocationPointsCount:
-        case CRVAnchorPointLocationCenter: default:
+        case CRVAnchorPointLocationCenter:
+        default: {
             self.adjustsX = 0.f, self.adjustsY = 0.f, self.adjustsH = 0.f, self.adjustsW = 0.f, self.multiplierX = 0.5f, self.multiplierY = 0.5f;
             self.ratioX1 = 0.f; self.ratioX2 = 0.f; self.ratioY1 = 0.f; self.ratioY2 = 0.f; self.ratioW = 0.f; self.ratioH = 0.f;
             break;
+        }
     }
 }
 
