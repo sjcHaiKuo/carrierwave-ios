@@ -30,11 +30,14 @@
 
 - (void)validateFramePositionWithX:(CGFloat *)x y:(CGFloat *)y width:(CGFloat *)width height:(CGFloat *)height deltaW:(CGFloat *)deltaW deltaH:(CGFloat *)deltaH {
     
+    BOOL doesLeftEdgeExceedSuperviewLeftEdge = *x < self.superview.bounds.origin.x;
+    BOOL doesTopEdgeExceedSuperviewTopEdge = *y < self.superview.bounds.origin.y;
+    BOOL doesRightEdgeExceedSuperviewRightEdge = *x + *width > self.superview.bounds.origin.x + self.superview.bounds.size.width;
+    BOOL doesBottomEdgeExceedSuperviewBottomEdge = *y + *height > self.superview.bounds.origin.y + self.superview.bounds.size.height;
+    
     if (self.ratioEnabled) {
-        if (*x < self.superview.bounds.origin.x ||
-            *y < self.superview.bounds.origin.y ||
-            *x + *width > self.superview.bounds.origin.x + self.superview.bounds.size.width ||
-            *y + *height > self.superview.bounds.origin.y + self.superview.bounds.size.height) {
+        if (doesLeftEdgeExceedSuperviewLeftEdge || doesTopEdgeExceedSuperviewTopEdge ||
+            doesRightEdgeExceedSuperviewRightEdge || doesBottomEdgeExceedSuperviewBottomEdge) {
             
             *height = self.frame.size.height;
             *y = self.frame.origin.y;
@@ -42,22 +45,22 @@
             *x = self.frame.origin.x;
         }
     } else {
-        if (*x < self.superview.bounds.origin.x) {
-            // Calculate how much to grow the width by such that the new X coordintae will align with the superview.
+        if (doesLeftEdgeExceedSuperviewLeftEdge) {
+            // Calculate how much to grow the width by such that the new X coordinate will align with the superview.
             *deltaW = self.frame.origin.x - self.superview.bounds.origin.x;
             *width = self.frame.size.width + *deltaW;
             *x = self.superview.bounds.origin.x;
         }
-        if (*x + *width > self.superview.bounds.origin.x + self.superview.bounds.size.width) {
+        if (doesRightEdgeExceedSuperviewRightEdge) {
             *width = self.superview.bounds.size.width - *x;
         }
-        if (*y < self.superview.bounds.origin.y) {
-            // Calculate how much to grow the height by such that the new Y coordintae will align with the superview.
+        if (doesTopEdgeExceedSuperviewTopEdge) {
+            // Calculate how much to grow the height by such that the new Y coordinate will align with the superview.
             *deltaH = self.frame.origin.y - self.superview.bounds.origin.y;
             *height = self.frame.size.height + *deltaH;
             *y = self.superview.bounds.origin.y;
         }
-        if (*y + *height > self.superview.bounds.origin.y + self.superview.bounds.size.height) {
+        if (doesBottomEdgeExceedSuperviewBottomEdge) {
             *height = self.superview.bounds.size.height - *y;
         }
     }
@@ -65,9 +68,13 @@
 
 - (void)validateFrameSizeWithX:(CGFloat *)x y:(CGFloat *)y width:(CGFloat *)width height:(CGFloat *)height {
     
+    BOOL isHeightSmallerThanMinimumHeight = *height < self.minSize.height;
+    BOOL isHeightLargerThanMaximumHeight = *height > self.maxSize.height;
+    BOOL isWidthSmallerThanMinimumWidth = *width < self.minSize.width;
+    BOOL isWidthLargerThanMaximumWidth = *width > self.maxSize.width;
+    
     if (self.ratioEnabled) {
-        if (*height < self.minSize.height || *height > self.maxSize.height ||
-            *width < self.minSize.width || *width > self.maxSize.width) {
+        if (isHeightSmallerThanMinimumHeight || isHeightLargerThanMaximumHeight || isWidthSmallerThanMinimumWidth || isWidthLargerThanMaximumWidth) {
             
             *height = self.frame.size.height;
             *y = self.frame.origin.y;
@@ -75,11 +82,11 @@
             *x = self.frame.origin.x;
         }
     } else {
-        if (*width < self.minSize.width || *width > self.maxSize.width) {
+        if (isWidthSmallerThanMinimumWidth || isWidthLargerThanMaximumWidth) {
             *width = self.frame.size.width;
             *x = self.frame.origin.x;
         }
-        if (*height < self.minSize.height || *height > self.maxSize.height) {
+        if (isHeightSmallerThanMinimumHeight || isHeightLargerThanMaximumHeight) {
             *height = self.frame.size.height;
             *y = self.frame.origin.y;
         }

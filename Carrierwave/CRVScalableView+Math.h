@@ -26,7 +26,7 @@
 - (void)validateFramePositionWithX:(CGFloat *)x y:(CGFloat *)y width:(CGFloat *)width height:(CGFloat *)height deltaW:(CGFloat *)deltaW deltaH:(CGFloat *)deltaH;
 
 /**
- *  Calculates new frame and ensures that new frame will nor exceed superview bounds.
+ *  Calculates new frame and ensures that new frame will not exceed superview bounds.
  */
 - (CGRect)frameByCheckingBoundaries:(CGRect)frame;
 
