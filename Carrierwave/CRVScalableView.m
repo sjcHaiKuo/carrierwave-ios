@@ -41,11 +41,7 @@
     self.springVelocity = 13.f;
     
     self.anchorPoints = [self anchorPointsMakeArray];
-    
-    CRVTemporary("to see frames");
-    self.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-    _borderView.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.5f];
-    
+
     return self;
 }
 

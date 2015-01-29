@@ -35,10 +35,6 @@
     [_button addTarget:self action:@selector(tap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_button];
     
-    _scalableView.borderView.borderColor = [UIColor redColor];
-    _scalableView.borderView.gridColor = [UIColor greenColor];
-    _scalableView.borderView.anchorsColor = [UIColor orangeColor];
-    
     _ratioSwitch = [[UISwitch alloc] init];
     _ratioSwitch.on = YES;
     [_ratioSwitch addTarget:self action:@selector(ratioSwitchDidChangeValue:) forControlEvents:UIControlEventValueChanged];

@@ -116,8 +116,8 @@ static CGFloat const crv_dotted[2] = {1 ,3};
     }
     
     //create array of points to connect:
-    CGFloat horizontalGap = ceil(CGRectGetWidth(self.bounds) / (self.numberOfGridlines + 1));
-    CGFloat verticalGap = ceil(CGRectGetHeight(self.bounds) / (self.numberOfGridlines + 1));
+    CGFloat horizontalGap = (CGRectGetWidth(self.bounds) - 2.f * self.borderInset) / (self.numberOfGridlines + 1);
+    CGFloat verticalGap = (CGRectGetHeight(self.bounds) - 2.f * self.borderInset) / (self.numberOfGridlines + 1);
     CGFloat height = CGRectGetHeight(self.bounds) - self.borderInset;
     CGFloat width = CGRectGetWidth(self.bounds) - self.borderInset;
     CGPoint array[self.arraySize];
@@ -129,19 +129,19 @@ static CGFloat const crv_dotted[2] = {1 ,3};
         if (i < self.arraySize * 0.5) { //horizontal
             
             if (i % 2) { //bottom
-                array[i] = CGPointMake(horizontalGap * helperH, height);
+                array[i] = CGPointMake(horizontalGap * helperH + self.borderInset, height);
             } else { //top
                 helperH++;
-                array[i] = CGPointMake(horizontalGap * helperH, self.borderInset);
+                array[i] = CGPointMake(horizontalGap * helperH + self.borderInset, self.borderInset);
             }
             
         } else { //vertical
             
             if (i % 2) { //right
-                array[i] = CGPointMake(width, verticalGap * helperV);
+                array[i] = CGPointMake(width, verticalGap * helperV + self.borderInset);
             } else { //left
                 helperV++;
-                array[i] = CGPointMake(self.borderInset, verticalGap * helperV);
+                array[i] = CGPointMake(self.borderInset, verticalGap * helperV + self.borderInset);
             }
         }
     }
