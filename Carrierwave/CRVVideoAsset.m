@@ -19,8 +19,7 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
 
 @property (strong, nonatomic, readwrite) NSString *mimeType;
 @property (strong, nonatomic, readwrite) NSString *fileName;
-
-@property (strong, nonatomic) id<CRVVideoStreamProvider> streamProvider;
+@property (strong, nonatomic) id <CRVVideoStreamProvider> streamProvider;
 
 @end
 
@@ -44,14 +43,14 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
 
 - (instancetype)initWithLocalURL:(NSURL *)url {    
     CRVVideoFileStreamProvider *provider = [[CRVVideoFileStreamProvider alloc] initWithFileUrl:url];
-    return [self initWithStreamProvider:provider mimeType:[self mimeTypeFormFileExtension:[url pathExtension]]];
+    return [self initWithStreamProvider:provider mimeType:[self mimeTypeForFileExtension:[url pathExtension]]];
 }
 
 #pragma mark - Mimetypes helpers
 
-- (NSString *)mimeTypeFormFileExtension:(NSString *)fileExtension {
-    NSDictionary *mimetypeMap = @{ @"mp4" : CRVMimeTypeMp4,
-                                   @"mov" : CRVMimeTypeMov };
+- (NSString *)mimeTypeForFileExtension:(NSString *)fileExtension {
+    NSDictionary *mimetypeMap = @{@"mp4" : CRVMimeTypeMp4,
+                                  @"mov" : CRVMimeTypeMov};
     return mimetypeMap[fileExtension];
 }
 
@@ -65,13 +64,13 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
     
     // signatures based on http://www.garykessler.net/library/file_sigs.html
     // mov - ftypqt
-    uint8_t mov[6] = { 0x66, 0x74, 0x79, 0x70, 0x71, 0x74 };
+    uint8_t mov[6] = {0x66, 0x74, 0x79, 0x70, 0x71, 0x74};
     // mp4 - ftypisom
-    uint8_t mp4_isom[8] = { 0x66, 0x74, 0x79, 0x70, 0x69, 0x73, 0x6F, 0x6D };
+    uint8_t mp4_isom[8] = {0x66, 0x74, 0x79, 0x70, 0x69, 0x73, 0x6F, 0x6D};
     // mp4 - ftyp3gp5
-    uint8_t mp4_3gp[8] = { 0x66, 0x74, 0x79, 0x70, 0x33, 0x67, 0x70, 0x35 };
+    uint8_t mp4_3gp[8] = {0x66, 0x74, 0x79, 0x70, 0x33, 0x67, 0x70, 0x35};
     // m4v - ftypmp42
-    uint8_t mp4_mp42[9] = { 0x66, 0x74, 0x79, 0x70, 0x6D, 0x70, 0x34, 0x32 };
+    uint8_t mp4_mp42[9] = {0x66, 0x74, 0x79, 0x70, 0x6D, 0x70, 0x34, 0x32};
     
     // try to guess by signatures
     if (!memcmp(bytes + signatureOffset, mov, sizeof(mov))) {
@@ -86,7 +85,7 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
     return nil;
 }
 
-#pragma makr - Load video
+#pragma mark - Load video
 
 - (void)loadVideoWithCompletion:(CRVVideoLoadCompletionBlock)completion {
     if (!completion) {
@@ -102,13 +101,12 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
     CRVSaveAssetTask *saveTask = [[CRVSaveAssetTask alloc] initWithAsset:self];
     [saveTask saveAssetAs:CRVAssetFileTemporary completion:^(NSString *outputFilePath, NSError *error) {
         if (!error) {
-            
             // Update file provider to use cached file
             weakSelf.streamProvider = [[CRVVideoFileStreamProvider alloc] initWithFilePath:outputFilePath];
         
             AVPlayerItem *videoItem = [AVPlayerItem playerItemWithURL:self.videoUrl];
             completion(videoItem, nil);
-            
+        
         } else {
             completion(nil, error);
         }
@@ -126,8 +124,7 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
 }
 
 - (NSString *)fileName {
-    if (_fileName != nil) return _fileName;
-    return _fileName = [CRVAssertTypeUtils fileNameForMimeType:self.mimeType];
+    return _fileName ? : [CRVAssertTypeUtils fileNameForMimeType:self.mimeType];
 }
 
 @end

@@ -33,7 +33,7 @@ static NSUInteger const CRVBufferSize = 4096;
 
 - (void)saveAssetAs:(CRVAssetFileType)type completion:(CRVSaveAssetToFileBlock)completion; {
     
-    // Inspirated by AFNetworking AFURLRequestSerialization
+    // Inspired by AFNetworking AFURLRequestSerialization
     // https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking/AFURLRequestSerialization.m#L379
     
     if (!completion) {
@@ -88,13 +88,8 @@ static NSUInteger const CRVBufferSize = 4096;
         [outputStream removeFromRunLoop:currentRunLoop forMode:runLoopMode];
         
         if (completion) {
-            if (error) {
-                completion(nil, error);
-            } else {
-                NSString *filePath = [CRVSaveAssetTask filePathForName:fileName
-                                                                  type:fileType];
-                completion(filePath, nil);
-            }
+            NSString *filePath = error ? nil : [CRVSaveAssetTask filePathForName:fileName type:fileType];
+            completion(filePath, error);
         }
     });
 }
@@ -120,13 +115,13 @@ static NSUInteger const CRVBufferSize = 4096;
 
 + (NSString *)filePathInCacheDirectoryForName:(NSString *)name {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachesDirectoryPath = paths[0];
+    NSString *cachesDirectoryPath = [paths firstObject];
     return [cachesDirectoryPath stringByAppendingString:name];
 }
 
 + (NSString *)filePathInLibraryDirectoryForName:(NSString *)name {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    NSString *libraryDirectoryPath = paths[0];
+    NSString *libraryDirectoryPath = [paths firstObject];
     return [libraryDirectoryPath stringByAppendingString:name];
 }
 
