@@ -89,14 +89,18 @@ static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
 
 - (void)fetchWhitelistWithCompletion:(CRVCompletionBlock)completion {
     if (!self.dataSource) {
-        completion(NO, [self errorForEmptyDataSource]);
+        if (completion != NULL) {
+            completion(NO, [self errorForEmptyDataSource]);
+        }
         return;
     }
 
     NSString *serverURL = [self.dataSource serverURLForWhitelistManager:self];
     CRVSessionManager *sessionManager = [self.dataSource sessionManagerForWhitelistManager:self];
     if (!serverURL || !sessionManager) {
-        completion(NO, [self errorForEmptyDataSource]);
+        if (completion != NULL) {
+            completion(NO, [self errorForEmptyDataSource]);
+        }
         return;
     }
 
@@ -107,11 +111,15 @@ static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
         }
         NSError *jsonError;
         NSArray *assetsTypesArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
-        if(!jsonError) {
+        if (assetsTypesArray) {
             self.whitelistArray = assetsTypesArray;
-            completion(YES, nil);
+            if (completion != NULL) {
+                completion(YES, nil);
+            }
         } else {
-            completion(NO, jsonError);
+            if(completion != NULL) {
+                completion(NO, jsonError);
+            }
         }
     }];
 }
@@ -123,8 +131,18 @@ static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
 
 #pragma mark - Whitelist Query
 
-- (BOOL)containsItem:(NSObject *)item {
-    return [self.whitelistArray containsObject:item];
+- (BOOL)containsItem:(NSString *)item {
+    if (!item) {
+        return NO;
+    }
+    __block BOOL isPresent = NO;
+    [self.whitelistArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+        if ([item isEqualToString:obj]) {
+            isPresent = YES;
+            *stop = YES;
+        }
+    }];
+    return isPresent;
 }
 
 @end

@@ -7,9 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CRVWhitelistManagerDataSource.h"
+#import "CRVSessionManager.h"
+
+@class CRVWhitelistManager;
+
+@protocol CRVWhitelistManagerDataSource <NSObject>
+
+- (CRVSessionManager *)sessionManagerForWhitelistManager:(CRVWhitelistManager *)whitelistManager;
+- (NSString *)serverURLForWhitelistManager:(CRVWhitelistManager *)whitelistManager;
+
+@end
 
 @interface CRVWhitelistManager : NSObject
+
+/**
+ *  Loads previously saved whitelista and checks for update
+ */
+- (void)loadWhitelist;
+
+/**
+ *  Checks if the whitelist is valid and tries to fetch any update if its not.
+ */
+- (void)updateWhitelist;
 
 /**
  *  Check whether the given item is in the whitelist.
@@ -20,6 +39,9 @@
  */
 - (BOOL)containsItem:(NSObject *)item;
 
+/**
+ * A data source for obtainig necessary data for whitelist management. Setting this property will automatically load a whitelist.
+ */
 @property (weak, nonatomic) id<CRVWhitelistManagerDataSource> dataSource;
 
 /**
@@ -28,7 +50,7 @@
 @property (assign, nonatomic) NSTimeInterval whitelistValidityTime;
 
 /**
- *  The time interval in which asset types whitelist remains valid, (default: one month).
+ *  The URL subpath for fetching whitelist
  */
 @property (copy, nonatomic) NSString *whitelistPath;
 

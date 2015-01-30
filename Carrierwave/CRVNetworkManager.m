@@ -11,7 +11,6 @@
 #import "CRVAssetType.h"
 #import "CRVImageAsset.h"
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
-#import "CRVWhitelistManagerDataSource.h"
 
 NSString *const CRVDomainErrorName = @"com.carrierwave.domain.network.error";
 NSUInteger const CRVDefaultNumberOfRetries = 2;
