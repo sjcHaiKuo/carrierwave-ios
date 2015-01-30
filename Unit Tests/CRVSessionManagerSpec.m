@@ -6,20 +6,20 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-static NSUInteger CRVSessionManagerTestWrapperIdentifier; //to follow static wrapper identifier in SUT
+static NSUInteger CRVSessionManagerTestWrapperIdentifier; //to follow static wrapper identifier in manager
 
 SpecBegin(CRVSessionManagerSpec)
 
 describe(@"CRVSessionManagerSpec", ^{
     
-    __block CRVSessionManager *sut = nil;
+    __block CRVSessionManager *manager = nil;
     
     describe(@"downloading data", ^{
         
         __block NSString *url = nil;
         
         beforeEach(^{
-            sut = [[CRVSessionManager alloc] init];
+            manager = [[CRVSessionManager alloc] init];
             url = @"www.example.com";
         });
         
@@ -27,7 +27,7 @@ describe(@"CRVSessionManagerSpec", ^{
             
             it(@"without url provided.", ^{
                 expect(^{
-                    [sut downloadAssetFromURL:nil progress:nil completion:nil];
+                    [manager downloadAssetFromURL:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
             
@@ -40,12 +40,12 @@ describe(@"CRVSessionManagerSpec", ^{
             
             beforeAll(^{
                 CRVSessionManagerTestWrapperIdentifier = 0;
-                initialIdentifier = [[sut downloadAssetFromURL:url progress:nil completion:nil] integerValue];
+                initialIdentifier = [[manager downloadAssetFromURL:url progress:nil completion:nil] integerValue];
             });
             
             beforeEach(^{
                 CRVSessionManagerTestWrapperIdentifier++;
-                identifier = [sut downloadAssetFromURL:url progress:nil completion:nil];
+                identifier = [manager downloadAssetFromURL:url progress:nil completion:nil];
             });
             
             it(@"identifier should be incremented.", ^{
@@ -63,7 +63,7 @@ describe(@"CRVSessionManagerSpec", ^{
         __block NSString *URLString = nil;
         
         beforeEach(^{
-            sut = [[CRVSessionManager alloc] init];
+            manager = [[CRVSessionManager alloc] init];
             NSData *data = [NSData crv_defaultImageDataRepresentation];
             stream = [[NSInputStream alloc] initWithData:data];
             length = @(data.length);
@@ -76,31 +76,31 @@ describe(@"CRVSessionManagerSpec", ^{
             
             it(@"without stream provided.", ^{
                 expect(^{
-                    [sut uploadAssetRepresentedByDataStream:nil withLength:length name:name mimeType:mimeType URLString:URLString progress:nil completion:nil];
+                    [manager uploadAssetRepresentedByDataStream:nil withLength:length name:name mimeType:mimeType URLString:URLString progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
             
             it(@"without length provided.", ^{
                 expect(^{
-                    [sut uploadAssetRepresentedByDataStream:stream withLength:nil name:name mimeType:mimeType URLString:URLString progress:nil completion:nil];
+                    [manager uploadAssetRepresentedByDataStream:stream withLength:nil name:name mimeType:mimeType URLString:URLString progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
             
             it(@"without name provided.", ^{
                 expect(^{
-                    [sut uploadAssetRepresentedByDataStream:stream withLength:length name:nil mimeType:mimeType URLString:URLString progress:nil completion:nil];
+                    [manager uploadAssetRepresentedByDataStream:stream withLength:length name:nil mimeType:mimeType URLString:URLString progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
             
             it(@"without mimeType provided.", ^{
                 expect(^{
-                    [sut uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:nil URLString:URLString progress:nil completion:nil];
+                    [manager uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:nil URLString:URLString progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
             
             it(@"without url provided.", ^{
                 expect(^{
-                    [sut uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:mimeType URLString:nil progress:nil completion:nil];
+                    [manager uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:mimeType URLString:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
         });
@@ -112,12 +112,12 @@ describe(@"CRVSessionManagerSpec", ^{
             
             beforeAll(^{
                 CRVSessionManagerTestWrapperIdentifier = 0;
-                initialIdentifier = [[sut uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:mimeType URLString:URLString progress:nil completion:nil] integerValue];
+                initialIdentifier = [[manager uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:mimeType URLString:URLString progress:nil completion:nil] integerValue];
             });
 
             beforeEach(^{
                 CRVSessionManagerTestWrapperIdentifier++;
-                identifier = [sut uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:mimeType URLString:URLString progress:nil completion:nil];
+                identifier = [manager uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:mimeType URLString:URLString progress:nil completion:nil];
             });
             
             it(@"identifier should be incremented.", ^{

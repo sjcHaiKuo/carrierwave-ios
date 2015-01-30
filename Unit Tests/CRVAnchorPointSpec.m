@@ -6,10 +6,12 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-SpecBegin(CRVSessionManagerSpec)
+SpecBegin(CRVAnchorPointSpec)
 
 describe(@"CRVAnchorPointSpec", ^{
     
 //    __block CRVAnchorPoint *sut = nil;
     
 });
+
+SpecEnd
