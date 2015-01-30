@@ -121,17 +121,13 @@ static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
 }
 
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
-    return [self.sessionManager uploadAssetRepresentedByDataStream:asset.dataStream
-        withLength:asset.dataLength
-        name:asset.fileName
-        mimeType:asset.mimeType
-        URLString:[url absoluteString]
-        progress:^(double aProgress) {
-        if (progress != NULL) progress(aProgress);
-        }
-        completion:^(NSDictionary *response, NSError *error) {
-        CRVUploadInfo *info = error ? nil : [[CRVUploadInfo alloc] initWithDictionary:response];
-        if (completion != NULL) completion(info, error);
+    return [self.sessionManager uploadAssetRepresentedByDataStream:asset.dataStream withLength:asset.dataLength name:asset.fileName mimeType:asset.mimeType URLString:[url absoluteString] progress:^(double aProgress) {
+            if (progress != NULL) progress(aProgress);
+        } completion:^(NSDictionary *response, NSError *error) {
+            if (completion != NULL) {
+                CRVUploadInfo *info = error ? nil : [[CRVUploadInfo alloc] initWithDictionary:response];
+                completion(info, error);
+            }
         }];
 }
 
