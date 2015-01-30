@@ -110,7 +110,7 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
     } completion:completion];
 }
 
-- (void)downloadWhitelistFromURL:(NSURL *)url withCompletion:(void (^)(NSData *, NSError *))completion {
+- (void)downloadWhitelistFromURL:(NSURL *)url completion:(void (^)(NSData *, NSError *))completion {
     NSParameterAssert(url);
     [self executeOperationWithName:@"whitelist" times:[self numberOfRetries] retriableBlock:^(CRVCompletionBlock block) {
         [self GET:url.absoluteString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {

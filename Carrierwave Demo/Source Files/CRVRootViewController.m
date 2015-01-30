@@ -5,18 +5,14 @@
 //
 
 #import "CRVRootViewController.h"
-#import "CRVNetworkManager.h"
 
 @interface CRVRootViewController () <CRVImageEditViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
-
 @property (strong, nonatomic, readwrite) CRVImageAsset *imageAsset;
 
 @end
-
-#pragma mark -
 
 @implementation CRVRootViewController
 

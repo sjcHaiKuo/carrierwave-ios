@@ -8,15 +8,14 @@
 @import Foundation;
 #import "CRVNetworkTypedefs.h"
 #import "CRVUploadInfo.h"
+#import "CRVWhitelistManager.h"
 
 @protocol CRVAssetType;
 @class CRVImageAsset;
 
 extern NSUInteger const CRVDefaultNumberOfRetries;
 extern NSTimeInterval const CRVDefaultReconnectionTime;
-extern NSTimeInterval const CRVDefaultWhitelistValidity;
 extern NSString *const CRVDefaultPath;
-extern NSString *const CRVWebServiceWhitelist;
 
 @interface CRVNetworkManager : NSObject
 
@@ -138,13 +137,8 @@ extern NSString *const CRVWebServiceWhitelist;
 @property (assign, nonatomic) BOOL checkCache;
 
 /**
- *  Asset types whitelist
+ *  Object for managing assets types whitelist
  */
-@property (strong, nonatomic) NSArray *whitelistArray;
-
-/**
- *  The time interval in which asset types whitelist remains valid, (default: one month).
- */
-@property (assign, nonatomic) NSTimeInterval whitelistValidityTime;
+@property (strong, nonatomic) CRVWhitelistManager *whitelistManager;
 
 @end

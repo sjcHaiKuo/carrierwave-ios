@@ -70,7 +70,7 @@
 /**
  * Downloads whitelist of acceptable assets types
  */
-- (void)downloadWhitelistFromURL:(NSURL *)url withCompletion:(void (^)(NSData *, NSError *))completion;
+- (void)downloadWhitelistFromURL:(NSURL *)url completion:(void (^)(NSData *, NSError *))completion;
 
 /**
  *  Cancels a proccess with given identifier.
