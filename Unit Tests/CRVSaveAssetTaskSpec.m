@@ -20,7 +20,7 @@ describe(@"CRVSaveAssetTaskSpec", ^{
             asset = [[CRVVideoAsset alloc] initWithData:inputData];
         });
         
-        context(@"when output buffer has empty space", ^{
+        context(@"when output buffer has free space", ^{
             
             __block NSOutputStream *outputStream;
             __block CRVTestSaveAssetTask *saveTask;
@@ -90,19 +90,28 @@ describe(@"CRVSaveAssetTaskSpec", ^{
             
         });
         
-        context(@"when output buffer has no empty space", ^{
+        context(@"when output buffer has no free space", ^{
             
-            pending(@"should return error", ^{
-                
+            __block NSOutputStream *outputStream;
+            __block CRVTestSaveAssetTask *saveTask;
+            
+            beforeEach(^{
+                uint8_t testBuffer[1] = { 0x00 };
+                outputStream = [NSOutputStream outputStreamToBuffer:testBuffer capacity:sizeof(testBuffer)];
+                saveTask = [[CRVTestSaveAssetTask alloc] initWithAsset:asset];
+                saveTask.outputStream = outputStream;
             });
-        });
-        
-    });
-    
-    describe(@"when use invalid file path for asset", ^{
-        
-        pending(@"should return error", ^{
             
+            it(@"should return error", ^{
+                __block NSError *savingError = nil;
+                waitUntil(^(DoneCallback done) {
+                    [saveTask saveAssetAs:CRVAssetFileTemporary completion:^(NSString *outputFilePath, NSError *error) {
+                        savingError = error;
+                        done();
+                    }];
+                });
+                expect(savingError).toNot.beNil();
+            });
         });
         
     });
