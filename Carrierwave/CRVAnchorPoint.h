@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, CRVAnchorPointLocation) {
 @interface CRVAnchorPoint : NSObject
 
 /**
- *  Initialize anchoe with specified location. Designed initializer for class.
+ *  Initialize anchor with specified location. Designed initializer for class.
  *
  *  @param location The location where anchor should take a place.
  *
