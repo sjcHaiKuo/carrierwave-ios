@@ -23,6 +23,11 @@ typedef NS_ENUM(NSUInteger, CRVAssetFileType) {
 @interface CRVSaveAssetTask : NSObject
 
 /**
+ *  Output stream used to save asset.
+ */
+@property (strong, nonatomic, readonly) NSOutputStream *outputStream;
+
+/**
  * Creates the task object using asset.
  *
  * @param asset Asset representing data to save.

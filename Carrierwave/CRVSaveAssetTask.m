@@ -12,7 +12,7 @@ static NSUInteger const CRVBufferSize = 4096;
 @interface CRVSaveAssetTask () <NSStreamDelegate>
 
 @property (strong, nonatomic) id<CRVAssetType> asset;
-@property (strong, nonatomic) NSOutputStream *outputStream;
+@property (strong, nonatomic, readwrite) NSOutputStream *outputStream;
 @property (assign, nonatomic) CRVAssetFileType fileType;
 
 @end
@@ -46,7 +46,10 @@ static NSUInteger const CRVBufferSize = 4096;
     CRVAssetFileType fileType = self.fileType;
     
     NSString *filePath = [CRVSaveAssetTask filePathForName:fileName type:fileType];
-    NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
+    
+    if (!self.outputStream) {
+        self.outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
+    }
     NSInputStream *inputStream = self.asset.dataStream;
     
     __block NSError *error = nil;
@@ -59,10 +62,10 @@ static NSUInteger const CRVBufferSize = 4096;
         [inputStream scheduleInRunLoop:currentRunLoop forMode:runLoopMode];
         [inputStream open];
 
-        [outputStream scheduleInRunLoop:currentRunLoop forMode:runLoopMode];
-        [outputStream open];
+        [self.outputStream scheduleInRunLoop:currentRunLoop forMode:runLoopMode];
+        [self.outputStream open];
         
-        while ([inputStream hasBytesAvailable] && [outputStream hasSpaceAvailable]) {
+        while ([inputStream hasBytesAvailable] && [self.outputStream hasSpaceAvailable]) {
             
             uint8_t buffer[CRVBufferSize];
             
@@ -72,9 +75,9 @@ static NSUInteger const CRVBufferSize = 4096;
                 break;
             }
             
-            NSInteger writeLength = [outputStream write:buffer maxLength:sizeof(buffer)];
+            NSInteger writeLength = [self.outputStream write:buffer maxLength:sizeof(buffer)];
             if (writeLength < 0) {
-                error = outputStream.streamError;
+                error = self.outputStream.streamError;
                 break;
             }
             
@@ -84,13 +87,15 @@ static NSUInteger const CRVBufferSize = 4096;
         [inputStream close];
         [inputStream removeFromRunLoop:currentRunLoop forMode:runLoopMode];
         
-        [outputStream close];
-        [outputStream removeFromRunLoop:currentRunLoop forMode:runLoopMode];
+        [self.outputStream close];
+        [self.outputStream removeFromRunLoop:currentRunLoop forMode:runLoopMode];
         
         if (completion) {
             NSString *filePath = error ? nil : [CRVSaveAssetTask filePathForName:fileName type:fileType];
             completion(filePath, error);
         }
+        
+        self.outputStream = nil;
     });
 }
 
