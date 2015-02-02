@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "CRVSessionManager.h"
+@import Foundation;
 
+@class CRVSessionManager;
 @class CRVWhitelistManager;
 
 @protocol CRVWhitelistManagerDataSource <NSObject>

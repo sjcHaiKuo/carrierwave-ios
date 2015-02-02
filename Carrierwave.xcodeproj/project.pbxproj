@@ -89,7 +89,7 @@
 		5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */; };
 		69AA0B9A7A138526C4B55648 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3272BDCF977EEC32EE0EE1EE /* libPods-Tests.a */; };
 		7C8BCD5C1A7F8904005DF4B8 /* CRVWhitelistManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8BCD5B1A7F8904005DF4B8 /* CRVWhitelistManagerSpec.m */; };
-		7CFA8FAD1A7B9ADD00A92F22 /* CRVWhitelistManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFA8FAB1A7B9ADD00A92F22 /* CRVWhitelistManager.h */; };
+		7CFA8FAD1A7B9ADD00A92F22 /* CRVWhitelistManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFA8FAB1A7B9ADD00A92F22 /* CRVWhitelistManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7CFA8FAE1A7B9ADD00A92F22 /* CRVWhitelistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFA8FAC1A7B9ADD00A92F22 /* CRVWhitelistManager.m */; };
 		7CFA8FBF1A7BB4B800A92F22 /* NSError+Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFA8FBD1A7BB4B800A92F22 /* NSError+Carrierwave.h */; };
 		7CFA8FC01A7BB4B800A92F22 /* NSError+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFA8FBE1A7BB4B800A92F22 /* NSError+Carrierwave.m */; };
@@ -660,10 +660,10 @@
 				5E11A6B11A766D78001924ED /* CRVScalableBorder.h in Headers */,
 				5E11A6AC1A766CE0001924ED /* CRVScalableView.h in Headers */,
 				5E50069F1A6E84E900444E5D /* CRVUploadInfo.h in Headers */,
+				7CFA8FAD1A7B9ADD00A92F22 /* CRVWhitelistManager.h in Headers */,
 				5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */,
 				219BBFBC1A693BD3003A97D3 /* CRVVideoAssetTypedefs.h in Headers */,
 				210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */,
-				7CFA8FAD1A7B9ADD00A92F22 /* CRVWhitelistManager.h in Headers */,
 				5E06ABA31A77DE4200155F3E /* CRVScalableBorder+Anchors.h in Headers */,
 				5E4C992F1A651210009AA040 /* CRVSessionDownloadTaskWrapper.h in Headers */,
 				21A75BEB1A6E513A003A7E0A /* CRVVideoDataStreamProvider.h in Headers */,
@@ -1137,7 +1137,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3A42F1511A4DC7CE00A6F9CD /* Development.xcconfig */;
 			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
@@ -1151,7 +1151,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3A42F16C1A4DC81A00A6F9CD /* Production.xcconfig */;
 			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
@@ -1165,7 +1165,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3A42F16D1A4DC81A00A6F9CD /* Staging.xcconfig */;
 			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
@@ -1179,7 +1179,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3A42F16E1A4DC81A00A6F9CD /* Test.xcconfig */;
 			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
