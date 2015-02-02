@@ -125,16 +125,4 @@ static NSUInteger const CRVBufferSize = 4096;
     return [libraryDirectoryPath stringByAppendingString:name];
 }
 
-#pragma mark - Helpers
-
-- (void)freeAssetDataStream {
-    [self.asset.dataStream close];
-    [self.asset.dataStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-}
-
-- (void)freeOutputStream {
-    [self.outputStream close];
-    self.outputStream = nil;
-}
-
 @end
