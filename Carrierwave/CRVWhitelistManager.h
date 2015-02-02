@@ -8,6 +8,9 @@
 
 @import Foundation;
 
+extern NSTimeInterval const CRVDefaultWhitelistValidity;
+extern NSString *const CRVWhitelistDefaultPath;
+
 @class CRVSessionManager;
 @class CRVWhitelistManager;
 

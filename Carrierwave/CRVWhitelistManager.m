@@ -11,8 +11,8 @@
 #import "CRVSessionManager.h"
 #import "NSError+Carrierwave.h"
 
-static NSTimeInterval const CRVDefaultWhitelistValidity = 111600;
-static NSString *const CRVWhitelistDefaultPath = @"/supported_extensions";
+NSTimeInterval const CRVDefaultWhitelistValidity = 111600;
+NSString *const CRVWhitelistDefaultPath = @"/supported_extensions";
 static NSString *const CRVWhitelistItems = @"CRVWhitelistItems";
 static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
 

@@ -74,6 +74,18 @@ describe(@"CRVNetworkManagerSpec", ^{
         it(@"should respond to reconnection time delegate.", ^{
             expect(manager).to.respondTo(@selector(reconnectionTimeSessionManagerShouldWait:));
         });
+        
+        it(@"should conform CRVWhitelistManagerDataSource.", ^{
+            expect(manager).conformTo(@protocol(CRVWhitelistManagerDataSource));
+        });
+        
+        it(@"should respond to session manager for whitelist manager.", ^{
+            expect(manager).to.respondTo(@selector(sessionManagerForWhitelistManager:));
+        });
+        
+        it(@"should respond to server URL for whitelist manager.", ^{
+            expect(manager).to.respondTo(@selector(serverURLForWhitelistManager:));
+        });
     });
     
     describe(@"when using a shared instance", ^{

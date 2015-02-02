@@ -16,6 +16,28 @@ describe(@"CRVWhitelistManagerSpec", ^{
         networkManager = [CRVNetworkManager sharedManager];
     });
     
+    describe(@"on initialization", ^{
+        
+        __block CRVWhitelistManager *whitelistManager;
+        
+        beforeAll(^{
+            whitelistManager = [[CRVWhitelistManager alloc] init];
+        });
+        
+        it(@"should set whitelist path to default", ^{
+            expect(whitelistManager.whitelistPath).to.equal(CRVWhitelistDefaultPath);
+        });
+        
+        it(@"should set whitelist validation time to default", ^{
+            expect(whitelistManager.whitelistValidityTime).to.equal(CRVDefaultWhitelistValidity);
+        });
+        
+        afterAll(^{
+            whitelistManager = nil;
+        });
+        
+    });
+    
     pending(@"whitelist loading");
     
     pending(@"whitelist validation check");
