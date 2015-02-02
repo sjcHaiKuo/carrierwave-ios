@@ -70,7 +70,7 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
     // mp4 - ftyp3gp5
     uint8_t mp4_3gp[8] = {0x66, 0x74, 0x79, 0x70, 0x33, 0x67, 0x70, 0x35};
     // m4v - ftypmp42
-    uint8_t mp4_mp42[9] = {0x66, 0x74, 0x79, 0x70, 0x6D, 0x70, 0x34, 0x32};
+    uint8_t mp4_mp42[8] = {0x66, 0x74, 0x79, 0x70, 0x6D, 0x70, 0x34, 0x32};
     
     // try to guess by signatures
     if (!memcmp(bytes + signatureOffset, mov, sizeof(mov))) {
@@ -124,7 +124,8 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
 }
 
 - (NSString *)fileName {
-    return _fileName ? : [CRVAssertTypeUtils fileNameForMimeType:self.mimeType];
+    if (!_fileName) _fileName = [CRVAssertTypeUtils fileNameForMimeType:self.mimeType];
+    return _fileName;
 }
 
 @end

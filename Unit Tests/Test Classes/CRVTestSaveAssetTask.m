@@ -9,4 +9,6 @@
 
 @implementation CRVTestSaveAssetTask
 
+@synthesize outputStream = _outputStream;
+
 @end
