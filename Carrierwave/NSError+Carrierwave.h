@@ -8,14 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const CRVErrorDomainName;
-
-typedef NS_ENUM(NSInteger, CRVError) {
-    CRVErrorWhitelistEmptyDataSource = 1001
-};
-
 @interface NSError (Carrierwave)
 
-+ (NSError *)crv_errorWithCode:(CRVError)code userInfo:(NSDictionary *)userInfo;
++ (instancetype)crv_errorForEmptyDataSource;
+
++ (instancetype)crv_errorForEmptyFile;
 
 @end

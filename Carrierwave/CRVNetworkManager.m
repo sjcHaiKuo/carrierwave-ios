@@ -10,6 +10,8 @@
 #import "CRVSessionManager.h"
 #import "CRVAssetType.h"
 #import "CRVImageAsset.h"
+#import "NSError+Carrierwave.h"
+
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
 NSString *const CRVDomainErrorName = @"com.carrierwave.domain.network.error";
@@ -81,7 +83,7 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
     } completion:^(NSData *data, NSError *error) {
         if (completion != NULL) {
             CRVImageAsset *asset = (data.length > 0) ? [[CRVImageAsset alloc] initWithData:data] : nil;
-            error = (!error && data && data.length == 0) ? [self errorForEmptyFile] : error;
+            error = (!error && data && data.length == 0) ? [NSError crv_errorForEmptyFile] : error;
             completion(asset, error);
         }
     }];
@@ -117,11 +119,6 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
 - (NSString *)URLString {
     NSAssert(self.serverURL != nil, @"Server URL cannot be nil.");
     return [self.serverURL URLByAppendingPathComponent:self.path].absoluteString;
-}
-
-- (NSError *)errorForEmptyFile {
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Downloaded file is empty." };
-    return [NSError errorWithDomain:CRVDomainErrorName code:0 userInfo:userInfo];
 }
 
 #pragma mark - CRVSessionManagerDelegate Methods

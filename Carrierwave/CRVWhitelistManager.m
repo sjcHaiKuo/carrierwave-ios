@@ -90,7 +90,7 @@ static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
 - (void)fetchWhitelistWithCompletion:(CRVCompletionBlock)completion {
     if (!self.dataSource) {
         if (completion != NULL) {
-            completion(NO, [self errorForEmptyDataSource]);
+            completion(NO, [NSError crv_errorForEmptyDataSource]);
         }
         return;
     }
@@ -99,7 +99,7 @@ static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
     CRVSessionManager *sessionManager = [self.dataSource sessionManagerForWhitelistManager:self];
     if (!serverURL || !sessionManager) {
         if (completion != NULL) {
-            completion(NO, [self errorForEmptyDataSource]);
+            completion(NO, [NSError crv_errorForEmptyDataSource]);
         }
         return;
     }
@@ -122,11 +122,6 @@ static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
             }
         }
     }];
-}
-
-- (NSError *)errorForEmptyDataSource {
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Whitelist needs a data source to be set and valid." };
-    return [NSError crv_errorWithCode:CRVErrorWhitelistEmptyDataSource userInfo:userInfo];
 }
 
 #pragma mark - Whitelist Query
