@@ -42,7 +42,7 @@ typedef NS_ENUM(NSInteger, CRVAnchorPointLocation) {
 - (void)setReferencePointWithSize:(CGSize)size;
 
 /**
- *  Measures distnace between two points and return it.
+ *  Measures distance between two points and return it.
  *
  *  @param point The point from which the distance is calculated.
  *
