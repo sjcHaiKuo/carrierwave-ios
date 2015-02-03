@@ -17,7 +17,8 @@
 @implementation CRVVideoFileStreamProvider
 
 - (instancetype)initWithFileUrl:(NSURL *)url {
-    NSParameterAssert([url isFileURL] && [url checkResourceIsReachableAndReturnError:nil]);
+    NSParameterAssert([url isFileURL]);
+    NSParameterAssert([url checkResourceIsReachableAndReturnError:nil]);
 
     if (self = [super init]) {
         NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:[url path] error:nil];
@@ -30,7 +31,7 @@
 }
 
 - (instancetype)initWithFilePath:(NSString *)filePath {
-    return [self initWithFileUrl:[NSURL URLWithString:filePath]];
+    return [self initWithFileUrl:[NSURL fileURLWithPath:filePath]];
 }
 
 - (NSInputStream *)inputStream {

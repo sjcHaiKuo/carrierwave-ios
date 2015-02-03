@@ -12,7 +12,6 @@
 		210E15A31A67EB4700342A39 /* CRVAssertTypeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */; };
 		210E15A41A67EB4700342A39 /* CRVAssertTypeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 210E15A21A67EB4700342A39 /* CRVAssertTypeUtils.m */; };
 		218C87751A7FAFBD005E1029 /* CRVTestSaveAssetTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C87741A7FAFBD005E1029 /* CRVTestSaveAssetTask.m */; };
-		218C87771A7FB0E4005E1029 /* CRVSaveAssetTaskSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C87761A7FB0E4005E1029 /* CRVSaveAssetTaskSpec.m */; };
 		219BBFB71A690624003A97D3 /* seconds.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 219BBFB61A690624003A97D3 /* seconds.mp4 */; };
 		219BBFBC1A693BD3003A97D3 /* CRVVideoAssetTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 219BBFBB1A693AD5003A97D3 /* CRVVideoAssetTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		219BBFC71A6959DB003A97D3 /* CRVSaveAssetTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 219BBFC51A6959DB003A97D3 /* CRVSaveAssetTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -22,6 +21,8 @@
 		21A75BEF1A6E514E003A7E0A /* CRVVideoFileStreamProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 21A75BED1A6E514E003A7E0A /* CRVVideoFileStreamProvider.h */; };
 		21A75BF01A6E514E003A7E0A /* CRVVideoFileStreamProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A75BEE1A6E514E003A7E0A /* CRVVideoFileStreamProvider.m */; };
 		21E6F66C1A690273001505F8 /* seconds.mov in Resources */ = {isa = PBXBuildFile; fileRef = 21E6F66B1A690273001505F8 /* seconds.mov */; };
+		21F0406E1A801DE50042E6A8 /* CRVVideoAssetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E6F6671A68FF7F001505F8 /* CRVVideoAssetSpec.m */; };
+		21F7F9211A8023DA001DEC45 /* CRVAssetTypeBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8621A51660E0052C58E /* CRVAssetTypeBehavior.m */; };
 		3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8601A5161490052C58E /* EXPMatchers+CRVAssetType.m */; };
 		3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A3FE8661A517CE60052C58E /* CRVImageEditViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A3FE8691A517CE60052C58E /* CRVImageEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8671A517CE60052C58E /* CRVImageEditViewController.m */; };
@@ -1000,8 +1001,9 @@
 				3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */,
 				5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */,
 				218C87751A7FAFBD005E1029 /* CRVTestSaveAssetTask.m in Sources */,
+				21F0406E1A801DE50042E6A8 /* CRVVideoAssetSpec.m in Sources */,
 				3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */,
-				218C87771A7FB0E4005E1029 /* CRVSaveAssetTaskSpec.m in Sources */,
+				21F7F9211A8023DA001DEC45 /* CRVAssetTypeBehavior.m in Sources */,
 				5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

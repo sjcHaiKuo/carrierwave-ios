@@ -63,6 +63,16 @@ describe(@"CRVVideoAsset", ^{
                      };
         });
         
+        it(@"should load asset data into video player", ^{
+            __block AVPlayerItem *loadedVideoItem = nil;
+            waitUntil(^(DoneCallback done) {
+                [asset loadVideoWithCompletion:^(AVPlayerItem *videoItem, NSError *error) {
+                    loadedVideoItem = videoItem;
+                    done();
+                }];
+            });
+            expect(loadedVideoItem).toNot.beNil();
+        });
     });
 });
 

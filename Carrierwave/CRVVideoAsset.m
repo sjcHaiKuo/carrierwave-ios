@@ -19,6 +19,7 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
 
 @property (strong, nonatomic, readwrite) NSString *mimeType;
 @property (strong, nonatomic, readwrite) NSString *fileName;
+@property (strong, nonatomic, readwrite) NSURL *videoUrl;
 @property (strong, nonatomic) id <CRVVideoStreamProvider> streamProvider;
 
 @end
@@ -102,9 +103,11 @@ static NSString * const CRVMimeTypeMov = @"video/quicktime";
     [saveTask saveAssetAs:CRVAssetFileTemporary completion:^(NSString *outputFilePath, NSError *error) {
         if (!error) {
             // Update file provider to use cached file
-            weakSelf.streamProvider = [[CRVVideoFileStreamProvider alloc] initWithFilePath:outputFilePath];
-        
-            AVPlayerItem *videoItem = [AVPlayerItem playerItemWithURL:self.videoUrl];
+            weakSelf.videoUrl = [NSURL fileURLWithPath:outputFilePath];
+            weakSelf.streamProvider = [[CRVVideoFileStreamProvider alloc] initWithFileUrl:weakSelf.videoUrl];
+            
+            
+            AVPlayerItem *videoItem = [AVPlayerItem playerItemWithURL:weakSelf.videoUrl];
             completion(videoItem, nil);
         
         } else {
