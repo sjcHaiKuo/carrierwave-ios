@@ -450,7 +450,6 @@ describe(@"CRVNetworkManagerSpec", ^{
                 expect(aSuccess).will.beFalsy();
             });
         });
-        
     });
     
     //OHHTTPStubs doesn't simulate data upload. Test for this stub has been omited.

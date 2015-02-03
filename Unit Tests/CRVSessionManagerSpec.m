@@ -6,20 +6,25 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-static NSUInteger CRVSessionManagerTestWrapperIdentifier; //to follow static wrapper identifier in manager
-
 SpecBegin(CRVSessionManagerSpec)
 
 describe(@"CRVSessionManagerSpec", ^{
     
     __block CRVSessionManager *manager = nil;
     
+    beforeEach(^{
+        manager = [[CRVSessionManager alloc] init];
+    });
+    
+    afterEach(^{
+        manager = nil;
+    });
+    
     describe(@"downloading data", ^{
         
         __block NSString *url = nil;
         
         beforeEach(^{
-            manager = [[CRVSessionManager alloc] init];
             url = @"www.example.com";
         });
         
@@ -30,26 +35,18 @@ describe(@"CRVSessionManagerSpec", ^{
                     [manager downloadAssetFromURL:nil progress:nil completion:nil];
                 }).to.raise(NSInternalInconsistencyException);
             });
-            
         });
         
         context(@"with valid inputs", ^{
             
             __block NSString *identifier;
-            __block NSInteger initialIdentifier;
-            
-            beforeAll(^{
-                CRVSessionManagerTestWrapperIdentifier = 0;
-                initialIdentifier = [[manager downloadAssetFromURL:url progress:nil completion:nil] integerValue];
-            });
             
             beforeEach(^{
-                CRVSessionManagerTestWrapperIdentifier++;
                 identifier = [manager downloadAssetFromURL:url progress:nil completion:nil];
             });
             
-            it(@"identifier should be incremented.", ^{
-                expect([identifier integerValue] - initialIdentifier).to.equal(CRVSessionManagerTestWrapperIdentifier);
+            it(@"identifier should exist.", ^{
+                expect(identifier).toNot.beNil();
             });
         });
     });
@@ -63,7 +60,6 @@ describe(@"CRVSessionManagerSpec", ^{
         __block NSString *URLString = nil;
         
         beforeEach(^{
-            manager = [[CRVSessionManager alloc] init];
             NSData *data = [NSData crv_defaultImageDataRepresentation];
             stream = [[NSInputStream alloc] initWithData:data];
             length = @(data.length);
@@ -108,23 +104,15 @@ describe(@"CRVSessionManagerSpec", ^{
         context(@"with valid inputs", ^{
             
             __block NSString *identifier;
-            __block NSInteger initialIdentifier;
-            
-            beforeAll(^{
-                CRVSessionManagerTestWrapperIdentifier = 0;
-                initialIdentifier = [[manager uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:mimeType URLString:URLString progress:nil completion:nil] integerValue];
-            });
 
             beforeEach(^{
-                CRVSessionManagerTestWrapperIdentifier++;
                 identifier = [manager uploadAssetRepresentedByDataStream:stream withLength:length name:name mimeType:mimeType URLString:URLString progress:nil completion:nil];
             });
             
-            it(@"identifier should be incremented.", ^{
-                expect([identifier integerValue] - initialIdentifier).to.equal(CRVSessionManagerTestWrapperIdentifier);
+            it(@"identifier should exist.", ^{
+                expect(identifier).toNot.beNil();
             });
         });
-        
     });
     
 });

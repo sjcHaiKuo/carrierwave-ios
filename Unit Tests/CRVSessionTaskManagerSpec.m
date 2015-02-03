@@ -4,19 +4,21 @@
 //  Copyright 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-static NSUInteger CRVSessionTaskManagerTestWrapperIdentifier; //to follow static wrapper identifier in manager
-
 SpecBegin(CRVSessionTaskManagerSpec)
 
 describe(@"CRVSessionTaskManagerSpec", ^{
     
     __block CRVSessionTaskManager *manager = nil;
     
+    beforeEach(^{
+        manager = [[CRVSessionTaskManager alloc] init];
+    });
+    
+    afterEach(^{
+        manager = nil;
+    });
+    
     context(@"when newly created", ^{
-        
-        beforeEach(^{
-            manager = [[CRVSessionTaskManager alloc] init];
-        });
         
         it(@"should have no task wrappers.", ^{
             expect([manager taskWrappers]).to.haveCountOf(0);
@@ -26,39 +28,31 @@ describe(@"CRVSessionTaskManagerSpec", ^{
     context(@"after adding", ^{
     
         __block NSURLSessionTask *task;
-        __block NSInteger initialIdentifier;
-        __block NSInteger identifier;
-        
-        beforeAll(^{
-            /* because wrapper identifier in CRVSessionTaskManager is unique across an app (is static)
-             * is required to check it's value before tests begin. */
-            initialIdentifier = [manager addDownloadTask:task progress:nil completion:nil];
-        });
+        __block NSString *identifier;
 
         beforeEach(^{
-            manager = [[CRVSessionTaskManager alloc] init];
             task = [[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:@"http://www.example.com"]];
         });
         
         afterEach(^{
-            manager = nil; task = nil;
+            task = nil;
         });
         
         context(@"download task", ^{
             
             beforeEach(^{
-                CRVSessionTaskManagerTestWrapperIdentifier++;
                 identifier = [manager addDownloadTask:task progress:nil completion:nil];
             });
             
             afterEach(^{
-                identifier = 0;
+                identifier = nil;
             });
             
             context(@"download task wrapper", ^{
                 
-                it(@"identifier should be incremented.", ^{
-                    expect(identifier - initialIdentifier).to.equal(CRVSessionTaskManagerTestWrapperIdentifier);
+                it(@"identifier should be same as saved one.", ^{
+                    CRVSessionTaskWrapper *wrapper = [manager downloadTaskWrapperForTask:task];
+                    expect(wrapper.identifier).to.equal(identifier);
                 });
                 
                 it(@"should exist for created task.", ^{
@@ -92,7 +86,6 @@ describe(@"CRVSessionTaskManagerSpec", ^{
                 it(@"should have 1 total count of wrappers.", ^{
                     expect([manager taskWrappers]).to.haveCountOf(1);
                 });
-                
             });
             
             context(@"and suspending it", ^{
@@ -112,7 +105,6 @@ describe(@"CRVSessionTaskManagerSpec", ^{
                 it(@"should have 1 total count of wrappers.", ^{
                     expect([manager taskWrappers]).to.haveCountOf(1);
                 });
-                
             });
             
             context(@"and canceling it", ^{
@@ -150,18 +142,18 @@ describe(@"CRVSessionTaskManagerSpec", ^{
         context(@"upload task", ^{
             
             beforeEach(^{
-                CRVSessionTaskManagerTestWrapperIdentifier++;
                 identifier = [manager addUploadTask:task dataStream:nil length:nil name:nil mimeType:nil progress:nil completion:nil];
             });
             
             afterEach(^{
-                identifier = 0;
+                identifier = nil;
             });
             
             context(@"upload task wrapper", ^{
                 
-                it(@"identifier should be incremented.", ^{
-                    expect(identifier - initialIdentifier).to.equal(CRVSessionTaskManagerTestWrapperIdentifier);
+                it(@"identifier should be same as saved one.", ^{
+                    CRVSessionTaskWrapper *wrapper = [manager uploadTaskWrapperForTask:task];
+                    expect(wrapper.identifier).to.equal(identifier);
                 });
                 
                 it(@"should exist for created task.", ^{
@@ -195,7 +187,6 @@ describe(@"CRVSessionTaskManagerSpec", ^{
                 it(@"should have 1 total count of wrappers.", ^{
                     expect([manager taskWrappers]).to.haveCountOf(1);
                 });
-                
             });
             
             context(@"and suspending it", ^{
@@ -215,7 +206,6 @@ describe(@"CRVSessionTaskManagerSpec", ^{
                 it(@"should have 1 total count of wrappers.", ^{
                     expect([manager taskWrappers]).to.haveCountOf(1);
                 });
-                
             });
             
             context(@"and canceling it", ^{

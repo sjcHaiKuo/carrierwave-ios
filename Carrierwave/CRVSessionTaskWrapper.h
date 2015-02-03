@@ -13,12 +13,13 @@
 /**
  *  Designed initializer for CRVSessionTaskWrapper class.
  *
- *  @param task     The task which belongs to wrapper.
- *  @param progress The progress block invoked every time when task will receive data.
+ *  @param task       The task which belongs to wrapper.
+ *  @param identifier The identifier of wrapper.
+ *  @param progress   The progress block invoked every time when task will receive data.
  *
  *  @return An initialized receiver.
  */
-- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSUInteger)identifier progress:(CRVProgressBlock)progress NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSString *)identifier progress:(CRVProgressBlock)progress NS_DESIGNATED_INITIALIZER;
 
 /**
  *  File name which has been received from URL.
@@ -46,6 +47,6 @@
 /**
  *  An identifier for this wrapper, assigned by CRVSessionTaskManager and unique accross an app.
  */
-@property (assign, nonatomic, readonly) NSUInteger identifier;
+@property (assign, nonatomic, readonly) NSString *identifier;
 
 @end

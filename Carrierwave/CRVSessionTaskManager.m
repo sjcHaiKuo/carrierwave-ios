@@ -9,8 +9,6 @@
 #import "CRVSessionTaskManager.h"
 #import "NSURLSessionTask+Carrierwave.h"
 
-static NSUInteger CVRWrapperIdentifier = 0;
-
 @interface CRVSessionTaskManager ()
 
 @property (strong, nonatomic, readwrite) NSMutableArray *downloadTaskWrappers;
@@ -31,24 +29,24 @@ static NSUInteger CVRWrapperIdentifier = 0;
     return self;
 }
 
-- (NSUInteger)addDownloadTask:(NSURLSessionTask *)task progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionDataBlock)completion {
-    CVRWrapperIdentifier++;
-    CRVSessionDownloadTaskWrapper *wrapper = [[CRVSessionDownloadTaskWrapper alloc] initWithTask:task identifier:CVRWrapperIdentifier progress:progress completion:completion];
+- (NSString *)addDownloadTask:(NSURLSessionTask *)task progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionDataBlock)completion {
+    
+    CRVSessionDownloadTaskWrapper *wrapper = [[CRVSessionDownloadTaskWrapper alloc] initWithTask:task identifier:[self uuid] progress:progress completion:completion];
     [self.downloadTaskWrappers addObject:wrapper];
     
-    return CVRWrapperIdentifier;
+    return wrapper.identifier;
 }
 
-- (NSUInteger)addUploadTask:(NSURLSessionTask *)task dataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionResponseBlock)completion {
-    CVRWrapperIdentifier++;
-    CRVSessionUploadTaskWrapper *wrapper = [[CRVSessionUploadTaskWrapper alloc] initWithTask:task identifier:CVRWrapperIdentifier progress:progress completion:completion];
+- (NSString *)addUploadTask:(NSURLSessionTask *)task dataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionResponseBlock)completion {
+    
+    CRVSessionUploadTaskWrapper *wrapper = [[CRVSessionUploadTaskWrapper alloc] initWithTask:task identifier:[self uuid] progress:progress completion:completion];
     wrapper.mimeType = mimeType;
     wrapper.dataStream = dataStream;
     wrapper.length = length;
     wrapper.name = name;
     [self.uploadTaskWrappers addObject:wrapper];
     
-    return CVRWrapperIdentifier;
+    return wrapper.identifier;
 }
 
 - (NSSet *)taskWrappers {
@@ -103,18 +101,18 @@ static NSUInteger CVRWrapperIdentifier = 0;
     [self.uploadTaskWrappers removeAllObjects];
 }
 
-- (void)cancelTaskForTaskWrapperIdentifier:(NSUInteger)identifier {
+- (void)cancelTaskForTaskWrapperIdentifier:(NSString *)identifier {
     CRVSessionTaskWrapper *wrapper = [self wrapperForIdentifier:identifier];
     [wrapper.task cancel];
     [self.downloadTaskWrappers removeObject:wrapper];
     [self.uploadTaskWrappers removeObject:wrapper];
 }
 
-- (void)pauseTaskForTaskWrapperIdentifier:(NSUInteger)identifier {
+- (void)pauseTaskForTaskWrapperIdentifier:(NSString *)identifier {
     [[self wrapperForIdentifier:identifier].task suspend];
 }
 
-- (void)resumeTaskForTaskWrapperIdentifier:(NSUInteger)identifier {
+- (void)resumeTaskForTaskWrapperIdentifier:(NSString *)identifier {
     [[self wrapperForIdentifier:identifier].task resume];
 }
 
@@ -125,14 +123,19 @@ static NSUInteger CVRWrapperIdentifier = 0;
     return [set.allObjects firstObject];
 }
 
-- (CRVSessionTaskWrapper *)wrapperForIdentifier:(NSUInteger)identifier {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.identifier == %d", identifier];
+- (CRVSessionTaskWrapper *)wrapperForIdentifier:(NSString *)identifier {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.identifier == %@", identifier];
     NSSet *set = [self.taskWrappers filteredSetUsingPredicate:predicate];
     return [set.allObjects firstObject];
 }
 
 - (NSPredicate *)predicateForTask:(NSURLSessionTask *)task {
     return [NSPredicate predicateWithFormat:@"SELF.task == %@", task];
+}
+
+- (NSString *)uuid {
+    NSProcessInfo *proccessInfo = [[NSProcessInfo alloc] init];
+    return [proccessInfo globallyUniqueString];
 }
 
 @end

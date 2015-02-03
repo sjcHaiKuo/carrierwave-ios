@@ -12,10 +12,6 @@
 
 NSString *const CRVBackendParameterName = @"attachment[file]";
 
-static inline NSString *intToString(NSUInteger x) {
-    return [NSString stringWithFormat:@"%lu", (unsigned long)x];
-}
-
 static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) {
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
@@ -67,14 +63,14 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
         [weakSelf downloadTaskDidPerformCompletionHandler:task filePath:filePath error:error];
     }];
 
-    NSUInteger wrapperIdentifier = [self.taskManager addDownloadTask:task progress:progress completion:completion];
+    NSString *wrapperIdentifier = [self.taskManager addDownloadTask:task progress:progress completion:completion];
 
     [self setDownloadTaskDidWriteDataBlock:^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
         [weakSelf.taskManager invokeProgressForTask:downloadTask];
     }];
 
     [task resume];
-    return intToString(wrapperIdentifier);
+    return wrapperIdentifier;
 }
 
 - (NSString *)uploadAssetRepresentedByDataStream:(NSInputStream *)dataStream withLength:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType URLString:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(NSDictionary *, NSError *))completion {
@@ -90,13 +86,13 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
         [weakSelf uploadTaskDidPerformCompletionHandler:task response:response error:error];
     }];
     
-    NSUInteger wrapperIdentifier = [self.taskManager addUploadTask:task dataStream:dataStream length:length name:name mimeType:mimeType progress:progress completion:completion];
+    NSString *wrapperIdentifier = [self.taskManager addUploadTask:task dataStream:dataStream length:length name:name mimeType:mimeType progress:progress completion:completion];
 
     [self setTaskDidSendBodyDataBlock:^(NSURLSession *session, NSURLSessionTask *task, int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend) {
         [weakSelf.taskManager invokeProgressForTask:task];
     }];
 
-    return intToString(wrapperIdentifier);
+    return wrapperIdentifier;
 }
 
 - (void)deleteAssetFromURL:(NSString *)URLString completion:(void (^)(BOOL, NSError *))completion {
@@ -124,15 +120,15 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 }
 
 - (void)cancelProccessWithIdentifier:(NSString *)identifier {
-    [self.taskManager cancelTaskForTaskWrapperIdentifier:identifier.integerValue];
+    [self.taskManager cancelTaskForTaskWrapperIdentifier:identifier];
 }
 
 - (void)pauseProccessWithIdentifier:(NSString *)identifier {
-    [self.taskManager pauseTaskForTaskWrapperIdentifier:identifier.integerValue];
+    [self.taskManager pauseTaskForTaskWrapperIdentifier:identifier];
 }
 
 - (void)resumeProccessWithIdentifier:(NSString *)identifier {
-    [self.taskManager resumeTaskForTaskWrapperIdentifier:identifier.integerValue];
+    [self.taskManager resumeTaskForTaskWrapperIdentifier:identifier];
 }
 
 #pragma mark - Private Methods

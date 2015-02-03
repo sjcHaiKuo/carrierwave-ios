@@ -16,12 +16,13 @@ typedef void (^CRVUploadCompletionResponseBlock)(NSDictionary *, NSError *);
  *  Designed initializer for CRVSessionUploadTaskWrapper class.
  *
  *  @param task       The task which belongs to wrapper.
+ *  @param identifier The identifier of wrapper.
  *  @param progress   The progress block invoked every time when task will send data.
  *  @param completion The completion block invoked when task uploading will complete with success or error.
  *
  *  @return An initialized receiver.
  */
-- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSUInteger)identifier progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionResponseBlock)completion;
+- (instancetype)initWithTask:(NSURLSessionTask *)task identifier:(NSString *)identifier progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionResponseBlock)completion;
 
 /**
  *  The completion block invoked when task uploading will complete with success or break with an error.
