@@ -22,6 +22,13 @@
 		21A75BF01A6E514E003A7E0A /* CRVVideoFileStreamProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A75BEE1A6E514E003A7E0A /* CRVVideoFileStreamProvider.m */; };
 		21E6F66C1A690273001505F8 /* seconds.mov in Resources */ = {isa = PBXBuildFile; fileRef = 21E6F66B1A690273001505F8 /* seconds.mov */; };
 		21F0406E1A801DE50042E6A8 /* CRVVideoAssetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E6F6671A68FF7F001505F8 /* CRVVideoAssetSpec.m */; };
+		21F40E8B1A818451000277BD /* CRVImageAssetSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3BDA11A50671F005BF9C4 /* CRVImageAssetSpec.m */; };
+		21F40E8C1A818458000277BD /* CRVNetworkManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E36AD0B1A67BFE50080FF80 /* CRVNetworkManagerSpec.m */; };
+		21F40E8D1A81845C000277BD /* CRVSessionManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E50069B1A6D33EA00444E5D /* CRVSessionManagerSpec.m */; };
+		21F40E8E1A81845E000277BD /* CRVSessionTaskManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E758E4A1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m */; };
+		21F40E8F1A818460000277BD /* CRVAnchorPointSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E94A4C11A7A878F00F98C18 /* CRVAnchorPointSpec.m */; };
+		21F40E901A818463000277BD /* CRVWhitelistManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8BCD5B1A7F8904005DF4B8 /* CRVWhitelistManagerSpec.m */; };
+		21F40E911A818465000277BD /* CRVSaveAssetTaskSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C87761A7FB0E4005E1029 /* CRVSaveAssetTaskSpec.m */; };
 		21F7F9211A8023DA001DEC45 /* CRVAssetTypeBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8621A51660E0052C58E /* CRVAssetTypeBehavior.m */; };
 		3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8601A5161490052C58E /* EXPMatchers+CRVAssetType.m */; };
 		3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A3FE8661A517CE60052C58E /* CRVImageEditViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -80,8 +87,6 @@
 		5E56EBFB1A5D68D2002E2484 /* CRVNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */; };
 		5E6F97DB1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E6F97D91A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.h */; };
 		5E6F97DC1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6F97DA1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.m */; };
-		5E758E4B1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E758E4A1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m */; };
-		5E94A4C21A7A878F00F98C18 /* CRVAnchorPointSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E94A4C11A7A878F00F98C18 /* CRVAnchorPointSpec.m */; };
 		5E94A4C51A7A893D00F98C18 /* CRVScalableView+Math.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E94A4C31A7A893D00F98C18 /* CRVScalableView+Math.h */; };
 		5E94A4C61A7A893D00F98C18 /* CRVScalableView+Math.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E94A4C41A7A893D00F98C18 /* CRVScalableView+Math.m */; };
 		5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1001,10 +1006,17 @@
 				3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */,
 				5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */,
 				218C87751A7FAFBD005E1029 /* CRVTestSaveAssetTask.m in Sources */,
+				21F40E8E1A81845E000277BD /* CRVSessionTaskManagerSpec.m in Sources */,
 				21F0406E1A801DE50042E6A8 /* CRVVideoAssetSpec.m in Sources */,
 				3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */,
+				21F40E8F1A818460000277BD /* CRVAnchorPointSpec.m in Sources */,
+				21F40E8D1A81845C000277BD /* CRVSessionManagerSpec.m in Sources */,
 				21F7F9211A8023DA001DEC45 /* CRVAssetTypeBehavior.m in Sources */,
+				21F40E901A818463000277BD /* CRVWhitelistManagerSpec.m in Sources */,
 				5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */,
+				21F40E911A818465000277BD /* CRVSaveAssetTaskSpec.m in Sources */,
+				21F40E8B1A818451000277BD /* CRVImageAssetSpec.m in Sources */,
+				21F40E8C1A818458000277BD /* CRVNetworkManagerSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
