@@ -214,7 +214,7 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 //does number of retries has been exceeded?
 - (BOOL)shouldPerformCompletionBlockForTaskWrapper:(CRVSessionTaskWrapper *)wrapper {
     if (wrapper.retriesCount >= [self numberOfRetries]) {
-        NSString *operation = [self.taskManager isDownloadTaskWrapper:wrapper] ? @"Download" : @"Upload";
+        NSString *operation = [wrapper isDownloadTask] ? @"Download" : @"Upload";
         [self logRetriesExceededInfoForOperation:operation fileName:[wrapper fileNameByGuessingFromURLPath]];
         return YES;
     }
@@ -224,7 +224,7 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 //execute download/upload asset method once again after specified time
 - (void)performDelayedRetriableTaskForTaskWrapper:(CRVSessionTaskWrapper *)wrapper {
 
-    BOOL isDownloadTaskWrapper = [self.taskManager isDownloadTaskWrapper:wrapper];
+    BOOL isDownloadTaskWrapper = [wrapper isDownloadTask];
     NSString *operation = isDownloadTaskWrapper ? @"download" : @"upload";
     NSInteger retriesLeft = [self numberOfRetries] - wrapper.retriesCount;
     [self logRetryInfoForOperation:operation fileName:[wrapper fileNameByGuessingFromURLPath] retriesLeft:retriesLeft];

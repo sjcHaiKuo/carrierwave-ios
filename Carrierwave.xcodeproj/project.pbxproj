@@ -80,6 +80,8 @@
 		5E56EBF91A5D68D2002E2484 /* CRVSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E56EBF51A5D68D2002E2484 /* CRVSessionManager.m */; };
 		5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E56EBFB1A5D68D2002E2484 /* CRVNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */; };
+		5E6F97DB1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E6F97D91A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.h */; };
+		5E6F97DC1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6F97DA1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.m */; };
 		5E758E4B1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E758E4A1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m */; };
 		5E94A4C21A7A878F00F98C18 /* CRVAnchorPointSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E94A4C11A7A878F00F98C18 /* CRVAnchorPointSpec.m */; };
 		5E94A4C51A7A893D00F98C18 /* CRVScalableView+Math.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E94A4C31A7A893D00F98C18 /* CRVScalableView+Math.h */; };
@@ -228,6 +230,8 @@
 		5E56EBF51A5D68D2002E2484 /* CRVSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionManager.m; sourceTree = "<group>"; };
 		5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkManager.h; sourceTree = "<group>"; };
 		5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVNetworkManager.m; sourceTree = "<group>"; };
+		5E6F97D91A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CRVSessionTaskWrapper+Carrierwave.h"; sourceTree = "<group>"; };
+		5E6F97DA1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CRVSessionTaskWrapper+Carrierwave.m"; sourceTree = "<group>"; };
 		5E758E4A1A694D6E00405A20 /* CRVSessionTaskManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionTaskManagerSpec.m; sourceTree = "<group>"; };
 		5E94A4C11A7A878F00F98C18 /* CRVAnchorPointSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVAnchorPointSpec.m; sourceTree = "<group>"; };
 		5E94A4C31A7A893D00F98C18 /* CRVScalableView+Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CRVScalableView+Math.h"; sourceTree = "<group>"; };
@@ -600,6 +604,8 @@
 				5E5006A61A6E867B00444E5D /* NSURLSessionTask+Carrierwave.m */,
 				7CFA8FBD1A7BB4B800A92F22 /* NSError+Carrierwave.h */,
 				7CFA8FBE1A7BB4B800A92F22 /* NSError+Carrierwave.m */,
+				5E6F97D91A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.h */,
+				5E6F97DA1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -657,6 +663,7 @@
 				5E4C99331A651228009AA040 /* CRVSessionUploadTaskWrapper.h in Headers */,
 				3ADC0E751A5AE7AA009F4D4B /* CRVImageEditScrollView.h in Headers */,
 				5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */,
+				5E6F97DB1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.h in Headers */,
 				5E11A6B11A766D78001924ED /* CRVScalableBorder.h in Headers */,
 				5E11A6AC1A766CE0001924ED /* CRVScalableView.h in Headers */,
 				5E50069F1A6E84E900444E5D /* CRVUploadInfo.h in Headers */,
@@ -1014,6 +1021,7 @@
 				5E11A6B21A766D78001924ED /* CRVScalableBorder.m in Sources */,
 				5E4C99341A651228009AA040 /* CRVSessionUploadTaskWrapper.m in Sources */,
 				21A75BEC1A6E513A003A7E0A /* CRVVideoDataStreamProvider.m in Sources */,
+				5E6F97DC1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.m in Sources */,
 				210E15A41A67EB4700342A39 /* CRVAssertTypeUtils.m in Sources */,
 				5E4D0A6C1A60982100A1729B /* CRVSessionTaskManager.m in Sources */,
 				5E06ABA41A77DE4200155F3E /* CRVScalableBorder+Anchors.m in Sources */,

@@ -4,22 +4,22 @@
 //  Copyright 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-static NSUInteger CRVSessionTaskManagerTestWrapperIdentifier; //to follow static wrapper identifier in SUT
+static NSUInteger CRVSessionTaskManagerTestWrapperIdentifier; //to follow static wrapper identifier in manager
 
 SpecBegin(CRVSessionTaskManagerSpec)
 
 describe(@"CRVSessionTaskManagerSpec", ^{
     
-    __block CRVSessionTaskManager *sut = nil;
+    __block CRVSessionTaskManager *manager = nil;
     
     context(@"when newly created", ^{
         
         beforeEach(^{
-            sut = [[CRVSessionTaskManager alloc] init];
+            manager = [[CRVSessionTaskManager alloc] init];
         });
         
         it(@"should have no task wrappers.", ^{
-            expect([sut taskWrappers]).to.haveCountOf(0);
+            expect([manager taskWrappers]).to.haveCountOf(0);
         });
     });
     
@@ -32,23 +32,23 @@ describe(@"CRVSessionTaskManagerSpec", ^{
         beforeAll(^{
             /* because wrapper identifier in CRVSessionTaskManager is unique across an app (is static)
              * is required to check it's value before tests begin. */
-            initialIdentifier = [sut addDownloadTask:task progress:nil completion:nil];
+            initialIdentifier = [manager addDownloadTask:task progress:nil completion:nil];
         });
 
         beforeEach(^{
-            sut = [[CRVSessionTaskManager alloc] init];
+            manager = [[CRVSessionTaskManager alloc] init];
             task = [[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:@"http://www.example.com"]];
         });
         
         afterEach(^{
-            sut = nil; task = nil;
+            manager = nil; task = nil;
         });
         
         context(@"download task", ^{
             
             beforeEach(^{
                 CRVSessionTaskManagerTestWrapperIdentifier++;
-                identifier = [sut addDownloadTask:task progress:nil completion:nil];
+                identifier = [manager addDownloadTask:task progress:nil completion:nil];
             });
             
             afterEach(^{
@@ -62,34 +62,35 @@ describe(@"CRVSessionTaskManagerSpec", ^{
                 });
                 
                 it(@"should exist for created task.", ^{
-                    expect([sut downloadTaskWrapperForTask:task]).toNot.beNil();
+                    expect([manager downloadTaskWrapperForTask:task]).toNot.beNil();
                 });
                 
                 it(@"should wrapper be proper class.", ^{
-                    CRVSessionTaskWrapper *wrapper = [sut downloadTaskWrapperForTask:task];
-                    expect([sut isDownloadTaskWrapper:wrapper]).to.beTruthy();
+                    CRVSessionTaskWrapper *wrapper = [manager downloadTaskWrapperForTask:task];
+                    expect([wrapper isDownloadTask]).to.beTruthy();
+                    expect([wrapper isUploadTask]).to.beFalsy();
                 });
             });
             
             context(@"upload task wrapper", ^{
                 
                 it(@"should not exist for created task.", ^{
-                    expect([sut uploadTaskWrapperForTask:task]).to.beNil();
+                    expect([manager uploadTaskWrapperForTask:task]).to.beNil();
                 });
             });
             
             context(@"manager", ^{
                 
                 it(@"should have exactly 1 download wrapper.", ^{
-                    expect([sut downloadTaskWrappers]).to.haveCountOf(1);
+                    expect([manager downloadTaskWrappers]).to.haveCountOf(1);
                 });
                 
                 it(@"should have any upload wrapper.", ^{
-                    expect([sut uploadTaskWrappers]).to.beEmpty();
+                    expect([manager uploadTaskWrappers]).to.beEmpty();
                 });
                 
                 it(@"should have 1 total count of wrappers.", ^{
-                    expect([sut taskWrappers]).to.haveCountOf(1);
+                    expect([manager taskWrappers]).to.haveCountOf(1);
                 });
                 
             });
@@ -97,19 +98,19 @@ describe(@"CRVSessionTaskManagerSpec", ^{
             context(@"and suspending it", ^{
                 
                 beforeEach(^{
-                    [sut pauseTaskForTaskWrapperIdentifier:identifier];
+                    [manager pauseTaskForTaskWrapperIdentifier:identifier];
                 });
                 
                 it(@"should have exactly 1 download wrapper.", ^{
-                    expect([sut downloadTaskWrappers]).to.haveCountOf(1);
+                    expect([manager downloadTaskWrappers]).to.haveCountOf(1);
                 });
                 
                 it(@"should have any upload wrapper.", ^{
-                    expect([sut uploadTaskWrappers]).to.beEmpty();
+                    expect([manager uploadTaskWrappers]).to.beEmpty();
                 });
                 
                 it(@"should have 1 total count of wrappers.", ^{
-                    expect([sut taskWrappers]).to.haveCountOf(1);
+                    expect([manager taskWrappers]).to.haveCountOf(1);
                 });
                 
             });
@@ -117,30 +118,30 @@ describe(@"CRVSessionTaskManagerSpec", ^{
             context(@"and canceling it", ^{
                 
                 beforeEach(^{
-                    [sut cancelTaskForTaskWrapperIdentifier:identifier];
+                    [manager cancelTaskForTaskWrapperIdentifier:identifier];
                 });
                 
                 it(@"should manager have any download wrapper.", ^{
-                    expect([sut downloadTaskWrappers]).to.beEmpty();
+                    expect([manager downloadTaskWrappers]).to.beEmpty();
                 });
                 
                 it(@"should manager have any wrapper.", ^{
-                    expect([sut taskWrappers]).to.beEmpty();
+                    expect([manager taskWrappers]).to.beEmpty();
                 });
             });
             
             context(@"and canceling all tasks.", ^{
                 
                 beforeEach(^{
-                    [sut cancelAllTasks];
+                    [manager cancelAllTasks];
                 });
                 
                 it(@"should manager have any download wrapper.", ^{
-                    expect([sut downloadTaskWrappers]).to.beEmpty();
+                    expect([manager downloadTaskWrappers]).to.beEmpty();
                 });
                 
                 it(@"should manager have any wrapper.", ^{
-                    expect([sut taskWrappers]).to.beEmpty();
+                    expect([manager taskWrappers]).to.beEmpty();
                 });
             });
             
@@ -150,7 +151,7 @@ describe(@"CRVSessionTaskManagerSpec", ^{
             
             beforeEach(^{
                 CRVSessionTaskManagerTestWrapperIdentifier++;
-                identifier = [sut addUploadTask:task dataStream:nil length:nil name:nil mimeType:nil progress:nil completion:nil];
+                identifier = [manager addUploadTask:task dataStream:nil length:nil name:nil mimeType:nil progress:nil completion:nil];
             });
             
             afterEach(^{
@@ -164,34 +165,35 @@ describe(@"CRVSessionTaskManagerSpec", ^{
                 });
                 
                 it(@"should exist for created task.", ^{
-                    expect([sut uploadTaskWrapperForTask:task]).toNot.beNil();
+                    expect([manager uploadTaskWrapperForTask:task]).toNot.beNil();
                 });
                 
                 it(@"should wrapper be proper class.", ^{
-                    CRVSessionTaskWrapper *wrapper = [sut uploadTaskWrapperForTask:task];
-                    expect([sut isDownloadTaskWrapper:wrapper]).to.beFalsy();
+                    CRVSessionTaskWrapper *wrapper = [manager uploadTaskWrapperForTask:task];
+                    expect([wrapper isUploadTask]).to.beTruthy();
+                    expect([wrapper isDownloadTask]).to.beFalsy();
                 });
             });
             
             context(@"download task wrapper", ^{
                 
                 it(@"should not exist for created task.", ^{
-                    expect([sut downloadTaskWrapperForTask:task]).to.beNil();
+                    expect([manager downloadTaskWrapperForTask:task]).to.beNil();
                 });
             });
             
             context(@"manager", ^{
                 
                 it(@"should have any download wrapper.", ^{
-                    expect([sut downloadTaskWrappers]).to.beEmpty();
+                    expect([manager downloadTaskWrappers]).to.beEmpty();
                 });
                 
                 it(@"should have exactly 1 upload wrapper.", ^{
-                    expect([sut uploadTaskWrappers]).to.haveCountOf(1);
+                    expect([manager uploadTaskWrappers]).to.haveCountOf(1);
                 });
                 
                 it(@"should have 1 total count of wrappers.", ^{
-                    expect([sut taskWrappers]).to.haveCountOf(1);
+                    expect([manager taskWrappers]).to.haveCountOf(1);
                 });
                 
             });
@@ -199,19 +201,19 @@ describe(@"CRVSessionTaskManagerSpec", ^{
             context(@"and suspending it", ^{
                 
                 beforeEach(^{
-                    [sut pauseTaskForTaskWrapperIdentifier:identifier];
+                    [manager pauseTaskForTaskWrapperIdentifier:identifier];
                 });
                 
                 it(@"should have any download wrapper.", ^{
-                    expect([sut downloadTaskWrappers]).to.beEmpty();
+                    expect([manager downloadTaskWrappers]).to.beEmpty();
                 });
                 
                 it(@"should have exactly 1 upload wrapper.", ^{
-                    expect([sut uploadTaskWrappers]).to.haveCountOf(1);
+                    expect([manager uploadTaskWrappers]).to.haveCountOf(1);
                 });
                 
                 it(@"should have 1 total count of wrappers.", ^{
-                    expect([sut taskWrappers]).to.haveCountOf(1);
+                    expect([manager taskWrappers]).to.haveCountOf(1);
                 });
                 
             });
@@ -219,30 +221,30 @@ describe(@"CRVSessionTaskManagerSpec", ^{
             context(@"and canceling it", ^{
                 
                 beforeEach(^{
-                    [sut cancelTaskForTaskWrapperIdentifier:identifier];
+                    [manager cancelTaskForTaskWrapperIdentifier:identifier];
                 });
                 
                 it(@"should manager have any upload wrapper.", ^{
-                    expect([sut downloadTaskWrappers]).to.beEmpty();
+                    expect([manager downloadTaskWrappers]).to.beEmpty();
                 });
                 
                 it(@"should manager have any wrapper.", ^{
-                    expect([sut taskWrappers]).to.beEmpty();
+                    expect([manager taskWrappers]).to.beEmpty();
                 });
             });
             
             context(@"and canceling all tasks.", ^{
                 
                 beforeEach(^{
-                    [sut cancelAllTasks];
+                    [manager cancelAllTasks];
                 });
                 
                 it(@"should manager have any upload wrapper.", ^{
-                    expect([sut downloadTaskWrappers]).to.beEmpty();
+                    expect([manager downloadTaskWrappers]).to.beEmpty();
                 });
                 
                 it(@"should manager have any wrapper.", ^{
-                    expect([sut taskWrappers]).to.beEmpty();
+                    expect([manager taskWrappers]).to.beEmpty();
                 });
             });
         

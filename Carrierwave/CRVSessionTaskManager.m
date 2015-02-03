@@ -103,10 +103,6 @@ static NSUInteger CVRWrapperIdentifier = 0;
     [self.uploadTaskWrappers removeAllObjects];
 }
 
-- (BOOL)isDownloadTaskWrapper:(CRVSessionTaskWrapper *)wrapper {
-    return [wrapper isKindOfClass:[CRVSessionDownloadTaskWrapper class]];
-}
-
 - (void)cancelTaskForTaskWrapperIdentifier:(NSUInteger)identifier {
     CRVSessionTaskWrapper *wrapper = [self wrapperForIdentifier:identifier];
     [wrapper.task cancel];

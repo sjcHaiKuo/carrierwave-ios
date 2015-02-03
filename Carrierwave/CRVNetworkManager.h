@@ -20,7 +20,9 @@ extern NSString *const CRVDefaultPath;
 @interface CRVNetworkManager : NSObject
 
 /**
- *  Returns a shared instance of network manager
+ *  Returns a shared instance of network manager. 
+ *  `CRVNetworkManager` uses `AFNetworking` under the hood. If activity indicator should be managed automatically,
+ *   enable `AFNetworkActivityIndicatorManager` in `AppDelegate application:didFinishLaunchingWithOptions:`
  */
 + (instancetype)sharedManager;
 
@@ -115,11 +117,6 @@ extern NSString *const CRVDefaultPath;
  *  The path append to server URL. Used in all requests (default: CRVDefaultPath);
  */
 @property (strong, nonatomic) NSString *path;
-
-/**
- *  Whether the network activity indicator should be visible (default: NO).
- */
-@property (assign, nonatomic) BOOL showsNetworkActivityIndicator;
 
 /**
  *  The number of retries used in case of connection issues (default: CRVDefaultNumberOfRetries).

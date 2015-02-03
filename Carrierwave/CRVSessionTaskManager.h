@@ -10,6 +10,7 @@
 
 #import "CRVSessionDownloadTaskWrapper.h"
 #import "CRVSessionUploadTaskWrapper.h"
+#import "CRVSessionTaskWrapper+Carrierwave.h"
 
 @interface CRVSessionTaskManager : NSObject
 
@@ -110,15 +111,6 @@
  *  @return The set populated with CRVSessionDownloadTaskWrapper and CRVSessionUploadTaskWrapper objects.
  */
 - (NSSet *)taskWrappers;
-
-/**
- *  Checks class type of specified wrapper.
- *
- *  @param wrapper Wrapper which class will be checked.
- *
- *  @return Flag if given wrapper is CRVSessionDownloadTaskWrapper class or not.
- */
-- (BOOL)isDownloadTaskWrapper:(CRVSessionTaskWrapper *)wrapper;
 
 /**
  *  An array populated with CRVSessionDownloadTaskWrapper objects.
