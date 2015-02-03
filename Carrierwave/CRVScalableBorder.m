@@ -21,19 +21,25 @@ static CGFloat const crv_dotted[2] = {1 ,3};
 @implementation CRVScalableBorder
 
 - (instancetype)initWithFrame:(CGRect)frame {
+    
     self = [super initWithFrame:frame];
-    if (!self) return nil;
+    if (!self) {
+        return nil;
+    }
+    
     //Grid customizing:
     self.gridColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5f];
     self.gridDrawingMode = CRVGridDrawingModeOnResizing;
     self.gridStyle = CRVGridStyleContinuous;
     self.gridThickness = 1;
     self.numberOfGridlines = 4;
+    
     //Border customizing:
     self.borderColor = [UIColor colorWithWhite:0.9f alpha:1];
     self.borderStyle = CRVBorderStyleContinuous;
     self.borderThickness = 1;
     self.borderInset = 5;
+    
     //Anchors customizing:
     self.anchorsColor = [UIColor whiteColor];
     self.anchorsDrawingMode = CRVAnchorsDrawingModeAlways;

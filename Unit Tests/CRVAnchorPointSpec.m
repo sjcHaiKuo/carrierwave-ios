@@ -97,8 +97,6 @@ describe(@"CRVAnchorPointSpec", ^{
         
     });
     
-    
-    
 });
 
 SpecEnd
