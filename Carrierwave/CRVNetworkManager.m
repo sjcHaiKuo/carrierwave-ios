@@ -112,11 +112,6 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
     [self.sessionManager resumeProccessWithIdentifier:identifier];
 }
 
-- (void)setShowsNetworkActivityIndicator:(BOOL)shows {
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = shows;
-    _showsNetworkActivityIndicator = shows;
-}
-
 #pragma mark - Private Methods
 
 - (NSString *)URLString {
