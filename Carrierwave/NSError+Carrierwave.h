@@ -10,8 +10,18 @@
 
 @interface NSError (Carrierwave)
 
+/**
+ *  Creates an error with proper domain, code and description when data source is not specified.
+ *
+ *  @return An instance of receiver.
+ */
 + (instancetype)crv_errorForEmptyDataSource;
 
+/**
+ *  Creates an error with proper domain, code and description when downloaded file is empty.
+ *
+ *  @return An instance of receiver.
+ */
 + (instancetype)crv_errorForEmptyFile;
 
 @end
