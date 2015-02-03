@@ -21,33 +21,23 @@ static NSString *const CRVErrorDomainName = @"com.carrierwave.domain.network.err
 #pragma mark - Public Methods
 
 + (instancetype)crv_errorForEmptyDataSource {
-    return [self crv_errorWithCode:CRVErrorWhitelistEmptyDataSource];
+    return [self crv_errorWithCode:CRVErrorWhitelistEmptyDataSource localizedDescription:NSLocalizedString(@"Whitelist needs a data source to be set and valid.", nil)];
 }
 
 + (instancetype)crv_errorForEmptyFile {
-    return [self crv_errorWithCode:CRVErrorEmptyFile];
+    return [self crv_errorWithCode:CRVErrorEmptyFile localizedDescription:NSLocalizedString(@"Downloaded file is empty.", nil)];
 }
 
 #pragma mark - Private Methods
 
-+ (instancetype)crv_errorWithCode:(CRVError)code {
++ (NSError *)crv_errorWithCode:(NSInteger)code localizedDescription:(NSString *)localizedDescription {
     
-    NSString *description = nil;
-    
-    switch (code) {
-        case CRVErrorWhitelistEmptyDataSource:
-            description = NSLocalizedString(@"Whitelist needs a data source to be set and valid.", nil);
-            break;
-        case CRVErrorEmptyFile:
-            description = NSLocalizedString(@"Downloaded file is empty.", nil);
-            break;
-            
-        default:
-            description = NSLocalizedString(@"An unknown error occurred.", nil);
-            break;
+    if (!localizedDescription) {
+        localizedDescription = NSLocalizedString(@"An unknown error occurred.", nil);
     }
-
-    return [NSError errorWithDomain:CRVErrorDomainName code:code userInfo:@{ NSLocalizedDescriptionKey: description }];
+    return [NSError errorWithDomain:CRVErrorDomainName
+                               code:code
+                           userInfo:@{ NSLocalizedDescriptionKey: localizedDescription}];
 }
 
 
