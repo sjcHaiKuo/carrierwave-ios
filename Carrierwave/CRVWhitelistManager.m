@@ -37,7 +37,7 @@ static NSString *const CRVWhitelistDateKey = @"CRVWhitelistDateKey";
 #pragma mark - Custom Setter
 
 - (void)setDataSource:(id<CRVWhitelistManagerDataSource>)dataSource {
-    if (!dataSource) {
+    if (dataSource) {
         _dataSource = dataSource;
         [self loadWhitelist];
     }

@@ -46,6 +46,11 @@ describe(@"CRVWhitelistManagerSpec", ^{
         
         afterEach(^{
             whitelistManager = nil;
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults removeObjectForKey:@"CRVWhitelistDateKey"];
+            [userDefaults removeObjectForKey:@"CRVWhitelistItemsKey"];
+            [userDefaults synchronize];
         });
         
         it(@"should load whitelist", ^{
@@ -55,10 +60,49 @@ describe(@"CRVWhitelistManagerSpec", ^{
         });
     });
     
-    pending(@"whitelist update");
-    
-    pending(@"whitelist synchronization");
-    
+    describe(@"on updating", ^{
+        
+        __block CRVNetworkManager *networkManager = nil;
+        __block id<OHHTTPStubsDescriptor> stub;
+        
+        beforeEach(^{
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:[NSDate new] forKey:@"CRVWhitelistDateKey"];
+            [userDefaults setObject:@[@"one", @"two", @"three"] forKey:@"CRVWhitelistItemsKey"];
+            [userDefaults synchronize];
+            
+            networkManager = [[CRVNetworkManager alloc] init];
+            networkManager.reconnectionTime = 0.2;
+            networkManager.numberOfRetries = 4;
+            networkManager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
+            whitelistManager = networkManager.whitelistManager;
+            
+            stub = [OHHTTPStubs crv_stubWhitelistRequestWithError:CRVStubErrorNone manager:networkManager];
+            whitelistManager.whitelistValidityTime = 0;
+            [whitelistManager updateWhitelist];
+        });
+        
+        afterEach(^{
+            [OHHTTPStubs removeStub:stub];
+            whitelistManager = nil;
+            networkManager = nil;
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults removeObjectForKey:@"CRVWhitelistDateKey"];
+            [userDefaults removeObjectForKey:@"CRVWhitelistItemsKey"];
+            [userDefaults synchronize];
+        });
+        
+        it(@"should update the whitelist", ^{
+            expect([whitelistManager containsItem:@"jpg"]).after(3).to.beTruthy();
+            expect([whitelistManager containsItem:@"png"]).after(3).to.beTruthy();
+            expect([whitelistManager containsItem:@"gif"]).after(3).to.beTruthy();
+            expect([whitelistManager containsItem:@"one"]).after(3).to.beFalsy();
+            expect([whitelistManager containsItem:@"two"]).after(3).to.beFalsy();
+            expect([whitelistManager containsItem:@"three"]).after(3).to.beFalsy();
+        });
+        
+    });
+
 });
 
 SpecEnd
