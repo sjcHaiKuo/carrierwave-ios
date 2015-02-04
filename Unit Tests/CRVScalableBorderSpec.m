@@ -19,22 +19,6 @@ describe(@"CRVScalableBorderSpec", ^{
             scalableBorder = [[CRVScalableBorder alloc] initWithFrame:frame];
         });
         
-        it(@"it should have 3 drawing modes", ^{
-            expect(CRVGridDrawingModesCount).to.equal(3);
-        });
-        
-        it(@"it should have 3 anchor drawing modes", ^{
-            expect(CRVAnchorDrawingModesCount).to.equal(3);
-        });
-        
-        it(@"it should have 3 grid styles", ^{
-            expect(CRVGridStylesCount).to.equal(3);
-        });
-        
-        it(@"it should have 3 border styles", ^{
-            expect(CRVBorderStylesCount).to.equal(3);
-        });
-        
     });
     
 });

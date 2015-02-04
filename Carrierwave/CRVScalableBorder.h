@@ -11,33 +11,25 @@
 typedef NS_ENUM(NSInteger, CRVGridDrawingMode) {
     CRVGridDrawingModeAlways,
     CRVGridDrawingModeOnResizing,
-    CRVGridDrawingModeNever,
-    // do not use, for count information only:
-    CRVGridDrawingModesCount
+    CRVGridDrawingModeNever
 };
 
 typedef NS_ENUM(NSInteger, CRVAnchorsDrawingMode) {
     CRVAnchorsDrawingModeAlways,
     CRVAnchorsDrawingModeOnResizing,
-    CRVAnchorsDrawingModeNever,
-    // do not use, for count information only:
-    CRVAnchorDrawingModesCount
+    CRVAnchorsDrawingModeNever
 };
 
 typedef NS_ENUM(NSInteger, CRVGridStyle) {
     CRVGridStyleContinuous,
     CRVGridStyleDashed,
-    CRVGridStyleDotted,
-    // do not use, for count information only:
-    CRVGridStylesCount
+    CRVGridStyleDotted
 };
 
 typedef NS_ENUM(NSInteger, CRVBorderStyle) {
     CRVBorderStyleContinuous,
     CRVBorderStyleDashed,
-    CRVBorderStyleDotted,
-    // do not use, for count information only:
-    CRVBorderStylesCount
+    CRVBorderStyleDotted
 };
 
 
