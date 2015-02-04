@@ -8,7 +8,7 @@
 
 SpecBegin(CRVWhitelistManagerSpec)
 
-describe(@"CRVWhitelistManagerSpec", ^{
+fdescribe(@"CRVWhitelistManagerSpec", ^{
     
     __block CRVWhitelistManager *whitelistManager;
     
