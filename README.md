@@ -62,6 +62,14 @@ Do you think it takes too much time? Try [this plugin](https://github.com/onevca
 
 - [https://github.com/WojciechTrzasko](https://github.com/WojciechTrzasko)
 
+**Grzegorz Lesiak**
+
+- [https://github.com/glesiak](https://github.com/glesiak)
+
+**Paweł Białecki**
+
+- [https://github.com/ecler](https://github.com/ecler)
+
 ### License
 
 Carrierwave is licensed under the MIT License. See the [LICENSE.md](LICENSE.md) file for more info.
