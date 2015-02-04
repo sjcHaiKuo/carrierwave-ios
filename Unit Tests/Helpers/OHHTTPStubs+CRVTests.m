@@ -35,6 +35,16 @@ static NSUInteger CRVStubbedNumberOfRetries;
     }];
 }
 
++ (id<OHHTTPStubsDescriptor>)crv_stubWhitelistRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager {
+    CRVStubbedNumberOfRetries = 0;
+    
+    return [self crv_stubRequestsWithError:stubbedError manager:manager response:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        CRVWorkInProgress("temporary JSON");
+        NSArray *json = @[@"jpg", @"png", @"gif"];
+        return [OHHTTPStubsResponse responseWithJSONObject:json statusCode:200 headers:nil];
+    }];
+}
+
 + (NSUInteger)retriesMade {
     return CRVStubbedNumberOfRetries;
 }

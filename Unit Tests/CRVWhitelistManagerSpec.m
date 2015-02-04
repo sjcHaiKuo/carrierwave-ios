@@ -8,20 +8,18 @@
 
 SpecBegin(CRVWhitelistManagerSpec)
 
-describe(@"CRVWhitelistManagerSpec", ^{
+fdescribe(@"CRVWhitelistManagerSpec", ^{
     
-    __block CRVNetworkManager *networkManager;
-    
-    beforeEach(^{
-        networkManager = [CRVNetworkManager sharedManager];
-    });
+    __block CRVWhitelistManager *whitelistManager;
     
     describe(@"on initialization", ^{
         
-        __block CRVWhitelistManager *whitelistManager;
-        
-        beforeAll(^{
+        beforeEach(^{
             whitelistManager = [[CRVWhitelistManager alloc] init];
+        });
+        
+        afterEach(^{
+            whitelistManager = nil;
         });
         
         it(@"should set whitelist path to default", ^{
@@ -31,26 +29,35 @@ describe(@"CRVWhitelistManagerSpec", ^{
         it(@"should set whitelist validation time to default", ^{
             expect(whitelistManager.whitelistValidityTime).to.equal(CRVDefaultWhitelistValidity);
         });
+    });
+    
+    describe(@"on loading", ^{
         
-        afterAll(^{
+        beforeEach(^{
+            // Save sample whitelist
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:[NSDate new] forKey:@"CRVWhitelistDateKey"];
+            [userDefaults setObject:@[@"one", @"two", @"three"] forKey:@"CRVWhitelistItemsKey"];
+            [userDefaults synchronize];
+            
+            whitelistManager = [[CRVWhitelistManager alloc] init];
+            [whitelistManager loadWhitelist];
+        });
+        
+        afterEach(^{
             whitelistManager = nil;
         });
         
+        it(@"should load whitelist", ^{
+            expect([whitelistManager containsItem:@"one"]).to.beTruthy();
+            expect([whitelistManager containsItem:@"two"]).to.beTruthy();
+            expect([whitelistManager containsItem:@"three"]).to.beTruthy();
+        });
     });
-    
-    pending(@"whitelist loading");
-    
-    pending(@"whitelist validation check");
     
     pending(@"whitelist update");
     
-    pending(@"whitelist fetching");
-    
     pending(@"whitelist synchronization");
-    
-    afterEach(^{
-        networkManager = nil;
-    });
     
 });
 

@@ -13,8 +13,8 @@
 
 NSTimeInterval const CRVDefaultWhitelistValidity = 111600;
 NSString *const CRVWhitelistDefaultPath = @"/supported_extensions";
-static NSString *const CRVWhitelistItems = @"CRVWhitelistItems";
-static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
+static NSString *const CRVWhitelistItemsKey = @"CRVWhitelistItemsKey";
+static NSString *const CRVWhitelistDateKey = @"CRVWhitelistDateKey";
 
 @interface CRVWhitelistManager ()
 
@@ -47,7 +47,7 @@ static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
 
 - (void)loadWhitelist {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSArray *whitelistArray = [userDefaults arrayForKey:CRVWhitelistItems];
+    NSArray *whitelistArray = [userDefaults arrayForKey:CRVWhitelistItemsKey];
     if (whitelistArray) {
         self.whitelistArray = whitelistArray;
     }
@@ -58,7 +58,7 @@ static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
 
 - (void)updateWhitelist {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDate *whitelistDate = (NSDate *)[userDefaults objectForKey:CRVWhitelistDate];
+    NSDate *whitelistDate = (NSDate *)[userDefaults objectForKey:CRVWhitelistDateKey];
     if ([self isValidWhitelistWithDate:whitelistDate]) {
         [self fetchWhitelistWithCompletion:^(BOOL success, NSError *error) {
             if(success) {
@@ -79,8 +79,8 @@ static NSString *const CRVWhitelistDate = @"CRVWhitelistDate";
 - (void)synchronizeWhitelist {
     if (self.whitelistArray) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:self.whitelistArray forKey:CRVWhitelistItems];
-        [userDefaults setObject:[NSDate new] forKey:CRVWhitelistDate];
+        [userDefaults setObject:self.whitelistArray forKey:CRVWhitelistItemsKey];
+        [userDefaults setObject:[NSDate new] forKey:CRVWhitelistDateKey];
         [userDefaults synchronize];
     }
 }
