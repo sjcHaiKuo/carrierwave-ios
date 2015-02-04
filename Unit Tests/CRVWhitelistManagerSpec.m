@@ -65,7 +65,9 @@ describe(@"CRVWhitelistManagerSpec", ^{
         __block CRVNetworkManager *networkManager = nil;
         __block id<OHHTTPStubsDescriptor> stub;
         
-        beforeEach(^{
+        beforeAll(^{
+            [Expecta setAsynchronousTestTimeout:2];
+            
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:[NSDate new] forKey:@"CRVWhitelistDateKey"];
             [userDefaults setObject:@[@"one", @"two", @"three"] forKey:@"CRVWhitelistItemsKey"];
@@ -82,7 +84,7 @@ describe(@"CRVWhitelistManagerSpec", ^{
             [whitelistManager updateWhitelist];
         });
         
-        afterEach(^{
+        afterAll(^{
             [OHHTTPStubs removeStub:stub];
             whitelistManager = nil;
             networkManager = nil;
@@ -93,12 +95,27 @@ describe(@"CRVWhitelistManagerSpec", ^{
         });
         
         it(@"should update the whitelist", ^{
-            expect([whitelistManager containsItem:@"jpg"]).after(3).to.beTruthy();
-            expect([whitelistManager containsItem:@"png"]).after(3).to.beTruthy();
-            expect([whitelistManager containsItem:@"gif"]).after(3).to.beTruthy();
-            expect([whitelistManager containsItem:@"one"]).after(3).to.beFalsy();
-            expect([whitelistManager containsItem:@"two"]).after(3).to.beFalsy();
-            expect([whitelistManager containsItem:@"three"]).after(3).to.beFalsy();
+            expect([whitelistManager containsItem:@"jpg"]).will.beTruthy();
+            expect([whitelistManager containsItem:@"png"]).will.beTruthy();
+            expect([whitelistManager containsItem:@"gif"]).will.beTruthy();
+            expect([whitelistManager containsItem:@"one"]).will.beFalsy();
+            expect([whitelistManager containsItem:@"two"]).will.beFalsy();
+            expect([whitelistManager containsItem:@"three"]).will.beFalsy();
+        });
+        
+        it(@"should synchronize the whitelist", ^{
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSArray *whitelistArray = [userDefaults objectForKey:@"CRVWhitelistItemsKey"];
+            NSDate *whitelistDate = [userDefaults objectForKey:@"CRVWhitelistDateKey"];
+            
+            expect(whitelistDate).willNot.beNil();
+            expect(whitelistArray).willNot.beNil();
+            expect(whitelistArray).will.contain(@"jpg");
+            expect(whitelistArray).will.contain(@"png");
+            expect(whitelistArray).will.contain(@"gif");
+            expect(whitelistArray).willNot.contain(@"one");
+            expect(whitelistArray).willNot.contain(@"two");
+            expect(whitelistArray).willNot.contain(@"three");
         });
         
     });
