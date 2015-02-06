@@ -42,6 +42,19 @@ describe(@"CRVAnchorPointSpec", ^{
                 expect([anchorPoint locationName]).to.equal(@"Center");
             });
             
+            it(@"it should have a proper adjusts and ratios", ^{
+                expect(anchorPoint.adjustsX).to.equal(0);
+                expect(anchorPoint.adjustsY).to.equal(0);
+                expect(anchorPoint.adjustsH).to.equal(0);
+                expect(anchorPoint.adjustsW).to.equal(0);
+                expect(anchorPoint.ratioX1).to.equal(0);
+                expect(anchorPoint.ratioX2).to.equal(0);
+                expect(anchorPoint.ratioY1).to.equal(0);
+                expect(anchorPoint.ratioY2).to.equal(0);
+                expect(anchorPoint.ratioW).to.equal(0);
+                expect(anchorPoint.ratioH).to.equal(0);
+            });
+            
             describe(@"using reference point", ^{
                 
                 CGPoint expectedPoint = CGPointMake(25.f, 50.f);
@@ -76,6 +89,19 @@ describe(@"CRVAnchorPointSpec", ^{
             
             it(@"it should give a proper name", ^{
                 expect([anchorPoint locationName]).to.equal(@"Bottom Right");
+            });
+            
+            it(@"it should have a proper adjusts and ratios", ^{
+                expect(anchorPoint.adjustsX).to.equal(0);
+                expect(anchorPoint.adjustsY).to.equal(0);
+                expect(anchorPoint.adjustsH).to.equal(1);
+                expect(anchorPoint.adjustsW).to.equal(-1);
+                expect(anchorPoint.ratioX1).to.equal(0);
+                expect(anchorPoint.ratioX2).to.equal(0);
+                expect(anchorPoint.ratioY1).to.equal(0);
+                expect(anchorPoint.ratioY2).to.equal(0);
+                expect(anchorPoint.ratioW).to.equal(0);
+                expect(anchorPoint.ratioH).to.equal(1);
             });
             
             describe(@"using reference point", ^{
