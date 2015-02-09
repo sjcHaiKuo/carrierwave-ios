@@ -101,6 +101,7 @@
 		7DE6841C33D70C5B4DF93E2E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 861E339756711F9AC576711A /* libPods.a */; };
 		8D072AAE03FBD8A20CAE8FFF /* libPods-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BFF2822CEF1BC7F260BB3C /* libPods-Demo.a */; };
 		E33BEFB01A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BEFAF1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m */; };
+		E3781E1B1A89055100C95F83 /* CRVScalableViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = E3781E1A1A89055100C95F83 /* CRVScalableViewSpec.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,6 +259,7 @@
 		D4BFF2822CEF1BC7F260BB3C /* libPods-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E33BEFAE1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+CRVAnchorPoint.h"; sourceTree = "<group>"; };
 		E33BEFAF1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+CRVAnchorPoint.m"; sourceTree = "<group>"; };
+		E3781E1A1A89055100C95F83 /* CRVScalableViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVScalableViewSpec.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,15 +356,16 @@
 		3A42F1261A4DBD5300A6F9CD /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				5E0B16581A82276700EB23D9 /* CRVAnchorPointSpec.m */,
 				5E0B16541A8226E700EB23D9 /* CRVAssetTypeBehavior.m */,
-				5E0B16481A82265100EB23D9 /* CRVNetworkManagerSpec.m */,
 				5E0B164C1A8226AD00EB23D9 /* CRVImageAssetSpec.m */,
+				5E0B16481A82265100EB23D9 /* CRVNetworkManagerSpec.m */,
+				5E0B16591A82276700EB23D9 /* CRVSaveAssetTaskSpec.m */,
 				5E0B164D1A8226AD00EB23D9 /* CRVScalableBorderSpec.m */,
+				E3781E1A1A89055100C95F83 /* CRVScalableViewSpec.m */,
 				5E0B164E1A8226AD00EB23D9 /* CRVSessionManagerSpec.m */,
 				5E0B164F1A8226AD00EB23D9 /* CRVSessionTaskManagerSpec.m */,
 				5E0B16561A82270500EB23D9 /* CRVWhitelistManagerSpec.m */,
-				5E0B16581A82276700EB23D9 /* CRVAnchorPointSpec.m */,
-				5E0B16591A82276700EB23D9 /* CRVSaveAssetTaskSpec.m */,
 				5E0B165A1A82276700EB23D9 /* CRVVideoAssetSpec.m */,
 				218C87721A7FAF6E005E1029 /* Test Classes */,
 				3AE340D91A4DD2E600993352 /* Helpers */,
@@ -1012,6 +1015,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E0B16531A8226AD00EB23D9 /* CRVSessionTaskManagerSpec.m in Sources */,
+				E3781E1B1A89055100C95F83 /* CRVScalableViewSpec.m in Sources */,
 				3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */,
 				5E0B165B1A82276700EB23D9 /* CRVAnchorPointSpec.m in Sources */,
 				5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */,
