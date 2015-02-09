@@ -35,6 +35,7 @@
 
     #import "CRVTestSaveAssetTask.h"
 
+    #import "EXPMatchers+CRVAnchorPoint.h"
     #import "EXPMatchers+CRVAssetType.h"
     #import "UIImage+CRVComposition.h"
     #import "NSData+CRVComposition.h"
