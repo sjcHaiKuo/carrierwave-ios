@@ -1,13 +1,22 @@
-# Carrierwave for iOS
+# carrierwave-ios
 
-Welcome to the **Carrierwave for iOS** project.
+Welcome to the **carrierwave-ios** project.
 
-### Tools & requirements
+## Requirements
 
 - Xcode 6.0 with iOS 8.0 SDK
 - [Carthage](https://github.com/Carthage/Carthage) 0.5
-- [CocoaPods](https://github.com/CocoaPods/CocoaPods) 0.35
+- [CocoaPods](https://github.com/CocoaPods/CocoaPods) 0.35 (use `gem install cocoapods` to grab it!)
 - [Uncrustify](https://github.com/bengardner/uncrustify) 0.61
+
+## CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party. To use **carrierwave-ios** via CocoaPods write in your Podfile:
+
+```rb
+pod 'Carrierwave', '~> 0.1.0'
+```
+
 
 ### Configuration
 
@@ -70,6 +79,21 @@ Do you think it takes too much time? Try [this plugin](https://github.com/onevca
 
 - [https://github.com/ecler](https://github.com/ecler)
 
-### License
+## License
+**carrierwave-ios** is available under the [MIT license](https://github.com/netguru/carrierwave-ios/blob/master/LICENSE.md).
 
-Carrierwave is licensed under the MIT License. See the [LICENSE.md](LICENSE.md) file for more info.
+## Contribution
+First, thank you for contributing!
+
+Here's a few guidelines to follow:
+
+- we follow [Ray Wenderlich Style Guide](https://github.com/raywenderlich/objective-c-style-guide).
+- write tests
+- make sure the entire test suite passes
+
+## More Info
+
+Have a question? Please [open an issue](https://github.com/netguru/carrierwave-ios/issues/new)!
+
+##
+Copyright © 2014-2015 [Netguru](https://netguru.co)
