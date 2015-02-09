@@ -25,19 +25,19 @@ describe(@"CRVNetworkManagerSpec", ^{
         removeTmpDirectoryContent();
     });
     
+    beforeEach(^{
+        manager = [[CRVNetworkManager alloc] init];
+    });
+    
+    afterEach(^{
+        manager = nil;
+    });
+    
     afterAll(^{
         removeTmpDirectoryContent();
     });
     
     describe(@"when newly created", ^{
-        
-        beforeEach(^{
-            manager = [[CRVNetworkManager alloc] init];
-        });
-        
-        afterEach(^{
-            manager = nil;
-        });
         
         it(@"should have no server url.", ^{
             expect(manager.serverURL).to.beNil();
@@ -91,70 +91,47 @@ describe(@"CRVNetworkManagerSpec", ^{
     
     describe(@"with no provided url", ^{
         
-        beforeEach(^{
-            manager = [[CRVNetworkManager alloc] init];
+        it(@"when downloading should raise an exception.", ^{
+            expect(^{
+                [manager downloadAssetFromURL:nil progress:nil completion:nil];
+            }).to.raise(NSInternalInconsistencyException);
         });
         
-        context(@"when downloading", ^{
-            
-            it(@"should raise an exception.", ^{
-                expect(^{
-                    [manager downloadAssetFromURL:nil progress:nil completion:nil];
-                }).to.raise(NSInternalInconsistencyException);
-            });
+        it(@"when uploading should raise an exception.", ^{
+            expect(^{
+                [manager uploadAsset:nil progress:nil completion:nil];
+            }).to.raise(NSInternalInconsistencyException);
         });
         
-        context(@"when uploading", ^{
-            
-            it(@"should raise an exception.", ^{
-                expect(^{
-                    [manager uploadAsset:nil progress:nil completion:nil];
-                }).to.raise(NSInternalInconsistencyException);
-            });
-        });
-        
-        context(@"when deleting", ^{
-            
-            it(@"should raise an exception.", ^{
-                expect(^{
-                    [manager deleteAssetFromURL:nil completion:nil];
-                }).to.raise(NSInternalInconsistencyException);
-            });
+        it(@"when deleting should raise an exception.", ^{
+            expect(^{
+                [manager deleteAssetFromURL:nil completion:nil];
+            }).to.raise(NSInternalInconsistencyException);
         });
     });
     
     describe(@"with no provided identifier", ^{
         
         beforeEach(^{
-            manager = [[CRVNetworkManager alloc] init];
             manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
         });
         
-        context(@"when downloading", ^{
-            
-            it(@"should raise an exception.", ^{
-                expect(^{
-                    [manager downloadAssetWithIdentifier:nil progress:nil completion:nil];
-                }).to.raise(NSInternalInconsistencyException);
-            });
+        it(@"when downloading should raise an exception.", ^{
+            expect(^{
+                [manager downloadAssetWithIdentifier:nil progress:nil completion:nil];
+            }).to.raise(NSInternalInconsistencyException);
         });
         
-        context(@"when uploading", ^{
-            
-            it(@"should raise an exception.", ^{
-                expect(^{
-                    [manager uploadAsset:nil progress:nil completion:nil];
-                }).to.raise(NSInternalInconsistencyException);
-            });
+        it(@"when uploading should raise an exception.", ^{
+            expect(^{
+                [manager uploadAsset:nil progress:nil completion:nil];
+            }).to.raise(NSInternalInconsistencyException);
         });
         
-        context(@"when deleting", ^{
-            
-            it(@"should raise an exception.", ^{
-                expect(^{
-                    [manager deleteAssetWithIdentifier:nil completion:nil];
-                }).to.raise(NSInternalInconsistencyException);
-            });
+        it(@"when deleting should raise an exception.", ^{
+            expect(^{
+                [manager deleteAssetWithIdentifier:nil completion:nil];
+            }).to.raise(NSInternalInconsistencyException);
         });
     });
     
@@ -175,7 +152,6 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
         
         beforeEach(^{
-            manager = [[CRVNetworkManager alloc] init];
             manager.reconnectionTime = 0.2;
             manager.numberOfRetries = 4;
             manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];

@@ -21,8 +21,8 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Expecta (0.3.1)
-  - Masonry (0.5.3)
-  - OCMock (3.1.1)
+  - Masonry (0.6.1)
+  - OCMock (3.1.2)
   - OHHTTPStubs (3.1.10):
     - OHHTTPStubs/Core (= 3.1.10)
   - OHHTTPStubs/Core (3.1.10)
@@ -49,9 +49,9 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
-  Masonry: 35368c2ca9577ca87722c12fc52c4bad9b1c1516
-  OCMock: f6cb8c162ab9d5620dddf411282c7b2c0ee78854
+  Masonry: 2cb49fd14d203d2db5ca6bb017135b235dde9980
+  OCMock: ecdd510b73ef397f2f97274785c1e87fd147c49f
   OHHTTPStubs: 2038e929b6abb94881000524c1cb4aba0a1bb4a2
-  Specta: d2158a483ad179e5f8d3a29f75ff4fc0ff6fab16
+  Specta: 63e8ac8e07db6675c7096d37f77a266a1be4c02d
 
 COCOAPODS: 0.36.0.beta.2
