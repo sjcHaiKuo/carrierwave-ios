@@ -7,21 +7,20 @@
 #import <Masonry/Masonry.h>
 
 #import "CRVImageAsset.h"
-#import "CRVImageEditGlassView.h"
-#import "CRVImageEditScrollView.h"
+#import "CRVScalableView.h"
 #import "CRVImageEditViewController.h"
 
-@interface CRVImageEditViewController ()
+@interface CRVImageEditViewController() <CRVScalableViewDelegate>
 
-@property (strong, nonatomic, readwrite) UIBarButtonItem *cancelBarButtonItem;
-@property (strong, nonatomic, readwrite) UIBarButtonItem *doneBarButtonItem;
-
-@property (strong, nonatomic) UIToolbar *bottomToolbar;
-@property (strong, nonatomic) CRVImageEditScrollView *scrollView;
+@property (strong, nonatomic) UIImageView *editedImageView;
 
 @property (assign, nonatomic, readonly) CGFloat imageRatio;
 
-@property (strong, nonatomic, readonly) UIImage *editedImage;
+@property (strong, nonatomic) CRVScalableView *cropView;
+
+@property (strong, nonatomic) UIToolbar *bottomToolbar;
+@property (strong, nonatomic, readwrite) UIBarButtonItem *cancelBarButtonItem;
+@property (strong, nonatomic, readwrite) UIBarButtonItem *doneBarButtonItem;
 
 @end
 
@@ -33,11 +32,13 @@
 
 - (instancetype)initWithImageAsset:(CRVImageAsset *)asset {
     self = [super initWithNibName:nil bundle:nil];
-    if (self == nil) return nil;
-
+    if (self == nil) {
+        return nil;
+    }
+    
     self.imageAsset = asset;
     self.maximalZoom = 3.0;
-
+    
     return self;
 }
 
@@ -52,21 +53,19 @@
 #pragma mark - View lifecycle
 
 - (void)awakeFromNib {
-
     self.cancelBarButtonItem = [[UIBarButtonItem alloc] init];
     self.cancelBarButtonItem.title = @"Cancel";
     self.cancelBarButtonItem.style = UIBarButtonItemStylePlain;
     self.cancelBarButtonItem.tintColor = [[self class] defaultCancelBarButtonItemTintColor];
     self.cancelBarButtonItem.target = self;
     self.cancelBarButtonItem.action = @selector(cancelButtonTapped:);
-
+    
     self.doneBarButtonItem = [[UIBarButtonItem alloc] init];
     self.doneBarButtonItem.title = @"Done";
     self.doneBarButtonItem.style = UIBarButtonItemStyleDone;
     self.doneBarButtonItem.tintColor = [[self class] defaultDoneBarButtonItemTintColor];
     self.doneBarButtonItem.target = self;
     self.doneBarButtonItem.action = @selector(doneButtonTapped:);
-
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -74,61 +73,71 @@
 }
 
 - (void)loadView {
-
+    
     [super loadView];
-
-    self.view.backgroundColor = [UIColor colorWithWhite:(CGFloat)0.1 alpha:1];
-
-    self.scrollView = [[CRVImageEditScrollView alloc] init];
-    self.scrollView.image = self.imageAsset.image;
-    self.scrollView.glassView.maskColor = [self.view.backgroundColor colorWithAlphaComponent:(CGFloat)0.8];
-    self.scrollView.glassView.glassRatio = self.imageRatio;
-    self.scrollView.glassView.glassInsets = UIEdgeInsetsMake(10, 10, 54, 10);
-    [self.view addSubview:self.scrollView];
-
+    
+    self.view.backgroundColor = [UIColor grayColor];
+    
+    self.editedImageView = [[UIImageView alloc] initWithImage:self.imageAsset.image];
+    self.editedImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:self.editedImageView];
+    
+    self.cropView = [[CRVScalableView alloc] init];
+    self.cropView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.1f];
+    self.cropView.borderView.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.5f];
+    self.cropView.opaque = NO;
+    self.cropView.delegate = self;
+    [self.view addSubview:self.cropView];
+    
     self.bottomToolbar = [[UIToolbar alloc] init];
     self.bottomToolbar.translucent = NO;
     self.bottomToolbar.barTintColor = self.view.backgroundColor;
     [self.view addSubview:self.bottomToolbar];
-
+    
     [self updateViewsBasedOnImageAsset];
-
+    
     [self updateViewConstraints];
+}
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.cropView.frame = CGRectMake(50, 50, 200, 200);
 }
 
 - (void)updateViewsBasedOnImageAsset {
-    self.scrollView.hidden = self.imageAsset == nil;
+    self.cropView.hidden = self.imageAsset == nil;
     self.doneBarButtonItem.enabled = self.imageAsset != nil;
 }
 
 - (void)viewDidLoad {
-
+    
     [super viewDidLoad];
-
+    
     UIBarButtonSystemItem spaceType = UIBarButtonSystemItemFlexibleSpace;
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:spaceType target:nil action:nil];
-
+    
     self.bottomToolbar.items = @[
-        self.cancelBarButtonItem,
-        spaceItem,
-        self.doneBarButtonItem,
-    ];
-
+                                 self.cancelBarButtonItem,
+                                 spaceItem,
+                                 self.doneBarButtonItem,
+                                 ];
 }
 
 - (void)updateViewConstraints {
-
+    
+    [self.editedImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.view);
+        
+        UIEdgeInsets padding = UIEdgeInsetsMake(20, 20, 20, 20);
+        make.edges.equalTo(self.view).with.insets(padding);
+    }];
+    
     [self.bottomToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.and.bottom.and.right.equalTo(self.view);
     }];
-
-    [self.scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-
+    
     [super updateViewConstraints];
-
+    
 }
 
 #pragma mark - Button actions
@@ -140,9 +149,11 @@
 }
 
 - (void)doneButtonTapped:(UIBarButtonItem *)sender {
-    
     if ([self.delegate respondsToSelector:@selector(imageEditViewController:didFinishEditingWithImageAsset:)]) {
-        CRVImageAsset *asset = [[CRVImageAsset alloc] initWithImage:self.editedImage];
+        
+        UIImage *finalImage = [self imageWithView:self.cropView];
+        
+        CRVImageAsset *asset = [[CRVImageAsset alloc] initWithImage:finalImage];
         [self.delegate imageEditViewController:self didFinishEditingWithImageAsset:asset];
     }
 }
@@ -152,18 +163,18 @@
 - (void)setImageAsset:(CRVImageAsset *)imageAsset {
     if (![self.imageAsset isEqual:imageAsset]) {
         _imageAsset = imageAsset;
-        self.scrollView.image = _imageAsset.image;
-        self.scrollView.glassView.glassRatio = self.imageRatio;
         [self updateViewsBasedOnImageAsset];
     }
 }
 
 - (CGFloat)maximalZoom {
-    return self.scrollView.maximalScale;
+    // return self.scrollView.maximalScale;
+    return 2.0; // not needed anymore?
 }
 
 - (void)setMaximalZoom:(CGFloat)maximalZoom {
-    self.scrollView.maximalScale = maximalZoom;
+    // self.scrollView.maximalScale = maximalZoom;
+    // like above?
 }
 
 #pragma mark - Private property accessors
@@ -172,12 +183,23 @@
     return self.imageAsset.image.size.width / self.imageAsset.image.size.height;
 }
 
-- (UIImage *)editedImage {
-    CIImage *ciImage = [[CIImage alloc] initWithCGImage:self.imageAsset.image.CGImage];
-    ciImage = [ciImage imageByCroppingToRect:self.scrollView.imageExtent];
-    CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:ciImage fromRect:ciImage.extent];
-    UIImage *uiImage = [UIImage imageWithCGImage:cgImage]; CFRelease(cgImage);
-    return uiImage;
+- (UIImage *)imageWithView:(UIView *)view {
+    
+    self.cropView.hidden = YES;
+    
+    UIGraphicsBeginImageContext(self.view.bounds.size);
+    [self.view drawViewHierarchyInRect:self.view.frame afterScreenUpdates:YES];
+    UIImage *sourceImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CGImageRef imageRef = CGImageCreateWithImageInRect([sourceImage CGImage], self.cropView.frame);
+    
+    UIImage *finalImage = [UIImage imageWithCGImage:imageRef
+                                              scale:sourceImage.scale
+                                        orientation:sourceImage.imageOrientation];
+    CGImageRelease(imageRef);
+    
+    return finalImage;
 }
 
 #pragma mark - Default bar button item colors
