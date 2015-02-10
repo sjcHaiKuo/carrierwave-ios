@@ -15,11 +15,6 @@
 @required
 
 /**
- *  Whether manager should check temporary directory before downloading.
- */
-- (BOOL)shouldSessionMangerCheckCache:(CRVSessionManager *)manager;
-
-/**
  *  The number of retries used by manager in case of connection issues.
  */
 - (NSUInteger)numberOfRetriesSessionManagerShouldPrepare:(CRVSessionManager *)manager;

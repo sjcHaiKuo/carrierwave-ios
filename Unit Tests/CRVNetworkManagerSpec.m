@@ -47,10 +47,6 @@ describe(@"CRVNetworkManagerSpec", ^{
             expect(manager.path).to.equal(CRVDefaultPath);
         });
         
-        it(@"should check cache.", ^{
-            expect(manager.checkCache).to.beTruthy();
-        });
-        
         it(@"should number of retries be set to default value.", ^{
             expect(manager.numberOfRetries).to.equal(CRVDefaultNumberOfRetries);
         });
@@ -61,10 +57,6 @@ describe(@"CRVNetworkManagerSpec", ^{
         
         it(@"should conform CRVSessionManagerDelegate.", ^{
             expect(manager).conformTo(@protocol(CRVSessionManagerDelegate));
-        });
-        
-        it(@"should respond to check cache delegate.", ^{
-            expect(manager).to.respondTo(@selector(shouldSessionMangerCheckCache:));
         });
         
         it(@"should respond to number of retries delegate.", ^{
@@ -160,25 +152,29 @@ describe(@"CRVNetworkManagerSpec", ^{
             anError = nil;
         });
         
-        context(@"and checking cache", ^{
+        context(@"without retries", ^{
             
             beforeEach(^{
-                manager.checkCache = YES;
+                stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorNone manager:manager];
             });
             
-            it(@"should succeed without connection.", ^{
+            afterEach(^{
+                [OHHTTPStubs removeStub:stub];
+            });
+            
+            it(@"should succeed.", ^{
                 [manager downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                     anError = error;
                     anAsset = asset;
                     expect([OHHTTPStubs retriesMade]).to.equal(0);
                 }];
-            
+                
                 expect(anError).will.beNil();
                 expect(anAsset).will.notTo.beNil();
                 expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
             });
             
-            it(@"should succeed without connection.", ^{
+            it(@"should succeed.", ^{
                 [manager downloadAssetWithIdentifier:CRVImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
                     anError = error;
                     anAsset = asset;
@@ -191,113 +187,71 @@ describe(@"CRVNetworkManagerSpec", ^{
             });
         });
         
-        context(@"without checking cache", ^{
+        context(@"with retries limit", ^{
             
             beforeEach(^{
-                manager.checkCache = NO;
+                stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesLimitReached manager:manager];
             });
             
-            context(@"without retries", ^{
-                
-                beforeEach(^{
-                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorNone manager:manager];
-                });
-                
-                afterEach(^{
-                    [OHHTTPStubs removeStub:stub];
-                });
-                
-                it(@"should succeed.", ^{
-                    [manager downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
-                        anError = error;
-                        anAsset = asset;
-                        expect([OHHTTPStubs retriesMade]).to.equal(0);
-                    }];
-                    
-                    expect(anError).will.beNil();
-                    expect(anAsset).will.notTo.beNil();
-                    expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
-                });
-                
-                it(@"should succeed.", ^{
-                    [manager downloadAssetWithIdentifier:CRVImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
-                        anError = error;
-                        anAsset = asset;
-                        expect([OHHTTPStubs retriesMade]).to.equal(0);
-                    }];
-                    
-                    expect(anError).will.beNil();
-                    expect(anAsset).will.notTo.beNil();
-                    expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
-                });
+            afterEach(^{
+                [OHHTTPStubs removeStub:stub];
             });
             
-            context(@"with retries limit", ^{
+            it(@"should succeed.", ^{
+                [manager downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    anError = error;
+                    anAsset = asset;
+                    expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries);
+                }];
                 
-                beforeEach(^{
-                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesLimitReached manager:manager];
-                });
-                
-                afterEach(^{
-                    [OHHTTPStubs removeStub:stub];
-                });
-                
-                it(@"should succeed.", ^{
-                    [manager downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
-                        anError = error;
-                        anAsset = asset;
-                        expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries);
-                    }];
-                    
-                    expect(anError).will.beNil();
-                    expect(anAsset).will.notTo.beNil();
-                    expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
-                });
-                
-                it(@"should succeed.", ^{
-                    [manager downloadAssetWithIdentifier:CRVImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
-                        anError = error;
-                        anAsset = asset;
-                        expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries);
-                    }];
-                    
-                    expect(anError).will.beNil();
-                    expect(anAsset).will.notTo.beNil();
-                    expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
-                });
+                expect(anError).will.beNil();
+                expect(anAsset).will.notTo.beNil();
+                expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
             });
             
-            context(@"with retries limit exceeded", ^{
+            it(@"should succeed.", ^{
+                [manager downloadAssetWithIdentifier:CRVImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    anError = error;
+                    anAsset = asset;
+                    expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries);
+                }];
                 
-                beforeEach(^{
-                    stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesLimitExceeded manager:manager];
-                });
+                expect(anError).will.beNil();
+                expect(anAsset).will.notTo.beNil();
+                expect(anAsset.dataLength).will.equal([NSData crv_defaultImageDataRepresentation].length);
+            });
+        });
+        
+        context(@"with retries limit exceeded", ^{
+            
+            beforeEach(^{
+                stub = [OHHTTPStubs crv_stubDownloadRequestWithError:CRVStubErrorRetriesLimitExceeded manager:manager];
+            });
+            
+            afterEach(^{
+                [OHHTTPStubs removeStub:stub];
+            });
+            
+            it(@"should fail.", ^{
+                [manager downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    anError = error;
+                    anAsset = asset;
+                    expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries + 1);
+                }];
                 
-                afterEach(^{
-                    [OHHTTPStubs removeStub:stub];
-                });
+                expect(anError).will.notTo.beNil();
+                expect(anAsset).will.beNil();
+            });
+            
+            it(@"should fail.", ^{
+                [manager downloadAssetWithIdentifier:CRVImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
+                    anError = error;
+                    anAsset = asset;
+                    expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries + 1);
+                }];
                 
-                it(@"should fail.", ^{
-                    [manager downloadAssetFromURL:anyURL progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
-                        anError = error;
-                        anAsset = asset;
-                        expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries + 1);
-                    }];
-                    
-                    expect(anError).will.notTo.beNil();
-                    expect(anAsset).will.beNil();
-                });
-                
-                it(@"should fail.", ^{
-                    [manager downloadAssetWithIdentifier:CRVImageIdentifier progress:nil completion:^(CRVImageAsset *asset, NSError *error) {
-                        anError = error;
-                        anAsset = asset;
-                        expect([OHHTTPStubs retriesMade]).to.equal(manager.numberOfRetries + 1);
-                    }];
-                    
-                    expect(anError).will.notTo.beNil();
-                    expect(anAsset).will.beNil();
-                });
+                expect(anError).will.notTo.beNil();
+                expect(anAsset).will.beNil();
             });
         });
     });

@@ -129,11 +129,6 @@ extern NSString *const CRVDefaultPath;
 @property (assign, nonatomic) NSTimeInterval reconnectionTime;
 
 /**
- *  Whether should check temporary directory before downloading (default: YES).
- */
-@property (assign, nonatomic) BOOL checkCache;
-
-/**
  *  Object for managing assets types whitelist
  */
 @property (strong, nonatomic) CRVWhitelistManager *whitelistManager;

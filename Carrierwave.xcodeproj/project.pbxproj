@@ -641,9 +641,9 @@
 			isa = PBXGroup;
 			children = (
 				7CFA8FB31A7BA6E300A92F22 /* Whitelist */,
+				5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */,
 				5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */,
 				5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */,
-				5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */,
 				5E56EBF41A5D68D2002E2484 /* CRVSessionManager.h */,
 				5E56EBF51A5D68D2002E2484 /* CRVSessionManager.m */,
 				5E4D0A691A60982100A1729B /* CRVSessionTaskManager.h */,

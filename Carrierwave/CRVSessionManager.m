@@ -50,12 +50,6 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
 - (NSString *)downloadAssetFromURL:(NSString *)URLString progress:(void (^)(double))progress completion:(void (^)(NSData *, NSError *))completion {
 
     NSParameterAssert(URLString);
-    NSData *data = nil;
-    if ([self checkCache] && [self fileDataFromURLString:URLString data:&data]) {
-        completion(data, nil);
-        return nil;
-    }
-
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
 
     __weak typeof(self) weakSelf = self;
@@ -280,26 +274,13 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
     return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:name]];
 }
 
-- (BOOL)fileDataFromURLString:(NSString *)URLString data:(NSData **)data {
-    NSArray *array = [URLString componentsSeparatedByString:@"/"];
-    if (array.count > 1) { //penultimate value, because in download path is "download" append
-        NSURL *filePath = [self targetDirectoryByAppendingFileName:array[array.count - 2]];
-        *data = [[NSFileManager defaultManager] contentsAtPath:[filePath path]];
-    }
-    return *data ? YES : NO;
-}
-
 - (void)logRetryInfoForOperation:(NSString *)operation fileName:(NSString *)fileName retriesLeft:(NSUInteger)retriesLeft {
-    NSString *helper = fileName ? [NSString stringWithFormat:@"(%@) ", fileName] : @"";
-    NSLog(@"Retries %@ asset %@in %.1f second(s). Retries left: %ld", operation, helper, [self reconnectionTime], (long)retriesLeft);
+    NSLog(@"Retries %@ asset in %.1f second(s). Retries left: %ld", operation, [self reconnectionTime], (long)retriesLeft);
 }
 
 - (void)logRetriesExceededInfoForOperation:(NSString *)operation fileName:(NSString *)fileName {
-    NSString *helper = fileName ? [NSString stringWithFormat:@" for asset \"%@\"", fileName] : @"";
-    NSLog(@"Number of retries limit has been exceeded%@. %@ failed", helper, [operation capitalizedString]);
+    NSLog(@"Number of retries limit has been exceeded. %@ failed", [operation capitalizedString]);
 }
-
-#pragma mark - CRVSessionManagerDelegate Methods
 
 - (void)resumeDownloadTasks {
     for (CRVSessionDownloadTaskWrapper *wrapper in self.taskManager.downloadTaskWrappers) {
@@ -307,12 +288,7 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
     }
 }
 
-- (BOOL)checkCache {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(shouldSessionMangerCheckCache:)]) {
-        return [self.delegate shouldSessionMangerCheckCache:self];
-    }
-    return [CRVNetworkManager sharedManager].checkCache;
-}
+#pragma mark - CRVSessionManagerDelegate Methods
 
 - (NSUInteger)numberOfRetries {
     if (self.delegate && [self.delegate respondsToSelector:@selector(numberOfRetriesSessionManagerShouldPrepare:)]) {

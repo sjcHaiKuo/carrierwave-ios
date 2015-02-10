@@ -34,7 +34,6 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
     if (self) {
         _sessionManager = [[CRVSessionManager alloc] init];
         _sessionManager.delegate = self;
-        _checkCache = YES;
         _path = CRVDefaultPath;
         _numberOfRetries = CRVDefaultNumberOfRetries;
         _reconnectionTime = CRVDefaultReconnectionTime;
@@ -122,10 +121,6 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
 }
 
 #pragma mark - CRVSessionManagerDelegate Methods
-
-- (BOOL)shouldSessionMangerCheckCache:(CRVSessionManager *)manager {
-    return self.checkCache;
-}
 
 - (NSTimeInterval)reconnectionTimeSessionManagerShouldWait:(CRVSessionManager *)manager {
     return self.reconnectionTime;
