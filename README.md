@@ -1,13 +1,18 @@
 # carrierwave-ios
 
-Welcome to the **carrierwave-ios** project.
+**carrierwave-ios** is easy to use iOS library which provides flexible way to upload and edit asset files. Designed to integrate with [CarrierWave ruby gem](https://github.com/carrierwaveuploader/carrierwave), makes your work as fast as possible.
+
+## Features:
+**carrierwave-ios** handles:
+* download and upload assets
+* edit image assets
+* image compression
 
 ## Requirements
 
 - Xcode 6.0 with iOS 8.0 SDK
 - [Carthage](https://github.com/Carthage/Carthage) 0.5
 - [CocoaPods](https://github.com/CocoaPods/CocoaPods) 0.35 (use `gem install cocoapods` to grab it!)
-- [Uncrustify](https://github.com/bengardner/uncrustify) 0.61
 
 ## CocoaPods
 
@@ -17,45 +22,93 @@ Welcome to the **carrierwave-ios** project.
 pod 'Carrierwave', '~> 0.1.0'
 ```
 
-
 ### Configuration
 
-Assuming the above tools are already installed, run the following commands after cloning the repository:
+Just add `@import Carrierwave` in your source file whenever you want to use **carrierwave-ios**.
 
-- `carthage update`
-- `pod install`
+### Usage
 
-### Coding guidelines
+`CRVNetworkManager` encapsulates the common tasks, including upload, download and delete asset. All supported assets should be wrapped with usage of `CRVAssetType` protocol. 
 
-- Please respect [Ray Wenderlich's Objective-C style guide](https://github.com/raywenderlich/objective-c-style-guide).
-- The code should be readable and self-explanatory - full variable names, meaningful methods, etc.
-- Please **write documentation comments** in public header files.
-- **Write tests** for every bug you fix and every feature you deliver.
-- Please **don't leave** any commented-out code.
-- Don't use pure `#pragma message` for warnings. Use the `CRVTemporary` and `CRVWorkInProgress` macros accordingly.
-- Please use **feature flags** (located in `Carrierwave-Features.h` file) for enabling or disabling major features.
+## Upload tasks
 
-### Workflow
-
-- Always hit ⌘U (Product → Test) before committing.
-- Always commit to master. No remote branches.
-- Use `[ci skip]` in the commit message for minor changes.
-
-### Examples
-
-#### Well documented method
+Declarations:
 
 ```objc
-/**
- *  Tells the magician to perform a given trick.
- *
- *  @param trick The magic trick to perform.
- *
- *  @returns Whether the magician succeeded in performing the magic trick.
- */
-- (BOOL)performMagicTrick:(CRVMagicTrick *)trick;
+- (NSString *)uploadAsset:(id<CRVAssetType>)asset progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
+- (NSString *)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion;
 ```
-Do you think it takes too much time? Try [this plugin](https://github.com/onevcat/VVDocumenter-Xcode) and change your mind!
+
+Creating an upload proccess:
+
+```objc
+NSString *proccessId;
+proccessId = [[CRVNetworkManager sharedManager] uploadAsset:asset progress:^(double progress) {
+	NSLog(@"Progress: %f", progress);
+} completion:^(CRVUploadInfo *info, NSError *error) {
+	if (error) {
+    	NSLog(@"Error: %@", error);
+    } else {
+    	NSLog(@"Success: %@", info);
+	}                  
+}]
+```
+
+## Download task
+
+Declarations:
+
+```objc
+- (NSString *)downloadAssetWithIdentifier:(NSString *)identifier progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion;
+- (NSString *)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion;
+```
+
+Creating a download proccess:
+
+```objc
+	NSString *proccessId
+	proccessId = [[CRVNetworkManager sharedManager] downloadAssetWithIdentifier:identifier progress:^(double progress) {
+		NSLog(@"Progress: %f", progress);
+	} completion:^(CRVImageAsset *asset, NSError *error) {
+		if (error) {
+	    	NSLog(@"Error: %@", error);
+	    } else {
+	    	NSLog(@"Success");
+		}
+	}
+```
+
+## Delete task 
+
+Declarations:
+
+```objc
+- (void)deleteAssetWithIdentifier:(NSString *)identifier completion:(CRVCompletionBlock)completion;
+- (void)deleteAssetFromURL:(NSURL *)url completion:(CRVCompletionBlock)completion;
+```
+
+Calling delete:
+
+```objc
+	[[CRVNetworkManager sharedManager] deleteAssetWithIdentifier:identifier completion:^(BOOL success, NSError *error) {
+		if (error) {
+	    	NSLog(@"Error: %@", error);
+	    } else {
+	    	NSLog(@"Success");
+		}
+	}
+```
+
+## Proccess management
+
+`CRVNetworkManager` provides additional methods for handling lifecycle of upload or download processes, which are pretty straightforward and self-explanatory. As parameter all functions takes identifier returned by process creating methods.
+
+```objc
+- (void)cancelProccessWithIdentifier:(NSString *)identifier;
+- (void)pauseProccessWithIdentifier:(NSString *)identifier;
+- (void)resumeProccessWithIdentifier:(NSString *)identifier;
+```
+
 ### Authors
 
 **Adrian Kashivskyy**
