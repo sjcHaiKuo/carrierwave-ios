@@ -5,12 +5,18 @@
 //
 
 #import "CRVRootViewController.h"
+#import "CRVNetworkManager.h"
+#import <MBProgressHUD.h>
+
+static NSString * const CRVDemoSegueEdit = @"showEdit";
 
 @interface CRVRootViewController () <CRVImageEditViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (strong, nonatomic, readwrite) CRVImageAsset *imageAsset;
+@property (weak, nonatomic) IBOutlet UIView *menuView;
+@property (weak, nonatomic) IBOutlet UIView *imageChooserView;
 
 @end
 
@@ -25,7 +31,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showEdit"]) {
+    if ([segue.identifier isEqualToString:CRVDemoSegueEdit]) {
         CRVImageEditViewController *controller = segue.destinationViewController;
         controller.delegate = self;
         controller.imageAsset = self.imageAsset;
@@ -36,6 +42,47 @@
 
 - (IBAction)chooseButtonTapped:(UIButton *)sender {
     [self presentChooseViewControllerWithCompletion:nil];
+}
+
+- (IBAction)closeButtonTapped:(id)sender {
+    [self hideMenu];
+}
+
+- (IBAction)editButtonTapped:(id)sender {
+    [self performSegueWithIdentifier:CRVDemoSegueEdit sender:self];
+}
+
+- (IBAction)uploadButtonTapped:(id)sender {
+    if (!self.imageAsset) {
+        NSLog(@"No image selected");
+        [self presentChooseViewControllerWithCompletion:nil];
+        return;
+    }
+    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.imageView animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Uploading";
+    CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
+    networkManager.serverURL = [NSURL URLWithString:@"https://carrierwave-ios-backend.herokuapp.com/"];
+    [networkManager uploadAsset:self.imageAsset progress:^(double progress) {
+        hud.progress = (float)progress;
+    } completion:^(CRVUploadInfo *info, NSError *error) {
+        [hud hide:YES];
+        if (error) {
+            [self showAlertWithError:error];
+        } else {
+            [self showAlertWithInfo:info];
+        }
+    }];
+}
+
+#pragma mark - Alerts
+
+- (void)showAlertWithError:(NSError *)error {
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
+}
+
+- (void)showAlertWithInfo:(CRVUploadInfo *)info {
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Info", nil) message:info.description delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
 }
 
 #pragma mark - Choose view controller management
@@ -53,15 +100,31 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    if (!self.imageAsset) {
+        [self hideMenu];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
-    if (chosenImage != nil) {
+    if (chosenImage) {
         self.imageAsset = [[CRVImageAsset alloc] initWithImage:chosenImage];
+        [self showMenu];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showMenu {
+    self.imageView.hidden = NO;
+    self.menuView.hidden = NO;
+    self.imageChooserView.hidden = YES;
+}
+
+- (void)hideMenu {
+    self.imageView.hidden = YES;
+    self.menuView.hidden = YES;
+    self.imageChooserView.hidden = NO;
 }
 
 #pragma mark - Edit view controller management
