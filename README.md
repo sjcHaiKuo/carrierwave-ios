@@ -108,6 +108,8 @@ Calling delete:
 
 For dynamic server urls please use `uploadAsset:toURL:progress:completion` method.
 
+---
+
 ### Asset types
 
 As mentioned before, all uploaded objects should conform to `CRVAssetType` protocol. **carrierwave-ios** comes with ready to use classes for common image and video file types.
@@ -134,6 +136,8 @@ Usage example:
 }];
 ```
 
+---
+
 ### Proccess management
 
 `CRVNetworkManager` provides additional methods for handling lifecycle of upload or download processes, which are pretty straightforward and self-explanatory. As parameter all functions takes identifier returned by process creating methods.
@@ -144,6 +148,8 @@ Usage example:
 - (void)resumeProccessWithIdentifier:(NSString *)identifier;
 ```
 
+---
+
 ### Additional properties
 
 `CRVNetworkManager` include several additional properties that can help you with more advanced managment of upload / download process, for example `numberOfRetries`, `reconnectionTime`.
@@ -151,6 +157,24 @@ Usage example:
 One of them is `whitelistManager` property which contains list of file types supported by carrierwave backend. Before every upload `CRVNetworkManager` is checking that list to determine if selected file is supported. If not `CRVNetworkManager` will return appropriate `NSError` object. With usage of `whitelistManager`, developer can also check if his asset is supported, by calling method:
 ```
 - (BOOL)containsItem:(NSObject *)item;
+```
+
+## UI
+
+## Demo
+
+**carrierwave-ios** comes with simple demo app which implements basic features of library like upload files and editing image assets. To run demo please follow the instructions below:
+
+```bash
+$ git clone --recursive git@github.com:netguru/carrierwave-ios.git
+$ pod install
+```
+
+or if you already cloned the project without `--recursive`:
+
+```bash
+$ git submodule update --init --recursive
+$ pod install
 ```
 
 ## License
