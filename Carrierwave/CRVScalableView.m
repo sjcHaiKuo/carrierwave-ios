@@ -217,8 +217,8 @@
 #pragma mark Accessors
 
 - (void)setMinSize:(CGSize)minSize {
-    NSAssert(minSize.width > 0, @"Min width cannot be smaller than 0!");
-    NSAssert(minSize.height > 0, @"Min height cannot be smaller than 0!");
+    NSAssert(minSize.width > 0, @"Min width cannot be smaller or equal to 0!");
+    NSAssert(minSize.height > 0, @"Min height cannot be smaller or equal to 0!");
     _minSize = minSize;
 }
 
