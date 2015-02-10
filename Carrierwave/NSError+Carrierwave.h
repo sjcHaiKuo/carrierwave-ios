@@ -24,4 +24,9 @@
  */
 + (instancetype)crv_errorForEmptyFile;
 
+/**
+ *  as
+ */
++ (instancetype)crv_errorForWrongMimeType:(NSString *)mimeType;
+
 @end

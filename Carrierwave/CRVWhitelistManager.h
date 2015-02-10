@@ -36,11 +36,11 @@ extern NSString *const CRVWhitelistDefaultPath;
 /**
  *  Check whether the given item is in the whitelist.
  *
- *  @param item      The item to be checked
+ *  @param mimeType The mime type to be checked.
  *
  *  @return Boolean value indicating whether item is present in the whitelist.
  */
-- (BOOL)containsItem:(NSObject *)item;
+- (BOOL)containsMimeType:(NSString *)mimeType;
 
 /**
  * A data source for obtainig necessary data for whitelist management. Setting this property will automatically load a whitelist.

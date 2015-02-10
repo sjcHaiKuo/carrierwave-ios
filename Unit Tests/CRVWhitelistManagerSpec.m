@@ -54,9 +54,9 @@ describe(@"CRVWhitelistManagerSpec", ^{
         });
         
         it(@"should load whitelist", ^{
-            expect([whitelistManager containsItem:@"one"]).to.beTruthy();
-            expect([whitelistManager containsItem:@"two"]).to.beTruthy();
-            expect([whitelistManager containsItem:@"three"]).to.beTruthy();
+            expect([whitelistManager containsMimeType:@"one"]).to.beTruthy();
+            expect([whitelistManager containsMimeType:@"two"]).to.beTruthy();
+            expect([whitelistManager containsMimeType:@"three"]).to.beTruthy();
         });
     });
     
@@ -95,12 +95,12 @@ describe(@"CRVWhitelistManagerSpec", ^{
         });
         
         it(@"should update the whitelist", ^{
-            expect([whitelistManager containsItem:@"jpg"]).will.beTruthy();
-            expect([whitelistManager containsItem:@"png"]).will.beTruthy();
-            expect([whitelistManager containsItem:@"gif"]).will.beTruthy();
-            expect([whitelistManager containsItem:@"one"]).will.beFalsy();
-            expect([whitelistManager containsItem:@"two"]).will.beFalsy();
-            expect([whitelistManager containsItem:@"three"]).will.beFalsy();
+            expect([whitelistManager containsMimeType:@"image/jpg"]).will.beTruthy();
+            expect([whitelistManager containsMimeType:@"image/png"]).will.beTruthy();
+            expect([whitelistManager containsMimeType:@"image/gif"]).will.beTruthy();
+            expect([whitelistManager containsMimeType:@"one"]).will.beFalsy();
+            expect([whitelistManager containsMimeType:@"two"]).will.beFalsy();
+            expect([whitelistManager containsMimeType:@"three"]).will.beFalsy();
         });
         
         it(@"should synchronize the whitelist", ^{

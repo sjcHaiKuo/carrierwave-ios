@@ -131,6 +131,6 @@ extern NSString *const CRVDefaultPath;
 /**
  *  Object for managing assets types whitelist
  */
-@property (strong, nonatomic) CRVWhitelistManager *whitelistManager;
+@property (strong, nonatomic, readonly) CRVWhitelistManager *whitelistManager;
 
 @end

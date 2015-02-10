@@ -114,10 +114,10 @@ describe(@"CRVNetworkManagerSpec", ^{
             }).to.raise(NSInternalInconsistencyException);
         });
         
-        it(@"when uploading should raise an exception.", ^{
+        it(@"when uploading should do not raise an exception.", ^{
             expect(^{
                 [manager uploadAsset:nil progress:nil completion:nil];
-            }).to.raise(NSInternalInconsistencyException);
+            }).toNot.raise(NSInternalInconsistencyException);
         });
         
         it(@"when deleting should raise an exception.", ^{

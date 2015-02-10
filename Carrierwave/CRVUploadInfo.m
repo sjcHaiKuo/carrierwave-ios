@@ -22,4 +22,8 @@
     return self;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@: %p, identifier: %@, path: %@>", NSStringFromClass([self class]), self, self.assetIdentifier, self.assetPath];
+}
+
 @end

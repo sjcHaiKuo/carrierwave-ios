@@ -34,20 +34,10 @@ static NSString *const CRVWhitelistDateKey = @"CRVWhitelistDateKey";
     return self;
 }
 
-#pragma mark - Custom Setter
-
-- (void)setDataSource:(id<CRVWhitelistManagerDataSource>)dataSource {
-    if (dataSource) {
-        _dataSource = dataSource;
-        [self loadWhitelist];
-    }
-}
-
 #pragma mark - Whitelist Loading
 
 - (void)loadWhitelist {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSArray *whitelistArray = [userDefaults arrayForKey:CRVWhitelistItemsKey];
+    NSArray *whitelistArray = [[NSUserDefaults standardUserDefaults] arrayForKey:CRVWhitelistItemsKey];
     if (whitelistArray) {
         self.whitelistArray = whitelistArray;
     }
@@ -57,9 +47,8 @@ static NSString *const CRVWhitelistDateKey = @"CRVWhitelistDateKey";
 #pragma mark - Whitelist Updating
 
 - (void)updateWhitelist {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDate *whitelistDate = (NSDate *)[userDefaults objectForKey:CRVWhitelistDateKey];
-    if ([self isValidWhitelistWithDate:whitelistDate]) {
+    NSDate *whitelistDate = (NSDate *)[[NSUserDefaults standardUserDefaults] objectForKey:CRVWhitelistDateKey];
+    if ([self isValidWhitelistWithDate:whitelistDate] || self.whitelistArray.count == 0) {
         [self fetchWhitelistWithCompletion:^(BOOL success, NSError *error) {
             if(success) {
                 [self synchronizeWhitelist];
@@ -88,19 +77,19 @@ static NSString *const CRVWhitelistDateKey = @"CRVWhitelistDateKey";
 #pragma mark - Whitelist Fetching
 
 - (void)fetchWhitelistWithCompletion:(CRVCompletionBlock)completion {
+    if (completion == NULL) {
+        return;
+    }
+    
     if (!self.dataSource) {
-        if (completion != NULL) {
-            completion(NO, [NSError crv_errorForEmptyDataSource]);
-        }
+        completion(NO, [NSError crv_errorForEmptyDataSource]);
         return;
     }
 
     NSString *serverURL = [self.dataSource serverURLForWhitelistManager:self];
     CRVSessionManager *sessionManager = [self.dataSource sessionManagerForWhitelistManager:self];
     if (!serverURL || !sessionManager) {
-        if (completion != NULL) {
-            completion(NO, [NSError crv_errorForEmptyDataSource]);
-        }
+        completion(NO, [NSError crv_errorForEmptyDataSource]);
         return;
     }
 
@@ -113,26 +102,23 @@ static NSString *const CRVWhitelistDateKey = @"CRVWhitelistDateKey";
         NSArray *assetsTypesArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
         if (assetsTypesArray) {
             self.whitelistArray = assetsTypesArray;
-            if (completion != NULL) {
-                completion(YES, nil);
-            }
+            completion(YES, nil);
         } else {
-            if(completion != NULL) {
-                completion(NO, jsonError);
-            }
+            completion(NO, jsonError);
         }
     }];
 }
 
 #pragma mark - Whitelist Query
 
-- (BOOL)containsItem:(NSString *)item {
-    if (!item) {
+- (BOOL)containsMimeType:(NSString *)mimeType {
+    mimeType = [[mimeType componentsSeparatedByString:@"/"] lastObject];
+    if (!mimeType) {
         return NO;
     }
     __block BOOL isPresent = NO;
     [self.whitelistArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
-        if ([item isEqualToString:obj]) {
+        if ([mimeType isEqualToString:obj]) {
             isPresent = YES;
             *stop = YES;
         }

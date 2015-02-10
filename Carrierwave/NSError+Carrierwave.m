@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSInteger, CRVError) {
     CRVErrorUnknown = 1000,
     CRVErrorWhitelistEmptyDataSource,
-    CRVErrorEmptyFile
+    CRVErrorEmptyFile,
+    CRVErrorWrongMimeType
 };
 
 static NSString *const CRVErrorDomainName = @"com.carrierwave.domain.network.error";
@@ -26,6 +27,10 @@ static NSString *const CRVErrorDomainName = @"com.carrierwave.domain.network.err
 
 + (instancetype)crv_errorForEmptyFile {
     return [self crv_errorWithCode:CRVErrorEmptyFile localizedDescription:NSLocalizedString(@"Downloaded file is empty.", nil)];
+}
+
++ (instancetype)crv_errorForWrongMimeType:(NSString *)mimeType {
+    return [self crv_errorWithCode:CRVErrorWrongMimeType localizedDescription:[NSString stringWithFormat:NSLocalizedString(@"Mime type %@ is not allowed.", nil), mimeType]];
 }
 
 #pragma mark - Private Methods
