@@ -22,17 +22,17 @@
 pod 'Carrierwave', '~> 0.1.0'
 ```
 
-### Configuration
+## Configuration
 
 Just add `@import Carrierwave` in your source file whenever you want to use **carrierwave-ios**.
 
 To connect **carrierwave-ios** with rails backend, you just need to set `serverURL` property in `[CRVNetworkManager sharedManager]` to your backend server url. We are recommending to make this in `application:didFinishLaunchingWithOptions:` method in your `AppDelegate` class.
 
-### Usage
+## Usage
 
 `CRVNetworkManager` encapsulates the common tasks, including upload, download and delete asset. All supported assets should be wrapped with usage of `CRVAssetType` protocol.
 
-## Upload tasks
+### Upload tasks
 
 Declarations:
 
@@ -59,7 +59,7 @@ proccessId = [[CRVNetworkManager sharedManager] uploadAsset:asset progress:^(dou
 If upload finishes with success, method will return `CRVUploadInfo` object that wraps `assetIdentifier` of uploaded asset and server side path to it, stored in `assetPath` property.
 For dynamic server urls please use `uploadAsset:toURL:progress:completion` method.
 
-## Download task
+### Download task
 
 Declarations:
 
@@ -85,7 +85,7 @@ proccessId = [[CRVNetworkManager sharedManager] downloadAssetWithIdentifier:iden
 
 For dynamic server urls please use `uploadAsset:toURL:progress:completion` method.
 
-## Delete task 
+### Delete task 
 
 Declarations:
 
@@ -108,7 +108,7 @@ Calling delete:
 
 For dynamic server urls please use `uploadAsset:toURL:progress:completion` method.
 
-## Asset types
+### Asset types
 
 As mentioned before, all uploaded objects should conform to `CRVAssetType` protocol. **carrierwave-ios** comes with ready to use classes for common image and video file types.
 
@@ -134,7 +134,7 @@ Usage example:
 }];
 ```
 
-## Proccess management
+### Proccess management
 
 `CRVNetworkManager` provides additional methods for handling lifecycle of upload or download processes, which are pretty straightforward and self-explanatory. As parameter all functions takes identifier returned by process creating methods.
 
@@ -144,7 +144,7 @@ Usage example:
 - (void)resumeProccessWithIdentifier:(NSString *)identifier;
 ```
 
-## Additional properties
+### Additional properties
 
 `CRVNetworkManager` include several additional properties that can help you with more advanced managment of upload / download process, for example `numberOfRetries`, `reconnectionTime`.
 
@@ -169,7 +169,7 @@ Here's a few guidelines to follow:
 
 Have a question? Please [open an issue](https://github.com/netguru/carrierwave-ios/issues/new)!
 
-### Authors
+## Authors
 
 **Adrian Kashivskyy**
 
