@@ -66,16 +66,16 @@ Declarations:
 Creating a download proccess:
 
 ```objc
-	NSString *proccessId
-	proccessId = [[CRVNetworkManager sharedManager] downloadAssetWithIdentifier:identifier progress:^(double progress) {
-		NSLog(@"Progress: %f", progress);
-	} completion:^(CRVImageAsset *asset, NSError *error) {
-		if (error) {
-	    	NSLog(@"Error: %@", error);
-	    } else {
-	    	NSLog(@"Success");
-		}
+NSString *proccessId
+proccessId = [[CRVNetworkManager sharedManager] downloadAssetWithIdentifier:identifier progress:^(double progress) {
+	NSLog(@"Progress: %f", progress);
+} completion:^(CRVImageAsset *asset, NSError *error) {
+	if (error) {
+    	NSLog(@"Error: %@", error);
+    } else {
+    	NSLog(@"Success");
 	}
+}
 ```
 
 ## Delete task 
@@ -90,13 +90,13 @@ Declarations:
 Calling delete:
 
 ```objc
-	[[CRVNetworkManager sharedManager] deleteAssetWithIdentifier:identifier completion:^(BOOL success, NSError *error) {
-		if (error) {
-	    	NSLog(@"Error: %@", error);
-	    } else {
-	    	NSLog(@"Success");
-		}
+[[CRVNetworkManager sharedManager] deleteAssetWithIdentifier:identifier completion:^(BOOL success, NSError *error) {
+	if (error) {
+    	NSLog(@"Error: %@", error);
+    } else {
+    	NSLog(@"Success");
 	}
+}
 ```
 
 ## Proccess management
