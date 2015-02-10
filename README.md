@@ -26,11 +26,11 @@ pod 'Carrierwave', '~> 0.1.0'
 
 Just add `@import Carrierwave` in your source file whenever you want to use **carrierwave-ios**.
 
-To connect **carrierwave-ios** with rails backend, you need to set `serverURL` property, in `[CRVNetworkManager sharedManager]` to your backend server url.
+To connect **carrierwave-ios** with rails backend, you just need to set `serverURL` property in `[CRVNetworkManager sharedManager]` to your backend server url. We are recommending to make this in `application:didFinishLaunchingWithOptions:` method in your `AppDelegate` class.
 
 ### Usage
 
-`CRVNetworkManager` encapsulates the common tasks, including upload, download and delete asset. All supported assets should be wrapped with usage of `CRVAssetType` protocol. 
+`CRVNetworkManager` encapsulates the common tasks, including upload, download and delete asset. All supported assets should be wrapped with usage of `CRVAssetType` protocol.
 
 ## Upload tasks
 
@@ -56,6 +56,9 @@ proccessId = [[CRVNetworkManager sharedManager] uploadAsset:asset progress:^(dou
 }]
 ```
 
+If upload finishes with success, method will return `CRVUploadInfo` object that wraps `assetIdentifier` of uploaded asset and server side path to it, stored in `assetPath` property.
+For dynamic server urls please use `uploadAsset:toURL:progress:completion` method.
+
 ## Download task
 
 Declarations:
@@ -80,6 +83,8 @@ proccessId = [[CRVNetworkManager sharedManager] downloadAssetWithIdentifier:iden
 }
 ```
 
+For dynamic server urls please use `uploadAsset:toURL:progress:completion` method.
+
 ## Delete task 
 
 Declarations:
@@ -100,6 +105,8 @@ Calling delete:
 	}
 }
 ```
+
+For dynamic server urls please use `uploadAsset:toURL:progress:completion` method.
 
 ## Asset types
 
