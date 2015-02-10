@@ -26,6 +26,8 @@ pod 'Carrierwave', '~> 0.1.0'
 
 Just add `@import Carrierwave` in your source file whenever you want to use **carrierwave-ios**.
 
+To connect **carrierwave-ios** with rails backend, you need to set `serverURL` property, in `[CRVNetworkManager sharedManager]` to your backend server url.
+
 ### Usage
 
 `CRVNetworkManager` encapsulates the common tasks, including upload, download and delete asset. All supported assets should be wrapped with usage of `CRVAssetType` protocol. 
