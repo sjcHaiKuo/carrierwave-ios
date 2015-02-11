@@ -222,4 +222,10 @@
     _minSize = minSize;
 }
 
+- (void)setMaxSize:(CGSize)maxSize {
+    NSAssert(maxSize.width > 0, @"Max width cannot be smaller or equal to 0!");
+    NSAssert(maxSize.height > 0, @"Max height cannot be smaller or equal to 0!");
+    _maxSize = CGSizeMake(MAX(self.minSize.width, maxSize.width), MAX(self.minSize.height, maxSize.height));
+}
+
 @end

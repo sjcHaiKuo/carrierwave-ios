@@ -21,71 +21,89 @@ describe(@"CRVScalableViewSpec", ^{
         scalableView = nil;
     });
     
-    context(@"when newly created", ^{
+    it(@"when newly created, should be initialized properly", ^{
+        expect(scalableView).toNot.beNil();
+        expect(scalableView.borderView).toNot.beNil();
+        expect(scalableView.ratioEnabled).to.beFalsy();
+        expect(scalableView.minSize).to.equal(CGSizeMake(50.f, 50.f));
+        expect(scalableView.maxSize).to.equal(CGSizeMake(300.f, 300.f));
+        expect(scalableView.animationDuration).to.equal(1.0f);
+        expect(scalableView.animationCurve).to.equal(UIViewAnimationOptionCurveEaseInOut);
+        expect(scalableView.springDamping).to.equal(0.9f);
+        expect(scalableView.springVelocity).to.equal(13.f);
+    });
+    
+    context(@"when setting minimum size", ^{
         
-        it(@"should be initialized properly", ^{
-            expect(scalableView).toNot.beNil();
-            expect(scalableView.borderView).toNot.beNil();
-            expect(scalableView.ratioEnabled).to.beFalsy();
-            expect(scalableView.minSize).to.equal(CGSizeMake(50.f, 50.f));
-            expect(scalableView.maxSize).to.equal(CGSizeMake(300.f, 300.f));
-            expect(scalableView.animationDuration).to.equal(1.0f);
-            expect(scalableView.animationCurve).to.equal(UIViewAnimationOptionCurveEaseInOut);
-            expect(scalableView.springDamping).to.equal(0.9f);
-            expect(scalableView.springVelocity).to.equal(13.f);
+        it(@"with negative width value, should raise an exception", ^{
+            expect(^{
+                scalableView.minSize = CGSizeMake(-5.f, -10.f);
+            }).to.raiseWithReason(NSInternalInconsistencyException, @"Min width cannot be smaller or equal to 0!");
+        });
+        
+        it(@"with negative height value, should raise an exception", ^{
+            expect(^{
+                scalableView.minSize = CGSizeMake(10.f, -5.f);
+            }).to.raiseWithReason(NSInternalInconsistencyException, @"Min height cannot be smaller or equal to 0!");
+        });
+        
+        it(@"with zero width value, should raise an exception", ^{
+            expect(^{
+                scalableView.minSize = CGSizeMake(0, 10.f);
+            }).to.raiseWithReason(NSInternalInconsistencyException, @"Min width cannot be smaller or equal to 0!");
+        });
+        
+        it(@"with zero height value, should raise an exception", ^{
+            expect(^{
+                scalableView.minSize = CGSizeMake(30.f, 0);
+            }).to.raiseWithReason(NSInternalInconsistencyException, @"Min height cannot be smaller or equal to 0!");
+        });
+        
+        it(@"with positive values, should set minimal size properly", ^{
+            expect(^{
+                scalableView.minSize = CGSizeMake(10.f, 20.f);
+            }).toNot.raise(NSInternalInconsistencyException);
+            
+            expect(scalableView.minSize).to.equal(CGSizeMake(10.f, 20.f));
         });
     });
     
-    describe(@"when setting minimal size", ^{
+    context(@"when setting maximum size", ^{
         
-        context(@"with negative width value", ^{
-            
-            it(@"should raise an exception", ^{
-                expect(^{
-                    scalableView.minSize = CGSizeMake(-5.f, -10.f);
-                }).to.raiseWithReason(NSInternalInconsistencyException, @"Min width cannot be smaller or equal to 0!");
-            });
-            
+        it(@"with negative width value, should raise an exception", ^{
+            expect(^{
+                scalableView.maxSize = CGSizeMake(-5.f, -10.f);
+            }).to.raiseWithReason(NSInternalInconsistencyException, @"Max width cannot be smaller or equal to 0!");
         });
         
-        context(@"with negative height value", ^{
-           
-            it(@"should raise an exception", ^{
-                expect(^{
-                    scalableView.minSize = CGSizeMake(10.f, -5.f);
-                }).to.raiseWithReason(NSInternalInconsistencyException, @"Min height cannot be smaller or equal to 0!");
-            });
-            
+        it(@"with negative height value, should raise an exception", ^{
+            expect(^{
+                scalableView.maxSize = CGSizeMake(10.f, -5.f);
+            }).to.raiseWithReason(NSInternalInconsistencyException, @"Max height cannot be smaller or equal to 0!");
         });
         
-        context(@"with zero width value", ^{
-            
-            it(@"should raise an exception", ^{
-                expect(^{
-                    scalableView.minSize = CGSizeMake(0, 10.f);
-                }).to.raiseWithReason(NSInternalInconsistencyException, @"Min width cannot be smaller or equal to 0!");
-            });
-            
+        it(@"with zero width value, should raise an exception", ^{
+            expect(^{
+                scalableView.maxSize = CGSizeMake(0, 10.f);
+            }).to.raiseWithReason(NSInternalInconsistencyException, @"Max width cannot be smaller or equal to 0!");
         });
         
-        context(@"with zero height value", ^{
-            
-            it(@"should raise an exception", ^{
-                expect(^{
-                    scalableView.minSize = CGSizeMake(30.f, 0);
-                }).to.raiseWithReason(NSInternalInconsistencyException, @"Min height cannot be smaller or equal to 0!");
-            });
-            
+        it(@"with zero height value, should raise an exception", ^{
+            expect(^{
+                scalableView.maxSize = CGSizeMake(30.f, 0);
+            }).to.raiseWithReason(NSInternalInconsistencyException, @"Max height cannot be smaller or equal to 0!");
         });
         
-        context(@"with positive values", ^{
-            
-            it(@"should run without any problems", ^{
-                expect(^{
-                    scalableView.minSize = CGSizeMake(10.f, 20.f);
-                }).toNot.raise(NSInternalInconsistencyException);
-            });
-            
+        it(@"smaller than minimum size, should set maximum size same as minimum size", ^{
+            scalableView.minSize = CGSizeMake(100.f, 100.f);
+            scalableView.maxSize = CGSizeMake(30.f, 30.f);
+            expect(scalableView.maxSize).to.equal(CGSizeMake(100.f, 100.f));
+        });
+        
+        it(@"greater than minimum size, should set maximum size properly", ^{
+            scalableView.minSize = CGSizeMake(100.f, 100.f);
+            scalableView.maxSize = CGSizeMake(200.f, 200.f);
+            expect(scalableView.maxSize).to.equal(CGSizeMake(200.f, 200.f));
         });
     });
 });
