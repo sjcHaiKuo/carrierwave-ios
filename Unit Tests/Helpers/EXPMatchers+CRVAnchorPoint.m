@@ -107,7 +107,7 @@ EXPMatcherImplementationBegin(crv_hasProperFactors, (void)) {
 
             return [NSString stringWithFormat:@"expected: %@, got: %@", expectedDescription, actualDescription];
         } else {
-            return [NSString stringWithFormat:@"expectedbla %@: %.2f, got: %.2f", factorName, expectedFactor, givenFactor];
+            return [NSString stringWithFormat:@"expected %@: %.2f, got: %.2f", factorName, expectedFactor, givenFactor];
         }
     });
     
@@ -121,7 +121,7 @@ EXPMatcherImplementationBegin(crv_hasProperFactors, (void)) {
 
             return [NSString stringWithFormat:@"expected: %@, got: %@", expectedDescription, actualDescription];
         } else {
-            return [NSString stringWithFormat:@"expectedbla %@: %.2f, got: %.2f", factorName, expectedFactor, givenFactor];
+            return [NSString stringWithFormat:@"expected %@: %.2f, got: %.2f", factorName, expectedFactor, givenFactor];
         }
     });
     
