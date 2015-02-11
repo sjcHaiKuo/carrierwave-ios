@@ -66,10 +66,6 @@ describe(@"CRVNetworkManagerSpec", ^{
         it(@"should respond to reconnection time delegate.", ^{
             expect(manager).to.respondTo(@selector(reconnectionTimeSessionManagerShouldWait:));
         });
-        
-        it(@"should conform CRVWhitelistManagerDataSource.", ^{
-            expect(manager).conformTo(@protocol(CRVWhitelistManagerDataSource));
-        });
     });
     
     describe(@"when using a shared instance", ^{
@@ -117,7 +113,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         it(@"when uploading should do not raise an exception.", ^{
             expect(^{
                 [manager uploadAsset:nil progress:nil completion:nil];
-            }).toNot.raise(NSInternalInconsistencyException);
+            }).to.raise(NSInternalInconsistencyException);
         });
         
         it(@"when deleting should raise an exception.", ^{

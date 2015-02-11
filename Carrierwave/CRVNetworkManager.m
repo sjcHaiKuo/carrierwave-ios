@@ -19,7 +19,7 @@ NSUInteger const CRVDefaultNumberOfRetries = 2;
 NSTimeInterval const CRVDefaultReconnectionTime = 3;
 NSString *const CRVDefaultPath = @"api/v1/attachments";
 
-@interface CRVNetworkManager () <CRVSessionManagerDelegate, CRVWhitelistManagerDataSource>
+@interface CRVNetworkManager () <CRVSessionManagerDelegate>
 
 @property (strong, nonatomic) CRVSessionManager *sessionManager;
 
@@ -37,8 +37,6 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
         _path = CRVDefaultPath;
         _numberOfRetries = CRVDefaultNumberOfRetries;
         _reconnectionTime = CRVDefaultReconnectionTime;
-        _whitelistManager = [[CRVWhitelistManager alloc] init];
-        _whitelistManager.dataSource = self;
     }
     return self;
 }
@@ -61,14 +59,6 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
 
 - (NSString *)uploadAsset:(id<CRVAssetType>)asset toURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionBlock)completion {
     
-    NSString *mimeType = [asset mimeType];
-    if (![self.whitelistManager containsMimeType:mimeType]) {
-        if (completion != NULL) {
-            completion(nil, [NSError crv_errorForWrongMimeType:mimeType]);
-        }
-        return nil;
-    }
-    
     return [self.sessionManager uploadAssetRepresentedByDataStream:asset.dataStream withLength:asset.dataLength name:asset.fileName mimeType:asset.mimeType URLString:[url absoluteString] progress:^(double aProgress) {
             if (progress != NULL) progress(aProgress);
     } completion:^(NSDictionary *response, NSError *error) {
@@ -80,12 +70,14 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
 }
 
 - (NSString *)downloadAssetWithIdentifier:(NSString *)identifier progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
+    
     NSParameterAssert(identifier);
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/download", [self URLString], identifier]];
     return [self downloadAssetFromURL:url progress:progress completion:completion];
 }
 
 - (NSString *)downloadAssetFromURL:(NSURL *)url progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionBlock)completion {
+    
     return [self.sessionManager downloadAssetFromURL:url.absoluteString progress:^(double aProgress) {
         if (progress != NULL) progress(aProgress);
     } completion:^(NSData *data, NSError *error) {
@@ -98,12 +90,14 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
 }
 
 - (void)deleteAssetWithIdentifier:(NSString *)identifier completion:(CRVCompletionBlock)completion {
+    
     NSParameterAssert(identifier);
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [self URLString], identifier]];
     [self deleteAssetFromURL:url completion:completion];
 }
 
 - (void)deleteAssetFromURL:(NSURL *)url completion:(CRVCompletionBlock)completion {
+    
     NSParameterAssert(url);
     [self.sessionManager deleteAssetFromURL:url.absoluteString completion:^(BOOL success, NSError *error) {
         if (completion != NULL) completion(success, error);
@@ -122,13 +116,6 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
     [self.sessionManager resumeProccessWithIdentifier:identifier];
 }
 
-#pragma mark - Accessors
-- (void)setServerURL:(NSURL *)serverURL {
-    _serverURL = serverURL;
-    CRVTemporary("Temporary disabled to pass tests")
-//    [self.whitelistManager loadWhitelist];
-}
-
 #pragma mark - Private Methods
 
 - (NSString *)URLString {
@@ -144,16 +131,6 @@ NSString *const CRVDefaultPath = @"api/v1/attachments";
 
 - (NSUInteger)numberOfRetriesSessionManagerShouldPrepare:(CRVSessionManager *)manager {
     return self.numberOfRetries;
-}
-
-#pragma mark - CRVWhitelistManagerDataSource
-
-- (CRVSessionManager *)sessionManagerForWhitelistManager:(CRVWhitelistManager *)whitelistManager {
-    return self.sessionManager;
-}
-
-- (NSString *)serverURLForWhitelistManager:(CRVWhitelistManager *)whitelistManager {
-    return [self URLString];
 }
 
 @end

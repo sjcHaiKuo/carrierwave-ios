@@ -24,7 +24,6 @@
 
     #import "CRVSessionTaskManager.h"
     #import "CRVNetworkManager.h"
-    #import "CRVWhitelistManager.h"
     #import "CRVSessionManager.h"
     #import "CRVScalableView.h"
     #import "CRVAnchorPoint.h"

@@ -15,7 +15,6 @@
     #import <Carrierwave/CRVImageEditViewController.h>
     #import <Carrierwave/CRVNetworkManager.h>
     #import <Carrierwave/CRVScalableView.h>
-    #import <Carrierwave/CRVWhitelistManager.h>
     #import <Carrierwave/CRVSaveAssetTask.h>
 
 #endif

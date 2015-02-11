@@ -8,7 +8,6 @@
 @import Foundation;
 #import "CRVNetworkTypedefs.h"
 #import "CRVUploadInfo.h"
-#import "CRVWhitelistManager.h"
 
 @protocol CRVAssetType;
 @class CRVImageAsset;
@@ -127,10 +126,5 @@ extern NSString *const CRVDefaultPath;
  *  The time (in seconds) to reconnect after failure (default: CRVDefaultReconnectionTime).
  */
 @property (assign, nonatomic) NSTimeInterval reconnectionTime;
-
-/**
- *  Object for managing assets types whitelist
- */
-@property (strong, nonatomic, readonly) CRVWhitelistManager *whitelistManager;
 
 @end
