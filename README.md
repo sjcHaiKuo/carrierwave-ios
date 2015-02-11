@@ -1,6 +1,6 @@
 # carrierwave-ios
 
-**carrierwave-ios** is easy to use iOS library which provides flexible way to upload and edit asset files. Designed to integrate with [CarrierWave ruby gem](https://github.com/carrierwaveuploader/carrierwave), makes your work as fast as possible.
+**carrierwave-ios** is easy to use iOS library which provides flexible way to download, upload and edit asset files. Designed to integrate with [CarrierWave ruby gem](https://github.com/carrierwaveuploader/carrierwave), makes your work as fast as possible.
 
 ## Features:
 **carrierwave-ios** handles:
@@ -154,9 +154,9 @@ Usage example:
 
 `CRVNetworkManager` include several additional properties that can help you with more advanced managment of upload / download process, for example `numberOfRetries`, `reconnectionTime`.
 
-One of them is `whitelistManager` property which contains list of file types supported by carrierwave backend. Before every upload `CRVNetworkManager` is checking that list to determine if selected file is supported. If not `CRVNetworkManager` will return appropriate `NSError` object. With usage of `whitelistManager`, developer can also check if his asset is supported, by calling method:
+One of them is `whitelistManager` property which contains list of file types supported by carrierwave backend. Before every upload `CRVNetworkManager` is checking that list to determine if selected file is supported. If not `CRVNetworkManager` will return appropriate `NSError` object. With usage of `whitelistManager`, developer can also check if his asset mime type is supported, by calling method:
 ```
-- (BOOL)containsItem:(NSObject *)item;
+- (BOOL)containsMimeType:(NSString *)mimeType;
 ```
 
 ## UI Component
@@ -165,7 +165,7 @@ As addition, **carrierwave-ios** delivers handy ui component for editing selecte
 
 ![crop view example](https://github.com/netguru/carrierwave-ios/blob/master/doc/0_crop_view.jpg "Crop view example")
 
-Using it is very simple, just create new instance and show it:
+Usage is very simple, just create new instance and show it:
 
 ```objc
 CRVImageEditViewController *controller =  [[CRVImageEditViewController alloc] initWithImageAsset:imageAsset];
