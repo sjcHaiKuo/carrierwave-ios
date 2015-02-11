@@ -16,7 +16,10 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (strong, nonatomic, readwrite) CRVImageAsset *imageAsset;
 @property (weak, nonatomic) IBOutlet UIView *menuView;
-@property (weak, nonatomic) IBOutlet UIView *imageChooserView;
+@property (weak, nonatomic) IBOutlet UIButton *downloadButton;
+@property (weak, nonatomic) IBOutlet UIButton *pickButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickButtonCenterConstraint;
+@property (strong, nonatomic) NSMutableArray * uploadedAssetsArray;
 
 @end
 
@@ -26,8 +29,11 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.uploadedAssetsArray = [NSMutableArray array];
     self.imageView.image = self.imageAsset.image;
     self.editButton.enabled = self.imageAsset != nil;
+    CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
+    networkManager.serverURL = [NSURL URLWithString:@"https://carrierwave-ios-backend.herokuapp.com/"];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -42,6 +48,10 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
 
 - (IBAction)chooseButtonTapped:(UIButton *)sender {
     [self presentChooseViewControllerWithCompletion:nil];
+}
+
+- (IBAction)downloadButtonTapped:(UIButton *)sender {
+    [self downloadRecentUpload];
 }
 
 - (IBAction)closeButtonTapped:(id)sender {
@@ -60,17 +70,19 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
     }
     MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.imageView animated:YES];
     hud.mode = MBProgressHUDModeAnnularDeterminate;
-    hud.labelText = @"Uploading";
+    hud.labelText = NSLocalizedString(@"Uploading", nil);
     CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
-    networkManager.serverURL = [NSURL URLWithString:@"https://carrierwave-ios-backend.herokuapp.com/"];
     [networkManager uploadAsset:self.imageAsset progress:^(double progress) {
         hud.progress = (float)progress;
     } completion:^(CRVUploadInfo *info, NSError *error) {
-        [hud hide:YES];
         if (error) {
             [self showAlertWithError:error];
+            [hud hide:YES];
         } else {
-            [self showAlertWithInfo:info];
+            [self.uploadedAssetsArray addObject:info];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = NSLocalizedString(@"Completed", nil);
+            [hud hide:YES afterDelay:1.5];
         }
     }];
 }
@@ -79,10 +91,6 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
 
 - (void)showAlertWithError:(NSError *)error {
     [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
-}
-
-- (void)showAlertWithInfo:(CRVUploadInfo *)info {
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Info", nil) message:info.description delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
 }
 
 #pragma mark - Choose view controller management
@@ -115,16 +123,50 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Helper methods
+
+- (void)downloadRecentUpload {
+    if (!self.uploadedAssetsArray || !self.uploadedAssetsArray.count) {
+        NSLog(@"No recent uploads");
+        [self presentChooseViewControllerWithCompletion:nil];
+        return;
+    }
+    
+    CRVUploadInfo *assetUploadInfo = [self.uploadedAssetsArray firstObject];
+    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Downloading";
+    CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
+    [networkManager downloadAssetWithIdentifier:assetUploadInfo.assetIdentifier progress:^(double progress) {
+        hud.progress = (float)progress;
+    } completion:^(CRVImageAsset *asset, NSError *error) {
+        [hud hide:YES];
+        if (error) {
+            [self showAlertWithError:error];
+        } else {
+            self.imageAsset = asset;
+            [self showMenu];
+        }
+    }];
+}
+
 - (void)showMenu {
     self.imageView.hidden = NO;
     self.menuView.hidden = NO;
-    self.imageChooserView.hidden = YES;
+    self.pickButton.hidden = YES;
+    self.downloadButton.hidden = YES;
 }
 
 - (void)hideMenu {
     self.imageView.hidden = YES;
     self.menuView.hidden = YES;
-    self.imageChooserView.hidden = NO;
+    if (self.uploadedAssetsArray.count) {
+        self.pickButtonCenterConstraint.constant = self.downloadButton.bounds.size.width/2.0;
+        self.downloadButton.hidden = NO;
+    } else {
+        self.pickButtonCenterConstraint.constant = 0.0;
+    }
+    self.pickButton.hidden = NO;
 }
 
 #pragma mark - Edit view controller management
