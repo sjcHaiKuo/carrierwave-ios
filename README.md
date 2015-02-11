@@ -159,7 +159,7 @@ One of them is `whitelistManager` property which contains list of file types sup
 - (BOOL)containsItem:(NSObject *)item;
 ```
 
-## UI
+## UI Component
 
 As addition, **carrierwave-ios** delivers handy ui component for editing selected photo. `CRVImageEditViewController` allows you to freely scale and crop selected photos. Here is some preview how it look in demo app:
 
