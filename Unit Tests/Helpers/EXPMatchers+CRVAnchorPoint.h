@@ -7,6 +7,6 @@
 #import "Expecta.h"
 
 /**
- * Asserts that one anchor point is equal to another.
+ * Verify if given anchor has proper factors.
  */
-EXPMatcherInterface(crv_beEqualToAnchorPoint, (CRVAnchorPoint *expectedAnchorPoint));
+EXPMatcherInterface(crv_hasProperFactors, (void));

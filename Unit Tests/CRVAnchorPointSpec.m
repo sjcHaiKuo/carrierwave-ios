@@ -6,107 +6,197 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
+
+NSString *const CRVAnchorPointKey = @"CRVAnchorPointKey";
+NSString *const CRVAnchorPointLocationKey = @"CRVAnchorPointLocationKey";
+NSString *const CRVAnchorPointLocationNameKey = @"CRVAnchorPointLocationNameKey";
+
+SharedExamplesBegin(CRVAnchorPointSharedExamples)
+
+sharedExamplesFor(@"CRVAnchorPoint", ^(NSDictionary *data) {
+    
+    __block CRVAnchorPoint *anchorPoint = nil;
+    __block NSString *anchorPointName = nil;
+    __block CRVAnchorPointLocation location;
+    
+    beforeEach(^{
+        anchorPointName = data[CRVAnchorPointLocationNameKey];
+        anchorPoint = data[CRVAnchorPointKey];
+        location = [data[CRVAnchorPointLocationKey] integerValue];
+    });
+    
+    it(@"should not be nil", ^{
+        expect(anchorPoint).toNot.beNil();
+    });
+        
+    it([NSString stringWithFormat:@"should be initialized with %@ location", [anchorPoint locationName]], ^{
+        expect(anchorPoint.location).to.equal(location);
+    });
+    
+    it([NSString stringWithFormat:@"should have a %@ name", [anchorPoint locationName]], ^{
+        expect([anchorPoint locationName]).to.equal(anchorPointName);
+    });
+    
+    it(@"should have a proper adjusts and ratios", ^{
+        expect(anchorPoint).to.crv_hasProperFactors();
+    });
+});
+
+SharedExamplesEnd
+
 SpecBegin(CRVAnchorPointSpec)
 
 describe(@"CRVAnchorPointSpec", ^{
     
     __block CRVAnchorPoint *anchorPoint = nil;
     
-    beforeEach(^{
-        anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationCenter];
+    it(@"should have 9 CRVAnchorPointLocation enum elements", ^{
+        expect(CRVAnchorPointLocationPointsCount).to.equal(9);
     });
     
-    afterEach(^{
-        anchorPoint = nil;
-    });
-    
-    context(@"when newly created", ^{
-        
-        it(@"it should have 9 CRVAnchorPointLocation enum elements", ^{
-            expect(CRVAnchorPointLocationPointsCount).to.equal(9);
-        });
-    });
-        
-    context(@"with center location", ^{
-            
-        CRVAnchorPointLocation centerLocation = CRVAnchorPointLocationCenter;
-            
-        it(@"should be initialized with center location", ^{
-            expect(anchorPoint.location).to.equal(centerLocation);
-        });
-            
-        it(@"should be not initialized with some other location than center", ^{
-            expect(anchorPoint.location).toNot.equal(CRVAnchorPointLocationMiddleRight);
-        });
-            
-        it(@"should give a proper name", ^{
-            expect([anchorPoint locationName]).to.equal(@"Center");
-        });
-            
-        it(@"should have a proper adjusts and ratios", ^{
-            CRVAnchorPoint *centerAnchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationCenter];
-            CRVAnchorPoint *bottomRightAnchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationBottomRight];
-            
-            expect(anchorPoint).to.crv_beEqualToAnchorPoint(centerAnchorPoint);
-            expect(anchorPoint).toNot.crv_beEqualToAnchorPoint(bottomRightAnchorPoint);
-        });
-    });
-    
-    context(@"with some other location than center", ^{
-            
-        CRVAnchorPointLocation otherLocation = CRVAnchorPointLocationTopLeft;
-            
+    context(@"when initialized with a center", ^{
+  
         beforeEach(^{
-            anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:otherLocation];
+            anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationCenter];
         });
-            
-        it(@"should be initialized with some other location than center", ^{
-           expect(anchorPoint.location).to.equal(otherLocation);
+        
+        itShouldBehaveLike(@"CRVAnchorPoint", ^{
+            return @{CRVAnchorPointKey : anchorPoint,
+                     CRVAnchorPointLocationKey : @(CRVAnchorPointLocationCenter),
+                     CRVAnchorPointLocationNameKey : @"Center"};
         });
+        
+        describe(@"distance between reference point and touch point", ^{
             
-        it(@"should be not initialized with center location", ^{
-            expect(anchorPoint.location).toNot.equal(CRVAnchorPointLocationCenter);
+            CGPoint expectedPoint = CGPointMake(25.f, 50.f);
+            
+            beforeEach(^{
+                CGSize size = CGSizeMake(50.f, 100.f);
+                [anchorPoint setReferencePointWithSize:size];
+            });
+            
+            it(@"should be calculated properly", ^{
+                expect(anchorPoint.referencePoint).to.equal(expectedPoint);
+            });
         });
+        
+        describe(@"calculating distance from reference point to point", ^{
             
-        it(@"should give a proper name", ^{
-            expect([anchorPoint locationName]).to.equal(@"Top Left");
-        });
+            __block CGPoint point;
+            __block CGFloat distance;
             
-        it(@"should have a proper adjusts and ratios", ^{
-            CRVAnchorPoint *topLeftAnchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationTopLeft];
-            CRVAnchorPoint *bottomMiddleAnchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationBottomMiddle];
-                
-            expect(anchorPoint).to.crv_beEqualToAnchorPoint(topLeftAnchorPoint);
-            expect(anchorPoint).toNot.crv_beEqualToAnchorPoint(bottomMiddleAnchorPoint);
+            beforeEach(^{
+                point = CGPointMake(20.f, 30.f);
+            });
+            
+            it(@"should be calculated properly", ^{
+                distance = [anchorPoint distanceFromReferencePointToPoint:point];
+                expect(distance).to.beCloseToWithin(36.f, 0.1f); // exact expected value: 36.05551275...
+            });
         });
     });
+    
+    context(@"when initialized with a top left", ^{
+        
+        beforeEach(^{
+            anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationTopLeft];
+        });
+        
+        itShouldBehaveLike(@"CRVAnchorPoint", ^{
+            return @{CRVAnchorPointKey : anchorPoint,
+                     CRVAnchorPointLocationKey : @(CRVAnchorPointLocationTopLeft),
+                     CRVAnchorPointLocationNameKey : @"Top Left"};
+        });
+    });
+    
+    context(@"when initialized with a middle left", ^{
+        
+        beforeEach(^{
+            anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationMiddleLeft];
+        });
+        
+        itShouldBehaveLike(@"CRVAnchorPoint", ^{
+            return @{CRVAnchorPointKey : anchorPoint,
+                     CRVAnchorPointLocationKey : @(CRVAnchorPointLocationMiddleLeft),
+                     CRVAnchorPointLocationNameKey : @"Middle Left"};
+        });
+    });
+    
+    context(@"when initialized with a bottom left", ^{
+        
+        beforeEach(^{
+            anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationBottomLeft];
+        });
+        
+        itShouldBehaveLike(@"CRVAnchorPoint", ^{
+            return @{CRVAnchorPointKey : anchorPoint,
+                     CRVAnchorPointLocationKey : @(CRVAnchorPointLocationBottomLeft),
+                     CRVAnchorPointLocationNameKey : @"Bottom Left"};
+        });
+    });
+    
+    context(@"when initialized with a top right", ^{
 
-    describe(@"distance between reference point and touch point", ^{
-        
-        CGPoint expectedPoint = CGPointMake(25.f, 50.f);
-        
         beforeEach(^{
-            CGSize size = CGSizeMake(50.f, 100.f);
-            [anchorPoint setReferencePointWithSize:size];
+            anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationTopRight];
         });
         
-        it(@"should be calculated properly", ^{
-            expect(anchorPoint.referencePoint).to.equal(expectedPoint);
+        itShouldBehaveLike(@"CRVAnchorPoint", ^{
+            return @{CRVAnchorPointKey : anchorPoint,
+                     CRVAnchorPointLocationKey : @(CRVAnchorPointLocationTopRight),
+                     CRVAnchorPointLocationNameKey : @"Top Right"};
         });
     });
     
-    describe(@"calculating distance from reference point to point", ^{
-            
-        __block CGPoint point;
-        __block CGFloat distance;
-            
+    context(@"when initialized with a middle right", ^{
+        
         beforeEach(^{
-            point = CGPointMake(20.f, 30.f);
-            distance = [anchorPoint distanceFromReferencePointToPoint:point];
+            anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationMiddleRight];
         });
-            
-        it(@"should be calculated properly", ^{
-            expect(distance).to.beCloseToWithin(36.f, 0.1f); // exact expected value: 36.05551275...
+        
+        itShouldBehaveLike(@"CRVAnchorPoint", ^{
+            return @{CRVAnchorPointKey : anchorPoint,
+                     CRVAnchorPointLocationKey : @(CRVAnchorPointLocationMiddleRight),
+                     CRVAnchorPointLocationNameKey : @"Middle Right"};
+        });
+    });
+    
+    context(@"when initialized with a bottom right", ^{
+        
+        beforeEach(^{
+            anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationBottomRight];
+        });
+        
+        itShouldBehaveLike(@"CRVAnchorPoint", ^{
+            return @{CRVAnchorPointKey : anchorPoint,
+                     CRVAnchorPointLocationKey : @(CRVAnchorPointLocationBottomRight),
+                     CRVAnchorPointLocationNameKey : @"Bottom Right"};
+        });
+    });
+    
+    context(@"when initialized with a top middle", ^{
+
+        beforeEach(^{
+            anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationTopMiddle];
+        });
+        
+        itShouldBehaveLike(@"CRVAnchorPoint", ^{
+            return @{CRVAnchorPointKey : anchorPoint,
+                     CRVAnchorPointLocationKey : @(CRVAnchorPointLocationTopMiddle),
+                     CRVAnchorPointLocationNameKey : @"Top Middle"};
+        });
+    });
+    
+    context(@"when initialized with a bottom middle", ^{
+        
+        beforeEach(^{
+            anchorPoint = [[CRVAnchorPoint alloc] initWithLocation:CRVAnchorPointLocationBottomMiddle];
+        });
+        
+        itShouldBehaveLike(@"CRVAnchorPoint", ^{
+            return @{CRVAnchorPointKey : anchorPoint,
+                     CRVAnchorPointLocationKey : @(CRVAnchorPointLocationBottomMiddle),
+                     CRVAnchorPointLocationNameKey : @"Bottom Middle"};
         });
     });
 });
