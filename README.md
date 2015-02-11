@@ -169,8 +169,8 @@ Using it is very simple, just create new instance and show it:
 
 ```objc
 CRVImageEditViewController *controller =  [[CRVImageEditViewController alloc] initWithImageAsset:imageAsset];
-    controller.delegate = self;
-    [self presentViewController:controller animated:YES completion:nil];
+controller.delegate = self;
+[self presentViewController:controller animated:YES completion:nil];
 ```
 
 If you are using storyboards, you can also drag new empty view controller in InterfaceBuilder and set his class to `CRVImageEditViewController`.
