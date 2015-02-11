@@ -52,30 +52,12 @@
 
 #pragma mark - View lifecycle
 
-- (void)awakeFromNib {
-    self.cancelBarButtonItem = [[UIBarButtonItem alloc] init];
-    self.cancelBarButtonItem.title = @"Cancel";
-    self.cancelBarButtonItem.style = UIBarButtonItemStylePlain;
-    self.cancelBarButtonItem.tintColor = [[self class] defaultCancelBarButtonItemTintColor];
-    self.cancelBarButtonItem.target = self;
-    self.cancelBarButtonItem.action = @selector(cancelButtonTapped:);
-    
-    self.doneBarButtonItem = [[UIBarButtonItem alloc] init];
-    self.doneBarButtonItem.title = @"Done";
-    self.doneBarButtonItem.style = UIBarButtonItemStyleDone;
-    self.doneBarButtonItem.tintColor = [[self class] defaultDoneBarButtonItemTintColor];
-    self.doneBarButtonItem.target = self;
-    self.doneBarButtonItem.action = @selector(doneButtonTapped:);
-}
-
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
 - (void)loadView {
-    
     [super loadView];
-    
     self.view.backgroundColor = [UIColor grayColor];
     
     self.editedImageView = [[UIImageView alloc] initWithImage:self.imageAsset.image];
@@ -110,8 +92,21 @@
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
+    
+    self.cancelBarButtonItem = [[UIBarButtonItem alloc] init];
+    self.cancelBarButtonItem.title = @"Cancel";
+    self.cancelBarButtonItem.style = UIBarButtonItemStylePlain;
+    self.cancelBarButtonItem.tintColor = [[self class] defaultCancelBarButtonItemTintColor];
+    self.cancelBarButtonItem.target = self;
+    self.cancelBarButtonItem.action = @selector(cancelButtonTapped:);
+    
+    self.doneBarButtonItem = [[UIBarButtonItem alloc] init];
+    self.doneBarButtonItem.title = @"Done";
+    self.doneBarButtonItem.style = UIBarButtonItemStyleDone;
+    self.doneBarButtonItem.tintColor = [[self class] defaultDoneBarButtonItemTintColor];
+    self.doneBarButtonItem.target = self;
+    self.doneBarButtonItem.action = @selector(doneButtonTapped:);
     
     UIBarButtonSystemItem spaceType = UIBarButtonSystemItemFlexibleSpace;
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:spaceType target:nil action:nil];
