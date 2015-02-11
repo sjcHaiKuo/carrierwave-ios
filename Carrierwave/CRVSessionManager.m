@@ -233,7 +233,7 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
     wrapper.retriesCount++;
 
     __weak typeof(self) weakSelf = self;
-    NSURLSessionTask *task = [self uploadTaskForDataStream:wrapper.dataStream length:wrapper.length name:wrapper.name mimeType:wrapper.mimeType URLString:wrapper.task.originalRequest.URL.path withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
+    NSURLSessionTask *task = [self uploadTaskForDataStream:wrapper.dataStream length:wrapper.length name:wrapper.name mimeType:wrapper.mimeType URLString:wrapper.task.originalRequest.URL.absoluteString withCompletionHandler:^(NSURLSessionTask *task, NSError *error, id response) {
         
         [weakSelf uploadTaskDidPerformCompletionHandler:task response:response error:error];
     }];
