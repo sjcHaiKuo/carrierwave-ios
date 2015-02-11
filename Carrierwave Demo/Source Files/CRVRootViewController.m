@@ -7,13 +7,13 @@
 #import "CRVRootViewController.h"
 #import "CRVNetworkManager.h"
 #import <MBProgressHUD.h>
+#import "UIAlertView+Carrierwave.h"
 
 static NSString * const CRVDemoSegueEdit = @"showEdit";
 
 @interface CRVRootViewController () <CRVImageEditViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (strong, nonatomic, readwrite) CRVImageAsset *imageAsset;
 @property (weak, nonatomic) IBOutlet UIView *menuView;
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
@@ -31,9 +31,6 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
     [super viewDidLoad];
     self.uploadedAssetsArray = [NSMutableArray array];
     self.imageView.image = self.imageAsset.image;
-    self.editButton.enabled = self.imageAsset != nil;
-    CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
-    networkManager.serverURL = [NSURL URLWithString:@"https://carrierwave-ios-backend.herokuapp.com/"];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -76,7 +73,7 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
         hud.progress = (float)progress;
     } completion:^(CRVUploadInfo *info, NSError *error) {
         if (error) {
-            [self showAlertWithError:error];
+            [[UIAlertView crv_showAlertWithError:error] show];
             [hud hide:YES];
         } else {
             [self.uploadedAssetsArray addObject:info];
@@ -85,12 +82,6 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
             [hud hide:YES afterDelay:1.5];
         }
     }];
-}
-
-#pragma mark - Alerts
-
-- (void)showAlertWithError:(NSError *)error {
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
 }
 
 #pragma mark - Choose view controller management
@@ -142,7 +133,7 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
     } completion:^(CRVImageAsset *asset, NSError *error) {
         [hud hide:YES];
         if (error) {
-            [self showAlertWithError:error];
+            [[UIAlertView crv_showAlertWithError:error] show];
         } else {
             self.imageAsset = asset;
             [self showMenu];
@@ -186,7 +177,6 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
     if (![_imageAsset isEqual:imageAsset]) {
         _imageAsset = imageAsset;
         self.imageView.image = _imageAsset.image;
-        self.editButton.enabled = _imageAsset != nil;
     }
 }
 

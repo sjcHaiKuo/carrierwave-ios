@@ -93,6 +93,7 @@
 		5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */; };
 		5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */; };
 		69AA0B9A7A138526C4B55648 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3272BDCF977EEC32EE0EE1EE /* libPods-Tests.a */; };
+		7C870E661A8C0AD6005B0343 /* UIAlertView+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C870E651A8C0AD6005B0343 /* UIAlertView+Carrierwave.m */; };
 		7CFA8FBF1A7BB4B800A92F22 /* NSError+Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFA8FBD1A7BB4B800A92F22 /* NSError+Carrierwave.h */; };
 		7CFA8FC01A7BB4B800A92F22 /* NSError+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFA8FBE1A7BB4B800A92F22 /* NSError+Carrierwave.m */; };
 		7DE6841C33D70C5B4DF93E2E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 861E339756711F9AC576711A /* libPods.a */; };
@@ -247,6 +248,8 @@
 		5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubs+CRVTests.m"; sourceTree = "<group>"; };
 		5EBDBE541A67FA4F001C8ED5 /* NSData+CRVComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CRVComposition.h"; sourceTree = "<group>"; };
 		5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CRVComposition.m"; sourceTree = "<group>"; };
+		7C870E641A8C0AD6005B0343 /* UIAlertView+Carrierwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Carrierwave.h"; sourceTree = "<group>"; };
+		7C870E651A8C0AD6005B0343 /* UIAlertView+Carrierwave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Carrierwave.m"; sourceTree = "<group>"; };
 		7CFA8FBD1A7BB4B800A92F22 /* NSError+Carrierwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Carrierwave.h"; sourceTree = "<group>"; };
 		7CFA8FBE1A7BB4B800A92F22 /* NSError+Carrierwave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Carrierwave.m"; sourceTree = "<group>"; };
 		861E339756711F9AC576711A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -450,6 +453,7 @@
 		3AE334381A4ED4B00030F632 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
+				7C870E631A8C0A9B005B0343 /* Categories */,
 				3AE3343E1A4ED5950030F632 /* Objects & Models */,
 				3AE3343F1A4ED59A0030F632 /* Custom Views */,
 				3AE334401A4ED5A10030F632 /* View Controllers */,
@@ -654,6 +658,15 @@
 				5E94A4C41A7A893D00F98C18 /* CRVScalableView+Math.m */,
 				5E06ABA11A77DE4200155F3E /* CRVScalableBorder+Anchors.h */,
 				5E06ABA21A77DE4200155F3E /* CRVScalableBorder+Anchors.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		7C870E631A8C0A9B005B0343 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				7C870E641A8C0AD6005B0343 /* UIAlertView+Carrierwave.h */,
+				7C870E651A8C0AD6005B0343 /* UIAlertView+Carrierwave.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1054,6 +1067,7 @@
 				3A58AAD41A5E97BF0056E21D /* CRVRootViewController.m in Sources */,
 				3A6F286B1A5039C30049DC9F /* CRVAppDelegate.m in Sources */,
 				3AE334321A4ED4840030F632 /* Carrierwave-Demo-Main.m in Sources */,
+				7C870E661A8C0AD6005B0343 /* UIAlertView+Carrierwave.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

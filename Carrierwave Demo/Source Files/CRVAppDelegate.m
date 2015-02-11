@@ -8,6 +8,10 @@
 
 @implementation CRVAppDelegate
 
-// nothing here...
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [CRVNetworkManager sharedManager].serverURL = [NSURL URLWithString:@"https://carrierwave-ios-backend.herokuapp.com/"];
+    return YES;
+}
 
 @end
