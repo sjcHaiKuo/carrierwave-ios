@@ -161,6 +161,20 @@ One of them is `whitelistManager` property which contains list of file types sup
 
 ## UI
 
+As addition, **carrierwave-ios** delivers handy ui component for editing selected photo. `CRVImageEditViewController` allows you to freely scale and crop selected photos. Here is some preview how it look in demo app:
+
+![crop view example](https://github.com/netguru/carrierwave-ios/blob/master/doc/0_crop_view.jpg "Crop view example")
+
+Using it is very simple, just create new instance and show it:
+
+```objc
+CRVImageEditViewController *controller =  [[CRVImageEditViewController alloc] initWithImageAsset:imageAsset];
+    controller.delegate = self;
+    [self presentViewController:controller animated:YES completion:nil];
+```
+
+If you are using storyboards, you can also drag new empty view controller in InterfaceBuilder and set his class to `CRVImageEditViewController`.
+
 ## Demo
 
 **carrierwave-ios** comes with simple demo app which implements basic features of library like upload files and editing image assets. To run demo please follow the instructions below:
