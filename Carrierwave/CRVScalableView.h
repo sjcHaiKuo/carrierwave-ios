@@ -82,6 +82,9 @@
 
 @end
 
+/**
+ * The receiver's delegate which inform about scaling and moving actions.
+ */
 @protocol CRVScalableViewDelegate <NSObject>
 
 @optional

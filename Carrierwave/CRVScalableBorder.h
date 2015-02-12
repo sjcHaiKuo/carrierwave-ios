@@ -8,6 +8,11 @@
 
 @import UIKit;
 
+typedef NS_ENUM(NSInteger, CRVBorderDrawingMode) {
+    CRVBorderDrawingModeAlways,
+    CRVBorderDrawingModeNever
+};
+
 typedef NS_ENUM(NSInteger, CRVGridDrawingMode) {
     CRVGridDrawingModeAlways,
     CRVGridDrawingModeOnResizing,
@@ -32,6 +37,7 @@ typedef NS_ENUM(NSInteger, CRVBorderStyle) {
     CRVBorderStyleDotted
 };
 
+@protocol CRVScalableBorderDelegate;
 
 @interface CRVScalableBorder : UIView
 
@@ -88,6 +94,11 @@ typedef NS_ENUM(NSInteger, CRVBorderStyle) {
 @property (assign, nonatomic) CRVBorderStyle borderStyle;
 
 /**
+ *  Defines behaviour of border drawing. Default set to CRVBorderDrawingModeAlways.
+ */
+@property (assign, nonatomic) CRVBorderDrawingMode borderDrawinMode;
+
+/**
  *  Color of border. Default is [UIColor colorWithWhite:0.9f alpha:1] color.
  */
 @property (strong, nonatomic) UIColor *borderColor;
@@ -108,5 +119,21 @@ typedef NS_ENUM(NSInteger, CRVBorderStyle) {
  *  Color of anchors. Default is white color.
  */
 @property (strong, nonatomic) UIColor *anchorsColor;
+
+/**
+ *  The receiver's delegate used to customize draws in scalable view.
+ */
+@property (weak, nonatomic) id<CRVScalableBorderDelegate> delegate;
+
+@end
+
+@protocol CRVScalableBorderDelegate <NSObject>
+
+@required
+
+/**
+ *  Calls in drawRect: method. Used to customize draw. NOTICE: Draw always in prepared context.
+ */
+- (void)drawRect:(CGRect)rect withinContext:(CGContextRef)context;
 
 @end

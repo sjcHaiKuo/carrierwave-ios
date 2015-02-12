@@ -21,30 +21,27 @@ static CGFloat const crv_dotted[2] = {1 ,3};
 @implementation CRVScalableBorder
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    
     self = [super initWithFrame:frame];
-    if (!self) {
-        return nil;
+    if (self) {
+        //Grid customizing:
+        self.gridColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5f];
+        self.gridDrawingMode = CRVGridDrawingModeOnResizing;
+        self.gridStyle = CRVGridStyleContinuous;
+        self.gridThickness = 1;
+        self.numberOfGridlines = 4;
+        
+        //Border customizing:
+        self.borderColor = [UIColor colorWithWhite:0.9f alpha:1];
+        self.borderStyle = CRVBorderStyleContinuous;
+        self.borderDrawinMode = CRVBorderDrawingModeAlways;
+        self.borderThickness = 1;
+        self.borderInset = 5;
+        
+        //Anchors customizing:
+        self.anchorsColor = [UIColor whiteColor];
+        self.anchorsDrawingMode = CRVAnchorsDrawingModeAlways;
+        self.anchorThickness = 2;
     }
-    
-    //Grid customizing:
-    self.gridColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5f];
-    self.gridDrawingMode = CRVGridDrawingModeOnResizing;
-    self.gridStyle = CRVGridStyleContinuous;
-    self.gridThickness = 1;
-    self.numberOfGridlines = 4;
-    
-    //Border customizing:
-    self.borderColor = [UIColor colorWithWhite:0.9f alpha:1];
-    self.borderStyle = CRVBorderStyleContinuous;
-    self.borderThickness = 1;
-    self.borderInset = 5;
-    
-    //Anchors customizing:
-    self.anchorsColor = [UIColor whiteColor];
-    self.anchorsDrawingMode = CRVAnchorsDrawingModeAlways;
-    self.anchorThickness = 2;
-    
     return self;
 }
 
@@ -55,9 +52,21 @@ static CGFloat const crv_dotted[2] = {1 ,3};
     
     if (!self.isResizing) CGContextClearRect(context, rect);
     
-    [self drawBorderInContext:context];
-    if ([self drawAnchors]) [self drawAppleStyleAnchorsInContext:context];
-    if ([self drawGrid]) [self drawGridInContext:context];
+    if ([self.delegate respondsToSelector:@selector(drawRect:withinContext:)]) {
+        [self.delegate drawRect:self.bounds withinContext:context];
+    }
+    
+    if ([self drawBorder]) {
+        [self drawBorderInContext:context];
+    }
+    
+    if ([self drawAnchors]) {
+        [self drawAppleStyleAnchorsInContext:context];
+    }
+    
+    if ([self drawGrid]) {
+        [self drawGridInContext:context];
+    }
     
     CGContextRestoreGState(context);
 }
@@ -188,6 +197,16 @@ static CGFloat const crv_dotted[2] = {1 ,3};
         case CRVGridDrawingModeOnResizing:
             return self.isResizing;
         case CRVGridDrawingModeNever:
+        default:
+            return NO;
+    }
+}
+
+- (BOOL)drawBorder {
+    switch (self.borderDrawinMode) {
+        case CRVBorderDrawingModeAlways:
+            return YES;
+        case CRVBorderDrawingModeNever:
         default:
             return NO;
     }
