@@ -18,7 +18,7 @@
 IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 
 /**
- * Creates the edit view controllew with an image asset.
+ * Creates the edit view controller with an image asset.
  *
  * @param asset The image asset to be cropped.
  *
@@ -32,14 +32,29 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 @property (strong, nonatomic) CRVImageAsset *imageAsset;
 
 /**
- * The maximal allowed zoom of the image (default: 3x).
+ * The minimum allowed zoom of the image. Default 0.1.
+ */
+@property (assign, nonatomic) IBInspectable CGFloat minimumZoom;
+
+/**
+ * The maximal allowed zoom of the image. Default 2.0.
  */
 @property (assign, nonatomic) IBInspectable CGFloat maximalZoom;
+
+/**
+ * The slider item that rotates the image.
+ */
+@property (strong, nonatomic, readonly) UISlider *rotationSlider;
 
 /**
  * The bar button item that sends a cancel mesage.
  */
 @property (strong, nonatomic, readonly) UIBarButtonItem *cancelBarButtonItem;
+
+/**
+ * The bar button item that opens an action sheet for choosing aspect ratio.
+ */
+@property (strong, nonatomic, readonly) UIBarButtonItem *ratioBarButtonItem;
 
 /**
  * The bar button item that sends a done message.
