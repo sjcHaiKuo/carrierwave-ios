@@ -6,12 +6,17 @@
 
 #import "CRVRootViewController.h"
 #import "CRVNetworkManager.h"
-#import <MBProgressHUD.h>
+#import <SVProgressHUD.h>
 #import "UIAlertView+Carrierwave.h"
+#import <WYPopoverController.h>
 
 static NSString * const CRVDemoSegueEdit = @"showEdit";
+static NSString * const CRVDemoDefaultTableCell = @"defaultCell";
+static CGFloat const CRVDemoDefaultTableCellHeight = 40.0;
+static CGFloat const CRVDemoDefaultPopoverWidth = 200.0;
+static NSInteger const CRVDemoAssetDeleteButtonOffset = 1000;
 
-@interface CRVRootViewController () <CRVImageEditViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface CRVRootViewController () <CRVImageEditViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic, readwrite) CRVImageAsset *imageAsset;
@@ -20,6 +25,7 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
 @property (weak, nonatomic) IBOutlet UIButton *pickButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickButtonCenterConstraint;
 @property (strong, nonatomic) NSMutableArray * uploadedAssetsArray;
+@property (strong, nonatomic) WYPopoverController *assetsPopoverController;
 
 @end
 
@@ -29,9 +35,20 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.uploadedAssetsArray = [NSMutableArray array];
+    self.uploadedAssetsArray = [[NSMutableArray alloc] init];
     self.imageView.image = self.imageAsset.image;
 }
+
+#pragma mark - Custom property accessors
+
+- (void)setImageAsset:(CRVImageAsset *)imageAsset {
+    if (![_imageAsset isEqual:imageAsset]) {
+        _imageAsset = imageAsset;
+        self.imageView.image = _imageAsset.image;
+    }
+}
+
+#pragma mark - Segues preparation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:CRVDemoSegueEdit]) {
@@ -41,14 +58,16 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
     }
 }
 
-#pragma mark - Button actions
+#pragma mark - Action handlers
 
 - (IBAction)chooseButtonTapped:(UIButton *)sender {
-    [self presentChooseViewControllerWithCompletion:nil];
+    [self presentImageChooserController];
 }
 
 - (IBAction)downloadButtonTapped:(UIButton *)sender {
-    [self downloadRecentUpload];
+    self.assetsPopoverController.popoverContentSize = [self sizeForAssetUploadPopover];
+    [self.assetsPopoverController presentPopoverFromRect:sender.frame inView:self.view
+                                permittedArrowDirections:WYPopoverArrowDirectionUp animated:YES];
 }
 
 - (IBAction)closeButtonTapped:(id)sender {
@@ -60,33 +79,12 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
 }
 
 - (IBAction)uploadButtonTapped:(id)sender {
-    if (!self.imageAsset) {
-        NSLog(@"No image selected");
-        [self presentChooseViewControllerWithCompletion:nil];
-        return;
-    }
-    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.imageView animated:YES];
-    hud.mode = MBProgressHUDModeAnnularDeterminate;
-    hud.labelText = NSLocalizedString(@"Uploading", nil);
-    CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
-    [networkManager uploadAsset:self.imageAsset progress:^(double progress) {
-        hud.progress = (float)progress;
-    } completion:^(CRVUploadInfo *info, NSError *error) {
-        if (error) {
-            [[UIAlertView crv_alertWithError:error] show];
-            [hud hide:YES];
-        } else {
-            [self.uploadedAssetsArray addObject:info];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = NSLocalizedString(@"Completed", nil);
-            [hud hide:YES afterDelay:1.5];
-        }
-    }];
+    [self uploadAsset:self.imageAsset];
 }
 
 #pragma mark - Choose view controller management
 
-- (void)presentChooseViewControllerWithCompletion:(void (^)())completion {
+- (void)presentImageChooserController {
     UIImagePickerControllerSourceType requestedType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     if ([UIImagePickerController isSourceTypeAvailable:requestedType]) {
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
@@ -94,7 +92,7 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
         controller.mediaTypes = [[NSArray alloc] initWithObjects:(__bridge_transfer NSString *)kUTTypeImage, nil];
         controller.allowsEditing = NO;
         controller.delegate = self;
-        [self presentViewController:controller animated:YES completion:completion];
+        [self presentViewController:controller animated:YES completion:nil];
     }
 }
 
@@ -114,29 +112,70 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Helper methods
+#pragma mark - Assets actions
 
-- (void)downloadRecentUpload {
-    if (!self.uploadedAssetsArray || !self.uploadedAssetsArray.count) {
-        NSLog(@"No recent uploads");
-        [self presentChooseViewControllerWithCompletion:nil];
+- (void)uploadAsset:(CRVImageAsset *)imageAsset {
+    if (!imageAsset) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"No image asset to upload", nil)];
         return;
     }
     
-    CRVUploadInfo *assetUploadInfo = [self.uploadedAssetsArray firstObject];
-    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeAnnularDeterminate;
-    hud.labelText = @"Downloading";
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Uploading", nil) maskType:SVProgressHUDMaskTypeBlack];
     CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
-    [networkManager downloadAssetWithIdentifier:assetUploadInfo.assetIdentifier progress:^(double progress) {
-        hud.progress = (float)progress;
+    [networkManager uploadAsset:imageAsset progress:^(double progress) {
+        [SVProgressHUD showProgress:(float)progress status:NSLocalizedString(@"Uploading", nil)];
+    } completion:^(CRVUploadInfo *info, NSError *error) {
+        if (error) {
+            [[UIAlertView crv_alertWithError:error] show];
+            [SVProgressHUD dismiss];
+        } else {
+            [self.uploadedAssetsArray addObject:info];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Completed", nil)];
+        }
+    }];
+}
+
+- (void)downloadAssetWithUploadInfo:(CRVUploadInfo *)uploadInfo {
+    if (!uploadInfo) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"No upload info", nil)];
+        return;
+    }
+    
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Downloading", nil) maskType:SVProgressHUDMaskTypeBlack];
+    CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
+    [networkManager downloadAssetWithIdentifier:uploadInfo.assetIdentifier progress:^(double progress) {
+        [SVProgressHUD showProgress:(float)progress status:NSLocalizedString(@"Downloading", nil)];
     } completion:^(CRVImageAsset *asset, NSError *error) {
-        [hud hide:YES];
+        [SVProgressHUD dismiss];
         if (error) {
             [[UIAlertView crv_alertWithError:error] show];
         } else {
             self.imageAsset = asset;
             [self showMenu];
+        }
+    }];
+}
+
+- (void)deleteAssetWithUploadInfo:(CRVUploadInfo *)uploadInfo {
+    if (!uploadInfo) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"No upload info", nil)];
+        return;
+    }
+    
+    NSInteger assetIndex = [self.uploadedAssetsArray indexOfObject:uploadInfo];
+    CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
+    [networkManager deleteAssetWithIdentifier:uploadInfo.assetIdentifier completion:^(BOOL success, NSError *error) {
+        [self.uploadedAssetsArray removeObject:uploadInfo];
+        CGSize popoverSize = [self sizeForAssetUploadPopover];
+        if (popoverSize.height == 0) {
+            self.assetsPopoverController.popoverContentSize = CGSizeZero;
+            [self.assetsPopoverController dismissPopoverAnimated:YES];
+            [self hideMenu];
+        } else {
+            self.assetsPopoverController.popoverContentSize = [self sizeForAssetUploadPopover];
+            UITableViewController *tableViewController = (UITableViewController *)self.assetsPopoverController.contentViewController;
+            [tableViewController.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:assetIndex inSection:0]]
+                                                 withRowAnimation:UITableViewRowAnimationFade];
         }
     }];
 }
@@ -151,16 +190,17 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
 - (void)hideMenu {
     self.imageView.hidden = YES;
     self.menuView.hidden = YES;
+    self.pickButton.hidden = NO;
     if (self.uploadedAssetsArray.count) {
         self.pickButtonCenterConstraint.constant = self.downloadButton.bounds.size.width/2.0;
         self.downloadButton.hidden = NO;
     } else {
         self.pickButtonCenterConstraint.constant = 0.0;
+        self.downloadButton.hidden = YES;
     }
-    self.pickButton.hidden = NO;
 }
 
-#pragma mark - Edit view controller management
+#pragma mark - Image Edit View Delegate
 
 - (void)imageEditViewControllerDidCancelEditing:(CRVImageEditViewController *)ctrl {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -171,13 +211,86 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Private property accessors
+#pragma mark - Assets Popover
 
-- (void)setImageAsset:(CRVImageAsset *)imageAsset {
-    if (![_imageAsset isEqual:imageAsset]) {
-        _imageAsset = imageAsset;
-        self.imageView.image = _imageAsset.image;
+- (WYPopoverController *)assetsPopoverController {
+    if (!_assetsPopoverController) {
+        UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+        tableViewController.tableView.dataSource = self;
+        tableViewController.tableView.delegate = self;
+        [tableViewController.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CRVDemoDefaultTableCell];
+        _assetsPopoverController = [[WYPopoverController alloc] initWithContentViewController:tableViewController];
+        _assetsPopoverController.popoverContentSize = CGSizeMake(100, 100);
     }
+    return _assetsPopoverController;
+}
+
+- (CGSize)sizeForAssetUploadPopover {
+    if (self.uploadedAssetsArray) {
+        return CGSizeMake(CRVDemoDefaultPopoverWidth, self.uploadedAssetsArray.count*CRVDemoDefaultTableCellHeight);
+    }
+    return CGSizeZero;
+}
+
+#pragma mark - UITableView Helper
+
+- (UIButton *)buttonForDeletionOfAssetAtIndex:(NSInteger)assetIndex {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"remove"] forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 0, 25, 25);
+    button.tag = CRVDemoAssetDeleteButtonOffset + assetIndex;
+    [button addTarget:self action:@selector(assetDeleteButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
+- (IBAction)assetDeleteButtonTapped:(UIButton *)sender {
+    NSInteger assetIndex = sender.tag - CRVDemoAssetDeleteButtonOffset;
+    [self animateDeletionForAssetAtIndex:assetIndex];
+    CRVUploadInfo *uploadInfo = self.uploadedAssetsArray[assetIndex];
+    [self deleteAssetWithUploadInfo:uploadInfo];
+}
+
+- (void)animateDeletionForAssetAtIndex:(NSInteger)assetIndex {
+    UITableViewController *tableViewController = (UITableViewController *)self.assetsPopoverController.contentViewController;
+    UITableViewCell *cell = [tableViewController.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:assetIndex inSection:0]];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:
+                                                  UIActivityIndicatorViewStyleGray];
+    [activityIndicator startAnimating];
+    activityIndicator.hidesWhenStopped = YES;
+    cell.accessoryView = activityIndicator;
+}
+
+
+#pragma mark - UITableView Data Source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.uploadedAssetsArray) {
+        return 1;
+    }
+    return 0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.uploadedAssetsArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return CRVDemoDefaultTableCellHeight;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CRVDemoDefaultTableCell];
+    CRVUploadInfo *assetUploadInfo = self.uploadedAssetsArray[indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"Asset: %@", assetUploadInfo.assetIdentifier];
+    cell.accessoryView = [self buttonForDeletionOfAssetAtIndex:indexPath.row];
+    return cell;
+}
+
+#pragma mark - UITableView Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self downloadAssetWithUploadInfo:self.uploadedAssetsArray[indexPath.row]];
+    [self.assetsPopoverController dismissPopoverAnimated:YES];
 }
 
 @end

@@ -19,7 +19,8 @@ pod 'Masonry', '~> 0.5'
 # Exclusive demo dependencies
 target 'Demo' do link_with 'Carrierwave Demo'
   pod 'AFNetworking', '~> 2.5'
-  pod 'MBProgressHUD', '~> 0.9'
+  pod 'SVProgressHUD', '~> 1.1'
+  pod 'WYPopoverController', '~> 0.3'
 end
 
 # Exclusive test dependencies
