@@ -73,7 +73,7 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
         hud.progress = (float)progress;
     } completion:^(CRVUploadInfo *info, NSError *error) {
         if (error) {
-            [[UIAlertView crv_showAlertWithError:error] show];
+            [[UIAlertView crv_alertWithError:error] show];
             [hud hide:YES];
         } else {
             [self.uploadedAssetsArray addObject:info];
@@ -133,7 +133,7 @@ static NSString * const CRVDemoSegueEdit = @"showEdit";
     } completion:^(CRVImageAsset *asset, NSError *error) {
         [hud hide:YES];
         if (error) {
-            [[UIAlertView crv_showAlertWithError:error] show];
+            [[UIAlertView crv_alertWithError:error] show];
         } else {
             self.imageAsset = asset;
             [self showMenu];

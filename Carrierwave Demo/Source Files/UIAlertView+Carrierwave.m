@@ -10,7 +10,7 @@
 
 @implementation UIAlertView (Carrierwave)
 
-+ (UIAlertView *)crv_showAlertWithError:(NSError *)error {
++ (UIAlertView *)crv_alertWithError:(NSError *)error {
     return[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
 }
 

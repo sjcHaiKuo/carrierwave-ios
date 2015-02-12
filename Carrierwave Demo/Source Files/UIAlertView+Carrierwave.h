@@ -10,6 +10,6 @@
 
 @interface UIAlertView (Carrierwave)
 
-+ (UIAlertView *)crv_showAlertWithError:(NSError *)error;
++ (UIAlertView *)crv_alertWithError:(NSError *)error;
 
 @end
