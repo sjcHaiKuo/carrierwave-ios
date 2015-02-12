@@ -148,17 +148,6 @@ Usage example:
 - (void)resumeProccessWithIdentifier:(NSString *)identifier;
 ```
 
----
-
-### Additional properties
-
-`CRVNetworkManager` include several additional properties that can help you with more advanced managment of upload / download process, for example `numberOfRetries`, `reconnectionTime`.
-
-One of them is `whitelistManager` property which contains list of file types supported by carrierwave backend. Before every upload `CRVNetworkManager` is checking that list to determine if selected file is supported. If not `CRVNetworkManager` will return appropriate `NSError` object. With usage of `whitelistManager`, developer can also check if his asset mime type is supported, by calling method:
-```
-- (BOOL)containsMimeType:(NSString *)mimeType;
-```
-
 ## UI Component
 
 As addition, **carrierwave-ios** delivers handy ui component for editing selected photo. `CRVImageEditViewController` allows you to freely scale and crop selected photos. Here is some preview how it look in demo app:
