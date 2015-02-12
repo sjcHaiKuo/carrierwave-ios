@@ -20,6 +20,8 @@
  *  @param task       The download task with which wrapper is initialized.
  *  @param progress   The progress block with which wrapper is initialized.
  *  @param completion The completion block with which wrapper is initialized.
+ *
+ *  @return  An identifier for download proccess. Unique accross an app.
  */
 - (NSString *)addDownloadTask:(NSURLSessionTask *)task progress:(CRVProgressBlock)progress completion:(CRVDownloadCompletionDataBlock)completion;
 
@@ -31,6 +33,8 @@
  *  @param task       The upload task with which wrapper is initialized.
  *  @param progress   The progress block with which wrapper is initialized.
  *  @param completion The completion block with which wrapper is initialized.
+ *
+ *  @return  An identifier for upload proccess. Unique accross an app.
  */
 - (NSString *)addUploadTask:(NSURLSessionTask *)task dataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionResponseBlock)completion;
 
