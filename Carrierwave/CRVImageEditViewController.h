@@ -7,9 +7,12 @@
 @import CoreGraphics;
 @import CoreImage;
 @import UIKit;
+#import "CRVImageEditToolbarView.h"
+#import "CRVImageEditToolbar.h"
 
 @class CRVImageAsset;
 @protocol CRVImageEditViewControllerDelegate;
+@class CRVScalableView;
 
 /**
  * The CRVImageCropViewController provides an easy user interface to move and
@@ -42,24 +45,14 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 @property (assign, nonatomic) IBInspectable CGFloat maximalZoom;
 
 /**
- * The slider item that rotates the image.
+  * The scalable crop view that crops portion of the screen.
  */
-@property (strong, nonatomic, readonly) UISlider *rotationSlider;
+@property (strong, nonatomic, readonly) CRVScalableView *cropView;
 
 /**
- * The bar button item that sends a cancel mesage.
+  * The optionally customizable settings toolbar on the bottom of the screen.
  */
-@property (strong, nonatomic, readonly) UIBarButtonItem *cancelBarButtonItem;
-
-/**
- * The bar button item that opens an action sheet for choosing aspect ratio.
- */
-@property (strong, nonatomic, readonly) UIBarButtonItem *ratioBarButtonItem;
-
-/**
- * The bar button item that sends a done message.
- */
-@property (strong, nonatomic, readonly) UIBarButtonItem *doneBarButtonItem;
+@property (strong, nonatomic) UIToolbar <CRVImageEditToolbar> *settingsToolbar;
 
 /**
  * The crop view controller's delegate object.

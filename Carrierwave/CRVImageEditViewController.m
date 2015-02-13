@@ -6,25 +6,24 @@
 
 #import <Masonry/Masonry.h>
 
-#import "CRVImageAsset.h"
-#import "CRVScalableView.h"
 #import "CRVImageEditViewController.h"
+#import "CRVImageAsset.h"
+#import "CRVImageEditToolbarView.h"
+#import "CRVScalableView.h"
 
-const CGFloat kDefaultMinimumZoom = 0.1;
-const CGFloat kDefaultMaximalZoom = 2.0;
+static const CGFloat kDefaultMinimumZoom = 0.1f;
+static const CGFloat kDefaultMaximalZoom = 2.0f;
 
 @interface CRVImageEditViewController() <CRVScalableViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIImageView *editedImageView;
 @property (strong, nonatomic) UIScrollView *scrollView;
-@property (strong, nonatomic) CRVScalableView *cropView;
+@property (strong, nonatomic, readwrite) CRVScalableView *cropView;
 
-@property (strong, nonatomic, readwrite) UISlider *rotationSlider;
-
-@property (strong, nonatomic) UIToolbar *bottomToolbar;
-@property (strong, nonatomic, readwrite) UIBarButtonItem *cancelBarButtonItem;
-@property (strong, nonatomic, readwrite) UIBarButtonItem *ratioBarButtonItem;
-@property (strong, nonatomic, readwrite) UIBarButtonItem *doneBarButtonItem;
+@property (strong, nonatomic) UISlider *rotationSlider;
+@property (strong, nonatomic) UIBarButtonItem *cancelBarButtonItem;
+@property (strong, nonatomic) UIBarButtonItem *ratioBarButtonItem;
+@property (strong, nonatomic) UIBarButtonItem *doneBarButtonItem;
 
 @property (strong , nonatomic) UIImage *finalImage;
 
@@ -55,44 +54,29 @@ const CGFloat kDefaultMaximalZoom = 2.0;
 
 #pragma mark - View lifecycle
 
-- (void)awakeFromNib {
-    self.rotationSlider = [[UISlider alloc] init];
-    self.rotationSlider.minimumValue = -90.0f;
-    self.rotationSlider.maximumValue = 90.0f;
-    self.rotationSlider.value = 0;
-    self.rotationSlider.continuous = YES;
-    [self.rotationSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    
-    self.cancelBarButtonItem = [[UIBarButtonItem alloc] init];
-    self.cancelBarButtonItem.title = @"Cancel";
-    self.cancelBarButtonItem.style = UIBarButtonItemStylePlain;
-    self.cancelBarButtonItem.tintColor = [[self class] defaultCancelBarButtonItemTintColor];
-    self.cancelBarButtonItem.target = self;
-    self.cancelBarButtonItem.action = @selector(cancelButtonTapped:);
-    
-    self.ratioBarButtonItem = [[UIBarButtonItem alloc] init];
-    self.ratioBarButtonItem.title = @"Select crop ratio";
-    self.ratioBarButtonItem.style = UIBarButtonItemStylePlain;
-    self.ratioBarButtonItem.tintColor = [[self class] defaultRatioBarButtonItemTintColor];
-    self.ratioBarButtonItem.target = self;
-    self.ratioBarButtonItem.action = @selector(ratioButtonTapped:);
-    
-    self.doneBarButtonItem = [[UIBarButtonItem alloc] init];
-    self.doneBarButtonItem.title = @"Done";
-    self.doneBarButtonItem.style = UIBarButtonItemStyleDone;
-    self.doneBarButtonItem.tintColor = [[self class] defaultDoneBarButtonItemTintColor];
-    self.doneBarButtonItem.target = self;
-    self.doneBarButtonItem.action = @selector(doneButtonTapped:);
-}
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
-- (void)loadView {
-    [super loadView];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.cropView.frame = CGRectMake(self.view.frame.size.width / 2 - self.cropView.frame.size.width / 2,
+                                     self.view.frame.size.height / 2 - self.cropView.frame.size.height / 2,
+                                     200,
+                                     200);
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
     self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
     
+    [self loadViews];
+    [self updateViewsBasedOnImageAsset];
+    [self updateViewConstraints];
+}
+
+- (void)loadViews {
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     self.scrollView.contentSize = CGSizeMake(self.editedImageView.frame.size.width, self.editedImageView.frame.size.height);
     self.scrollView.delegate = self;
@@ -104,6 +88,8 @@ const CGFloat kDefaultMaximalZoom = 2.0;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.scrollView setZoomScale:0.4f];
+    self.minimumZoom = kDefaultMinimumZoom;
+    self.maximalZoom = kDefaultMaximalZoom;
     [self.view addSubview:self.scrollView];
     
     self.editedImageView = [[UIImageView alloc] initWithImage:self.imageAsset.image];
@@ -118,27 +104,40 @@ const CGFloat kDefaultMaximalZoom = 2.0;
     self.cropView.delegate = self;
     [self.view addSubview:self.cropView];
     
+    if (self.settingsToolbar == nil) {
+        self.settingsToolbar = [[CRVImageEditToolbarView alloc] init];
+    }
+    
+    self.settingsToolbar.translucent = NO;
+    self.settingsToolbar.barTintColor = [self.settingsToolbar toolbarBackgroundColor];
+    
+    [self.view addSubview:self.settingsToolbar];
+    
+    self.rotationSlider = [self.settingsToolbar rotationSlider];
+    self.cancelBarButtonItem = [self.settingsToolbar cancelBarButtonItem];
+    self.ratioBarButtonItem = [self.settingsToolbar ratioBarButtonItem];
+    self.doneBarButtonItem = [self.settingsToolbar doneBarButtonItem];
+    
+    UIBarButtonSystemItem spaceType = UIBarButtonSystemItemFlexibleSpace;
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:spaceType target:nil action:nil];
+    
+    self.settingsToolbar.items = @[self.cancelBarButtonItem,
+                                   spaceItem,
+                                   self.ratioBarButtonItem,
+                                   spaceItem,
+                                   self.doneBarButtonItem];
+    
+    [self.rotationSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.rotationSlider];
     
-    self.bottomToolbar = [[UIToolbar alloc] init];
-    self.bottomToolbar.translucent = NO;
-    self.bottomToolbar.barTintColor = self.view.backgroundColor;
-    [self.view addSubview:self.bottomToolbar];
+    self.cancelBarButtonItem.target = self;
+    self.cancelBarButtonItem.action = @selector(cancelButtonTapped:);
     
-    self.minimumZoom = kDefaultMinimumZoom;
-    self.maximalZoom = kDefaultMaximalZoom;
+    self.ratioBarButtonItem.target = self;
+    self.ratioBarButtonItem.action = @selector(ratioButtonTapped:);
     
-    [self updateViewsBasedOnImageAsset];
-    
-    [self updateViewConstraints];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    self.cropView.frame = CGRectMake(self.view.frame.size.width / 2 - self.cropView.frame.size.width / 2,
-                                     self.view.frame.size.height / 2 - self.cropView.frame.size.height / 2,
-                                     200,
-                                     200);
+    self.doneBarButtonItem.target = self;
+    self.doneBarButtonItem.action = @selector(doneButtonTapped:);
 }
 
 - (void)updateViewsBasedOnImageAsset {
@@ -149,22 +148,9 @@ const CGFloat kDefaultMaximalZoom = 2.0;
     self.doneBarButtonItem.enabled = doesImageAssetExist;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    UIBarButtonSystemItem spaceType = UIBarButtonSystemItemFlexibleSpace;
-    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:spaceType target:nil action:nil];
-    
-    self.bottomToolbar.items = @[self.cancelBarButtonItem,
-                                 spaceItem,
-                                 self.ratioBarButtonItem,
-                                 spaceItem,
-                                 self.doneBarButtonItem];
-}
-
 - (void)updateViewConstraints {
     
-    [self.bottomToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.settingsToolbar mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.and.bottom.and.right.equalTo(self.view);
     }];
     
@@ -178,7 +164,7 @@ const CGFloat kDefaultMaximalZoom = 2.0;
     
     [self.scrollView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.and.top.and.right.equalTo(self.view);
-        make.bottom.equalTo(self.bottomToolbar).with.offset(-40);
+        make.bottom.equalTo(self.settingsToolbar);
     }];
     
     [self.editedImageView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -191,7 +177,7 @@ const CGFloat kDefaultMaximalZoom = 2.0;
 #pragma mark - Slider value changes
 
 - (void)sliderValueChanged:(UISlider *)sender {
-    CGFloat rads = M_PI * sender.value / 180;
+    CGFloat rads = (CGFloat)M_PI * sender.value / 180.f;
     self.scrollView.transform = CGAffineTransformMakeRotation(rads);
 }
 
@@ -253,6 +239,7 @@ const CGFloat kDefaultMaximalZoom = 2.0;
     
     self.cropView.hidden = YES;
     self.rotationSlider.hidden = YES;
+    self.settingsToolbar.hidden = YES;
     
     UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, 0);
     [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:YES];
@@ -268,9 +255,7 @@ const CGFloat kDefaultMaximalZoom = 2.0;
     
     CGImageRef imageRef = CGImageCreateWithImageInRect([sourceImage CGImage], finalFrame);
     
-    UIImage *finalImage = [UIImage imageWithCGImage:imageRef
-                                              scale:sourceImage.scale
-                                        orientation:sourceImage.imageOrientation];
+    UIImage *finalImage = [UIImage imageWithCGImage:imageRef scale:sourceImage.scale orientation:sourceImage.imageOrientation];
     CGImageRelease(imageRef);
     
     return finalImage;
@@ -280,87 +265,32 @@ const CGFloat kDefaultMaximalZoom = 2.0;
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Select crop frame ratio:" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"None (free form)"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-        self.cropView.ratioEnabled = NO;
-    }]];
+    [alertController addAction:[self actionWithTitle:@"None (free form)" animateSize:CGSizeMake(200.f, 200.f) ratioEnabled:NO]];
+    [alertController addAction:[self actionWithTitle:@"1:1" animateSize:CGSizeMake(200.f, 200.f) ratioEnabled:YES]];
+    [alertController addAction:[self actionWithTitle:@"1:2" animateSize:CGSizeMake(120.f, 240.f) ratioEnabled:YES]];
+    [alertController addAction:[self actionWithTitle:@"2:1" animateSize:CGSizeMake(240.f, 120.f) ratioEnabled:YES]];
+    [alertController addAction:[self actionWithTitle:@"3:4" animateSize:CGSizeMake(150.f, 200.f) ratioEnabled:YES]];
+    [alertController addAction:[self actionWithTitle:@"4:3" animateSize:CGSizeMake(200.f, 150.f) ratioEnabled:YES]];
+    [alertController addAction:[self actionWithTitle:@"9:16" animateSize:CGSizeMake(90.f, 160.f) ratioEnabled:YES]];
+    [alertController addAction:[self actionWithTitle:@"16:9" animateSize:CGSizeMake(160.f, 90.f) ratioEnabled:YES]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"1:1"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-        [self.cropView animateToSize:CGSizeMake(200, 200) completion:^(BOOL finished) {
-            self.cropView.ratioEnabled = YES;
-        }];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
     }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"1:2"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-        [self.cropView animateToSize:CGSizeMake(120, 240) completion:^(BOOL finished) {
-            self.cropView.ratioEnabled = YES;
-        }];
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"2:1"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-        [self.cropView animateToSize:CGSizeMake(240, 120) completion:^(BOOL finished) {
-            self.cropView.ratioEnabled = YES;
-        }];
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"3:4"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-        [self.cropView animateToSize:CGSizeMake(150, 200) completion:^(BOOL finished) {
-            self.cropView.ratioEnabled = YES;
-        }];
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"4:3"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-        [self.cropView animateToSize:CGSizeMake(200, 150) completion:^(BOOL finished) {
-            self.cropView.ratioEnabled = YES;
-        }];
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"9:16"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-        [self.cropView animateToSize:CGSizeMake(90, 160) completion:^(BOOL finished) {
-            self.cropView.ratioEnabled = YES;
-        }];
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"16:9"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-        [self.cropView animateToSize:CGSizeMake(160, 90) completion:^(BOOL finished) {
-            self.cropView.ratioEnabled = YES;
-        }];
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:^(UIAlertAction *action) {}]];
     
     return alertController;
 }
 
-#pragma mark - Default bar button item colors
-
-+ (UIColor *)defaultCancelBarButtonItemTintColor {
-    return [[UIColor redColor] colorWithAlphaComponent:0.8f];
-}
-
-+ (UIColor *)defaultRatioBarButtonItemTintColor {
-    return [[UIColor blueColor] colorWithAlphaComponent:0.8f];
-}
-
-+ (UIColor *)defaultDoneBarButtonItemTintColor {
-    return [[UIColor yellowColor] colorWithAlphaComponent:0.8f];
+- (UIAlertAction *)actionWithTitle:(NSString *)title animateSize:(CGSize)size ratioEnabled:(BOOL)enabled {
+    
+    return [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if (enabled) {
+            [self.cropView animateToSize:size completion:^(BOOL finished) {
+                self.cropView.ratioEnabled = YES;
+            }];
+        } else {
+            self.cropView.ratioEnabled = NO;
+        }
+    }];
 }
 
 @end
