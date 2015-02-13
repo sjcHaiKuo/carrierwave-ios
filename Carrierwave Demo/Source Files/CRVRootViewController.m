@@ -191,8 +191,9 @@ static NSInteger const CRVDemoAssetDeleteButtonOffset = 1000;
     self.imageView.hidden = YES;
     self.menuView.hidden = YES;
     self.pickButton.hidden = NO;
+    
     if (self.uploadedAssetsArray.count) {
-        self.pickButtonCenterConstraint.constant = self.downloadButton.bounds.size.width/2.0;
+        self.pickButtonCenterConstraint.constant = self.downloadButton.bounds.size.width / (CGFloat) 2.0;
         self.downloadButton.hidden = NO;
     } else {
         self.pickButtonCenterConstraint.constant = 0.0;
