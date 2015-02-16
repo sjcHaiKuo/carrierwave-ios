@@ -16,7 +16,7 @@ static CGFloat const CRVDemoDefaultTableCellHeight = 40.0;
 static CGFloat const CRVDemoDefaultPopoverWidth = 200.0;
 static NSInteger const CRVDemoAssetDeleteButtonOffset = 1000;
 
-@interface CRVRootViewController () <CRVImageEditViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface CRVRootViewController () <CRVImageEditViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic, readwrite) CRVImageAsset *imageAsset;
@@ -86,14 +86,16 @@ static NSInteger const CRVDemoAssetDeleteButtonOffset = 1000;
 
 - (void)presentImageChooserController {
     UIImagePickerControllerSourceType requestedType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    if ([UIImagePickerController isSourceTypeAvailable:requestedType]) {
-        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        controller.sourceType = requestedType;
-        controller.mediaTypes = [[NSArray alloc] initWithObjects:(__bridge_transfer NSString *)kUTTypeImage, nil];
-        controller.allowsEditing = NO;
-        controller.delegate = self;
-        [self presentViewController:controller animated:YES completion:nil];
+    if (![UIImagePickerController isSourceTypeAvailable:requestedType]) {
+        return;
     }
+    
+    UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+    controller.sourceType = requestedType;
+    controller.mediaTypes = @[(__bridge_transfer NSString *)kUTTypeImage];
+    controller.allowsEditing = NO;
+    controller.delegate = self;
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -265,10 +267,7 @@ static NSInteger const CRVDemoAssetDeleteButtonOffset = 1000;
 #pragma mark - UITableView Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.uploadedAssetsArray) {
-        return 1;
-    }
-    return 0;
+    return self.uploadedAssetsArray ? 1 : 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

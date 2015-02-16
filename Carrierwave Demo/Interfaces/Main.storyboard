@@ -37,7 +37,7 @@
                                 <rect key="frame" x="20" y="8" width="560" height="527"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.25" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsm-oR-mtY" userLabel="Menu View">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsm-oR-mtY" userLabel="Menu View">
                                 <rect key="frame" x="0.0" y="550" width="600" height="45"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="027-mB-2bL" userLabel="Close View">
