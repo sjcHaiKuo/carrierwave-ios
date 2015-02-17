@@ -123,8 +123,7 @@ static NSInteger const CRVDemoAssetDeleteButtonOffset = 1000;
     }
     
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Uploading", nil) maskType:SVProgressHUDMaskTypeBlack];
-    CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
-    [networkManager uploadAsset:imageAsset progress:^(double progress) {
+    [[CRVNetworkManager sharedManager] uploadAsset:imageAsset progress:^(double progress) {
         [SVProgressHUD showProgress:(float)progress status:NSLocalizedString(@"Uploading", nil)];
     } completion:^(CRVUploadInfo *info, NSError *error) {
         if (error) {
@@ -144,8 +143,7 @@ static NSInteger const CRVDemoAssetDeleteButtonOffset = 1000;
     }
     
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Downloading", nil) maskType:SVProgressHUDMaskTypeBlack];
-    CRVNetworkManager *networkManager = [CRVNetworkManager sharedManager];
-    [networkManager downloadAssetWithIdentifier:uploadInfo.assetIdentifier progress:^(double progress) {
+    [[CRVNetworkManager sharedManager] downloadAssetWithIdentifier:uploadInfo.assetIdentifier progress:^(double progress) {
         [SVProgressHUD showProgress:(float)progress status:NSLocalizedString(@"Downloading", nil)];
     } completion:^(CRVImageAsset *asset, NSError *error) {
         [SVProgressHUD dismiss];
