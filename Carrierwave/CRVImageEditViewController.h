@@ -7,12 +7,12 @@
 @import CoreGraphics;
 @import CoreImage;
 @import UIKit;
-#import "CRVImageEditToolbarView.h"
-#import "CRVImageEditToolbar.h"
+#import "CRVScalableView.h"
+#import "CRVImageEditSettingsActions.h"
+#import "CRVImageEditSettingsView.h"
 
 @class CRVImageAsset;
 @protocol CRVImageEditViewControllerDelegate;
-@class CRVScalableView;
 
 /**
  * The CRVImageCropViewController provides an easy user interface to move and
@@ -50,9 +50,9 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 @property (strong, nonatomic, readonly) CRVScalableView *cropView;
 
 /**
-  * The optionally customizable settings toolbar on the bottom of the screen.
+  * The optionally customizable settings view.
  */
-@property (strong, nonatomic) UIToolbar <CRVImageEditToolbar> *settingsToolbar;
+@property (strong, nonatomic) UIView <CRVImageEditSettingsActions> *settingsView;
 
 /**
  * The crop view controller's delegate object.

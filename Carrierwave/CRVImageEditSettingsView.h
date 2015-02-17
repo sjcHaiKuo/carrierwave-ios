@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CRVImageEditToolbar.h"
+#import "CRVImageEditSettingsActions.h"
 
-@interface CRVImageEditToolbarView : UIToolbar <CRVImageEditToolbar>
+@interface CRVImageEditSettingsView : UIView <CRVImageEditSettingsActions>
 
 @end
