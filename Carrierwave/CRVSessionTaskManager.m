@@ -34,7 +34,7 @@
     CRVSessionDownloadTaskWrapper *wrapper = [[CRVSessionDownloadTaskWrapper alloc] initWithTask:task identifier:[self uuid] progress:progress completion:completion];
     [self.downloadTaskWrappers addObject:wrapper];
     
-    return wrapper.identifier;
+    return [wrapper.identifier copy];
 }
 
 - (NSString *)addUploadTask:(NSURLSessionTask *)task dataStream:(NSInputStream *)dataStream length:(NSNumber *)length name:(NSString *)name mimeType:(NSString *)mimeType progress:(CRVProgressBlock)progress completion:(CRVUploadCompletionResponseBlock)completion {
@@ -46,7 +46,7 @@
     wrapper.name = name;
     [self.uploadTaskWrappers addObject:wrapper];
     
-    return wrapper.identifier;
+    return [wrapper.identifier copy];
 }
 
 - (NSSet *)taskWrappers {
@@ -93,7 +93,6 @@
     for (CRVSessionDownloadTaskWrapper *wrapper in self.downloadTaskWrappers) {
         [wrapper.task cancel];
     }
-    
     for (CRVSessionUploadTaskWrapper *wrapper in self.uploadTaskWrappers) {
         [wrapper.task cancel];
     }

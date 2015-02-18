@@ -47,6 +47,6 @@
 /**
  *  An identifier for this wrapper, assigned by CRVSessionTaskManager and unique accross an app.
  */
-@property (assign, nonatomic, readonly) NSString *identifier;
+@property (strong, nonatomic, readonly) NSString *identifier;
 
 @end
