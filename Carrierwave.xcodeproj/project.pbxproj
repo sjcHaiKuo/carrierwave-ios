@@ -26,8 +26,6 @@
 		3A3FE8691A517CE60052C58E /* CRVImageEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8671A517CE60052C58E /* CRVImageEditViewController.m */; };
 		3A6F28681A5039BB0049DC9F /* Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A6F28671A5039BB0049DC9F /* Carrierwave.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A6F286B1A5039C30049DC9F /* CRVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6F286A1A5039C30049DC9F /* CRVAppDelegate.m */; };
-		3ADC0E711A5ADB10009F4D4B /* CRVImageEditGlassView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ADC0E6F1A5ADB10009F4D4B /* CRVImageEditGlassView.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		3ADC0E721A5ADB10009F4D4B /* CRVImageEditGlassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADC0E701A5ADB10009F4D4B /* CRVImageEditGlassView.m */; };
 		3ADC0E751A5AE7AA009F4D4B /* CRVImageEditScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ADC0E731A5AE7AA009F4D4B /* CRVImageEditScrollView.h */; };
 		3ADC0E761A5AE7AA009F4D4B /* CRVImageEditScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADC0E741A5AE7AA009F4D4B /* CRVImageEditScrollView.m */; };
 		3AE3341E1A4ED2B10030F632 /* Carrierwave.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */; };
@@ -178,8 +176,6 @@
 		3A6F28691A5039C30049DC9F /* CRVAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVAppDelegate.h; sourceTree = "<group>"; };
 		3A6F286A1A5039C30049DC9F /* CRVAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVAppDelegate.m; sourceTree = "<group>"; };
 		3AC7D2411A4DE8CE00DCBA4A /* Carrierwave-Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Carrierwave-Macros.h"; sourceTree = "<group>"; };
-		3ADC0E6F1A5ADB10009F4D4B /* CRVImageEditGlassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVImageEditGlassView.h; sourceTree = "<group>"; };
-		3ADC0E701A5ADB10009F4D4B /* CRVImageEditGlassView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVImageEditGlassView.m; sourceTree = "<group>"; };
 		3ADC0E731A5AE7AA009F4D4B /* CRVImageEditScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVImageEditScrollView.h; sourceTree = "<group>"; };
 		3ADC0E741A5AE7AA009F4D4B /* CRVImageEditScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVImageEditScrollView.m; sourceTree = "<group>"; };
 		3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Carrierwave.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -362,8 +358,6 @@
 				E3AB00471A8CFCAD000052D9 /* Custom Views */,
 				3A3FE8661A517CE60052C58E /* CRVImageEditViewController.h */,
 				3A3FE8671A517CE60052C58E /* CRVImageEditViewController.m */,
-				3ADC0E6F1A5ADB10009F4D4B /* CRVImageEditGlassView.h */,
-				3ADC0E701A5ADB10009F4D4B /* CRVImageEditGlassView.m */,
 				3ADC0E731A5AE7AA009F4D4B /* CRVImageEditScrollView.h */,
 				3ADC0E741A5AE7AA009F4D4B /* CRVImageEditScrollView.m */,
 			);
@@ -715,7 +709,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ADC0E711A5ADB10009F4D4B /* CRVImageEditGlassView.h in Headers */,
 				5E5006A71A6E867B00444E5D /* NSURLSessionTask+Carrierwave.h in Headers */,
 				5E5006A31A6E866600444E5D /* NSDictionary+Carrierwave.h in Headers */,
 				3A6F28681A5039BB0049DC9F /* Carrierwave.h in Headers */,
@@ -1082,7 +1075,6 @@
 				5E4C992C1A642E5F009AA040 /* CRVSessionTaskWrapper.m in Sources */,
 				5E5006A81A6E867B00444E5D /* NSURLSessionTask+Carrierwave.m in Sources */,
 				5E56EBF91A5D68D2002E2484 /* CRVSessionManager.m in Sources */,
-				3ADC0E721A5ADB10009F4D4B /* CRVImageEditGlassView.m in Sources */,
 				5E11A6B21A766D78001924ED /* CRVScalableBorder.m in Sources */,
 				5E4C99341A651228009AA040 /* CRVSessionUploadTaskWrapper.m in Sources */,
 				21A75BEC1A6E513A003A7E0A /* CRVVideoDataStreamProvider.m in Sources */,

@@ -5,11 +5,9 @@
 //
 
 #import <Masonry/Masonry.h>
-
-#import "CRVImageEditGlassView.h"
 #import "CRVImageEditScrollView.h"
 
-@interface CRVImageEditScrollView () <UIScrollViewDelegate, CRVImageEditGlassViewDelegate, UIGestureRecognizerDelegate>
+@interface CRVImageEditScrollView () <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic, readwrite) CRVImageEditGlassView *glassView;
 
@@ -59,12 +57,6 @@
     self.imageView.backgroundColor = [UIColor clearColor];
     [self.wrapperView addSubview:self.imageView];
 
-    self.glassView = [[CRVImageEditGlassView alloc] init];
-    self.glassView.delegate = self;
-    self.glassView.userInteractionEnabled = NO;
-    self.glassView.backgroundColor = [UIColor clearColor];
-    [self addSubview:self.glassView];
-
     self.rotationRecognizer = [[UIRotationGestureRecognizer alloc] init];
     self.rotationRecognizer.delegate = self;
     [self.rotationRecognizer addTarget:self action:@selector(handleRotationRecognizer:)];
@@ -105,36 +97,20 @@
         make.edges.equalTo(self.wrapperView);
     }];
 
-    [self.glassView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
-    }];
-
     [super updateConstraints];
 
 }
 
 - (void)layoutSubviews { CRVWorkInProgress("Layout mechanism has to be improved");
     [super layoutSubviews];
-    [self updateScrollViewContentInset];
     [self updateScrollViewZoomScales];
     [self resetScrollViewZoomScale];
-}
-
-#pragma mark - Glass view management
-
-- (void)imageEditGlassViewDidChangeGlassRect:(CRVImageEditGlassView *)glassView {
-    [self setNeedsLayout];
 }
 
 #pragma mark - Scroll view management
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return self.wrapperView;
-}
-
-- (void)updateScrollViewContentInset {
-    CGRect glassRect = [self.glassView convertGlassRectToCoordinateSpace:self];
-    self.scrollView.contentInset = [self contentInsetForScrollView:self.scrollView constrainedInRect:glassRect];
 }
 
 - (void)updateScrollViewZoomScales {
@@ -210,19 +186,7 @@
     return self.scaleTransform;
 }
 
-- (CGRect)imageExtent {
-    CGRect extentRect = [self.glassView convertGlassRectToCoordinateSpace:self.wrapperView];
-    return [self invertRect:extentRect inCoordinateSpace:self.wrapperView];
-}
-
 #pragma mark - Private property accessors
-
-- (CGFloat)scaleMultiplier {
-    CGSize targetSize = [self.glassView convertGlassRectToCoordinateSpace:self].size;
-    CGFloat widthRatio = targetSize.width / self.image.size.width;
-    CGFloat heightRatio = targetSize.height / self.image.size.height;
-    return MAX(widthRatio, heightRatio);
-}
 
 - (CGAffineTransform)scaleTransform {
     return CGAffineTransformMakeScale(self.currentScale, self.currentScale);
