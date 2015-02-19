@@ -12,7 +12,13 @@
 #import "CRVAssetModel.h"
 #import "UIAlertView+Carrierwave.h"
 
-@interface CRVCollectionViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, CRVImageEditViewControllerDelegate, CRVManagerDelegate>
+@class CRVCollectionViewFlowLayout;
+
+NSString *const CRVPhotoAlbumTitle = @"Photo Album";
+NSString *const CRVCameraTitle = @"Camera";
+
+
+@interface CRVCollectionViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, CRVImageEditViewControllerDelegate, CRVManagerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSMutableArray *contentArray;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
@@ -73,20 +79,8 @@
 
 #pragma mark UICollectionViewDelegateFlowLayout Methods
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(CRVCollectionViewFlowLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(CGRectGetWidth(self.collectionView.frame) - 20.f, 200.f);
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(10, 10, 10, 10);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 10.0;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 10.f;
 }
 
 #pragma mark - CRVManagerDelegate methods
@@ -165,19 +159,29 @@
     [self reloadCellForModel:model];
 }
 
-- (IBAction)addBarButtonDidClick:(UIBarButtonItem *)sender {
+- (IBAction)cameraBarButtonDidClick:(UIBarButtonItem *)sender {
     
-    UIImagePickerControllerSourceType requestedType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    if (![UIImagePickerController isSourceTypeAvailable:requestedType]) {
-        return;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(CRVPhotoAlbumTitle, nil), nil];
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [actionSheet addButtonWithTitle:NSLocalizedString(CRVCameraTitle, nil)];
     }
     
-    UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-    controller.sourceType = requestedType;
-    controller.mediaTypes = @[(__bridge_transfer NSString *)kUTTypeImage];
-    controller.allowsEditing = NO;
-    controller.delegate = self;
-    [self presentViewController:controller animated:YES completion:nil];
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
+    [actionSheet showFromToolbar:self.navigationController.toolbar];
+}
+
+#pragma mark - UIActionSheetDelegate methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:NSLocalizedString(CRVCameraTitle, nil)]) {
+        [self presentImagePickerViewControllerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(CRVPhotoAlbumTitle, nil)]) {
+        [self presentImagePickerViewControllerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate methods
@@ -215,6 +219,18 @@
     controller.delegate = self;
     controller.imageAsset = model.asset;
     
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)presentImagePickerViewControllerWithSourceType:(UIImagePickerControllerSourceType)sourceType {
+    
+    if (![UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        return;
+    }
+    
+    UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+    controller.sourceType = sourceType;
+    controller.delegate = self;
     [self presentViewController:controller animated:YES completion:nil];
 }
 

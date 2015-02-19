@@ -12,7 +12,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aZg-c7-5ZH">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aZg-c7-5ZH" customClass="CRVCollectionViewFlowLayout">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -35,9 +35,9 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="K2h-cE-jRN">
-                        <barButtonItem key="rightBarButtonItem" title="Add " id="0rY-5e-q0L">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="0rY-5e-q0L">
                             <connections>
-                                <action selector="addBarButtonDidClick:" destination="fEM-8O-q5M" id="pUf-jO-zWK"/>
+                                <action selector="cameraBarButtonDidClick:" destination="fEM-8O-q5M" id="q3e-LL-c8h"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
