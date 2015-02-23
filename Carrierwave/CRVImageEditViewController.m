@@ -41,6 +41,11 @@ static const CGFloat CRVDefaultMaximalZoom = 2.0f;
 }
 
 - (void)dealloc {
+    UIViewController *controller = [self.childViewControllers lastObject];
+    [controller willMoveToParentViewController:nil];
+    [controller.view removeFromSuperview];
+    [controller removeFromParentViewController];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
