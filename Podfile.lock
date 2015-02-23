@@ -21,24 +21,18 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Expecta (0.3.1)
-  - Masonry (0.6.1)
   - OCMock (3.1.2)
   - OHHTTPStubs (3.1.10):
     - OHHTTPStubs/Core (= 3.1.10)
   - OHHTTPStubs/Core (3.1.10)
   - Specta (0.3.0.beta1)
-  - SVProgressHUD (1.1.2)
-  - WYPopoverController (0.3.7)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - Expecta
-  - Masonry (~> 0.5)
   - OCMock
   - OHHTTPStubs
   - Specta (from `https://github.com/specta/specta.git`, tag `v0.3.0.beta1`)
-  - SVProgressHUD (~> 1.1)
-  - WYPopoverController (~> 0.3)
 
 EXTERNAL SOURCES:
   Specta:
@@ -53,11 +47,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
-  Masonry: 2cb49fd14d203d2db5ca6bb017135b235dde9980
   OCMock: ecdd510b73ef397f2f97274785c1e87fd147c49f
   OHHTTPStubs: 2038e929b6abb94881000524c1cb4aba0a1bb4a2
   Specta: 63e8ac8e07db6675c7096d37f77a266a1be4c02d
-  SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
-  WYPopoverController: 211e8e4d5178175cc8089cf754dd8631f819d0d1
 
 COCOAPODS: 0.36.0.beta.2

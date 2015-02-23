@@ -7,15 +7,12 @@
 //
 
 #import "CRVImageEditSettingsView.h"
-#import <Masonry/Masonry.h>
 
 static const CGFloat kViewHeight = 100.f;
 static const CGFloat kButtonWidth = 90.f;
 static const CGFloat kButtonHeight = 44.f;
 
 @interface CRVImageEditSettingsView ()
-
-@property (strong, nonatomic) UISlider *rotationSlider;
 
 @property (strong, nonatomic) UIButton *cancelButton;
 @property (strong, nonatomic) UIButton *ratioButton;
@@ -37,16 +34,6 @@ static const CGFloat kButtonHeight = 44.f;
         self.frame = CGRectMake(0, screenHeight - kViewHeight, width, kViewHeight);
         
         self.backgroundColor = [UIColor whiteColor];
-        
-        self.rotationSlider = [[UISlider alloc] initWithFrame:CGRectMake(20,
-                                                                         10,
-                                                                         screenWidth - 40,
-                                                                         30)];
-        self.rotationSlider.minimumValue = -90.f;
-        self.rotationSlider.maximumValue = 90.f;
-        self.rotationSlider.value = 0;
-        [self.rotationSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-        [self addSubview:self.rotationSlider];
         
         self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(15,
                                                                        kViewHeight - kButtonHeight - 10,
@@ -88,12 +75,6 @@ static const CGFloat kButtonHeight = 44.f;
     return self;
 }
 
-#pragma mark - Slider action
-
-- (void)sliderValueChanged:(UISlider *)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NSStringFromSelector([self sliderValueChangedAction]) object:[NSNumber numberWithFloat:sender.value]];
-}
-
 #pragma mark - Button actions
 
 - (void)onCancelButtonTapped {
@@ -116,10 +97,6 @@ static const CGFloat kButtonHeight = 44.f;
 
 - (UIView *)ratioTriggerView {
     return self.ratioButton;
-}
-
-- (SEL)sliderValueChangedAction {
-    return @selector(sliderValueChanged:);
 }
 
 - (SEL)cancelAction {

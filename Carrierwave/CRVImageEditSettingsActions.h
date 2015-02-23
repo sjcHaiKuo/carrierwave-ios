@@ -27,18 +27,13 @@
  */
 - (SEL)doneAction;
 
-@optional
-
-@property (strong, nonatomic) UIView *ratioTriggerView;
-
 /**
  *  Action for showing UIAlertController that selects the cropping frame's aspect ratio. Default implementation as UIButton UIControlEventTouchUpInside event.
  */
 - (SEL)ratioAction;
 
-/**
- *  Action that tells that slider value has changed and the edited image needs to rotate. Default implementation as UISlider UIControlEventValueChanged event.
- */
-- (SEL)sliderValueChangedAction;
+@optional
+
+@property (strong, nonatomic) UIView *ratioTriggerView;
 
 @end

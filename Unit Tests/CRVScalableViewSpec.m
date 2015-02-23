@@ -33,6 +33,28 @@ describe(@"CRVScalableViewSpec", ^{
         expect(scalableView.springVelocity).to.equal(13.f);
     });
     
+    context(@"when setting square frame", ^{
+        
+        beforeEach(^{
+            [scalableView setFrame:CGRectMake(100, 100, 100, 100)];
+        });
+        
+        it(@"should return correct ratio", ^{
+            expect([scalableView currentRatio]).to.equal(1.f);
+        });
+    });
+    
+    context(@"when setting rectangle frame", ^{
+        
+        beforeEach(^{
+            [scalableView setFrame:CGRectMake(100, 100, 100, 133)];
+        });
+        
+        it(@"should return correct ratio", ^{
+            expect([scalableView currentRatio]).to.beCloseToWithin(0.75f, 0.01f); // exact expected value: 0,7518796992...
+        });
+    });
+    
     context(@"when setting minimum size", ^{
         
         it(@"with negative width value, should raise an exception", ^{

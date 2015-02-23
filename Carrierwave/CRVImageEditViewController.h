@@ -47,7 +47,7 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 /**
   * The scalable crop view that crops portion of the screen.
  */
-@property (strong, nonatomic, readonly) CRVScalableView *cropView;
+@property (weak, nonatomic, readonly) CRVScalableView *cropView;
 
 /**
   * The optionally customizable settings view.

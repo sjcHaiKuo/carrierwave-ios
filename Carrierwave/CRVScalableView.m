@@ -38,12 +38,13 @@
     self.animationCurve = UIViewAnimationOptionCurveEaseInOut;
     self.springDamping = 0.9f;
     self.springVelocity = 13.f;
+    self.active = YES;
     
     return self;
 }
 
-- (void)setFrame:(CGRect)newFrame {
-    [super setFrame:newFrame];
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
     
     self.borderView.frame = self.bounds;
     [self.borderView setNeedsDisplay];
@@ -74,10 +75,27 @@
     [self animateSelfToFrame:rect completion:completion];
 }
 
+- (CGFloat)currentRatio {
+    return CGRectGetWidth(self.bounds)/CGRectGetHeight(self.bounds);
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *view = [super hitTest:point withEvent:event];
+
+    BOOL responds = [self.hitTestDelegate respondsToSelector:@selector(viewForHitTestInScalableView:)];
+    if (self.isActive || !responds) {
+        return view;
+    }
+
+    UIView *underneathView = [self.hitTestDelegate viewForHitTestInScalableView:self];
+    CGPoint underneathViewPoint = [underneathView convertPoint:point fromView:self];
+    return [underneathView pointInside:underneathViewPoint withEvent:event] ? underneathView : view;
+}
+
 #pragma mark - Touches
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
+
     self.borderView.resizing = YES;
     UITouch *touch = [touches anyObject];
     self.anchorPoint = [self anchorPointForTouchLocation:[touch locationInView:self]];
@@ -107,6 +125,7 @@
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    
     if ([self.anchorPoint isStretched]) {
         [self resizeUsingTouchLocation:[[touches anyObject] locationInView:self.superview]];
         
