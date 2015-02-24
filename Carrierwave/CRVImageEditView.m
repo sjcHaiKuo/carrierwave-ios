@@ -11,12 +11,10 @@
 
 @implementation CRVImageEditView
 
-@synthesize settingsView = _settingsView;
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _heightForSettingsView = 80.f;
+        _heightForSettingsView = 60.f;
     }
     return self;
 }
@@ -36,7 +34,7 @@
 
 #pragma mark - Accessors
 
-- (UIView <CRVImageEditSettingsActions> *)settingsView {
+- (CRVSettingsView *)settingsView {
     if (_settingsView == nil) {
         _settingsView = [[CRVImageEditSettingsView alloc] init];
         [self addSubview:_settingsView];

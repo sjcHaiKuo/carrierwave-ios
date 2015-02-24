@@ -32,8 +32,7 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
 @implementation CRVTransformViewController
 
 - (void)loadView {
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
-    CRVTransformView *view = [[CRVTransformView alloc] initWithFrame:rect];
+    CRVTransformView *view = [[CRVTransformView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [view setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
     
     _aView = view;

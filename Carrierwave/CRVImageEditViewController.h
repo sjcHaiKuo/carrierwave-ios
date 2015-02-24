@@ -7,10 +7,9 @@
 @import UIKit;
 
 #import "CRVScalableView.h"
-#import "CRVImageEditSettingsActions.h"
 #import "CRVImageEditSettingsView.h"
 
-@class CRVImageAsset;
+@class CRVImageAsset, CRVSettingsView;
 @protocol CRVImageEditViewControllerDelegate, CRVImageEditViewControllerDataSource;
 
 /**
@@ -51,7 +50,7 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 /**
  *  The crop view controller's settings view.
  */
-- (UIView <CRVImageEditSettingsActions> *)settingsView;
+- (CRVSettingsView *)settingsView;
 
 @end
 
@@ -71,7 +70,7 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
  *
  *  @param controller The edit view controller sending the delegate message.
  */
-- (UIView <CRVImageEditSettingsActions> *)settingsViewForImageEditViewController:(CRVImageEditViewController *)controller;
+- (CRVSettingsView *)settingsViewForImageEditViewController:(CRVImageEditViewController *)controller;
 
 @end
 

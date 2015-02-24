@@ -9,10 +9,11 @@
 @import UIKit;
 
 @protocol CRVImageEditSettingsActions;
+@class CRVSettingsView;
 
 @interface CRVImageEditView : UIView
 
-@property (strong, nonatomic) UIView <CRVImageEditSettingsActions> *settingsView;
+@property (strong, nonatomic) CRVSettingsView *settingsView;
 @property (assign, nonatomic) CGFloat heightForSettingsView;
 
 - (CGRect)rectForContainerView;

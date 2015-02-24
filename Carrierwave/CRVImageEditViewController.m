@@ -10,6 +10,8 @@
 #import "CRVImageEditView.h"
 #import "CRVImageAsset.h"
 
+#import "CRVNotificationIdentifiers.h"
+
 @interface CRVImageEditViewController ()
 
 @property (weak, nonatomic) CRVImageEditView *aView;
@@ -22,7 +24,7 @@
 #pragma mark - Object Lifecycle
 
 - (instancetype)initWithImageAsset:(CRVImageAsset *)asset {
-    if (self = [super initWithNibName:nil bundle:nil]) {
+    if (self = [super init]) {
         self.imageAsset = asset;
     }
     return self;
@@ -54,6 +56,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self registerNotifications];
+    
     if ([self.dataSource respondsToSelector:@selector(heightForSettingsViewInImageEditViewController:)]) {
         self.aView.heightForSettingsView = [self.dataSource heightForSettingsViewInImageEditViewController:self];
     }
@@ -68,7 +72,7 @@
 
 #pragma mark - Public Methods
 
-- (UIView <CRVImageEditSettingsActions> *)settingsView {
+- (CRVSettingsView *)settingsView {
     return self.aView.settingsView;
 }
 
@@ -161,6 +165,17 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+- (void)registerNotifications {
+    
+    void (^registerNotification)(SEL, NSString *) = ^(SEL selector, NSString *name) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:selector name:name object:nil];
+    };
+    
+    registerNotification(@selector(onRatioAction), CRVEditViewControllerWillShowRatioAlertController);
+    registerNotification(@selector(onCancelAction), CRVEditViewControllerWillCancelEditingNotification);
+    registerNotification(@selector(onDoneAction), CRVEditViewControllerWillFinishEditingWithImageAssetNotification);
 }
 
 @end
