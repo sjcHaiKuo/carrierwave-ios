@@ -82,7 +82,7 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
 
 - (UIImage *)cropImage {
     
-    self.cropView.hidden = YES;
+    [self cropView].hidden = YES;
     
     UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, 0);
     [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:YES];
@@ -90,7 +90,7 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
     UIGraphicsEndImageContext();
     
     CGFloat screenScale = [UIScreen mainScreen].scale;
-    CGRect finalFrame = CGRectScale(self.cropView.frame, screenScale);
+    CGRect finalFrame = CGRectScale([self cropView].frame, screenScale);
     
     CGImageRef imageRef = CGImageCreateWithImageInRect([sourceImage CGImage], finalFrame);
     
@@ -174,12 +174,12 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
 
 - (void)tapGestureAction:(UITapGestureRecognizer *)recognizer {
     
-    self.aView.cropView.active = !self.aView.cropView.active;
+    CRVScalableView *cropView = [self cropView];
+    cropView.active = !cropView.active;
     
-    CRVAnchorsDrawingMode drawingMode = self.aView.cropView.active ? CRVAnchorsDrawingModeAlways : CRVAnchorsDrawingModeNever;
-    self.aView.cropView.borderView.anchorsDrawingMode = drawingMode;
-    
-    [self.aView.cropView.borderView setResizing:NO];
+    CRVAnchorsDrawingMode drawingMode = cropView.active ? CRVAnchorsDrawingModeAlways : CRVAnchorsDrawingModeNever;
+    cropView.borderView.anchorsDrawingMode = drawingMode;
+    [cropView.borderView setResizing:NO];
 }
 
 #pragma mark - CRVScalableViewHitTestDelegate Methods

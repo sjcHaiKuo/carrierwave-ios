@@ -101,11 +101,11 @@ NSString *const CRVCameraTitle = @"Camera";
 
 #pragma mark - CRVImageEditViewControllerDelegate methods
 
-- (void)imageEditViewControllerDidCancelEditing:(CRVImageEditViewController *)ctrl {
+- (void)imageEditViewControllerDidCancelEditing:(CRVImageEditViewController *)controller {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)imageEditViewController:(CRVImageEditViewController *)ctrl didFinishEditingWithImageAsset:(CRVImageAsset *)asset {
+- (void)imageEditViewController:(CRVImageEditViewController *)controller didFinishEditingWithImageAsset:(CRVImageAsset *)asset {
     
     CRVAssetModel *model = self.contentArray[self.selectedIndexPath.row];
     model.asset = asset;

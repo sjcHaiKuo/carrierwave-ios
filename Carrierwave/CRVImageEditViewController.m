@@ -7,23 +7,19 @@
 #import "CRVImageEditViewController.h"
 #import "CRVTransformViewController.h"
 
+#import "CRVImageEditView.h"
 #import "CRVImageAsset.h"
-#import "CRVImageEditSettingsView.h"
-#import "CRVScalableView.h"
-
-static const CGFloat CRVDefaultMinimumZoom = 1.0f;
-static const CGFloat CRVDefaultMaximalZoom = 2.0f;
 
 @interface CRVImageEditViewController ()
 
-@property (weak, nonatomic, readwrite) CRVScalableView *cropView;
+@property (weak, nonatomic) CRVImageEditView *aView;
 @property (weak, nonatomic) CRVTransformViewController *transformViewController;
 
 @end
 
 @implementation CRVImageEditViewController
 
-#pragma mark - Object lifecycle
+#pragma mark - Object Lifecycle
 
 - (instancetype)initWithImageAsset:(CRVImageAsset *)asset {
     if (self = [super initWithNibName:nil bundle:nil]) {
@@ -41,68 +37,42 @@ static const CGFloat CRVDefaultMaximalZoom = 2.0f;
 }
 
 - (void)dealloc {
-    UIViewController *controller = [self.childViewControllers lastObject];
-    [controller willMoveToParentViewController:nil];
-    [controller.view removeFromSuperview];
-    [controller removeFromParentViewController];
-    
+    [self removeContainerTransformViewController];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - View lifecycle
+#pragma mark - View Lifecycle
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+- (void)loadView {
+    CRVImageEditView *view = [[CRVImageEditView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    [view setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+    
+    _aView = view;
+    self.view = view;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CRVTransformViewController *controller = [[CRVTransformViewController alloc] init];
-    [self addChildViewController:controller];
-    
-    CRVTemporary("temporary hardcoded");
-    CGRect rect = self.view.bounds;
-    rect.size.height -= 100;
-    
-    controller.view.frame = rect;
-    [self.view addSubview:controller.view];
-    [controller didMoveToParentViewController:self];
-    
-    [controller setImage:[self.imageAsset image]];
-    self.transformViewController = controller;
-    self.cropView = [controller cropView];
-    
-    CRVTemporary("Temporary here:");
-    if (self.settingsView == nil) {
-        self.settingsView = [[CRVImageEditSettingsView alloc] init];
+    if ([self.dataSource respondsToSelector:@selector(heightForSettingsViewInImageEditViewController:)]) {
+        self.aView.heightForSettingsView = [self.dataSource heightForSettingsViewInImageEditViewController:self];
     }
-    [self.view addSubview:self.settingsView];
+    
+    if ([self.dataSource respondsToSelector:@selector(settingsViewForImageEditViewController:)]) {
+        self.aView.settingsView = [self.dataSource settingsViewForImageEditViewController:self];
+    }
+    
+    CRVTransformViewController *containerTransformViewController = [self addContainerTransformViewController];
+    [containerTransformViewController setImage:[self.imageAsset image]];
 }
 
-CRVTemporary("Temporary layout here (and also hardcoded):");
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    CGRect rect = self.view.bounds;
-    self.settingsView.frame = CGRectMake(0.f, CGRectGetHeight(rect) - 100.f,
-                                         CGRectGetWidth(rect), 100.f);
+#pragma mark - Public Methods
+
+- (UIView <CRVImageEditSettingsActions> *)settingsView {
+    return self.aView.settingsView;
 }
 
-#pragma mark - Accessors
-
-- (void)setSettingsView:(UIView<CRVImageEditSettingsActions> *)settingsView {
-    _settingsView = settingsView;
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onCancelAction) name:NSStringFromSelector(self.settingsView.cancelAction) object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDoneAction) name:NSStringFromSelector(self.settingsView.doneAction) object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRatioAction) name:NSStringFromSelector(self.settingsView.ratioAction) object:nil];
-}
-
-#pragma mark - UIControl actions
+#pragma mark - UIControl Actions
 
 - (void)onCancelAction {
     if ([self.delegate respondsToSelector:@selector(imageEditViewControllerDidCancelEditing:)]) {
@@ -123,13 +93,39 @@ CRVTemporary("Temporary layout here (and also hardcoded):");
     }
 }
 
+#pragma mark - Accessors
+
+- (CRVScalableView *)cropView {
+    return [self.transformViewController cropView];
+}
+
 - (void)setImageAsset:(CRVImageAsset *)imageAsset {
     if (![self.imageAsset isEqual:imageAsset]) {
         _imageAsset = imageAsset;
     }
 }
 
-#pragma mark - ratio UIAlertController
+#pragma mark - Private Methods
+
+- (CRVTransformViewController *)addContainerTransformViewController {
+    
+    CRVTransformViewController *controller = [[CRVTransformViewController alloc] init];
+    controller.view.frame = [self.aView rectForContainerView];
+    [self addChildViewController:controller];
+    [self.aView addSubview:controller.view];
+    [controller didMoveToParentViewController:self];
+    
+    self.transformViewController = controller;
+    return controller;
+}
+
+- (void)removeContainerTransformViewController {
+    
+    UIViewController *controller = [self.childViewControllers lastObject];
+    [controller willMoveToParentViewController:nil];
+    [controller.view removeFromSuperview];
+    [controller removeFromParentViewController];
+}
 
 - (UIAlertController *)ratioAlertController {
     
@@ -161,6 +157,10 @@ CRVTemporary("Temporary layout here (and also hardcoded):");
             self.cropView.ratioEnabled = NO;
         }
     }];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 @end
