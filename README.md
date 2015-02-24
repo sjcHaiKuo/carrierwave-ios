@@ -108,8 +108,6 @@ Calling delete:
 
 For dynamic server urls please use `uploadAsset:toURL:progress:completion` method.
 
----
-
 ### Asset types
 
 As mentioned before, all uploaded objects should conform to `CRVAssetType` protocol. **carrierwave-ios** comes with ready to use classes for common image and video file types.
@@ -136,8 +134,6 @@ Usage example:
 }];
 ```
 
----
-
 ### Proccess management
 
 `CRVNetworkManager` provides additional methods for handling lifecycle of upload or download processes, which are pretty straightforward and self-explanatory. As parameter all functions takes identifier returned by process creating methods.
@@ -150,9 +146,11 @@ Usage example:
 
 ## UI Component
 
-As addition, **carrierwave-ios** delivers handy ui component for editing selected photo. `CRVImageEditViewController` allows you to freely scale and crop selected photos. Here is some preview how it look in demo app:
+As addition, **carrierwave-ios** delivers handy UI component for editing selected photo. `CRVImageEditViewController` allows you to freely scale, rotate and crop selected photos. Here is some preview how it look in demo app:
 
 ![crop view example](https://github.com/netguru/carrierwave-ios/blob/master/doc/0_crop_view.jpg "Crop view example")
+
+### Usage
 
 Usage is very simple, just create new instance and show it:
 
@@ -163,6 +161,117 @@ controller.delegate = self;
 ```
 
 If you are using storyboards, you can also drag new empty view controller in InterfaceBuilder and set his class to `CRVImageEditViewController`.
+
+## UI configurability
+
+We did our best to make `CRVImageEditViewController` as configurable as possible. `CRVImageEditViewController` interface expose bunch of useful properties to make its fit any app.
+
+### DataSource
+
+Setting `CRVImageEditViewControllerDataSource` gives possibility to inject own UI components:
+
+- settings view - layouted as bottom bar
+- info view - layouted as top bar
+
+The rest of the space is designed for scaling, rotating and cropping image. 
+
+
+Bringing own settings view is available via implementation of method:
+```objc
+- (CRVSettingsView *)settingsViewForImageEditViewController:(CRVImageEditViewController *)controller;
+```
+The returned object has to be a subclass of `CRVSettingsView` which contains 3 methods responsible for communication with `CRVImageEditViewController`. This makes this view very flexible and customizable because any UI component can trigger an action. Just remember to implement following methods:
+
+`- (void)performCancelAction;` - sends a cancel message to `CRVImageEditViewController`
+
+`- (void)performDoneAction;` - sends a done message to `CRVImageEditViewController`
+
+`- (void)showRatioSheet;` - tells `CRVImageEditViewController` to show sheet with ratios.
+
+Settings view always will layout at the bottom of `CRVImageEditViewController`. Nevertheless you can customize its height by implementing:
+```objc
+- (CGFloat)heightForSettingsViewInImageEditViewController:(CRVImageEditViewController *)controller;
+```
+
+`CRVImageEditViewController` has also prepared space at the top of its view. The returned object can be a UILabel or UIImageView object, as well as a custom view:
+```objc
+- (UIView *)infoViewForImageEditViewController:(CRVImageEditViewController *)controller;
+```
+
+Controlling info view height is possible via: 
+```objc
+- (CGFloat)heightForInfoViewInImageEditViewController:(CRVImageEditViewController *)controller;
+```
+
+### Crop border
+
+Crop border is customizable as well. It has bunch of options which help its to fit your app style. For more info please refer to [CRVScalableView](https://github.com/netguru/carrierwave-ios/blob/master/Carrierwave/CRVScalableView.h) and [CRVScalableBorder](https://github.com/netguru/carrierwave-ios/blob/master/Carrierwave/CRVScalableBorder.h)
+
+#### Animation options
+```
+@property (assign, nonatomic) NSTimeInterval animationDuration;
+@property (assign, nonatomic) UIViewAnimationOptions animationCurve;
+@property (assign, nonatomic) CGFloat springDamping;
+@property (assign, nonatomic) CGFloat springVelocity;
+```
+
+#### Border grid
+
+```objc
+@property (assign, nonatomic) CRVGridDrawingMode gridDrawingMode;
+@property (assign, nonatomic) CRVGridStyle gridStyle;
+@property (strong, nonatomic) UIColor *gridColor;
+@property (assign, nonatomic) NSUInteger gridThickness;
+@property (assign, nonatomic) NSInteger numberOfGridlines;
+```
+
+#### Border
+```objc
+@property (assign, nonatomic) CRVBorderDrawingMode borderDrawinMode;
+@property (assign, nonatomic) CRVBorderStyle borderStyle;
+@property (strong, nonatomic) UIColor *borderColor;
+@property (assign, nonatomic) NSUInteger borderThickness;
+@property (assign, nonatomic) NSUInteger borderInset;
+```
+
+#### Anchors
+```objc
+@property (assign, nonatomic) CRVAnchorsDrawingMode anchorsDrawingMode;
+@property (strong, nonatomic) UIColor *anchorsColor;
+@property (assign, nonatomic) NSUInteger anchorThickness;
+```
+
+#### Custom drawing 
+Although exposed properties are able to customize crop border a lot, there is special method provided to make own drawing on existing context:
+```objc
+- (void)drawRect:(CGRect)rect withinContext:(CGContextRef)context;
+```
+
+#### Following on screen changes 
+
+There is also a possibility to receive user events and react on them. Only thing you have to do, is to confirm `CRVScalableViewDelegate` protocol and implement methods your're interested in:
+```objc
+- (void)scalableViewDidBeginScaling:(CRVScalableView *)view;
+- (void)scalableViewDidEndScaling:(CRVScalableView *)view;
+- (void)scalableViewDidBeginMoving:(CRVScalableView *)view;
+- (void)scalableViewDidEndMoving:(CRVScalableView *)view;
+- (void)scalableViewDidMove:(CRVScalableView *)view;
+- (void)scalableViewDidScale:(CRVScalableView *)view;
+```
+
+
+### Crop border animations
+
+Animations can be triggered with following methods:
+```objc
+- (void)animateToFrame:(CGRect)frame completion:(void (^)(BOOL finished))completion;
+```
+which animates view to given frame, and:
+
+```objc
+- (void)animateToSize:(CGSize)size completion:(void (^)(BOOL finished))completion;
+```
+which animates scalable view to given size around self center. Algorithm is smart enough to validate if given/ calculated frame is located in the superview or not. If not origin (x or y) will be changed to valid ones. So you don't have to carry about coordinates you give.
 
 ## Demo
 
