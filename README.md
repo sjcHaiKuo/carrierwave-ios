@@ -279,6 +279,7 @@ which animates scalable view to given size around self center. Algorithm is smar
 
 ```bash
 $ git clone --recursive git@github.com:netguru/carrierwave-ios.git
+$ carthage update
 $ pod install
 ```
 
@@ -286,6 +287,7 @@ or if you already cloned the project without `--recursive`:
 
 ```bash
 $ git submodule update --init --recursive
+$ carthage update
 $ pod install
 ```
 
