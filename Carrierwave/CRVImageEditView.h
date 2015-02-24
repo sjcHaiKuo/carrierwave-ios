@@ -14,6 +14,16 @@
 @interface CRVImageEditView : UIView
 
 /**
+ *  An info view layouted in place of status bar.
+ */
+@property (strong, nonatomic) UIView *infoView;
+
+/**
+ *  Defines height designed for info view.
+ */
+@property (assign, nonatomic) CGFloat heightForInfoView;
+
+/**
  *  A settings view which contain behaviour methods.
  */
 @property (strong, nonatomic) CRVSettingsView *settingsView;

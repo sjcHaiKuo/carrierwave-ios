@@ -98,6 +98,8 @@
 		5EA4E0271A936A6900C537F2 /* CRVAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4E0261A936A6900C537F2 /* CRVAssetModel.m */; };
 		5EA4E0321A93789500C537F2 /* CRVCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4E0311A93789500C537F2 /* CRVCollectionViewController.m */; };
 		5EA4E0351A93793C00C537F2 /* CRVCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4E0341A93793C00C537F2 /* CRVCollectionViewCell.m */; };
+		5EB3E5151A9CB08500EFB9E7 /* CRVInfoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EB3E5131A9CB08500EFB9E7 /* CRVInfoView.h */; };
+		5EB3E5161A9CB08500EFB9E7 /* CRVInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB3E5141A9CB08500EFB9E7 /* CRVInfoView.m */; };
 		5EB53E9B1A93EC0100CCFB78 /* CRVManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB53E9A1A93EC0100CCFB78 /* CRVManager.m */; };
 		5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */; };
@@ -268,6 +270,8 @@
 		5EA4E0311A93789500C537F2 /* CRVCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVCollectionViewController.m; sourceTree = "<group>"; };
 		5EA4E0331A93793C00C537F2 /* CRVCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVCollectionViewCell.h; sourceTree = "<group>"; };
 		5EA4E0341A93793C00C537F2 /* CRVCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVCollectionViewCell.m; sourceTree = "<group>"; };
+		5EB3E5131A9CB08500EFB9E7 /* CRVInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVInfoView.h; sourceTree = "<group>"; };
+		5EB3E5141A9CB08500EFB9E7 /* CRVInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVInfoView.m; sourceTree = "<group>"; };
 		5EB53E991A93EC0100CCFB78 /* CRVManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVManager.h; sourceTree = "<group>"; };
 		5EB53E9A1A93EC0100CCFB78 /* CRVManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVManager.m; sourceTree = "<group>"; };
 		5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkTypedefs.h; sourceTree = "<group>"; };
@@ -721,6 +725,8 @@
 				E3AB004F1A8D03F6000052D9 /* CRVImageEditSettingsView.m */,
 				5E6729281A9C84B30039B818 /* CRVSettingsView.h */,
 				5E6729291A9C84B30039B818 /* CRVSettingsView.m */,
+				5EB3E5131A9CB08500EFB9E7 /* CRVInfoView.h */,
+				5EB3E5141A9CB08500EFB9E7 /* CRVInfoView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -761,6 +767,7 @@
 				5E94A4C51A7A893D00F98C18 /* CRVScalableView+Math.h in Headers */,
 				5E11A6B51A766E3C001924ED /* CRVAnchorPoint.h in Headers */,
 				5E67292A1A9C84B30039B818 /* CRVSettingsView.h in Headers */,
+				5EB3E5151A9CB08500EFB9E7 /* CRVInfoView.h in Headers */,
 				3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */,
 				5E4C992B1A642E5F009AA040 /* CRVSessionTaskWrapper.h in Headers */,
 				5E67292D1A9C8CE00039B818 /* CRVNotificationIdentifiers.h in Headers */,
@@ -1096,6 +1103,7 @@
 				3A3FE8691A517CE60052C58E /* CRVImageEditViewController.m in Sources */,
 				5E94A4C61A7A893D00F98C18 /* CRVScalableView+Math.m in Sources */,
 				5E4C99301A651210009AA040 /* CRVSessionDownloadTaskWrapper.m in Sources */,
+				5EB3E5161A9CB08500EFB9E7 /* CRVInfoView.m in Sources */,
 				5E5006A41A6E866600444E5D /* NSDictionary+Carrierwave.m in Sources */,
 				5E5006A01A6E84E900444E5D /* CRVUploadInfo.m in Sources */,
 				5E4C992C1A642E5F009AA040 /* CRVSessionTaskWrapper.m in Sources */,

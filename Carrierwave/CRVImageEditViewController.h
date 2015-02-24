@@ -52,6 +52,11 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
  */
 - (CRVSettingsView *)settingsView;
 
+/**
+ *  An info view layouted in place of status bar. Designed place for info.
+ */
+- (UIView *)infoView;
+
 @end
 
 @protocol CRVImageEditViewControllerDataSource <NSObject>
@@ -71,6 +76,20 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
  *  @param controller The edit view controller sending the delegate message.
  */
 - (CRVSettingsView *)settingsViewForImageEditViewController:(CRVImageEditViewController *)controller;
+
+/**
+ *  Allows the delegate to customize info view height. If this method is implemented, the value it returns overrides default value which is equal to 20 points.
+ *
+ *  @param controller The edit view controller sending the delegate message.
+ */
+- (CGFloat)heightForInfoViewInImageEditViewController:(CRVImageEditViewController *)controller;
+
+/**
+ *  Asks the delegate for a view to display as info view.
+ *
+ *  @param controller The edit view controller sending the delegate message.
+ */
+- (UIView *)infoViewForImageEditViewController:(CRVImageEditViewController *)controller;
 
 @end
 

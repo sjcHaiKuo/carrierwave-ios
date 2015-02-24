@@ -8,6 +8,7 @@
 #import "CRVTransformViewController.h"
 
 #import "CRVImageEditView.h"
+#import "CRVInfoView.h"
 #import "CRVImageAsset.h"
 
 #import "CRVNotificationIdentifiers.h"
@@ -62,8 +63,20 @@
         self.aView.heightForSettingsView = [self.dataSource heightForSettingsViewInImageEditViewController:self];
     }
     
+    if ([self.dataSource respondsToSelector:@selector(heightForInfoViewInImageEditViewController:)]) {
+        self.aView.heightForInfoView = [self.dataSource heightForInfoViewInImageEditViewController:self];
+    }
+    
     if ([self.dataSource respondsToSelector:@selector(settingsViewForImageEditViewController:)]) {
         self.aView.settingsView = [self.dataSource settingsViewForImageEditViewController:self];
+    } else {
+        self.aView.settingsView = [[CRVImageEditSettingsView alloc] init];
+    }
+    
+    if ([self.dataSource respondsToSelector:@selector(infoViewForImageEditViewController:)]) {
+        self.aView.infoView = [self.dataSource infoViewForImageEditViewController:self];
+    } else {
+        self.aView.infoView = [[CRVInfoView alloc] init];
     }
     
     CRVTransformViewController *containerTransformViewController = [self addContainerTransformViewController];
@@ -74,6 +87,10 @@
 
 - (CRVSettingsView *)settingsView {
     return self.aView.settingsView;
+}
+
+- (UIView *)infoView {
+    return self.aView.infoView;
 }
 
 #pragma mark - UIControl Actions
