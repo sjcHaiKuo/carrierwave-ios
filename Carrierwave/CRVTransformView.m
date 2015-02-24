@@ -36,7 +36,6 @@
     [super setFrame:frame];
     
     self.imageView.frame = frame;
-    self.movePoint = self.imageView.center;
     
     CGRect rect = self.bounds;
     CRVTemporary("temporary always return 200x200");

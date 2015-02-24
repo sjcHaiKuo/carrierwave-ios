@@ -8,6 +8,10 @@
 
 @import UIKit;
 
+/**
+ *  Setting view is responsible for communication with controller by performing appropriate actions.
+ *  Sublass it to inject own UI.
+ */
 @interface CRVSettingsView : UIView
 
 /**
@@ -23,6 +27,6 @@
 /**
  *  Tells CRVImageEditViewController to show UIAlertController with ratio selection.
  */
-- (void)showRatio;
+- (void)showRatioSheet;
 
 @end

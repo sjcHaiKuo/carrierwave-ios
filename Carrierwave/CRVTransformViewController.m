@@ -166,7 +166,6 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
     
     // Change location
     self.aView.imageView.center = CGPointAddition(self.aView.imageView.center, translation);
-    self.aView.movePoint = CGPointAddition(self.aView.movePoint, translation);
     
     [recognizer setTranslation:CGPointZero inView:self.aView];
 }

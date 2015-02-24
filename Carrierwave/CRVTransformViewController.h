@@ -12,10 +12,25 @@
 
 @interface CRVTransformViewController : UIViewController
 
+/**
+ *  Sets image used in transformation.
+ *
+ *  @param image Image to transform.
+ */
 - (void)setImage:(UIImage *)image;
 
+/**
+ *  A crop view which declares bounds for croping image.
+ *
+ *  @return Instance of CRVScalableView.
+ */
 - (CRVScalableView *)cropView;
 
+/**
+ *  Crops an image within crop view.
+ *
+ *  @return Cropped image.
+ */
 - (UIImage *)cropImage;
 
 @end

@@ -59,7 +59,7 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 @optional
 
 /**
- *  Allows the delegate to specify settingsView height. If this method is implemented, the value it returns overrides default value which is equal to 80 points.
+ *  Allows the delegate to specify settingsView height. If this method is implemented, the value it returns overrides default value which is equal to 60 points.
  *
  *  @param controller The edit view controller sending the delegate message.
  */

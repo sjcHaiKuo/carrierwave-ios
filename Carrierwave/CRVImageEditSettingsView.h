@@ -10,10 +10,19 @@
 
 @interface CRVImageEditSettingsView : CRVSettingsView
 
+/**
+ *  Performs cancel action from CRVSettingsView
+ */
 @property (strong, nonatomic) UIButton *cancelButton;
 
+/**
+ *  Performs ratio action from CRVSettingsView
+ */
 @property (strong, nonatomic) UIButton *ratioButton;
 
+/**
+ *  Performs done action from CRVSettingsView
+ */
 @property (strong, nonatomic) UIButton *doneButton;
 
 @end

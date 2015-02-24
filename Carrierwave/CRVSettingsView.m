@@ -19,7 +19,7 @@
     [self postNotificationWithName:CRVEditViewControllerWillFinishEditingWithImageAssetNotification];
 }
 
-- (void)showRatio {
+- (void)showRatioSheet {
     [self postNotificationWithName:CRVEditViewControllerWillShowRatioAlertController];
 }
 

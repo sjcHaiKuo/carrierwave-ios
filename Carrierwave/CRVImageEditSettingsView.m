@@ -46,7 +46,8 @@
     
     CGRect rect = self.bounds;
     CGFloat margin = 10.f;
-    CGSize buttonSize = CGSizeMake(floorf((CGRectGetWidth(rect) - 4.f * margin) / 3.f), CGRectGetHeight(rect) - 2.f * margin);
+    
+    CGSize buttonSize = CGSizeMake((CGFloat)floor((CGRectGetWidth(rect) - 4.f * margin) / 3.f), CGRectGetHeight(rect) - 2.f * margin);
     
     void (^layoutButton)(UIButton *, CGFloat) = ^(UIButton *button, CGFloat x) {
         button.frame = CGRectMake(x, margin, buttonSize.width, buttonSize.height);
@@ -64,7 +65,7 @@
 }
 
 - (void)onRatioButtonTapped:(UIButton *)button {
-    [self showRatio];
+    [self showRatioSheet];
 }
 
 - (void)onDoneButtonTapped:(UIButton *)button {
