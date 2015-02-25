@@ -100,14 +100,11 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
 }
 
 - (void)resetTransform {
-    self.aView.userInteractionEnabled = NO;
     
     [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.9f initialSpringVelocity:13.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.aView.imageView.transform = CGAffineTransformIdentity;
         self.aView.imageView.center = self.aView.center;
-    } completion:^(BOOL finished) {
-        self.aView.userInteractionEnabled = YES;
-    }];
+    } completion:nil];
 }
 
 #pragma mark - Gesture Recognizers
