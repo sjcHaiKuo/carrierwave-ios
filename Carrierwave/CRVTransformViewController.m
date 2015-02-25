@@ -26,7 +26,6 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
 @property (weak, nonatomic) CRVTransformView *aView;
 @property (assign, nonatomic) CGFloat scale;
 @property (assign, nonatomic) CGFloat previousScale;
-@property (assign, nonatomic) CGFloat roatation;
 
 @end
 
@@ -44,7 +43,6 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
     [super viewDidLoad];
     
     self.scale = 1.f;
-    self.roatation = 0.f;
     
     void (^configureGesture)(UIGestureRecognizer *) = ^(UIGestureRecognizer *gesture) {
         gesture.cancelsTouchesInView = NO;
@@ -115,7 +113,6 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
         return;
     }
     
-    self.roatation += recognizer.rotation;
     self.aView.imageView.transform = CGAffineTransformRotate(self.aView.imageView.transform, recognizer.rotation);
     recognizer.rotation = 0;
 }
