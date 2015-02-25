@@ -23,7 +23,8 @@ end
 # Exclusive test dependencies
 target 'Tests' do link_with 'Unit Tests'
   pod 'Expecta', configuration: 'Test'
-  pod 'OCMock', configuration: 'Test'
+  pod 'OCMock', '~> 2.0.1', configuration: 'Test'
+  pod 'OCMockito', '~> 1.4', configuration: 'Test'
   pod 'OHHTTPStubs', configuration: 'Test'
-  pod 'Specta', git: 'https://github.com/specta/specta.git', tag: 'v0.3.0.beta1', configuration: 'Test'
+  pod 'Specta-Taptera', git: 'https://github.com/taptera/specta', branch: 'taptera-action', configuration: 'Test'
 end
