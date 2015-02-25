@@ -20,7 +20,7 @@
 }
 
 - (void)postShowRatioSheetMessage {
-    [self postNotificationWithName:CRVImageEditViewControllerWillShowRatioAlertController];
+    [self postNotificationWithName:CRVImageEditViewControllerWillShowRatioAlertControllerNotification];
 }
 
 - (void)postResetTransformationMessage {

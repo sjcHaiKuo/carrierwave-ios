@@ -72,6 +72,12 @@
 		5E2E5B761A9E4E1E00545A0E /* CRVRatioItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B741A9E4E1E00545A0E /* CRVRatioItem.h */; };
 		5E2E5B771A9E4E1E00545A0E /* CRVRatioItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B751A9E4E1E00545A0E /* CRVRatioItem.m */; };
 		5E2E5B7A1A9E751400545A0E /* CRVRatioItemSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B791A9E751400545A0E /* CRVRatioItemSpec.m */; };
+		5E2E5B7C1A9E7B1700545A0E /* CRVHeaderFooterViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B7B1A9E7B1700545A0E /* CRVHeaderFooterViewSpec.m */; };
+		5E2E5B7E1A9E7C7200545A0E /* CRVHeaderViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B7D1A9E7C7200545A0E /* CRVHeaderViewSpec.m */; };
+		5E2E5B821A9E7D3000545A0E /* CRVFooterViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B811A9E7D3000545A0E /* CRVFooterViewSpec.m */; };
+		5E2E5B851A9E7EBC00545A0E /* UIView+Specs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B841A9E7EBC00545A0E /* UIView+Specs.m */; };
+		5E2E5B881A9E7EF700545A0E /* UIButton+Spec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B871A9E7EF700545A0E /* UIButton+Spec.m */; };
+		5E2E5B8B1A9E89AB00545A0E /* CRVFooterViewBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B8A1A9E89AB00545A0E /* CRVFooterViewBehavior.m */; };
 		5E4953FB1A9DE50C0082F2E2 /* CRVGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E4953FA1A9DE50C0082F2E2 /* CRVGeometry.h */; };
 		5E4C992B1A642E5F009AA040 /* CRVSessionTaskWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E4C99291A642E5F009AA040 /* CRVSessionTaskWrapper.h */; };
 		5E4C992C1A642E5F009AA040 /* CRVSessionTaskWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4C992A1A642E5F009AA040 /* CRVSessionTaskWrapper.m */; };
@@ -248,6 +254,14 @@
 		5E2E5B741A9E4E1E00545A0E /* CRVRatioItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVRatioItem.h; sourceTree = "<group>"; };
 		5E2E5B751A9E4E1E00545A0E /* CRVRatioItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVRatioItem.m; sourceTree = "<group>"; };
 		5E2E5B791A9E751400545A0E /* CRVRatioItemSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVRatioItemSpec.m; sourceTree = "<group>"; };
+		5E2E5B7B1A9E7B1700545A0E /* CRVHeaderFooterViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVHeaderFooterViewSpec.m; sourceTree = "<group>"; };
+		5E2E5B7D1A9E7C7200545A0E /* CRVHeaderViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVHeaderViewSpec.m; sourceTree = "<group>"; };
+		5E2E5B811A9E7D3000545A0E /* CRVFooterViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVFooterViewSpec.m; sourceTree = "<group>"; };
+		5E2E5B831A9E7EBC00545A0E /* UIView+Specs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Specs.h"; sourceTree = "<group>"; };
+		5E2E5B841A9E7EBC00545A0E /* UIView+Specs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Specs.m"; sourceTree = "<group>"; };
+		5E2E5B861A9E7EF700545A0E /* UIButton+Spec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Spec.h"; sourceTree = "<group>"; };
+		5E2E5B871A9E7EF700545A0E /* UIButton+Spec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Spec.m"; sourceTree = "<group>"; };
+		5E2E5B8A1A9E89AB00545A0E /* CRVFooterViewBehavior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVFooterViewBehavior.m; sourceTree = "<group>"; };
 		5E4953FA1A9DE50C0082F2E2 /* CRVGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVGeometry.h; sourceTree = "<group>"; };
 		5E4C99291A642E5F009AA040 /* CRVSessionTaskWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVSessionTaskWrapper.h; sourceTree = "<group>"; };
 		5E4C992A1A642E5F009AA040 /* CRVSessionTaskWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionTaskWrapper.m; sourceTree = "<group>"; };
@@ -401,8 +415,8 @@
 		3A42F1261A4DBD5300A6F9CD /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				5E2E5B891A9E897500545A0E /* Shared Behaviors */,
 				5E0B16581A82276700EB23D9 /* CRVAnchorPointSpec.m */,
-				5E0B16541A8226E700EB23D9 /* CRVAssetTypeBehavior.m */,
 				5E0B164C1A8226AD00EB23D9 /* CRVImageAssetSpec.m */,
 				5E0B16481A82265100EB23D9 /* CRVNetworkManagerSpec.m */,
 				5E0B16591A82276700EB23D9 /* CRVSaveAssetTaskSpec.m */,
@@ -412,6 +426,9 @@
 				5E0B164F1A8226AD00EB23D9 /* CRVSessionTaskManagerSpec.m */,
 				5E0B165A1A82276700EB23D9 /* CRVVideoAssetSpec.m */,
 				5E2E5B791A9E751400545A0E /* CRVRatioItemSpec.m */,
+				5E2E5B7B1A9E7B1700545A0E /* CRVHeaderFooterViewSpec.m */,
+				5E2E5B7D1A9E7C7200545A0E /* CRVHeaderViewSpec.m */,
+				5E2E5B811A9E7D3000545A0E /* CRVFooterViewSpec.m */,
 				218C87721A7FAF6E005E1029 /* Test Classes */,
 				3AE340D91A4DD2E600993352 /* Helpers */,
 				3AF3BDA31A506D6B005BF9C4 /* Resources */,
@@ -614,6 +631,10 @@
 				5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */,
 				5EBDBE4B1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.h */,
 				5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */,
+				5E2E5B831A9E7EBC00545A0E /* UIView+Specs.h */,
+				5E2E5B841A9E7EBC00545A0E /* UIView+Specs.m */,
+				5E2E5B861A9E7EF700545A0E /* UIButton+Spec.h */,
+				5E2E5B871A9E7EF700545A0E /* UIButton+Spec.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -685,6 +706,15 @@
 				5E2E5B751A9E4E1E00545A0E /* CRVRatioItem.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		5E2E5B891A9E897500545A0E /* Shared Behaviors */ = {
+			isa = PBXGroup;
+			children = (
+				5E0B16541A8226E700EB23D9 /* CRVAssetTypeBehavior.m */,
+				5E2E5B8A1A9E89AB00545A0E /* CRVFooterViewBehavior.m */,
+			);
+			name = "Shared Behaviors";
 			sourceTree = "<group>";
 		};
 		5E4953FC1A9DE5150082F2E2 /* Controllers */ = {
@@ -1127,19 +1157,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E0B16531A8226AD00EB23D9 /* CRVSessionTaskManagerSpec.m in Sources */,
+				5E2E5B8B1A9E89AB00545A0E /* CRVFooterViewBehavior.m in Sources */,
 				E3781E1B1A89055100C95F83 /* CRVScalableViewSpec.m in Sources */,
 				3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */,
+				5E2E5B7C1A9E7B1700545A0E /* CRVHeaderFooterViewSpec.m in Sources */,
 				5E0B165B1A82276700EB23D9 /* CRVAnchorPointSpec.m in Sources */,
 				5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */,
 				5E0B16501A8226AD00EB23D9 /* CRVImageAssetSpec.m in Sources */,
+				5E2E5B7E1A9E7C7200545A0E /* CRVHeaderViewSpec.m in Sources */,
+				5E2E5B821A9E7D3000545A0E /* CRVFooterViewSpec.m in Sources */,
 				218C87751A7FAFBD005E1029 /* CRVTestSaveAssetTask.m in Sources */,
 				E33BEFB01A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m in Sources */,
 				3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */,
+				5E2E5B851A9E7EBC00545A0E /* UIView+Specs.m in Sources */,
 				5E0B16551A8226E700EB23D9 /* CRVAssetTypeBehavior.m in Sources */,
 				5E0B16511A8226AD00EB23D9 /* CRVScalableBorderSpec.m in Sources */,
 				5E0B16521A8226AD00EB23D9 /* CRVSessionManagerSpec.m in Sources */,
 				5E0B165C1A82276700EB23D9 /* CRVSaveAssetTaskSpec.m in Sources */,
 				5E2E5B7A1A9E751400545A0E /* CRVRatioItemSpec.m in Sources */,
+				5E2E5B881A9E7EF700545A0E /* UIButton+Spec.m in Sources */,
 				5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */,
 				5E0B16491A82265100EB23D9 /* CRVNetworkManagerSpec.m in Sources */,
 				5E0B165D1A82276700EB23D9 /* CRVVideoAssetSpec.m in Sources */,

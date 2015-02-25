@@ -36,6 +36,8 @@
 
     #import "CRVImageEditView.h"
     #import "CRVTransformView.h"
+    #import "CRVHeaderView.h"
+    #import "CRVFooterView.h"
     #import "CRVAnchorPoint.h"
 
     #import "Carrierwave-Features.h"
@@ -48,5 +50,8 @@
     #import "UIImage+CRVComposition.h"
     #import "NSData+CRVComposition.h"
     #import "OHHTTPStubs+CRVTests.h"
+
+    #import "UIView+Specs.h"
+    #import "UIButton+Spec.h"
 
 #endif

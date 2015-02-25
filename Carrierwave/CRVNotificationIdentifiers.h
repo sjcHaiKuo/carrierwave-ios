@@ -10,9 +10,9 @@
 #define Carrierwave_CRVNotificationIdentifiers_h
 
 // Notifications observed by CRVImageEditViewController:
-static NSString *const CRVImageEditViewControllerWillShowRatioAlertController = @"CRVEditViewControllerWillShowRatioAlertController";
-static NSString *const CRVImageEditViewControllerWillCancelEditingNotification = @"CRVEditViewControllerWillCancelEditingNotification";
-static NSString *const CRVImageEditViewControllerWillFinishEditingWithImageAssetNotification = @"CRVEditViewControllerWillFinishEditingWithImageAssetNotification";
+static NSString *const CRVImageEditViewControllerWillShowRatioAlertControllerNotification = @"CRVImageEditViewControllerWillShowRatioAlertControllerNotification";
+static NSString *const CRVImageEditViewControllerWillCancelEditingNotification = @"CRVImageEditViewControllerWillCancelEditingNotification";
+static NSString *const CRVImageEditViewControllerWillFinishEditingWithImageAssetNotification = @"CRVImageEditViewControllerWillFinishEditingWithImageAssetNotification";
 
 // Notifications observed by CRVTransformViewController:
 static NSString *const CRVTransformViewControllerWillResetTransformationNotification = @"CRVTransformViewControllerWillResetTransformationNotification";

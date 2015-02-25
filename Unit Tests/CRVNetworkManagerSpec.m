@@ -140,7 +140,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         });
         
         beforeEach(^{
-            manager.reconnectionTime = 0.2;
+            manager.reconnectionTime = 0.1;
             manager.numberOfRetries = 4;
             manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
             [Expecta setAsynchronousTestTimeout:(manager.reconnectionTime * manager.numberOfRetries + 0.5)];
@@ -260,7 +260,7 @@ describe(@"CRVNetworkManagerSpec", ^{
         
         beforeEach(^{
             manager = [[CRVNetworkManager alloc] init];
-            manager.reconnectionTime = 0.2;
+            manager.reconnectionTime = 0.1;
             manager.numberOfRetries = 4;
             manager.serverURL = [NSURL URLWithString:@"http://www.example.com"];
             [Expecta setAsynchronousTestTimeout:(manager.reconnectionTime * manager.numberOfRetries + 0.5)];

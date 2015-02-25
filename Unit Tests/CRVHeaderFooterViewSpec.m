@@ -1,21 +1,21 @@
 //
-//  CRVRatioItemSpec.m
+//  CRVHeaderFooterViewSpec.m
 //  Carrierwave
 //
 //  Created by Patryk Kaczmarek on 25.02.2015.
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-SpecBegin(CRVRatioItemSpec)
+SpecBegin(CRVHeaderFooterViewSpec)
 
-describe(@"CRVRatioItem", ^{
-   
-    __block CRVRatioItem *sut;
+describe(@"CRVHeaderFooterView", ^{
+    
+    __block CRVHeaderFooterView *sut;
     
     context(@"when newly created", ^{
         
         beforeEach(^{
-            sut = [[CRVRatioItem alloc] initWithTitle:@"Fixture Value" ratio:1.f];
+            sut = [[CRVHeaderFooterView alloc] init];
         });
         
         afterEach(^{
@@ -26,13 +26,11 @@ describe(@"CRVRatioItem", ^{
             expect(sut).toNot.beNil();
         });
         
-        it(@"should have proper set title", ^{
-            expect(sut.title).to.equal(@"Fixture Value");
+        it(@"should have a settings messenger", ^{
+            expect(sut.messenger).to.beKindOf([CRVSettingsMessenger class]);
+            expect(sut.messenger).toNot.beNil();
         });
         
-        it(@"should have proper set ratio", ^{
-            expect(sut.ratio).to.equal(1.f);
-        });
     });
 });
 

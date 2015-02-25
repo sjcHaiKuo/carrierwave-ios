@@ -1,21 +1,21 @@
 //
-//  CRVRatioItemSpec.m
+//  CRVHeaderViewSpec.m
 //  Carrierwave
 //
 //  Created by Patryk Kaczmarek on 25.02.2015.
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-SpecBegin(CRVRatioItemSpec)
+SpecBegin(CRVHeaderViewSpec)
 
-describe(@"CRVRatioItem", ^{
-   
-    __block CRVRatioItem *sut;
+describe(@"CRVHeaderView", ^{
+    
+    __block CRVHeaderView *sut;
     
     context(@"when newly created", ^{
         
         beforeEach(^{
-            sut = [[CRVRatioItem alloc] initWithTitle:@"Fixture Value" ratio:1.f];
+            sut = [[CRVHeaderView alloc] init];
         });
         
         afterEach(^{
@@ -26,12 +26,8 @@ describe(@"CRVRatioItem", ^{
             expect(sut).toNot.beNil();
         });
         
-        it(@"should have proper set title", ^{
-            expect(sut.title).to.equal(@"Fixture Value");
-        });
-        
-        it(@"should have proper set ratio", ^{
-            expect(sut.ratio).to.equal(1.f);
+        it(@"should inherits from UILabel class", ^{
+            expect(sut).to.beKindOf([UILabel class]);
         });
     });
 });

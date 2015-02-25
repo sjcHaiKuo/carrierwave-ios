@@ -176,7 +176,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:selector name:name object:nil];
     };
     
-    registerNotification(@selector(onRatioAction), CRVImageEditViewControllerWillShowRatioAlertController);
+    registerNotification(@selector(onRatioAction), CRVImageEditViewControllerWillShowRatioAlertControllerNotification);
     registerNotification(@selector(onCancelAction), CRVImageEditViewControllerWillCancelEditingNotification);
     registerNotification(@selector(onDoneAction), CRVImageEditViewControllerWillFinishEditingWithImageAssetNotification);
 }
