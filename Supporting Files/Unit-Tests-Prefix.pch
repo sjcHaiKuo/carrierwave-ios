@@ -13,6 +13,8 @@
 #ifdef __OBJC__
 
     #define EXP_SHORTHAND
+    #define HC_SHORTHAND
+    #define MOCKITO_SHORTHAND
 
     @import Carrierwave;
     @import Foundation;
@@ -21,13 +23,20 @@
     #import <OCMock/OCMock.h>
     #import <OHHTTPStubs/OHHTTPStubs.h>
     #import <Specta/Specta.h>
+    #import <OCHamcrest/OCHamcrest.h>
+    #import "OCMockito.h"
 
     #import "CRVSessionTaskManager.h"
     #import "CRVNetworkManager.h"
     #import "CRVSessionManager.h"
-    #import "CRVScalableView.h"
+
+    #import "CRVImageEditViewController.h"
+    #import "CRVTransformViewController.h"
+    #import "CRVAlertController.h"
+
+    #import "CRVImageEditView.h"
+    #import "CRVTransformView.h"
     #import "CRVAnchorPoint.h"
-    #import "CRVScalableView.h"
 
     #import "Carrierwave-Features.h"
     #import "Carrierwave-Macros.h"

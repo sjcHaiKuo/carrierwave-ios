@@ -13,8 +13,7 @@ describe(@"CRVScalableViewSpec", ^{
     __block CRVScalableView *scalableView = nil;
     
     beforeEach(^{
-        CGRect frame = CGRectMake(100, 100, 100, 100);
-        scalableView = [[CRVScalableView alloc] initWithFrame:frame];
+        scalableView = [[CRVScalableView alloc] init];
     });
     
     afterEach(^{

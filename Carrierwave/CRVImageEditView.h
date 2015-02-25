@@ -8,8 +8,6 @@
 
 @import UIKit;
 
-@protocol CRVImageEditSettingsActions;
-
 @interface CRVImageEditView : UIView
 
 /**

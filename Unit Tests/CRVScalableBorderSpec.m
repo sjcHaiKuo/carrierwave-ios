@@ -15,8 +15,7 @@ describe(@"CRVScalableBorderSpec", ^{
     __block CRVScalableBorder *scalableBorder = nil;
     
     beforeEach(^{
-        CGRect frame = CGRectMake(100, 100, 100, 100);
-        scalableBorder = [[CRVScalableBorder alloc] initWithFrame:frame];
+        scalableBorder = [[CRVScalableBorder alloc] init];
     });
     
     afterEach(^{
