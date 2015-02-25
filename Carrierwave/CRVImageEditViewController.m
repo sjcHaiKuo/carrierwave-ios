@@ -6,17 +6,20 @@
 
 #import "CRVImageEditViewController.h"
 #import "CRVTransformViewController.h"
+#import "CRVAlertController.h"
 
 #import "CRVImageEditView.h"
-#import "CRVInfoView.h"
-#import "CRVImageAsset.h"
+#import "CRVHeaderView.h"
+#import "CRVFooterView.h"
 
+#import "CRVImageAsset.h"
 #import "CRVNotificationIdentifiers.h"
 
 @interface CRVImageEditViewController ()
 
 @property (weak, nonatomic) CRVImageEditView *aView;
 @property (weak, nonatomic) CRVTransformViewController *transformViewController;
+@property (strong, nonatomic, readwrite) NSArray *ratioItemList;
 
 @end
 
@@ -58,25 +61,26 @@
     [super viewDidLoad];
     
     [self registerNotifications];
+    [self createRatioList];
     
-    if ([self.dataSource respondsToSelector:@selector(heightForSettingsViewInImageEditViewController:)]) {
-        self.aView.heightForSettingsView = [self.dataSource heightForSettingsViewInImageEditViewController:self];
+    if ([self.delegate respondsToSelector:@selector(heightForHeaderInImageEditViewController:)]) {
+        self.aView.headerHeight= [self.delegate heightForHeaderInImageEditViewController:self];
     }
     
-    if ([self.dataSource respondsToSelector:@selector(heightForInfoViewInImageEditViewController:)]) {
-        self.aView.heightForInfoView = [self.dataSource heightForInfoViewInImageEditViewController:self];
+    if ([self.delegate respondsToSelector:@selector(heightForFooterInImageEditViewController:)]) {
+        self.aView.footerHeight = [self.delegate heightForFooterInImageEditViewController:self];
     }
     
-    if ([self.dataSource respondsToSelector:@selector(settingsViewForImageEditViewController:)]) {
-        self.aView.settingsView = [self.dataSource settingsViewForImageEditViewController:self];
+    if ([self.delegate respondsToSelector:@selector(viewForHeaderInImageEditViewController:)]) {
+        self.aView.headerView = [self.delegate viewForHeaderInImageEditViewController:self];
     } else {
-        self.aView.settingsView = [[CRVImageEditSettingsView alloc] init];
+        self.aView.headerView = [[CRVHeaderView alloc] init];
     }
     
-    if ([self.dataSource respondsToSelector:@selector(infoViewForImageEditViewController:)]) {
-        self.aView.infoView = [self.dataSource infoViewForImageEditViewController:self];
+    if ([self.delegate respondsToSelector:@selector(viewForFooterInImageEditViewController:)]) {
+        self.aView.footerView = [self.delegate viewForFooterInImageEditViewController:self];
     } else {
-        self.aView.infoView = [[CRVInfoView alloc] init];
+        self.aView.footerView = [[CRVFooterView alloc] init];
     }
     
     CRVTransformViewController *containerTransformViewController = [self addContainerTransformViewController];
@@ -85,12 +89,18 @@
 
 #pragma mark - Public Methods
 
-- (CRVSettingsView *)settingsView {
-    return self.aView.settingsView;
+- (UIView *)headerView {
+    return self.aView.headerView;
 }
 
-- (UIView *)infoView {
-    return self.aView.infoView;
+- (UIView *)footerView {
+    return self.aView.footerView;
+}
+
+- (void)addRatioItemToList:(CRVRatioItem *)ratioItem {
+    NSMutableArray *array = [self.ratioItemList mutableCopy];
+    [array addObject:ratioItem];
+    self.ratioItemList = [array copy];
 }
 
 #pragma mark - NSNotifications Listeners
@@ -102,7 +112,15 @@
 }
 
 - (void)onRatioAction {
-    UIAlertController *ratioAlertController = [self ratioAlertController];
+    CRVAlertController *ratioAlertController = [[CRVAlertController alloc] initWithList:self.ratioItemList actionHandler:^(CGFloat ratio) {
+        if (ratio != 0.f) {
+            [self.cropView animateToRatio:ratio completion:^(BOOL finished) {
+                self.cropView.ratioEnabled = YES;
+            }];
+        } else {
+            self.cropView.ratioEnabled = NO;
+        }
+    }];
     [self presentViewController:ratioAlertController animated:YES completion:nil];
 }
 
@@ -112,10 +130,6 @@
         CRVImageAsset *asset = [[CRVImageAsset alloc] initWithImage:croppedImage];
         [self.delegate imageEditViewController:self didFinishEditingWithImageAsset:asset];
     }
-}
-
-- (void)onResetAction {
-    [self.transformViewController resetTransform];
 }
 
 #pragma mark - Accessors
@@ -131,6 +145,10 @@
 }
 
 #pragma mark - Private Methods
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 
 - (CRVTransformViewController *)addContainerTransformViewController {
     
@@ -152,51 +170,29 @@
     [controller removeFromParentViewController];
 }
 
-- (UIAlertController *)ratioAlertController {
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select crop frame ratio:", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"None (free form)", nil) ratio:0.f]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"1:1", nil) ratio:1.f]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"1:2", nil) ratio:.5f]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"2:1", nil) ratio:2.f]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"3:4", nil) ratio:.75f]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"4:3", nil) ratio:1.3333f]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"9:16", nil) ratio:.5625f]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"16:9", nil) ratio:1.7778f]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
-    
-    return alertController;
-}
-
-- (UIAlertAction *)actionWithTitle:(NSString *)title ratio:(CGFloat)ratio {
-    
-    return [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        if (ratio != 0.f) {
-            [self.cropView animateToRatio:ratio completion:^(BOOL finished) {
-                self.cropView.ratioEnabled = YES;
-            }];
-        } else {
-            self.cropView.ratioEnabled = NO;
-        }
-    }];
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
 - (void)registerNotifications {
     
     void (^registerNotification)(SEL, NSString *) = ^(SEL selector, NSString *name) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:selector name:name object:nil];
     };
     
-    registerNotification(@selector(onRatioAction), CRVEditViewControllerWillShowRatioAlertController);
-    registerNotification(@selector(onCancelAction), CRVEditViewControllerWillCancelEditingNotification);
-    registerNotification(@selector(onDoneAction), CRVEditViewControllerWillFinishEditingWithImageAssetNotification);
-    registerNotification(@selector(onResetAction), CRVEditViewControllerWillResetImageAssetTransformationNotification);
+    registerNotification(@selector(onRatioAction), CRVImageEditViewControllerWillShowRatioAlertController);
+    registerNotification(@selector(onCancelAction), CRVImageEditViewControllerWillCancelEditingNotification);
+    registerNotification(@selector(onDoneAction), CRVImageEditViewControllerWillFinishEditingWithImageAssetNotification);
+}
+
+- (void)createRatioList {
+    
+    CRVRatioItem * (^createCropRatio)(NSString *, CGFloat) = ^(NSString *title, CGFloat ratio) {
+        return [[CRVRatioItem alloc] initWithTitle:title ratio:ratio];
+    };
+    
+    self.ratioItemList = @[createCropRatio(NSLocalizedString(@"None (free form)", nil), 0.f),
+                           createCropRatio(NSLocalizedString(@"1:1", nil), 1.f),
+                           createCropRatio(NSLocalizedString(@"1:2", nil), .5f),
+                           createCropRatio(NSLocalizedString(@"2:1", nil), 2.f),
+                           createCropRatio(NSLocalizedString(@"3:4", nil), 0.75f),
+                           createCropRatio(NSLocalizedString(@"4:3", nil), 1.3333f)];
 }
 
 @end

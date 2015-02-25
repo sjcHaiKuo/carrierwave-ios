@@ -6,33 +6,33 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#import "CRVImageEditSettingsView.h"
+#import "CRVFooterView.h"
 
-@interface CRVImageEditSettingsView ()
+@interface CRVFooterView ()
 
 /**
- *  Performs cancel action from CRVSettingsView
+ *  Triggers an action to CRVSettingsController which will post cancel message.
  */
 @property (strong, nonatomic) UIButton *cancelButton;
 
 /**
- *  Performs ratio action from CRVSettingsView
+ *  Triggers an action to CRVSettingsController which will post ratio message.
  */
 @property (strong, nonatomic) UIButton *ratioButton;
 
 /**
- *  Performs done action from CRVSettingsView
+ *  Triggers an action to CRVSettingsController which will post done message.
  */
 @property (strong, nonatomic) UIButton *doneButton;
 
 /**
- *  Performs reset transform action from CRVSettingsView
+ *  Triggers an action to CRVSettingsController which will post resetTransformation message.
  */
 @property (strong, nonatomic) UIButton *resetTransformButton;
 
 @end
 
-@implementation CRVImageEditSettingsView
+@implementation CRVFooterView
 
 #pragma mark - Object lifecycle
 
@@ -90,19 +90,19 @@
 #pragma mark - UIControl Actions
 
 - (void)cancelButtonDidClick:(UIButton *)button {
-    [self performCancelAction];
+    [self.messenger postCancelMessage];
 }
 
 - (void)ratioButtonDidClick:(UIButton *)button {
-    [self showRatioSheet];
+    [self.messenger postShowRatioSheetMessage];
 }
 
 - (void)doneButtonDidClick:(UIButton *)button {
-    [self performDoneAction];
+    [self.messenger postDoneMessage];
 }
 
 - (void)resetTransformButtonDidClick:(UIButton *)button {
-    [self resetTransform];
+    [self.messenger postResetTransformationMessage];
 }
 
 

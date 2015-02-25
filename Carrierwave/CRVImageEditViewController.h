@@ -7,10 +7,11 @@
 @import UIKit;
 
 #import "CRVScalableView.h"
-#import "CRVImageEditSettingsView.h"
+#import "CRVHeaderFooterView.h"
+#import "CRVRatioItem.h"
 
-@class CRVImageAsset, CRVSettingsView;
-@protocol CRVImageEditViewControllerDelegate, CRVImageEditViewControllerDataSource;
+@class CRVImageAsset;
+@protocol CRVImageEditViewControllerDelegate;
 
 /**
  *  The CRVImageCropViewController provides an easy user interface to move and
@@ -43,53 +44,26 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 @property (weak, nonatomic) IBOutlet id<CRVImageEditViewControllerDelegate> delegate;
 
 /**
- *  The crop view controller's
+ *  An array populated with CRVRatioItem objects used to display UIAlertController.
  */
-@property (weak, nonatomic) IBOutlet id<CRVImageEditViewControllerDataSource> dataSource;
+@property (strong, nonatomic, readonly) NSArray *ratioItemList;
 
 /**
- *  The crop view controller's settings view.
- */
-- (CRVSettingsView *)settingsView;
-
-/**
- *  An info view layouted in place of status bar. Designed place for info.
- */
-- (UIView *)infoView;
-
-@end
-
-@protocol CRVImageEditViewControllerDataSource <NSObject>
-
-@optional
-
-/**
- *  Allows the delegate to specify settingsView height. If this method is implemented, the value it returns overrides default value which is equal to 60 points.
+ *  Adds an item to list which populates UIAlertController actions. Use it to add your own ratios to crop view should scale.
  *
- *  @param controller The edit view controller sending the delegate message.
+ *  @param ratioItem An item added to list. Provide ratio and title as well.
  */
-- (CGFloat)heightForSettingsViewInImageEditViewController:(CRVImageEditViewController *)controller;
+- (void)addRatioItemToList:(CRVRatioItem *)ratioItem;
 
 /**
- *  Asks the delegate for a view object, conforming CRVImageEditSettingsActions protocol, to display as settings view.
- *
- *  @param controller The edit view controller sending the delegate message.
+ *  Header view to layouted at the top of CRVImageEditViewController's view. By default returns UILabel with short info.
  */
-- (CRVSettingsView *)settingsViewForImageEditViewController:(CRVImageEditViewController *)controller;
+- (UIView *)headerView;
 
 /**
- *  Allows the delegate to customize info view height. If this method is implemented, the value it returns overrides default value which is equal to 20 points.
- *
- *  @param controller The edit view controller sending the delegate message.
+ *  Footer view to layouted at the bottom of CRVImageEditViewController's view. By default returns UIView with settings buttons.
  */
-- (CGFloat)heightForInfoViewInImageEditViewController:(CRVImageEditViewController *)controller;
-
-/**
- *  Asks the delegate for a view to display as info view.
- *
- *  @param controller The edit view controller sending the delegate message.
- */
-- (UIView *)infoViewForImageEditViewController:(CRVImageEditViewController *)controller;
+- (UIView *)footerView;
 
 @end
 
@@ -111,5 +85,37 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
  *  @param controller The edit view controller sending the delegate message.
  */
 - (void)imageEditViewControllerDidCancelEditing:(CRVImageEditViewController *)controller;
+
+/**
+ *  Asks the delegate for a view to display as header view (at the top of CRVImageEditViewController's view).
+ *  If not implemented, the default one will be used. Pass nil if header view should not be initialized.
+ *  To create a view with communication feature, sublass CRVHeaderFooterView and use settingsMessanger to post messages.
+ *
+ *  @param controller The edit view controller which will display header view.
+ */
+- (UIView *)viewForHeaderInImageEditViewController:(CRVImageEditViewController *)controller;
+
+/**
+ *  Asks the delegate for a view to display as footer view (at the bottom of CRVImageEditViewController's view).
+ *  If not implemented, the default one will be used. Pass nil if footer view should not be initialized.
+ *  To create a view with communication feature, sublass CRVHeaderFooterView and use settingsMessanger to post messages.
+ *
+ *  @param controller The edit view controller which will display footer view.
+ */
+- (UIView *)viewForFooterInImageEditViewController:(CRVImageEditViewController *)controller;
+
+/**
+ *  Allows the delegate to specify header view height. If this method is implemented, the value it returns overrides default value which is equal to 20 points.
+ *
+ *  @param controller The edit view controller sending the delegate message.
+ */
+- (CGFloat)heightForHeaderInImageEditViewController:(CRVImageEditViewController *)controller;
+
+/**
+ *  Allows the delegate to specify footer height. If this method is implemented, the value it returns overrides default value which is equal to 60 points.
+ *
+ *  @param controller The edit view controller sending the delegate message.
+ */
+- (CGFloat)heightForFooterInImageEditViewController:(CRVImageEditViewController *)controller;
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-#import "CRVSettingsView.h"
+#import "CRVHeaderFooterView.h"
 
-@interface CRVImageEditSettingsView : CRVSettingsView
+@interface CRVFooterView : CRVHeaderFooterView
 
 @end

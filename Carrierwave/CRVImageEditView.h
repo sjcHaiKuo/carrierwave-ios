@@ -9,32 +9,31 @@
 @import UIKit;
 
 @protocol CRVImageEditSettingsActions;
-@class CRVSettingsView;
 
 @interface CRVImageEditView : UIView
 
 /**
- *  An info view layouted in place of status bar.
+ *  A header view layouted at the top of superview.
  */
-@property (strong, nonatomic) UIView *infoView;
+@property (strong, nonatomic) UIView *headerView;
 
 /**
- *  Defines height designed for info view.
+ *  A footer view layouted at the bottom of superview.
  */
-@property (assign, nonatomic) CGFloat heightForInfoView;
+@property (strong, nonatomic) UIView *footerView;
 
 /**
- *  A settings view which contain behaviour methods.
+ *  Defines height designed for header view.
  */
-@property (strong, nonatomic) CRVSettingsView *settingsView;
+@property (assign, nonatomic) CGFloat headerHeight;
 
 /**
- *  Defines height designed for settings view.
+ *  Defines height designed for footer view.
  */
-@property (assign, nonatomic) CGFloat heightForSettingsView;
+@property (assign, nonatomic) CGFloat footerHeight;
 
 /**
- *  Calculates and returns rect designed for container view
+ *  Calculates and returns rect designed for container view.
  */
 - (CGRect)rectForContainerView;
 

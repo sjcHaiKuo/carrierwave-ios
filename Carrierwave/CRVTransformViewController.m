@@ -8,7 +8,9 @@
 
 #import "CRVTransformViewController.h"
 #import "CRVTransformView.h"
+
 #import "CRVGeometry.h"
+#import "CRVNotificationIdentifiers.h"
 
 CRVWorkInProgress("This should be dynamically calculated");
 static CGFloat const CRVMinMarginOnPan = 80.f;
@@ -59,6 +61,13 @@ static CGFloat const CRVMinPixelSizeOnZoom = 50.f;
     configureGesture(tapGesture);
     tapGesture.numberOfTapsRequired = 2;
     [self.aView addGestureRecognizer:tapGesture];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTransform) name:CRVTransformViewControllerWillResetTransformationNotification object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Public Methods

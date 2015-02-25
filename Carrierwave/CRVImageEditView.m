@@ -7,15 +7,15 @@
 //
 
 #import "CRVImageEditView.h"
-#import "CRVImageEditSettingsView.h"
+#import "CRVFooterView.h"
 
 @implementation CRVImageEditView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _heightForSettingsView = 60.f;
-        _heightForInfoView = 20.f;
+        _headerHeight = 20.f;
+        _footerHeight = 60.f;
     }
     return self;
 }
@@ -25,34 +25,34 @@
     
     CGRect rect = self.bounds;
     
-    self.infoView.frame = CGRectMake(0.f, 0.f,
-                                     CGRectGetWidth(rect), self.heightForInfoView);
+    self.headerView.frame = CGRectMake(0.f, 0.f,
+                                       CGRectGetWidth(rect), self.headerHeight);
     
-    self.settingsView.frame = CGRectMake(0.f, CGRectGetHeight(rect) - self.heightForSettingsView,
-                                         CGRectGetWidth(rect), self.heightForSettingsView);
+    self.footerView.frame = CGRectMake(0.f, CGRectGetHeight(rect) - self.footerHeight,
+                                       CGRectGetWidth(rect), self.footerHeight);
 }
 
 #pragma mark - Public Methods
 
 - (CGRect)rectForContainerView {
     return CGRectMake(0.f,
-                      self.heightForInfoView,
+                      self.headerHeight,
                       CGRectGetWidth(self.bounds),
-                      CGRectGetHeight(self.bounds) - self.heightForSettingsView - self.heightForInfoView);
+                      CGRectGetHeight(self.bounds) - self.headerHeight - self.footerHeight);
 }
 
 #pragma mark - Accessors
 
-- (void)setSettingsView:(CRVSettingsView *)settingsView {
-    BOOL addToSubview = (_settingsView == nil);
-    _settingsView = settingsView;
-    if (addToSubview) [self addSubview:_settingsView];
+- (void)setFooterView:(UIView *)footerView {
+    BOOL addToSubview = (_footerView == nil);
+    _footerView = footerView;
+    if (addToSubview) [self addSubview:_footerView];
 }
 
-- (void)setInfoView:(UIView *)infoView {
-    BOOL addToSubview = (_infoView == nil);
-    _infoView = infoView;
-    if (addToSubview) [self addSubview:_infoView];
+- (void)setHeaderView:(UIView *)headerView {
+    BOOL addToSubview = (_headerView == nil);
+    _headerView = headerView;
+    if (addToSubview) [self addSubview:_headerView];
 }
 
 @end

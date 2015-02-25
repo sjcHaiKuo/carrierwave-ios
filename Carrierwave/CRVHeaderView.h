@@ -8,6 +8,6 @@
 
 @import UIKit;
 
-@interface CRVInfoView : UILabel
+@interface CRVHeaderView : UILabel
 
 @end

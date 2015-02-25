@@ -63,6 +63,14 @@
 		5E11A6B21A766D78001924ED /* CRVScalableBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11A6B01A766D78001924ED /* CRVScalableBorder.m */; };
 		5E11A6B51A766E3C001924ED /* CRVAnchorPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E11A6B31A766E3C001924ED /* CRVAnchorPoint.h */; };
 		5E11A6B61A766E3C001924ED /* CRVAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11A6B41A766E3C001924ED /* CRVAnchorPoint.m */; };
+		5E2E5B691A9E354F00545A0E /* CRVHeaderFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B671A9E354F00545A0E /* CRVHeaderFooterView.h */; };
+		5E2E5B6A1A9E354F00545A0E /* CRVHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B681A9E354F00545A0E /* CRVHeaderFooterView.m */; };
+		5E2E5B6D1A9E35DF00545A0E /* CRVSettingsMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B6B1A9E35DF00545A0E /* CRVSettingsMessenger.h */; };
+		5E2E5B6E1A9E35DF00545A0E /* CRVSettingsMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B6C1A9E35DF00545A0E /* CRVSettingsMessenger.m */; };
+		5E2E5B721A9E4A9F00545A0E /* CRVAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B701A9E4A9F00545A0E /* CRVAlertController.h */; };
+		5E2E5B731A9E4A9F00545A0E /* CRVAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B711A9E4A9F00545A0E /* CRVAlertController.m */; };
+		5E2E5B761A9E4E1E00545A0E /* CRVRatioItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B741A9E4E1E00545A0E /* CRVRatioItem.h */; };
+		5E2E5B771A9E4E1E00545A0E /* CRVRatioItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B751A9E4E1E00545A0E /* CRVRatioItem.m */; };
 		5E4953FB1A9DE50C0082F2E2 /* CRVGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E4953FA1A9DE50C0082F2E2 /* CRVGeometry.h */; };
 		5E4C992B1A642E5F009AA040 /* CRVSessionTaskWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E4C99291A642E5F009AA040 /* CRVSessionTaskWrapper.h */; };
 		5E4C992C1A642E5F009AA040 /* CRVSessionTaskWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4C992A1A642E5F009AA040 /* CRVSessionTaskWrapper.m */; };
@@ -88,8 +96,6 @@
 		5E56EBFB1A5D68D2002E2484 /* CRVNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */; };
 		5E6729261A9C66120039B818 /* CRVImageEditView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E6729241A9C66120039B818 /* CRVImageEditView.h */; };
 		5E6729271A9C66120039B818 /* CRVImageEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6729251A9C66120039B818 /* CRVImageEditView.m */; };
-		5E67292A1A9C84B30039B818 /* CRVSettingsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E6729281A9C84B30039B818 /* CRVSettingsView.h */; };
-		5E67292B1A9C84B30039B818 /* CRVSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6729291A9C84B30039B818 /* CRVSettingsView.m */; };
 		5E67292D1A9C8CE00039B818 /* CRVNotificationIdentifiers.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E67292C1A9C8CE00039B818 /* CRVNotificationIdentifiers.h */; };
 		5E6F97DB1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E6F97D91A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.h */; };
 		5E6F97DC1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6F97DA1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.m */; };
@@ -99,8 +105,8 @@
 		5EA4E0271A936A6900C537F2 /* CRVAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4E0261A936A6900C537F2 /* CRVAssetModel.m */; };
 		5EA4E0321A93789500C537F2 /* CRVCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4E0311A93789500C537F2 /* CRVCollectionViewController.m */; };
 		5EA4E0351A93793C00C537F2 /* CRVCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4E0341A93793C00C537F2 /* CRVCollectionViewCell.m */; };
-		5EB3E5151A9CB08500EFB9E7 /* CRVInfoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EB3E5131A9CB08500EFB9E7 /* CRVInfoView.h */; };
-		5EB3E5161A9CB08500EFB9E7 /* CRVInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB3E5141A9CB08500EFB9E7 /* CRVInfoView.m */; };
+		5EB3E5151A9CB08500EFB9E7 /* CRVHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EB3E5131A9CB08500EFB9E7 /* CRVHeaderView.h */; };
+		5EB3E5161A9CB08500EFB9E7 /* CRVHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB3E5141A9CB08500EFB9E7 /* CRVHeaderView.m */; };
 		5EB53E9B1A93EC0100CCFB78 /* CRVManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB53E9A1A93EC0100CCFB78 /* CRVManager.m */; };
 		5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */; };
@@ -113,8 +119,8 @@
 		8D072AAE03FBD8A20CAE8FFF /* libPods-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4BFF2822CEF1BC7F260BB3C /* libPods-Demo.a */; };
 		E33BEFB01A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BEFAF1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m */; };
 		E3781E1B1A89055100C95F83 /* CRVScalableViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = E3781E1A1A89055100C95F83 /* CRVScalableViewSpec.m */; };
-		E3AB00501A8D03F6000052D9 /* CRVImageEditSettingsView.h in Headers */ = {isa = PBXBuildFile; fileRef = E3AB004E1A8D03F6000052D9 /* CRVImageEditSettingsView.h */; };
-		E3AB00511A8D03F6000052D9 /* CRVImageEditSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3AB004F1A8D03F6000052D9 /* CRVImageEditSettingsView.m */; };
+		E3AB00501A8D03F6000052D9 /* CRVFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = E3AB004E1A8D03F6000052D9 /* CRVFooterView.h */; };
+		E3AB00511A8D03F6000052D9 /* CRVFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3AB004F1A8D03F6000052D9 /* CRVFooterView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,6 +238,14 @@
 		5E11A6B01A766D78001924ED /* CRVScalableBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVScalableBorder.m; sourceTree = "<group>"; };
 		5E11A6B31A766E3C001924ED /* CRVAnchorPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVAnchorPoint.h; sourceTree = "<group>"; };
 		5E11A6B41A766E3C001924ED /* CRVAnchorPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVAnchorPoint.m; sourceTree = "<group>"; };
+		5E2E5B671A9E354F00545A0E /* CRVHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVHeaderFooterView.h; sourceTree = "<group>"; };
+		5E2E5B681A9E354F00545A0E /* CRVHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVHeaderFooterView.m; sourceTree = "<group>"; };
+		5E2E5B6B1A9E35DF00545A0E /* CRVSettingsMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVSettingsMessenger.h; sourceTree = "<group>"; };
+		5E2E5B6C1A9E35DF00545A0E /* CRVSettingsMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSettingsMessenger.m; sourceTree = "<group>"; };
+		5E2E5B701A9E4A9F00545A0E /* CRVAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVAlertController.h; sourceTree = "<group>"; };
+		5E2E5B711A9E4A9F00545A0E /* CRVAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVAlertController.m; sourceTree = "<group>"; };
+		5E2E5B741A9E4E1E00545A0E /* CRVRatioItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVRatioItem.h; sourceTree = "<group>"; };
+		5E2E5B751A9E4E1E00545A0E /* CRVRatioItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVRatioItem.m; sourceTree = "<group>"; };
 		5E4953FA1A9DE50C0082F2E2 /* CRVGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVGeometry.h; sourceTree = "<group>"; };
 		5E4C99291A642E5F009AA040 /* CRVSessionTaskWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVSessionTaskWrapper.h; sourceTree = "<group>"; };
 		5E4C992A1A642E5F009AA040 /* CRVSessionTaskWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionTaskWrapper.m; sourceTree = "<group>"; };
@@ -257,8 +271,6 @@
 		5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVNetworkManager.m; sourceTree = "<group>"; };
 		5E6729241A9C66120039B818 /* CRVImageEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVImageEditView.h; sourceTree = "<group>"; };
 		5E6729251A9C66120039B818 /* CRVImageEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVImageEditView.m; sourceTree = "<group>"; };
-		5E6729281A9C84B30039B818 /* CRVSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVSettingsView.h; sourceTree = "<group>"; };
-		5E6729291A9C84B30039B818 /* CRVSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSettingsView.m; sourceTree = "<group>"; };
 		5E67292C1A9C8CE00039B818 /* CRVNotificationIdentifiers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNotificationIdentifiers.h; sourceTree = "<group>"; };
 		5E6F97D91A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CRVSessionTaskWrapper+Carrierwave.h"; sourceTree = "<group>"; };
 		5E6F97DA1A80CF9A00383533 /* CRVSessionTaskWrapper+Carrierwave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CRVSessionTaskWrapper+Carrierwave.m"; sourceTree = "<group>"; };
@@ -272,8 +284,8 @@
 		5EA4E0311A93789500C537F2 /* CRVCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVCollectionViewController.m; sourceTree = "<group>"; };
 		5EA4E0331A93793C00C537F2 /* CRVCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVCollectionViewCell.h; sourceTree = "<group>"; };
 		5EA4E0341A93793C00C537F2 /* CRVCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVCollectionViewCell.m; sourceTree = "<group>"; };
-		5EB3E5131A9CB08500EFB9E7 /* CRVInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVInfoView.h; sourceTree = "<group>"; };
-		5EB3E5141A9CB08500EFB9E7 /* CRVInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVInfoView.m; sourceTree = "<group>"; };
+		5EB3E5131A9CB08500EFB9E7 /* CRVHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVHeaderView.h; sourceTree = "<group>"; };
+		5EB3E5141A9CB08500EFB9E7 /* CRVHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVHeaderView.m; sourceTree = "<group>"; };
 		5EB53E991A93EC0100CCFB78 /* CRVManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVManager.h; sourceTree = "<group>"; };
 		5EB53E9A1A93EC0100CCFB78 /* CRVManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVManager.m; sourceTree = "<group>"; };
 		5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVNetworkTypedefs.h; sourceTree = "<group>"; };
@@ -290,8 +302,8 @@
 		E33BEFAE1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+CRVAnchorPoint.h"; sourceTree = "<group>"; };
 		E33BEFAF1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+CRVAnchorPoint.m"; sourceTree = "<group>"; };
 		E3781E1A1A89055100C95F83 /* CRVScalableViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVScalableViewSpec.m; sourceTree = "<group>"; };
-		E3AB004E1A8D03F6000052D9 /* CRVImageEditSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVImageEditSettingsView.h; sourceTree = "<group>"; };
-		E3AB004F1A8D03F6000052D9 /* CRVImageEditSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVImageEditSettingsView.m; sourceTree = "<group>"; };
+		E3AB004E1A8D03F6000052D9 /* CRVFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVFooterView.h; sourceTree = "<group>"; };
+		E3AB004F1A8D03F6000052D9 /* CRVFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVFooterView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -375,10 +387,11 @@
 		3A3FE8651A517CC90052C58E /* Image Editing */ = {
 			isa = PBXGroup;
 			children = (
-				5E4953FA1A9DE50C0082F2E2 /* CRVGeometry.h */,
 				5E67292C1A9C8CE00039B818 /* CRVNotificationIdentifiers.h */,
 				5E4953FC1A9DE5150082F2E2 /* Controllers */,
 				E3AB00471A8CFCAD000052D9 /* Views */,
+				5E2E5B6F1A9E384200545A0E /* Default Header Footer */,
+				5E2E5B781A9E551A00545A0E /* Models */,
 			);
 			name = "Image Editing";
 			sourceTree = "<group>";
@@ -533,11 +546,11 @@
 			isa = PBXGroup;
 			children = (
 				3A6F28671A5039BB0049DC9F /* Carrierwave.h */,
-				5E11A6AE1A766CE8001924ED /* CropFrame */,
-				5E4C99361A652F76009AA040 /* Categories */,
-				5E56EBF31A5D68C7002E2484 /* Networking */,
+				5E4953FA1A9DE50C0082F2E2 /* CRVGeometry.h */,
 				3AF3BD911A504392005BF9C4 /* Asset Models */,
+				5E56EBF31A5D68C7002E2484 /* Networking */,
 				3A3FE8651A517CC90052C58E /* Image Editing */,
+				5E11A6AE1A766CE8001924ED /* CropFrame */,
 			);
 			path = Carrierwave;
 			sourceTree = "<group>";
@@ -649,6 +662,28 @@
 			name = CropFrame;
 			sourceTree = "<group>";
 		};
+		5E2E5B6F1A9E384200545A0E /* Default Header Footer */ = {
+			isa = PBXGroup;
+			children = (
+				5E2E5B671A9E354F00545A0E /* CRVHeaderFooterView.h */,
+				5E2E5B681A9E354F00545A0E /* CRVHeaderFooterView.m */,
+				E3AB004E1A8D03F6000052D9 /* CRVFooterView.h */,
+				E3AB004F1A8D03F6000052D9 /* CRVFooterView.m */,
+				5EB3E5131A9CB08500EFB9E7 /* CRVHeaderView.h */,
+				5EB3E5141A9CB08500EFB9E7 /* CRVHeaderView.m */,
+			);
+			name = "Default Header Footer";
+			sourceTree = "<group>";
+		};
+		5E2E5B781A9E551A00545A0E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5E2E5B741A9E4E1E00545A0E /* CRVRatioItem.h */,
+				5E2E5B751A9E4E1E00545A0E /* CRVRatioItem.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		5E4953FC1A9DE5150082F2E2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,6 +691,10 @@
 				3A3FE8671A517CE60052C58E /* CRVImageEditViewController.m */,
 				5E51155F1A9B4805008547EC /* CRVTransformViewController.h */,
 				5E5115601A9B4805008547EC /* CRVTransformViewController.m */,
+				5E2E5B6B1A9E35DF00545A0E /* CRVSettingsMessenger.h */,
+				5E2E5B6C1A9E35DF00545A0E /* CRVSettingsMessenger.m */,
+				5E2E5B701A9E4A9F00545A0E /* CRVAlertController.h */,
+				5E2E5B711A9E4A9F00545A0E /* CRVAlertController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -691,6 +730,7 @@
 		5E56EBF31A5D68C7002E2484 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				5E4C99361A652F76009AA040 /* Categories */,
 				5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */,
 				5E56EBF61A5D68D2002E2484 /* CRVNetworkManager.h */,
 				5E56EBF71A5D68D2002E2484 /* CRVNetworkManager.m */,
@@ -732,12 +772,6 @@
 				5E6729251A9C66120039B818 /* CRVImageEditView.m */,
 				5E51155B1A9B4738008547EC /* CRVTransformView.h */,
 				5E51155C1A9B4738008547EC /* CRVTransformView.m */,
-				E3AB004E1A8D03F6000052D9 /* CRVImageEditSettingsView.h */,
-				E3AB004F1A8D03F6000052D9 /* CRVImageEditSettingsView.m */,
-				5E6729281A9C84B30039B818 /* CRVSettingsView.h */,
-				5E6729291A9C84B30039B818 /* CRVSettingsView.m */,
-				5EB3E5131A9CB08500EFB9E7 /* CRVInfoView.h */,
-				5EB3E5141A9CB08500EFB9E7 /* CRVInfoView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -752,6 +786,7 @@
 				5E5115611A9B4805008547EC /* CRVTransformViewController.h in Headers */,
 				5E5006A71A6E867B00444E5D /* NSURLSessionTask+Carrierwave.h in Headers */,
 				5E5006A31A6E866600444E5D /* NSDictionary+Carrierwave.h in Headers */,
+				5E2E5B6D1A9E35DF00545A0E /* CRVSettingsMessenger.h in Headers */,
 				3A6F28681A5039BB0049DC9F /* Carrierwave.h in Headers */,
 				5E4C99331A651228009AA040 /* CRVSessionUploadTaskWrapper.h in Headers */,
 				5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */,
@@ -759,13 +794,14 @@
 				5E11A6B11A766D78001924ED /* CRVScalableBorder.h in Headers */,
 				5E11A6AC1A766CE0001924ED /* CRVScalableView.h in Headers */,
 				5E50069F1A6E84E900444E5D /* CRVUploadInfo.h in Headers */,
-				E3AB00501A8D03F6000052D9 /* CRVImageEditSettingsView.h in Headers */,
+				E3AB00501A8D03F6000052D9 /* CRVFooterView.h in Headers */,
 				5E4953FB1A9DE50C0082F2E2 /* CRVGeometry.h in Headers */,
 				219BBFC71A6959DB003A97D3 /* CRVSaveAssetTask.h in Headers */,
 				5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */,
 				219BBFBC1A693BD3003A97D3 /* CRVVideoAssetTypedefs.h in Headers */,
 				210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */,
 				5E06ABA31A77DE4200155F3E /* CRVScalableBorder+Anchors.h in Headers */,
+				5E2E5B691A9E354F00545A0E /* CRVHeaderFooterView.h in Headers */,
 				5E4C992F1A651210009AA040 /* CRVSessionDownloadTaskWrapper.h in Headers */,
 				21A75BEB1A6E513A003A7E0A /* CRVVideoDataStreamProvider.h in Headers */,
 				3AF3BD9C1A50461D005BF9C4 /* CRVAssetType.h in Headers */,
@@ -776,13 +812,14 @@
 				5E6729261A9C66120039B818 /* CRVImageEditView.h in Headers */,
 				21A75BEF1A6E514E003A7E0A /* CRVVideoFileStreamProvider.h in Headers */,
 				7CFA8FBF1A7BB4B800A92F22 /* NSError+Carrierwave.h in Headers */,
+				5E2E5B721A9E4A9F00545A0E /* CRVAlertController.h in Headers */,
 				5E94A4C51A7A893D00F98C18 /* CRVScalableView+Math.h in Headers */,
 				5E11A6B51A766E3C001924ED /* CRVAnchorPoint.h in Headers */,
-				5E67292A1A9C84B30039B818 /* CRVSettingsView.h in Headers */,
-				5EB3E5151A9CB08500EFB9E7 /* CRVInfoView.h in Headers */,
+				5EB3E5151A9CB08500EFB9E7 /* CRVHeaderView.h in Headers */,
 				3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */,
 				5E4C992B1A642E5F009AA040 /* CRVSessionTaskWrapper.h in Headers */,
 				5E67292D1A9C8CE00039B818 /* CRVNotificationIdentifiers.h in Headers */,
+				5E2E5B761A9E4E1E00545A0E /* CRVRatioItem.h in Headers */,
 				5E4D0A6B1A60982100A1729B /* CRVSessionTaskManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1109,16 +1146,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E67292B1A9C84B30039B818 /* CRVSettingsView.m in Sources */,
-				E3AB00511A8D03F6000052D9 /* CRVImageEditSettingsView.m in Sources */,
+				E3AB00511A8D03F6000052D9 /* CRVFooterView.m in Sources */,
 				21A75BF01A6E514E003A7E0A /* CRVVideoFileStreamProvider.m in Sources */,
 				3A3FE8691A517CE60052C58E /* CRVImageEditViewController.m in Sources */,
 				5E94A4C61A7A893D00F98C18 /* CRVScalableView+Math.m in Sources */,
 				5E4C99301A651210009AA040 /* CRVSessionDownloadTaskWrapper.m in Sources */,
-				5EB3E5161A9CB08500EFB9E7 /* CRVInfoView.m in Sources */,
+				5EB3E5161A9CB08500EFB9E7 /* CRVHeaderView.m in Sources */,
 				5E5006A41A6E866600444E5D /* NSDictionary+Carrierwave.m in Sources */,
+				5E2E5B771A9E4E1E00545A0E /* CRVRatioItem.m in Sources */,
+				5E2E5B6E1A9E35DF00545A0E /* CRVSettingsMessenger.m in Sources */,
 				5E5006A01A6E84E900444E5D /* CRVUploadInfo.m in Sources */,
 				5E4C992C1A642E5F009AA040 /* CRVSessionTaskWrapper.m in Sources */,
+				5E2E5B731A9E4A9F00545A0E /* CRVAlertController.m in Sources */,
 				5E5006A81A6E867B00444E5D /* NSURLSessionTask+Carrierwave.m in Sources */,
 				5E56EBF91A5D68D2002E2484 /* CRVSessionManager.m in Sources */,
 				5E11A6B21A766D78001924ED /* CRVScalableBorder.m in Sources */,
@@ -1129,6 +1168,7 @@
 				210E15A41A67EB4700342A39 /* CRVAssertTypeUtils.m in Sources */,
 				5E6729271A9C66120039B818 /* CRVImageEditView.m in Sources */,
 				5E4D0A6C1A60982100A1729B /* CRVSessionTaskManager.m in Sources */,
+				5E2E5B6A1A9E354F00545A0E /* CRVHeaderFooterView.m in Sources */,
 				5E06ABA41A77DE4200155F3E /* CRVScalableBorder+Anchors.m in Sources */,
 				210E15A01A67C92700342A39 /* CRVVideoAsset.m in Sources */,
 				5E5115621A9B4805008547EC /* CRVTransformViewController.m in Sources */,
