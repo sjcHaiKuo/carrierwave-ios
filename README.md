@@ -180,13 +180,15 @@ Bringing own settings view is available via implementation of method:
 ```objc
 - (CRVSettingsView *)settingsViewForImageEditViewController:(CRVImageEditViewController *)controller;
 ```
-The returned object has to be a subclass of `CRVSettingsView` which contains 3 methods responsible for communication with `CRVImageEditViewController`. This makes this view very flexible and customizable because any UI component can trigger an action. Just remember to implement following methods:
+The returned object has to be a subclass of `CRVSettingsView` which contains 4 methods responsible for communication with `CRVImageEditViewController`. This makes this view very flexible and customizable because any UI component can trigger an action. Just remember to implement following methods:
 
 `- (void)performCancelAction;` - sends a cancel message to `CRVImageEditViewController`
 
 `- (void)performDoneAction;` - sends a done message to `CRVImageEditViewController`
 
 `- (void)showRatioSheet;` - tells `CRVImageEditViewController` to show sheet with ratios.
+
+`- (void)resetTransform;` - tells `CRVImageEditViewController` to reset all transforms made by user and bring image to its original state.
 
 Settings view always will layout at the bottom of `CRVImageEditViewController`. Nevertheless you can customize its height by implementing:
 ```objc
