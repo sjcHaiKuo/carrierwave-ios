@@ -14,7 +14,7 @@
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor lightGrayColor];
-        self.text = NSLocalizedString(@"Tap twice anywhere to freeze crop rectangle", nil);
+        self.text = NSLocalizedString(@"Tap twice anywhere to lock/unlock crop rectangle", nil);
         self.textColor = [UIColor whiteColor];
         self.textAlignment = NSTextAlignmentCenter;
         self.font = [UIFont systemFontOfSize:14.f];
