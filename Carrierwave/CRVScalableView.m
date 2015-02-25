@@ -24,11 +24,9 @@
 
 #pragma mark - Object lifecycle
 
-- (instancetype)initWithUnderneathView:(UIView *)view {
+- (instancetype)init {
     self = [super init];
     if (self) {
-        _underneathView = view;
-        
         _borderView = [[CRVScalableBorder alloc] init];
         [self addSubview:_borderView];
         
@@ -41,6 +39,14 @@
         self.springDamping = 0.9f;
         self.springVelocity = 13.f;
         self.active = YES;
+    }
+    return self;
+}
+
+- (instancetype)initWithUnderneathView:(UIView *)view {
+    self = [self init];
+    if (self) {
+        _underneathView = view;
     }
     return self;
 }

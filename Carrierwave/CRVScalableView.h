@@ -14,6 +14,14 @@
 
 @interface CRVScalableView : UIView
 
+/**
+ *  Initializes scalable view with another view used in hit test. When scalable view active flag is set to NO,
+ *  hit test will be redirected to underneath view. Required when you want to move any view below scalable view in view hierarchy.
+ *
+ *  @param view Underneath view used to pass hit test if scalable view is not active.
+ *
+ *  @return Instance of scalable view.
+ */
 - (instancetype)initWithUnderneathView:(UIView *)view;
 
 /**
