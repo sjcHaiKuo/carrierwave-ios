@@ -148,7 +148,7 @@ Usage example:
 
 As addition, **carrierwave-ios** delivers handy UI component for editing selected photo. `CRVImageEditViewController` allows you to freely scale, rotate and crop selected photos. Here is some preview how it look in demo app:
 
-![crop view example](https://github.com/netguru/carrierwave-ios/blob/master/doc/0_crop_view.jpg "Crop view example")
+![crop view example](https://github.com/netguru/carrierwave-ios/blob/master/doc/2_crop_view.jpg "Crop view example")
 
 ### Usage
 
