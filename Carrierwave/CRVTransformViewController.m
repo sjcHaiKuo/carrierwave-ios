@@ -26,6 +26,7 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
 @property (weak, nonatomic) CRVTransformView *aView;
 @property (assign, nonatomic) CGFloat scale;
 @property (assign, nonatomic) CGFloat previousScale;
+@property (assign, nonatomic) CGFloat roatation;
 
 @end
 
@@ -43,6 +44,7 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
     [super viewDidLoad];
     
     self.scale = 1.f;
+    self.roatation = 0.f;
     
     void (^configureGesture)(UIGestureRecognizer *) = ^(UIGestureRecognizer *gesture) {
         gesture.cancelsTouchesInView = NO;
@@ -97,6 +99,17 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
     return croppedImage;
 }
 
+- (void)resetTransform {
+    self.aView.userInteractionEnabled = NO;
+    
+    [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.9f initialSpringVelocity:13.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.aView.imageView.transform = CGAffineTransformIdentity;
+        self.aView.imageView.center = self.aView.center;
+    } completion:^(BOOL finished) {
+        self.aView.userInteractionEnabled = YES;
+    }];
+}
+
 #pragma mark - Gesture Recognizers
 
 - (void)rotateGestureAction:(UIRotationGestureRecognizer *)recognizer {
@@ -105,6 +118,7 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
         return;
     }
     
+    self.roatation += recognizer.rotation;
     self.aView.imageView.transform = CGAffineTransformRotate(self.aView.imageView.transform, recognizer.rotation);
     recognizer.rotation = 0;
 }

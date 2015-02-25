@@ -17,7 +17,7 @@
         self.text = NSLocalizedString(@"Tap twice anywhere to lock/unlock crop rectangle", nil);
         self.textColor = [UIColor whiteColor];
         self.textAlignment = NSTextAlignmentCenter;
-        self.font = [UIFont systemFontOfSize:14.f];
+        self.font = [UIFont systemFontOfSize:13.f];
     }
     return self;
 }

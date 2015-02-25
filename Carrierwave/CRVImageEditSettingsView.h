@@ -25,4 +25,9 @@
  */
 @property (strong, nonatomic) UIButton *doneButton;
 
+/**
+ *  Performs reset transform action from CRVSettingsView
+ */
+@property (strong, nonatomic) UIButton *resetTransformButton;
+
 @end

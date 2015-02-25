@@ -12,5 +12,6 @@
 static NSString *const CRVEditViewControllerWillShowRatioAlertController = @"CRVEditViewControllerWillShowRatioAlertController";
 static NSString *const CRVEditViewControllerWillCancelEditingNotification = @"CRVEditViewControllerWillCancelEditingNotification";
 static NSString *const CRVEditViewControllerWillFinishEditingWithImageAssetNotification = @"CRVEditViewControllerWillFinishEditingWithImageAssetNotification";
+static NSString *const CRVEditViewControllerWillResetImageAssetTransformationNotification = @"CRVEditViewControllerWillResetImageAssetTransformationNotification";
 
 #endif

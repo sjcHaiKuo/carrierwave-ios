@@ -93,7 +93,7 @@
     return self.aView.infoView;
 }
 
-#pragma mark - UIControl Actions
+#pragma mark - NSNotifications Listeners
 
 - (void)onCancelAction {
     if ([self.delegate respondsToSelector:@selector(imageEditViewControllerDidCancelEditing:)]) {
@@ -112,6 +112,10 @@
         CRVImageAsset *asset = [[CRVImageAsset alloc] initWithImage:croppedImage];
         [self.delegate imageEditViewController:self didFinishEditingWithImageAsset:asset];
     }
+}
+
+- (void)onResetAction {
+    [self.transformViewController resetTransform];
 }
 
 #pragma mark - Accessors
@@ -193,6 +197,7 @@
     registerNotification(@selector(onRatioAction), CRVEditViewControllerWillShowRatioAlertController);
     registerNotification(@selector(onCancelAction), CRVEditViewControllerWillCancelEditingNotification);
     registerNotification(@selector(onDoneAction), CRVEditViewControllerWillFinishEditingWithImageAssetNotification);
+    registerNotification(@selector(onResetAction), CRVEditViewControllerWillResetImageAssetTransformationNotification);
 }
 
 @end

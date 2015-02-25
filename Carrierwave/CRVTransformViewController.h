@@ -33,4 +33,9 @@
  */
 - (UIImage *)cropImage;
 
+/**
+ *  Resets all transforms made by user and bring image to original state.
+ */
+- (void)resetTransform;
+
 @end

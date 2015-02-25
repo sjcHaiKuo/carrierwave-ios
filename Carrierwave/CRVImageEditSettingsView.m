@@ -27,16 +27,20 @@
         };
         
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        customizeButton(_cancelButton, NSLocalizedString(@"Cancel", nil), @selector(onCancelButtonTapped:));
+        customizeButton(_cancelButton, NSLocalizedString(@"Cancel", nil), @selector(cancelButtonDidClick:));
         [self addSubview:_cancelButton];
         
         _ratioButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        customizeButton(_ratioButton, NSLocalizedString(@"Ratio", nil), @selector(onRatioButtonTapped:));
+        customizeButton(_ratioButton, NSLocalizedString(@"Ratio", nil), @selector(ratioButtonDidClick:));
         [self addSubview:_ratioButton];
         
         _doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        customizeButton(_doneButton, NSLocalizedString(@"Done", nil), @selector(onDoneButtonTapped:));
-        [self addSubview:self.doneButton];
+        customizeButton(_doneButton, NSLocalizedString(@"Done", nil), @selector(doneButtonDidClick:));
+        [self addSubview:_doneButton];
+        
+        _resetTransformButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        customizeButton(_resetTransformButton, NSLocalizedString(@"Reset", nil), @selector(resetTransformButtonDidClick:));
+        [self addSubview:_resetTransformButton];
     }
     return self;
 }
@@ -47,7 +51,7 @@
     CGRect rect = self.bounds;
     CGFloat margin = 10.f;
     
-    CGSize buttonSize = CGSizeMake((CGFloat)floor((CGRectGetWidth(rect) - 4.f * margin) / 3.f), CGRectGetHeight(rect) - 2.f * margin);
+    CGSize buttonSize = CGSizeMake((CGFloat)floor((CGRectGetWidth(rect) - 5.f * margin) / 4.f), CGRectGetHeight(rect) - 2.f * margin);
     
     void (^layoutButton)(UIButton *, CGFloat) = ^(UIButton *button, CGFloat x) {
         button.frame = CGRectMake(x, margin, buttonSize.width, buttonSize.height);
@@ -55,21 +59,26 @@
     
     layoutButton(self.cancelButton, margin);
     layoutButton(self.ratioButton, CGRectGetMaxX(self.cancelButton.frame) + margin);
-    layoutButton(self.doneButton, CGRectGetMaxX(self.ratioButton.frame) + margin);
+    layoutButton(self.resetTransformButton, CGRectGetMaxX(self.ratioButton.frame) + margin);
+    layoutButton(self.doneButton, CGRectGetMaxX(self.resetTransformButton.frame) + margin);
 }
 
 #pragma mark - UIControl Actions
 
-- (void)onCancelButtonTapped:(UIButton *)button {
+- (void)cancelButtonDidClick:(UIButton *)button {
     [self performCancelAction];
 }
 
-- (void)onRatioButtonTapped:(UIButton *)button {
+- (void)ratioButtonDidClick:(UIButton *)button {
     [self showRatioSheet];
 }
 
-- (void)onDoneButtonTapped:(UIButton *)button {
+- (void)doneButtonDidClick:(UIButton *)button {
     [self performDoneAction];
+}
+
+- (void)resetTransformButtonDidClick:(UIButton *)button {
+    [self resetTransform];
 }
 
 

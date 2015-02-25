@@ -25,6 +25,11 @@
 - (void)performDoneAction;
 
 /**
+ *  Tells CRVImageEditViewController to reset all transformation made by user.
+ */
+- (void)resetTransform;
+
+/**
  *  Tells CRVImageEditViewController to show UIAlertController with ratio selection.
  */
 - (void)showRatioSheet;

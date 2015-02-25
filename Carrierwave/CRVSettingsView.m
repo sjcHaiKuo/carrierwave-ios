@@ -23,6 +23,10 @@
     [self postNotificationWithName:CRVEditViewControllerWillShowRatioAlertController];
 }
 
+- (void)resetTransform {
+    [self postNotificationWithName:CRVEditViewControllerWillResetImageAssetTransformationNotification];
+}
+
 #pragma mark - Private methods
 
 - (void)postNotificationWithName:(NSString *)name {
