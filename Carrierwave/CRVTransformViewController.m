@@ -90,7 +90,8 @@ static CGFloat const CRVMinPixelSizeOnZoom = 50.f;
     UIGraphicsEndImageContext();
     
     CGFloat screenScale = [UIScreen mainScreen].scale;
-    CGRect finalFrame = CGRectScale([self cropView].frame, screenScale);
+    CGFloat inset = [self cropView].borderView.borderInset + [self cropView].borderView.borderThickness;
+    CGRect finalFrame = CGRectScale(CGRectInset([self cropView].frame, inset, inset), screenScale);
     
     CGImageRef imageRef = CGImageCreateWithImageInRect([sourceImage CGImage], finalFrame);
     
