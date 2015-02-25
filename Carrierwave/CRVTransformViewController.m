@@ -21,7 +21,7 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
     return CGRectMake(CGRectGetMinX(rect) * x , CGRectGetMinY(rect) * x, CGRectGetWidth(rect) * x, CGRectGetHeight(rect) * x);
 }
 
-@interface CRVTransformViewController () <UIGestureRecognizerDelegate, CRVScalableViewHitTestDelegate>
+@interface CRVTransformViewController () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) CRVTransformView *aView;
 @property (assign, nonatomic) CGFloat scale;
@@ -65,8 +65,6 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
     configureGesture(tapGesture);
     tapGesture.numberOfTapsRequired = 2;
     [self.aView addGestureRecognizer:tapGesture];
-    
-    self.aView.cropView.hitTestDelegate = self;
 }
 
 #pragma mark - Public Methods
@@ -178,12 +176,6 @@ CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
     CRVAnchorsDrawingMode drawingMode = cropView.active ? CRVAnchorsDrawingModeAlways : CRVAnchorsDrawingModeNever;
     cropView.borderView.anchorsDrawingMode = drawingMode;
     [cropView.borderView setResizing:NO];
-}
-
-#pragma mark - CRVScalableViewHitTestDelegate Methods
-
-- (UIView *)viewForHitTestInScalableView:(CRVScalableView *)view {
-    return self.aView.imageView;
 }
 
 #pragma mark - UIGestureRecognizerDelegate Methods

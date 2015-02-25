@@ -24,7 +24,7 @@
         _imageView.multipleTouchEnabled = YES;
         [self addSubview:_imageView];
         
-        _cropView = [[CRVScalableView alloc] init];
+        _cropView = [[CRVScalableView alloc] initWithUnderneathView:_imageView];
         _cropView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.1f];
         _cropView.borderView.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.5f];
         [self addSubview:_cropView];

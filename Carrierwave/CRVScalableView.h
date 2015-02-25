@@ -14,16 +14,12 @@
 
 @interface CRVScalableView : UIView
 
+- (instancetype)initWithUnderneathView:(UIView *)view;
+
 /**
  *  The receiver's delegate object.
  */
 @property (weak, nonatomic) id <CRVScalableViewDelegate> delegate;
-
-/**
- *  Delegate used for hit test. Required to receive proper behaviour when scalable view is not active.
- *  NOTICE: Do not override.
- */
-@property (weak, nonatomic) id <CRVScalableViewHitTestDelegate> hitTestDelegate;
 
 /**
  *  Defines whether scalable view is active or not.
@@ -138,17 +134,5 @@
  *  Making cpu/memory consuming operations here may affect performance.
  */
 - (void)scalableViewDidScale:(CRVScalableView *)view;
-
-@end
-
-@protocol CRVScalableViewHitTestDelegate <NSObject>
-
-@required
-
-/**
- *  Called when view passes the hit test.
- *  Return view where hit test should be redirected when scalable view is not active.
- */
-- (UIView *)viewForHitTestInScalableView:(CRVScalableView *)view;
 
 @end

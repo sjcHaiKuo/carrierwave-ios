@@ -20,8 +20,8 @@ static CGFloat const crv_dotted[2] = {1 ,3};
 
 @implementation CRVScalableBorder
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (instancetype)init {
+    self = [super init];
     if (self) {
         //Grid customizing:
         self.gridColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5f];

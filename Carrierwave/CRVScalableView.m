@@ -16,6 +16,7 @@
 @property (strong, nonatomic) CRVAnchorPoint *anchorPoint;
 @property (assign, nonatomic) CGPoint touchStart;
 @property (strong, nonatomic) NSArray *anchorPoints;
+@property (strong, nonatomic) UIView *underneathView;
 
 @end
 
@@ -23,23 +24,24 @@
 
 #pragma mark - Object lifecycle
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (!self) return nil;
-    
-    _borderView = [[CRVScalableBorder alloc] initWithFrame:frame];
-    [self addSubview:_borderView];
-    
-    self.anchorPoints = [self anchorPointsMakeArray];
-    self.ratioEnabled = NO;
-    self.minSize = CGSizeMake(50.f, 50.f);
-    self.maxSize = CGSizeMake(300.f, 300.f);
-    self.animationDuration = 1.0f;
-    self.animationCurve = UIViewAnimationOptionCurveEaseInOut;
-    self.springDamping = 0.9f;
-    self.springVelocity = 13.f;
-    self.active = YES;
-    
+- (instancetype)initWithUnderneathView:(UIView *)view {
+    self = [super init];
+    if (self) {
+        _underneathView = view;
+        
+        _borderView = [[CRVScalableBorder alloc] init];
+        [self addSubview:_borderView];
+        
+        self.anchorPoints = [self anchorPointsMakeArray];
+        self.ratioEnabled = NO;
+        self.minSize = CGSizeMake(50.f, 50.f);
+        self.maxSize = CGSizeMake(300.f, 300.f);
+        self.animationDuration = 1.0f;
+        self.animationCurve = UIViewAnimationOptionCurveEaseInOut;
+        self.springDamping = 0.9f;
+        self.springVelocity = 13.f;
+        self.active = YES;
+    }
     return self;
 }
 
@@ -79,20 +81,18 @@
     return CGRectGetWidth(self.bounds)/CGRectGetHeight(self.bounds);
 }
 
+#pragma mark - Touches
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *view = [super hitTest:point withEvent:event];
-
-    BOOL responds = [self.hitTestDelegate respondsToSelector:@selector(viewForHitTestInScalableView:)];
-    if (self.isActive || !responds) {
+    
+    if (self.isActive || !self.underneathView) {
         return view;
     }
-
-    UIView *underneathView = [self.hitTestDelegate viewForHitTestInScalableView:self];
-    CGPoint underneathViewPoint = [underneathView convertPoint:point fromView:self];
-    return [underneathView pointInside:underneathViewPoint withEvent:event] ? underneathView : view;
+    
+    CGPoint underneathViewPoint = [self.underneathView convertPoint:point fromView:self];
+    return [self.underneathView pointInside:underneathViewPoint withEvent:event] ? self.underneathView : nil;
 }
-
-#pragma mark - Touches
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 
