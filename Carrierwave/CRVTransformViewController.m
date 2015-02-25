@@ -95,7 +95,7 @@ static CGFloat const CRVMinPixelSizeOnZoom = 50.f;
     
     [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.9f initialSpringVelocity:13.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.aView.imageView.transform = CGAffineTransformIdentity;
-        self.aView.imageView.center = self.aView.center;
+        self.aView.imageView.frame = CGRectMakeCenter(self.aView.bounds, CGRectGetWidth(self.aView.imageView.frame), CGRectGetHeight(self.aView.imageView.frame));
     } completion:nil];
 }
 

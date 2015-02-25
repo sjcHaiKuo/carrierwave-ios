@@ -36,7 +36,8 @@
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
-    self.imageView.frame = frame;
+    CGRect rect = self.bounds;
+    self.imageView.frame = rect;
     
     if (CGSizeIsNull(self.cropView.frame.size)) {
         self.cropView.frame = CGRectMake(0.f, 0.f, 200.f, 200.f);
@@ -45,20 +46,20 @@
     CGFloat width = CGRectGetWidth(self.cropView.frame);
     CGFloat height = CGRectGetHeight(self.cropView.frame);
     
-    BOOL isCropViewWidthLargerThanFrameWidth = width > CGRectGetWidth(self.bounds);
+    BOOL isCropViewWidthLargerThanFrameWidth = width > CGRectGetWidth(rect);
     if (isCropViewWidthLargerThanFrameWidth) {
-        width = CGRectGetWidth(self.bounds);
+        width = CGRectGetWidth(rect);
         height = width / [self.cropView currentRatio];
     }
     
-    BOOL isCropViewHeightLargerThanFrameHeight = height > CGRectGetHeight(self.bounds);
+    BOOL isCropViewHeightLargerThanFrameHeight = height > CGRectGetHeight(rect);
     if (isCropViewHeightLargerThanFrameHeight) {
-        height = CGRectGetHeight(self.bounds);
+        height = CGRectGetHeight(rect);
         width = height * [self.cropView currentRatio];
     }
     
-    self.cropView.frame = CGRectMakeCenter(self.bounds, width, height);
-    self.cropView.maxSize = CGSizeMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+    self.cropView.frame = CGRectMakeCenter(rect, width, height);
+    self.cropView.maxSize = CGSizeMake(CGRectGetWidth(rect), CGRectGetHeight(rect));
 }
 
 #pragma mark - Accessors
