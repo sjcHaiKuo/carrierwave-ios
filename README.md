@@ -264,16 +264,22 @@ There is also a possibility to receive user events and react on them. Only thing
 
 ### Crop border animations
 
-Animations can be triggered with following methods:
+Animate crop view to given frame:
 ```objc
 - (void)animateToFrame:(CGRect)frame completion:(void (^)(BOOL finished))completion;
 ```
-which animates view to given frame, and:
 
+Animate crop view to given size around its center:
 ```objc
 - (void)animateToSize:(CGSize)size completion:(void (^)(BOOL finished))completion;
 ```
-which animates scalable view to given size around self center. Algorithm is smart enough to validate if given/ calculated frame is located in the superview or not. If not origin (x or y) will be changed to valid ones. So you don't have to carry about coordinates you give.
+
+Animates crop view to given ratio around its center. Final dimensions are maximum possible values depending on superview bounds:
+```objc
+- (void)animateToRatio:(CGFloat)ratio completion:(void (^)(BOOL finished))completion;
+```
+
+Animations algorithm is smart enough to validate if given/calculated frame is located in the superview or not. If not origin and/or size will be changed to valid one. So you do not have to worry that crop view will move outside the boundaries of its superview.
 
 ## Demo
 

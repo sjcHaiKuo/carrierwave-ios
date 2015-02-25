@@ -156,26 +156,25 @@
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select crop frame ratio:", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"None (free form)", nil) animateSize:CGSizeMake(200.f, 200.f) ratioEnabled:NO]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"1:1", nil) animateSize:CGSizeMake(200.f, 200.f) ratioEnabled:YES]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"1:2", nil) animateSize:CGSizeMake(120.f, 240.f) ratioEnabled:YES]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"2:1", nil) animateSize:CGSizeMake(240.f, 120.f) ratioEnabled:YES]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"3:4", nil) animateSize:CGSizeMake(150.f, 200.f) ratioEnabled:YES]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"4:3", nil) animateSize:CGSizeMake(200.f, 150.f) ratioEnabled:YES]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"9:16", nil) animateSize:CGSizeMake(90.f, 160.f) ratioEnabled:YES]];
-    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"16:9", nil) animateSize:CGSizeMake(160.f, 90.f) ratioEnabled:YES]];
+    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"None (free form)", nil) ratio:0.f]];
+    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"1:1", nil) ratio:1.f]];
+    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"1:2", nil) ratio:.5f]];
+    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"2:1", nil) ratio:2.f]];
+    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"3:4", nil) ratio:.75f]];
+    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"4:3", nil) ratio:1.3333f]];
+    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"9:16", nil) ratio:.5625f]];
+    [alertController addAction:[self actionWithTitle:NSLocalizedString(@"16:9", nil) ratio:1.7778f]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
     
     return alertController;
 }
 
-- (UIAlertAction *)actionWithTitle:(NSString *)title animateSize:(CGSize)size ratioEnabled:(BOOL)enabled {
+- (UIAlertAction *)actionWithTitle:(NSString *)title ratio:(CGFloat)ratio {
     
     return [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        if (enabled) {
-            [self.cropView animateToSize:size completion:^(BOOL finished) {
+        if (ratio != 0.f) {
+            [self.cropView animateToRatio:ratio completion:^(BOOL finished) {
                 self.cropView.ratioEnabled = YES;
             }];
         } else {

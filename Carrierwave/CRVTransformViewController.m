@@ -8,18 +8,12 @@
 
 #import "CRVTransformViewController.h"
 #import "CRVTransformView.h"
+#import "CRVGeometry.h"
 
 CRVWorkInProgress("This should be dynamically calculated");
 static CGFloat const CRVMinMarginOnPan = 80.f;
 static CGFloat const CRVMinPixelSizeOnZoom = 50.f;
 
-CG_INLINE CGPoint CGPointAddition(CGPoint point1, CGPoint point2) {
-    return CGPointMake(point1.x + point2.x, point1.y + point2.y);
-}
-
-CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat x) {
-    return CGRectMake(CGRectGetMinX(rect) * x , CGRectGetMinY(rect) * x, CGRectGetWidth(rect) * x, CGRectGetHeight(rect) * x);
-}
 
 @interface CRVTransformViewController () <UIGestureRecognizerDelegate>
 

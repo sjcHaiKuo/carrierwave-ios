@@ -96,6 +96,16 @@
 - (void)animateToSize:(CGSize)size completion:(void (^)(BOOL finished))completion;
 
 /**
+ *  Animates scalable view to given ratio around center of scalable view.
+ *  Final dimensions are maximum possible values depending on superview bounds.
+ *  Takes animationDuration, animationCurve, springVelocity, springDamping under the hood as animation parameters.
+ *
+ *  @param ratio      Final ratio to reach.
+ *  @param completion A block object to be executed when the animation sequence ends.
+ */
+- (void)animateToRatio:(CGFloat)ratio completion:(void (^)(BOOL finished))completion;
+
+/**
  *  Calculates and returns aspect ratio (width/height) of scalable view.
  *
  *  @return ratio in current state.

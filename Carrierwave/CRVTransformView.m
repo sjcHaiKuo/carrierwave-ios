@@ -7,6 +7,7 @@
 //
 
 #import "CRVTransformView.h"
+#import "CRVGeometry.h"
 
 @implementation CRVTransformView
 
@@ -37,16 +38,27 @@
     
     self.imageView.frame = frame;
     
-    CGRect rect = self.bounds;
-    CRVTemporary("temporary always return 200x200");
-    CGSize cropSize = CGSizeMake(200.f, 200.f);
+    if (CGSizeIsNull(self.cropView.frame.size)) {
+        self.cropView.frame = CGRectMake(0.f, 0.f, 200.f, 200.f);
+    }
     
-    self.cropView.frame = CGRectMake(CGRectGetMidX(rect) - cropSize.width * .5f,
-                                     CGRectGetMidY(rect) - cropSize.height * .5f,
-                                     cropSize.width,
-                                     cropSize.height);
+    CGFloat width = CGRectGetWidth(self.cropView.frame);
+    CGFloat height = CGRectGetHeight(self.cropView.frame);
     
-    self.cropView.maxSize = CGSizeMake(CGRectGetWidth(rect), CGRectGetHeight(rect));
+    BOOL isCropViewWidthLargerThanFrameWidth = width > CGRectGetWidth(self.bounds);
+    if (isCropViewWidthLargerThanFrameWidth) {
+        width = CGRectGetWidth(self.bounds);
+        height = width / [self.cropView currentRatio];
+    }
+    
+    BOOL isCropViewHeightLargerThanFrameHeight = height > CGRectGetHeight(self.bounds);
+    if (isCropViewHeightLargerThanFrameHeight) {
+        height = CGRectGetHeight(self.bounds);
+        width = height * [self.cropView currentRatio];
+    }
+    
+    self.cropView.frame = CGRectMakeCenter(self.bounds, width, height);
+    self.cropView.maxSize = CGSizeMake(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
 }
 
 #pragma mark - Accessors

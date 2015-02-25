@@ -83,6 +83,40 @@
     [self animateSelfToFrame:rect completion:completion];
 }
 
+- (void)animateToRatio:(CGFloat)ratio completion:(void (^)(BOOL))completion {
+    
+    CGFloat maxWidth = CGRectGetWidth(self.superview.bounds);
+    CGFloat maxHeight = CGRectGetHeight(self.superview.bounds);
+    
+    __block CGFloat width;
+    __block CGFloat height;
+    CGFloat margin = 20.f;
+    
+    void (^widthBlock)() = ^() { //calculates end values due to the width
+        width = maxWidth - margin;
+        height = width / ratio;
+    };
+    
+    void (^heightBlock)() = ^() { //calculates end values due to the height
+        height = maxHeight - margin;
+        width = height * ratio;
+    };
+    
+    if (ratio > 1.f) {
+        widthBlock();
+        if (height > maxHeight) {
+            heightBlock();
+        }
+    } else {
+        heightBlock();
+        if (width > maxWidth) {
+            widthBlock();
+        }
+    }
+    
+    [self animateToSize:CGSizeMake(width, height) completion:completion];
+}
+
 - (CGFloat)currentRatio {
     return CGRectGetWidth(self.bounds)/CGRectGetHeight(self.bounds);
 }

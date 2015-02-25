@@ -8,6 +8,30 @@
 
 #import "CRVImageEditSettingsView.h"
 
+@interface CRVImageEditSettingsView ()
+
+/**
+ *  Performs cancel action from CRVSettingsView
+ */
+@property (strong, nonatomic) UIButton *cancelButton;
+
+/**
+ *  Performs ratio action from CRVSettingsView
+ */
+@property (strong, nonatomic) UIButton *ratioButton;
+
+/**
+ *  Performs done action from CRVSettingsView
+ */
+@property (strong, nonatomic) UIButton *doneButton;
+
+/**
+ *  Performs reset transform action from CRVSettingsView
+ */
+@property (strong, nonatomic) UIButton *resetTransformButton;
+
+@end
+
 @implementation CRVImageEditSettingsView
 
 #pragma mark - Object lifecycle
