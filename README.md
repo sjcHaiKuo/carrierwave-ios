@@ -275,6 +275,8 @@ which animates scalable view to given size around self center. Algorithm is smar
 
 ## Demo
 
+![demo example](https://github.com/netguru/carrierwave-ios/blob/master/doc/1_crop_view.jpg "Demo example")
+
 **carrierwave-ios** comes with simple demo app which implements basic features of library like upload files and editing image assets. To run demo please follow the instructions below:
 
 ```bash
