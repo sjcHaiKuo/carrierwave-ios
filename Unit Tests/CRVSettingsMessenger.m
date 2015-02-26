@@ -8,7 +8,7 @@
 
 SpecBegin(CRVSettingsMessengerSpec)
 
-fdescribe(@"CRVSettingsMessenger", ^{
+describe(@"CRVSettingsMessenger", ^{
     
     __block CRVSettingsMessenger *sut;
     

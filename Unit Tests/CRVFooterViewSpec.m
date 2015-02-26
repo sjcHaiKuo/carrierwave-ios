@@ -8,7 +8,7 @@
 
 SpecBegin(CRVFooterViewSpec)
 
-fdescribe(@"CRVFooterView", ^{
+describe(@"CRVFooterView", ^{
     
     __block CRVFooterView *sut;
     
