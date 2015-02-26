@@ -1278,6 +1278,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1305,6 +1306,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1332,6 +1334,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1359,6 +1362,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1372,6 +1376,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				PRODUCT_NAME = Carrierwave;
@@ -1386,6 +1391,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				PRODUCT_NAME = Carrierwave;
@@ -1400,6 +1406,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				PRODUCT_NAME = Carrierwave;
@@ -1414,6 +1421,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				PRODUCT_NAME = Carrierwave;
@@ -1428,6 +1436,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App-Icon";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1443,6 +1452,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App-Icon";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1458,6 +1468,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App-Icon";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1473,6 +1484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App-Icon";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

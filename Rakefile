@@ -1,7 +1,7 @@
 #
 #  Rakefile
 #
-#  Copyright (c) 2014 Netguru Sp. z o.o. All rights reserved.
+#  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 #
 
 task "test-unit" do
