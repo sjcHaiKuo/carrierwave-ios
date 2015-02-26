@@ -44,15 +44,19 @@
 #pragma mark - Accessors
 
 - (void)setFooterView:(UIView *)footerView {
-    BOOL addToSubview = (_footerView == nil);
+    if (_footerView) {
+        [_footerView removeFromSuperview];
+    }
     _footerView = footerView;
-    if (addToSubview) [self addSubview:_footerView];
+    [self addSubview:_footerView];
 }
 
 - (void)setHeaderView:(UIView *)headerView {
-    BOOL addToSubview = (_headerView == nil);
+    if (_headerView) {
+        [_headerView removeFromSuperview];
+    }
     _headerView = headerView;
-    if (addToSubview) [self addSubview:_headerView];
+    [self addSubview:_headerView];
 }
 
 @end

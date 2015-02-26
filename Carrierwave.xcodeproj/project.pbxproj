@@ -1505,7 +1505,7 @@
 				3A42F1791A4DC93C00A6F9CD /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Staging;
 		};
 		3AE333E11A4ED06C0030F632 /* Build configuration list for PBXNativeTarget "Carrierwave" */ = {
 			isa = XCConfigurationList;
@@ -1516,7 +1516,7 @@
 				3AE333E51A4ED06C0030F632 /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Staging;
 		};
 		3AE3340F1A4ED0AD0030F632 /* Build configuration list for PBXNativeTarget "Carrierwave Demo" */ = {
 			isa = XCConfigurationList;
@@ -1527,7 +1527,7 @@
 				3AE334131A4ED0AD0030F632 /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Staging;
 		};
 		3AE3408F1A4DB84800993352 /* Build configuration list for PBXProject "Carrierwave" */ = {
 			isa = XCConfigurationList;
@@ -1538,7 +1538,7 @@
 				3A42F1771A4DC93C00A6F9CD /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Staging;
 		};
 /* End XCConfigurationList section */
 	};
