@@ -19,6 +19,9 @@ dependencies:
   cache_directories:
     - "Pods"
     - "Configuration"
+  override:
+    - brew install carthage
+    - carthage bootstrap
   pre:
     - carthage update
 
