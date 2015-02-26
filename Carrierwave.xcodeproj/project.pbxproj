@@ -78,6 +78,7 @@
 		5E2E5B851A9E7EBC00545A0E /* UIView+Specs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B841A9E7EBC00545A0E /* UIView+Specs.m */; };
 		5E2E5B881A9E7EF700545A0E /* UIButton+Spec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B871A9E7EF700545A0E /* UIButton+Spec.m */; };
 		5E2E5B8B1A9E89AB00545A0E /* CRVFooterViewBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B8A1A9E89AB00545A0E /* CRVFooterViewBehavior.m */; };
+		5E2E5B8D1A9F213400545A0E /* CRVSettingsMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B8C1A9F213300545A0E /* CRVSettingsMessenger.m */; };
 		5E4953FB1A9DE50C0082F2E2 /* CRVGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E4953FA1A9DE50C0082F2E2 /* CRVGeometry.h */; };
 		5E4C992B1A642E5F009AA040 /* CRVSessionTaskWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E4C99291A642E5F009AA040 /* CRVSessionTaskWrapper.h */; };
 		5E4C992C1A642E5F009AA040 /* CRVSessionTaskWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4C992A1A642E5F009AA040 /* CRVSessionTaskWrapper.m */; };
@@ -262,6 +263,7 @@
 		5E2E5B861A9E7EF700545A0E /* UIButton+Spec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Spec.h"; sourceTree = "<group>"; };
 		5E2E5B871A9E7EF700545A0E /* UIButton+Spec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Spec.m"; sourceTree = "<group>"; };
 		5E2E5B8A1A9E89AB00545A0E /* CRVFooterViewBehavior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVFooterViewBehavior.m; sourceTree = "<group>"; };
+		5E2E5B8C1A9F213300545A0E /* CRVSettingsMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSettingsMessenger.m; sourceTree = "<group>"; };
 		5E4953FA1A9DE50C0082F2E2 /* CRVGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVGeometry.h; sourceTree = "<group>"; };
 		5E4C99291A642E5F009AA040 /* CRVSessionTaskWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVSessionTaskWrapper.h; sourceTree = "<group>"; };
 		5E4C992A1A642E5F009AA040 /* CRVSessionTaskWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVSessionTaskWrapper.m; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 				5E2E5B7B1A9E7B1700545A0E /* CRVHeaderFooterViewSpec.m */,
 				5E2E5B7D1A9E7C7200545A0E /* CRVHeaderViewSpec.m */,
 				5E2E5B811A9E7D3000545A0E /* CRVFooterViewSpec.m */,
+				5E2E5B8C1A9F213300545A0E /* CRVSettingsMessenger.m */,
 				218C87721A7FAF6E005E1029 /* Test Classes */,
 				3AE340D91A4DD2E600993352 /* Helpers */,
 				3AF3BDA31A506D6B005BF9C4 /* Resources */,
@@ -1170,6 +1173,7 @@
 				E33BEFB01A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m in Sources */,
 				3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */,
 				5E2E5B851A9E7EBC00545A0E /* UIView+Specs.m in Sources */,
+				5E2E5B8D1A9F213400545A0E /* CRVSettingsMessenger.m in Sources */,
 				5E0B16551A8226E700EB23D9 /* CRVAssetTypeBehavior.m in Sources */,
 				5E0B16511A8226AD00EB23D9 /* CRVScalableBorderSpec.m in Sources */,
 				5E0B16521A8226AD00EB23D9 /* CRVSessionManagerSpec.m in Sources */,
@@ -1266,6 +1270,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3A05FEF91A4E018B005E3C29 /* Tests-Development.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
@@ -1286,6 +1291,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3A05FEFA1A4E018B005E3C29 /* Tests-Production.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
@@ -1306,6 +1312,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3A05FEFB1A4E018B005E3C29 /* Tests-Staging.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
@@ -1326,6 +1333,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3A05FEF81A4E00C5005E3C29 /* Tests-Test.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
