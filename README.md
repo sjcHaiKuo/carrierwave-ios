@@ -12,7 +12,7 @@
 
 - Xcode 6.0 with iOS 8.0 SDK
 - [Carthage](https://github.com/Carthage/Carthage) 0.5
-- [CocoaPods](https://github.com/CocoaPods/CocoaPods) 0.35 (use `gem install cocoapods` to grab it!)
+- [CocoaPods](https://github.com/CocoaPods/CocoaPods) 0.36.0.rc.1 (use `sudo gem install cocoapods --pre` to grab it!)
 
 ## CocoaPods
 
@@ -146,7 +146,7 @@ Usage example:
 
 ## UI Component
 
-As addition, **carrierwave-ios** delivers handy UI component for editing selected photo. `CRVImageEditViewController` allows you to freely scale, rotate and crop selected photos. Here is some preview how it look in demo app:
+As addition, **carrierwave-ios** delivers handy UI component for editing selected photos. `CRVImageEditViewController` is responsible for scaling, rotating and croping them. Here is some preview how it looks in demo app:
 
 ![crop view example](https://github.com/netguru/carrierwave-ios/blob/master/doc/2_crop_view.jpg "Crop view example")
 
@@ -160,49 +160,41 @@ controller.delegate = self;
 [self presentViewController:controller animated:YES completion:nil];
 ```
 
-If you are using storyboards, you can also drag new empty view controller in InterfaceBuilder and set his class to `CRVImageEditViewController`.
+If you are using storyboards, you can also drag new empty view controller in InterfaceBuilder and set its class to `CRVImageEditViewController`.
 
 ## UI configurability
 
-We did our best to make `CRVImageEditViewController` as configurable as possible. `CRVImageEditViewController` interface expose bunch of useful properties to make its fit any app.
+We did our best to make `CRVImageEditViewController` as configurable as possible, that's why its interface expose bunch of useful properties to fit any app.
 
-### DataSource
+### Delegate
 
-Setting `CRVImageEditViewControllerDataSource` gives possibility to inject own UI components:
+Setting `CRVImageEditViewControllerDelegate` gives possibility to inject own UI components in:
 
-- settings view - layouted as bottom bar
-- info view - layouted as top bar
+- header view - layouted at the top of the screen.
+- footer view - layouted at the bottom of the screen.
 
 The rest of the space is designed for scaling, rotating and cropping image. 
 
 
-Bringing own settings view is available via implementation of method:
+Bringing own UI components is available via implementation of methods:
 ```objc
-- (CRVSettingsView *)settingsViewForImageEditViewController:(CRVImageEditViewController *)controller;
+- (UIView *)viewForHeaderInImageEditViewController:(CRVImageEditViewController *)controller;
+- (UIView *)viewForFooterInImageEditViewController:(CRVImageEditViewController *)controller;
 ```
-The returned object has to be a subclass of `CRVSettingsView` which contains 4 methods responsible for communication with `CRVImageEditViewController`. This makes this view very flexible and customizable because any UI component can trigger an action. Just remember to implement following methods:
+To create a view with communication feature, you have to sublass `CRVHeaderFooterView` class and use `settingsMessenger` to post messages:
 
-`- (void)performCancelAction;` - sends a cancel message to `CRVImageEditViewController`
-
-`- (void)performDoneAction;` - sends a done message to `CRVImageEditViewController`
-
-`- (void)showRatioSheet;` - tells `CRVImageEditViewController` to show sheet with ratios.
-
-`- (void)resetTransform;` - tells `CRVImageEditViewController` to reset all transforms made by user and bring image to its original state.
-
-Settings view always will layout at the bottom of `CRVImageEditViewController`. Nevertheless you can customize its height by implementing:
 ```objc
-- (CGFloat)heightForSettingsViewInImageEditViewController:(CRVImageEditViewController *)controller;
+- (void)postCancelMessage;
+- (void)postDoneMessage;
+- (void)postShowRatioSheetMessage;
+- (void)postResetTransformationMessage;
 ```
+[Here](https://github.com/netguru/carrierwave-ios/blob/master/Carrierwave/CRVFooterView.m) is an example.
 
-`CRVImageEditViewController` has also prepared space at the top of its view. The returned object can be a UILabel or UIImageView object, as well as a custom view:
+Specifying header and footer height is also possible:
 ```objc
-- (UIView *)infoViewForImageEditViewController:(CRVImageEditViewController *)controller;
-```
-
-Controlling info view height is possible via: 
-```objc
-- (CGFloat)heightForInfoViewInImageEditViewController:(CRVImageEditViewController *)controller;
+- (CGFloat)heightForHeaderInImageEditViewController:(CRVImageEditViewController *)controller; //default 20 points
+- (CGFloat)heightForFooterInImageEditViewController:(CRVImageEditViewController *)controller; //default 60 points
 ```
 
 ### Crop border
@@ -244,7 +236,7 @@ Crop border is customizable as well. It has bunch of options which help its to f
 ```
 
 #### Custom drawing 
-Although exposed properties are able to customize crop border a lot, there is special method provided to make own drawing on existing context:
+Although exposed properties are able to customize crop border a lot, there is special method provided to make your own drawing within existing context:
 ```objc
 - (void)drawRect:(CGRect)rect withinContext:(CGContextRef)context;
 ```
@@ -260,7 +252,6 @@ There is also a possibility to receive user events and react on them. Only thing
 - (void)scalableViewDidMove:(CRVScalableView *)view;
 - (void)scalableViewDidScale:(CRVScalableView *)view;
 ```
-
 
 ### Crop border animations
 
