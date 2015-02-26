@@ -1266,6 +1266,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"${SRCROOT}/Pods",
 				);
 				SDKROOT = iphoneos;
 			};
@@ -1292,6 +1293,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"${SRCROOT}/Pods",
 				);
 				SDKROOT = iphoneos;
 			};
@@ -1318,6 +1320,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"${SRCROOT}/Pods",
 				);
 				SDKROOT = iphoneos;
 			};
@@ -1344,6 +1347,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"${SRCROOT}/Pods",
 				);
 				SDKROOT = iphoneos;
 			};
