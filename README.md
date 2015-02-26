@@ -1,5 +1,7 @@
 # carrierwave-ios
 
+[![Circle CI](https://circleci.com/gh/netguru/carrierwave-ios/tree/master.svg?style=svg)](https://circleci.com/gh/netguru/carrierwave-ios/tree/master)
+
 **carrierwave-ios** is easy to use iOS library which provides flexible way to download, upload and edit asset files. Designed to integrate with [CarrierWave ruby gem](https://github.com/carrierwaveuploader/carrierwave), makes your work as fast as possible.
 
 ## Features:
