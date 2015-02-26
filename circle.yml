@@ -19,6 +19,8 @@ dependencies:
   cache_directories:
     - "Pods"
     - "Configuration"
+  pre:
+    - carthage update
 
 checkout:
   pre:
