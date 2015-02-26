@@ -20,5 +20,7 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>100</string>
+	<key>CFBundleDisplayName</key>
+	<string>$(PRODUCT_NAME)</string>
 </dict>
 </plist>
