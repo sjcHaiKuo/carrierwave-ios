@@ -39,8 +39,3 @@ deployment:
     commands:
       - bundle exec rake build-and-distribute:
           timeout: 600
-  production:
-    branch: beta
-    commands:
-      - bundle exec rake build-and-distribute:
-          timeout: 600
