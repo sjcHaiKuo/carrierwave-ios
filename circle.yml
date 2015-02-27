@@ -12,7 +12,7 @@ machine:
     PROJECT_NAME: "Carrierwave Demo"
     BUNDLE_ID: "co.netguru.lib.carrierwave"
     XCODE_WORKSPACE: "Carrierwave.xcworkspace"
-    XCODE_INFOPLIST_PATH: "Supporting Files/Carrierwave-Info.plist"
+    XCODE_INFOPLIST_PATH: "Supporting Files/Carrierwave-Demo-Info.plist"
     REVIEW_API: "https://api.netguru.co/review"
 
 dependencies:
