@@ -10,7 +10,7 @@ machine:
     CERTS_DIR: "Certificates"
     CERT_NAME: "iPhone Distribution: netguru sp. z o. o. (SK8PDF7SG9)"
     PROJECT_NAME: "Carrierwave Demo"
-    BUNDLE_ID: "co.netguru.lib.carrierwave"
+    BUNDLE_ID: "co.netguru.lib.carrierwave.demo"
     XCODE_WORKSPACE: "Carrierwave.xcworkspace"
     XCODE_INFOPLIST_PATH: "Supporting Files/Carrierwave-Demo-Info.plist"
     REVIEW_API: "https://api.netguru.co/review"
