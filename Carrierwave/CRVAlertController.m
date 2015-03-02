@@ -16,7 +16,6 @@
 
 @end
 
-
 @implementation CRVAlertController
 
 - (instancetype)initWithList:(NSArray *)list actionHandler:(CRVActionHandler)handler {
@@ -30,7 +29,6 @@
         }
         
         [self addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
-        
     }
     return self;
 }

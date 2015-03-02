@@ -18,7 +18,7 @@
 @property (strong, nonatomic, readonly) CRVScalableView *cropView;
 
 /**
- *  Holds image which will be transformed and cropped
+ *  Holds image which will be transformed and cropped.
  */
 @property (strong, nonatomic, readonly) UIImageView *imageView;
 

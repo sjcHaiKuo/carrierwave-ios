@@ -30,12 +30,8 @@
     #import "CRVNetworkManager.h"
     #import "CRVSessionManager.h"
 
-    #import "CRVImageEditViewController.h"
-    #import "CRVTransformViewController.h"
     #import "CRVAlertController.h"
 
-    #import "CRVImageEditView.h"
-    #import "CRVTransformView.h"
     #import "CRVHeaderView.h"
     #import "CRVFooterView.h"
     #import "CRVAnchorPoint.h"
