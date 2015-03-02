@@ -1,5 +1,5 @@
 //
-//  CRVImageEditSettingsView.h
+//  CRVFooterView.h
 //  Carrierwave
 //
 //  Created by Paweł Białecki on 12.02.2015.
@@ -19,7 +19,7 @@
  *
  *  - (CGFloat)heightForFooterInImageEditViewController:(CRVImageEditViewController *)controller;
  *
- *  Notice that this view inherits from CRVHeaderFooterView because footer view has to have a possibility to send messeges via settings messenger.
+ *  Notice that this view inherits from CRVHeaderFooterView because footer view has a possibility to send messeges via event messenger.
  */
 
 @interface CRVFooterView : CRVHeaderFooterView

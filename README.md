@@ -183,7 +183,7 @@ Bringing own UI components is available via implementation of methods:
 - (UIView *)viewForHeaderInImageEditViewController:(CRVImageEditViewController *)controller;
 - (UIView *)viewForFooterInImageEditViewController:(CRVImageEditViewController *)controller;
 ```
-To create a view with communication feature, you have to sublass `CRVHeaderFooterView` class and use `settingsMessenger` to post messages:
+To create a view with communication feature, you have to sublass `CRVHeaderFooterView` class and use `eventMessenger` to post messages:
 
 ```objc
 - (void)postCancelMessage;

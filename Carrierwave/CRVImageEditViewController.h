@@ -56,12 +56,12 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 - (void)addRatioItemToList:(CRVRatioItem *)ratioItem;
 
 /**
- *  Header view to layouted at the top of CRVImageEditViewController's view. By default returns UILabel with short info.
+ *  Header view layouted at the top of CRVImageEditViewController's view. By default returns UILabel with short info.
  */
 - (UIView *)headerView;
 
 /**
- *  Footer view to layouted at the bottom of CRVImageEditViewController's view. By default returns UIView with settings buttons.
+ *  Footer view layouted at the bottom of CRVImageEditViewController's view. By default returns UIView with events buttons.
  */
 - (UIView *)footerView;
 
@@ -89,7 +89,7 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 /**
  *  Asks the delegate for a view to display as header view (at the top of CRVImageEditViewController's view).
  *  If not implemented, the default one will be used. Pass nil if header view should not be initialized.
- *  To create a view with communication feature, sublass CRVHeaderFooterView and use settingsMessenger to post messages.
+ *  To create a view with communication feature, sublass CRVHeaderFooterView and use eventMessenger to post messages.
  *
  *  @param controller The edit view controller which will display header view.
  */
@@ -98,7 +98,7 @@ IB_DESIGNABLE @interface CRVImageEditViewController : UIViewController
 /**
  *  Asks the delegate for a view to display as footer view (at the bottom of CRVImageEditViewController's view).
  *  If not implemented, the default one will be used. Pass nil if footer view should not be initialized.
- *  To create a view with communication feature, sublass CRVHeaderFooterView and use settingsMessenger to post messages.
+ *  To create a view with communication feature, sublass CRVHeaderFooterView and use eventMessenger to post messages.
  *
  *  @param controller The edit view controller which will display footer view.
  */

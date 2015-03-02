@@ -26,8 +26,8 @@ describe(@"CRVHeaderFooterView", ^{
             expect(sut).toNot.beNil();
         });
         
-        it(@"should have a settings messenger", ^{
-            expect(sut.messenger).to.beKindOf([CRVSettingsMessenger class]);
+        it(@"should have a event messenger", ^{
+            expect(sut.messenger).to.beKindOf([CRVEventMessenger class]);
             expect(sut.messenger).toNot.beNil();
         });
         

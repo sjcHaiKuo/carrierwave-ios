@@ -1,5 +1,5 @@
 //
-//  CRVSettingsController.h
+//  CRVEventMessenger.h
 //  Carrierwave
 //
 //  Created by Patryk Kaczmarek on 25.02.2015.
@@ -9,10 +9,10 @@
 @import Foundation;
 
 /**
- *  Settings messenger is responsible for posting messages to imageEditViewController or transformViewController.
+ *  Event messenger is responsible for posting messages to imageEditViewController or transformViewController.
  */
 
-@interface CRVSettingsMessenger : NSObject
+@interface CRVEventMessenger : NSObject
 
 /**
  *  Tells CRVImageEditViewController to perform imageEditViewControllerDidCancelEditing: delegate.

@@ -8,10 +8,10 @@
 
 @import UIKit;
 
-#import "CRVSettingsMessenger.h"
+#import "CRVEventMessenger.h"
 
 @interface CRVHeaderFooterView : UIView
 
-@property (strong, nonatomic) CRVSettingsMessenger *messenger;
+@property (strong, nonatomic) CRVEventMessenger *messenger;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  CRVImageEditSettingsView.m
+//  CRVFooterView.m
 //  Carrierwave
 //
 //  Created by Paweł Białecki on 12.02.2015.
@@ -11,22 +11,22 @@
 @interface CRVFooterView ()
 
 /**
- *  Triggers an action to CRVSettingsController which will post cancel message.
+ *  Triggers an action to CRVEventMessenger which will post cancel message.
  */
 @property (strong, nonatomic) UIButton *cancelButton;
 
 /**
- *  Triggers an action to CRVSettingsController which will post ratio message.
+ *  Triggers an action to CRVEventMessenger which will post ratio message.
  */
 @property (strong, nonatomic) UIButton *ratioButton;
 
 /**
- *  Triggers an action to CRVSettingsController which will post done message.
+ *  Triggers an action to CRVEventMessenger which will post done message.
  */
 @property (strong, nonatomic) UIButton *doneButton;
 
 /**
- *  Triggers an action to CRVSettingsController which will post resetTransformation message.
+ *  Triggers an action to CRVEventMessenger which will post resetTransformation message.
  */
 @property (strong, nonatomic) UIButton *resetTransformButton;
 

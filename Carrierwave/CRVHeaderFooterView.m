@@ -13,7 +13,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _messenger = [[CRVSettingsMessenger alloc] init];
+        _messenger = [[CRVEventMessenger alloc] init];
     }
     return self;
 }

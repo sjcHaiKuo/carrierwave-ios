@@ -1,21 +1,21 @@
 //
-//  CRVSettingsMessenger.m
+//  CRVEventMessenger.m
 //  Carrierwave
 //
 //  Created by Patryk Kaczmarek on 26.02.2015.
 //  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
 //
 
-SpecBegin(CRVSettingsMessengerSpec)
+SpecBegin(CRVEventMessengerSpec)
 
-describe(@"CRVSettingsMessenger", ^{
+describe(@"CRVEventMessenger", ^{
     
-    __block CRVSettingsMessenger *sut;
+    __block CRVEventMessenger *sut;
     
     context(@"when initialized", ^{
         
         beforeEach(^{
-            sut = [[CRVSettingsMessenger alloc] init];
+            sut = [[CRVEventMessenger alloc] init];
         });
         
         afterEach(^{
