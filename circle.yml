@@ -19,6 +19,7 @@ dependencies:
   cache_directories:
     - "Pods"
     - "Configuration"
+    - "vendor/bundle"
   post:
     - brew install carthage
     - carthage bootstrap
