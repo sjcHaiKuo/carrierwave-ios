@@ -1729,7 +1729,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1751,7 +1751,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Carrierwave Demo";
@@ -1772,7 +1772,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Carrierwave Demo";
@@ -1793,7 +1793,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
