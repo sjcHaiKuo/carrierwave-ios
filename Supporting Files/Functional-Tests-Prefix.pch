@@ -26,4 +26,10 @@
     #import "Carrierwave-Features.h"
     #import "Carrierwave-Macros.h"
 
+    #import "KIFUITestActor+FunctionalTests.h"
+
+    #import "UIImage+CRVComposition.h"
+    #import "NSData+CRVComposition.h"
+    #import "OHHTTPStubs+CRVTests.h"
+
 #endif

@@ -12,7 +12,7 @@ static NSUInteger CRVStubbedNumberOfRetries;
 
 @implementation OHHTTPStubs (CRVTests)
 
-#pragma mark - Public Methods
+#pragma mark - Unit Tests Public Methods
 
 + (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager {
     
@@ -35,18 +35,29 @@ static NSUInteger CRVStubbedNumberOfRetries;
     }];
 }
 
-+ (id<OHHTTPStubsDescriptor>)crv_stubWhitelistRequestWithError:(CRVStubError)stubbedError manager:(CRVNetworkManager *)manager {
-    CRVStubbedNumberOfRetries = 0;
-    
-    return [self crv_stubRequestsWithError:stubbedError manager:manager response:^OHHTTPStubsResponse *(NSURLRequest *request) {
-        CRVWorkInProgress("temporary JSON");
-        NSArray *json = @[@"jpg", @"png", @"gif"];
++ (NSUInteger)retriesMade {
+    return CRVStubbedNumberOfRetries;
+}
+
+#pragma mark - Functional Tests Public Methods
+
++ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestAndTakeANap {
+    return [self crv_stubRequestsWithError:CRVStubErrorNone manager:nil response:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        sleep(1);
+        NSData *data = [NSData crv_defaultImageDataRepresentation];
+        return [OHHTTPStubsResponse responseWithData:data statusCode:200 headers:nil];
+    }];
+}
+
++ (id<OHHTTPStubsDescriptor>)crv_stubUploadRequest {
+    return [self crv_stubRequestsWithError:CRVStubErrorNone manager:nil response:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        NSDictionary *json = @{@"attachment" : @{@"id" : @"1", @"file" : @"http://www.example.path"}};
         return [OHHTTPStubsResponse responseWithJSONObject:json statusCode:200 headers:nil];
     }];
 }
 
-+ (NSUInteger)retriesMade {
-    return CRVStubbedNumberOfRetries;
++ (id<OHHTTPStubsDescriptor>)crv_stubDeletionRequest {
+    return [self crv_stubDeletionRequestWithError:CRVStubErrorNone manager:nil];
 }
 
 #pragma mark - Private Methods

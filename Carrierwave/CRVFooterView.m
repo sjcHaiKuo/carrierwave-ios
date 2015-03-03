@@ -48,6 +48,7 @@
             [button.titleLabel setFont:[UIFont boldSystemFontOfSize:16.f]];
             [button setTitle:title forState:UIControlStateNormal];
             [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+            button.accessibilityLabel = title;
         };
         
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];

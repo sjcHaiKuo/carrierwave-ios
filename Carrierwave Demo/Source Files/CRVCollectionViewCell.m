@@ -38,7 +38,6 @@ NSString *const CRVDemoCollectionViewCellIdentifier = @"Cell";
         [self addSubview:_progressLabel];
         
         _leftButton = [[CRVButton alloc] init];
-        _leftButton.accessibilityLabel = @"Left Button";
         [self.contentView addSubview:_leftButton];
         
         _righButton = [[CRVButton alloc] init];
