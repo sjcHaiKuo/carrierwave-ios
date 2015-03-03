@@ -9,7 +9,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 # Initial configuration
 platform :ios, '8.0'
-use_frameworks!
 inhibit_all_warnings!
 xcodeproj 'Carrierwave', 'Development' => :debug, 'Production' => :release, 'Staging' => :release, 'Test' => :debug
 
@@ -17,15 +16,17 @@ xcodeproj 'Carrierwave', 'Development' => :debug, 'Production' => :release, 'Sta
 pod 'AFNetworking', '~> 2.5'
 
 # Exclusive demo dependencies
-target 'Demo' do link_with 'Carrierwave Demo'
-  pod 'AFNetworking', '~> 2.5'
+target 'Demo' do
+    link_with 'Carrierwave Demo'
 end
 
 # Exclusive test dependencies
-target 'Tests' do link_with 'Unit Tests', 'Functional Tests'
-    pod 'Expecta', configuration: 'Test'
-    pod 'KIF', configuration: 'Test'
-    pod 'OCMock', configuration: 'Test'
-    pod 'OHHTTPStubs', configuration: 'Test'
-    pod 'Specta', git: 'https://github.com/specta/specta.git', tag: 'v0.3.0.beta1', configuration: 'Test'
+target 'Tests' do
+    link_with 'Unit Tests', 'Functional Tests'
+    
+    pod 'Expecta'
+    pod 'KIF'
+    pod 'OCMock'
+    pod 'OHHTTPStubs'
+    pod 'Specta', git: 'https://github.com/specta/specta.git', tag: 'v0.3.0.beta1'
 end

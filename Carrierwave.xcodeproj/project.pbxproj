@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		197A14B276F856DA562AF5B0 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336975F2B9925CEA237545CC /* Pods_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 210E159D1A67C92700342A39 /* CRVVideoAsset.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		210E15A01A67C92700342A39 /* CRVVideoAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 210E159E1A67C92700342A39 /* CRVVideoAsset.m */; };
 		210E15A31A67EB4700342A39 /* CRVAssertTypeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */; };
@@ -22,6 +21,7 @@
 		21A75BEF1A6E514E003A7E0A /* CRVVideoFileStreamProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 21A75BED1A6E514E003A7E0A /* CRVVideoFileStreamProvider.h */; };
 		21A75BF01A6E514E003A7E0A /* CRVVideoFileStreamProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A75BEE1A6E514E003A7E0A /* CRVVideoFileStreamProvider.m */; };
 		21E6F66C1A690273001505F8 /* seconds.mov in Resources */ = {isa = PBXBuildFile; fileRef = 21E6F66B1A690273001505F8 /* seconds.mov */; };
+		2F8CEC81D2D301048805DF31 /* libPods-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8278F9BB837DAB28F7B06D /* libPods-Demo.a */; };
 		3A3FE8611A5161490052C58E /* EXPMatchers+CRVAssetType.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8601A5161490052C58E /* EXPMatchers+CRVAssetType.m */; };
 		3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A3FE8661A517CE60052C58E /* CRVImageEditViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A3FE8691A517CE60052C58E /* CRVImageEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8671A517CE60052C58E /* CRVImageEditViewController.m */; };
@@ -40,6 +40,7 @@
 		3AF3BDB01A506D6B005BF9C4 /* pixel.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3BDA81A506D6B005BF9C4 /* pixel.png */; };
 		3AF3BDB21A506D6B005BF9C4 /* pixel.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3BDAA1A506D6B005BF9C4 /* pixel.tiff */; };
 		3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3BDB61A5092E6005BF9C4 /* UIImage+CRVComposition.m */; };
+		4B9648A3CDAAC60357EA20AE /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F4EE8A94DC140F03B374623 /* libPods-Tests.a */; };
 		56A83D449B2A21B2BF4DB356 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		5E06ABA31A77DE4200155F3E /* CRVScalableBorder+Anchors.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E06ABA11A77DE4200155F3E /* CRVScalableBorder+Anchors.h */; };
 		5E06ABA41A77DE4200155F3E /* CRVScalableBorder+Anchors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E06ABA21A77DE4200155F3E /* CRVScalableBorder+Anchors.m */; };
@@ -124,12 +125,12 @@
 		5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EBA9F0B1A66F4A900EBB82F /* CRVNetworkTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EBDBE4D1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */; };
 		5EBDBE561A67FA4F001C8ED5 /* NSData+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */; };
+		77C577586FA6241FA4280C2A /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F4EE8A94DC140F03B374623 /* libPods-Tests.a */; };
 		7C870E661A8C0AD6005B0343 /* UIAlertView+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C870E651A8C0AD6005B0343 /* UIAlertView+Carrierwave.m */; };
 		7CFA8FBF1A7BB4B800A92F22 /* NSError+Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFA8FBD1A7BB4B800A92F22 /* NSError+Carrierwave.h */; };
 		7CFA8FC01A7BB4B800A92F22 /* NSError+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFA8FBE1A7BB4B800A92F22 /* NSError+Carrierwave.m */; };
-		A142BBEE11AEF57810728133 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336975F2B9925CEA237545CC /* Pods_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		CF553C4343553722128E6150 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DDB4581E2E5764261DF316C /* Pods_Demo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		D41F517FCA43EAC0C9E7AF63 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92524D93DBD2A1B45108C776 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		A115654142A1519D38EC89D8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A56972E9BC58C79D27480C /* libPods.a */; };
+		A142BBEE11AEF57810728133 /* (null) in Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Weak, ); }; };
 		E33BEFB01A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BEFAF1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m */; };
 		E3781E1B1A89055100C95F83 /* CRVScalableViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = E3781E1A1A89055100C95F83 /* CRVScalableViewSpec.m */; };
 		E3AB00501A8D03F6000052D9 /* CRVFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = E3AB004E1A8D03F6000052D9 /* CRVFooterView.h */; };
@@ -176,6 +177,7 @@
 
 /* Begin PBXFileReference section */
 		04C522FBEF86F94FC01AE897 /* Pods-Tests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.production.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.production.xcconfig"; sourceTree = "<group>"; };
+		05A56972E9BC58C79D27480C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		063D2698EE0AA25F013894AB /* Pods-Tests.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.development.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.development.xcconfig"; sourceTree = "<group>"; };
 		17E41D7DE5880642C621D8A7 /* Pods-Tests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.staging.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.staging.xcconfig"; sourceTree = "<group>"; };
 		210E159D1A67C92700342A39 /* CRVVideoAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVVideoAsset.h; sourceTree = "<group>"; };
@@ -194,7 +196,7 @@
 		21A75BED1A6E514E003A7E0A /* CRVVideoFileStreamProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVVideoFileStreamProvider.h; sourceTree = "<group>"; };
 		21A75BEE1A6E514E003A7E0A /* CRVVideoFileStreamProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVVideoFileStreamProvider.m; sourceTree = "<group>"; };
 		21E6F66B1A690273001505F8 /* seconds.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = seconds.mov; sourceTree = "<group>"; };
-		336975F2B9925CEA237545CC /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F4EE8A94DC140F03B374623 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A05FEF81A4E00C5005E3C29 /* Tests-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Test.xcconfig"; sourceTree = "<group>"; };
 		3A05FEF91A4E018B005E3C29 /* Tests-Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Development.xcconfig"; sourceTree = "<group>"; };
 		3A05FEFA1A4E018B005E3C29 /* Tests-Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Production.xcconfig"; sourceTree = "<group>"; };
@@ -329,12 +331,11 @@
 		5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubs+CRVTests.m"; sourceTree = "<group>"; };
 		5EBDBE541A67FA4F001C8ED5 /* NSData+CRVComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CRVComposition.h"; sourceTree = "<group>"; };
 		5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CRVComposition.m"; sourceTree = "<group>"; };
-		6DDB4581E2E5764261DF316C /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C870E641A8C0AD6005B0343 /* UIAlertView+Carrierwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Carrierwave.h"; sourceTree = "<group>"; };
 		7C870E651A8C0AD6005B0343 /* UIAlertView+Carrierwave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Carrierwave.m"; sourceTree = "<group>"; };
 		7CFA8FBD1A7BB4B800A92F22 /* NSError+Carrierwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Carrierwave.h"; sourceTree = "<group>"; };
 		7CFA8FBE1A7BB4B800A92F22 /* NSError+Carrierwave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Carrierwave.m"; sourceTree = "<group>"; };
-		92524D93DBD2A1B45108C776 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F8278F9BB837DAB28F7B06D /* libPods-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E33BEFAE1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+CRVAnchorPoint.h"; sourceTree = "<group>"; };
 		E33BEFAF1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+CRVAnchorPoint.m"; sourceTree = "<group>"; };
 		E3781E1A1A89055100C95F83 /* CRVScalableViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVScalableViewSpec.m; sourceTree = "<group>"; };
@@ -349,7 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AE3341E1A4ED2B10030F632 /* Carrierwave.framework in Frameworks */,
-				197A14B276F856DA562AF5B0 /* Pods_Tests.framework in Frameworks */,
+				4B9648A3CDAAC60357EA20AE /* libPods-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +361,7 @@
 				5E163D051AA5FA45008DE0CE /* Foundation.framework in Frameworks */,
 				5E163D031AA5FA40008DE0CE /* QuartzCore.framework in Frameworks */,
 				5E163D011AA5FA00008DE0CE /* UIKit.framework in Frameworks */,
-				D41F517FCA43EAC0C9E7AF63 /* Pods.framework in Frameworks */,
+				A115654142A1519D38EC89D8 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,7 +372,7 @@
 				5E163D081AA5FA58008DE0CE /* QuartzCore.framework in Frameworks */,
 				5E163D071AA5FA54008DE0CE /* UIKit.framework in Frameworks */,
 				5E163D061AA5FA51008DE0CE /* Foundation.framework in Frameworks */,
-				CF553C4343553722128E6150 /* Pods_Demo.framework in Frameworks */,
+				2F8CEC81D2D301048805DF31 /* libPods-Demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,7 +382,8 @@
 			files = (
 				5E163CF51AA5E9FE008DE0CE /* Carrierwave.framework in Frameworks */,
 				56A83D449B2A21B2BF4DB356 /* (null) in Frameworks */,
-				A142BBEE11AEF57810728133 /* Pods_Tests.framework in Frameworks */,
+				A142BBEE11AEF57810728133 /* (null) in Frameworks */,
+				77C577586FA6241FA4280C2A /* libPods-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,9 +496,9 @@
 				5E163D041AA5FA45008DE0CE /* Foundation.framework */,
 				5E163D021AA5FA40008DE0CE /* QuartzCore.framework */,
 				5E163D001AA5FA00008DE0CE /* UIKit.framework */,
-				92524D93DBD2A1B45108C776 /* Pods.framework */,
-				6DDB4581E2E5764261DF316C /* Pods_Demo.framework */,
-				336975F2B9925CEA237545CC /* Pods_Tests.framework */,
+				05A56972E9BC58C79D27480C /* libPods.a */,
+				7F8278F9BB837DAB28F7B06D /* libPods-Demo.a */,
+				2F4EE8A94DC140F03B374623 /* libPods-Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -933,7 +935,6 @@
 				3A42F1221A4DBD5300A6F9CD /* Frameworks */,
 				3A42F1231A4DBD5300A6F9CD /* Resources */,
 				3ACF0A731A4DDA3000B95356 /* Copy Pods Resources */,
-				FAB14BF754F7F94F91DD023B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -957,7 +958,6 @@
 				3AE333CB1A4ED06B0030F632 /* Headers */,
 				3AE333CC1A4ED06B0030F632 /* Resources */,
 				86B82B85CBFD3008528174EB /* Copy Pods Resources */,
-				103CDD3A976792A54EFEE283 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -979,7 +979,6 @@
 				3AE333ED1A4ED0AC0030F632 /* Resources */,
 				3AE3342B1A4ED2F30030F632 /* Embed Frameworks */,
 				1EAB828C53648AFDD57977A4 /* Copy Pods Resources */,
-				3825B5CF23E736ED94B860EB /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1001,7 +1000,6 @@
 				5E163CDD1AA5CC56008DE0CE /* Resources */,
 				42EFB246739BA9BF4022A914 /* Copy Pods Resources */,
 				5E163CF11AA5DBB1008DE0CE /* Touch precompiled header */,
-				816216DACFA835A3B4B2BD28 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1028,9 +1026,11 @@
 					};
 					3AE333CD1A4ED06B0030F632 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = SK8PDF7SG9;
 					};
 					3AE333EE1A4ED0AC0030F632 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = SK8PDF7SG9;
 					};
 					5E163CDE1AA5CC56008DE0CE = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1099,21 +1099,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		103CDD3A976792A54EFEE283 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		1EAB828C53648AFDD57977A4 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1127,21 +1112,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Demo/Pods-Demo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3825B5CF23E736ED94B860EB /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Demo/Pods-Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3A1DDEC31A4DF6FE00AAAA02 /* Touch precompiled header */ = {
@@ -1293,21 +1263,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		816216DACFA835A3B4B2BD28 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		86B82B85CBFD3008528174EB /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1336,21 +1291,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		FAB14BF754F7F94F91DD023B /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1479,10 +1419,10 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1491,7 +1431,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Development;
 		};
@@ -1502,15 +1442,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Development;
 		};
@@ -1521,10 +1460,10 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1533,7 +1472,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Production;
 		};
@@ -1544,14 +1483,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Production;
 		};
@@ -1562,10 +1500,10 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1574,7 +1512,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Staging;
 		};
@@ -1585,14 +1523,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Staging;
 		};
@@ -1603,10 +1540,10 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1615,7 +1552,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Test;
 		};
@@ -1626,15 +1563,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Test;
 		};
@@ -1646,15 +1582,14 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Carrierwave;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Development;
 		};
@@ -1666,14 +1601,13 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				PRODUCT_NAME = Carrierwave;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Production;
 		};
@@ -1685,14 +1619,13 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				PRODUCT_NAME = Carrierwave;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Staging;
 		};
@@ -1704,15 +1637,14 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Carrierwave;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Test;
 		};
@@ -1724,10 +1656,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
@@ -1735,6 +1665,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "Carrierwave Demo";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Development;
 		};
@@ -1746,16 +1677,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Carrierwave Demo";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Production;
 		};
@@ -1767,16 +1697,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Carrierwave Demo";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Staging;
 		};
@@ -1788,10 +1717,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
@@ -1799,6 +1726,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "Carrierwave Demo";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Test;
 		};
@@ -1822,14 +1750,12 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1839,7 +1765,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1855,7 +1781,7 @@
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Carrierwave Demo.app/Carrierwave Demo";
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Development;
 		};
@@ -1879,17 +1805,15 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "Supporting Files/Functional-Tests-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1904,7 +1828,7 @@
 				SDKROOT = iphoneos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Carrierwave Demo.app/Carrierwave Demo";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Production;
 		};
@@ -1928,17 +1852,15 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "Supporting Files/Functional-Tests-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1953,7 +1875,7 @@
 				SDKROOT = iphoneos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Carrierwave Demo.app/Carrierwave Demo";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Staging;
 		};
@@ -1977,17 +1899,15 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/Developer/Library/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "Supporting Files/Functional-Tests-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2004,7 +1924,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Carrierwave Demo.app/Carrierwave Demo";
 				VALIDATE_PRODUCT = NO;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Test;
 		};
