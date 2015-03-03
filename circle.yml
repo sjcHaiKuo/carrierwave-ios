@@ -35,6 +35,7 @@ checkout:
 test:
   override:
     - bundle exec rake test-unit
+    - bundle exec rake test-functional
 
 deployment:
   master:

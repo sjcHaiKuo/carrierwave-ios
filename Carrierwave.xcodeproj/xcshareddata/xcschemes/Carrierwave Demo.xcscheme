@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0620"
+   LastUpgradeVersion = "0610"
    version = "1.8">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -34,6 +34,20 @@
                ReferencedContainer = "container:Carrierwave.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5E163CDE1AA5CC56008DE0CE"
+               BuildableName = "Functional Tests.xctest"
+               BlueprintName = "Functional Tests"
+               ReferencedContainer = "container:Carrierwave.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -49,6 +63,16 @@
                BlueprintIdentifier = "3A42F1241A4DBD5300A6F9CD"
                BuildableName = "Unit Tests.xctest"
                BlueprintName = "Unit Tests"
+               ReferencedContainer = "container:Carrierwave.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5E163CDE1AA5CC56008DE0CE"
+               BuildableName = "Functional Tests.xctest"
+               BlueprintName = "Functional Tests"
                ReferencedContainer = "container:Carrierwave.xcodeproj">
             </BuildableReference>
          </TestableReference>

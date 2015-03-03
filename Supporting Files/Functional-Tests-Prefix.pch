@@ -1,0 +1,30 @@
+//
+//  Functional-Tests-Prefix.pch
+//
+//  Copyright (c) 2015 Netguru Sp. z o.o. All rights reserved.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_8_0
+    #warning "This project uses features only available in iOS SDK 8.0 and later."
+#endif
+
+#ifdef __OBJC__
+
+    #define EXP_SHORTHAND
+
+    @import Foundation;
+    @import UIKit;
+    @import Carrierwave;
+
+    #import <Expecta/Expecta.h>
+    #import <KIF/KIF.h>
+    #import <OCMock/OCMock.h>
+    #import <OHHTTPStubs/OHHTTPStubs.h>
+    #import <Specta/Specta.h>
+
+    #import "Carrierwave-Features.h"
+    #import "Carrierwave-Macros.h"
+
+#endif

@@ -13,18 +13,15 @@
 #ifdef __OBJC__
 
     #define EXP_SHORTHAND
-    #define HC_SHORTHAND
-    #define MOCKITO_SHORTHAND
 
     @import Carrierwave;
     @import Foundation;
 
     #import <Expecta/Expecta.h>
+    #import <KIF/KIF.h>
     #import <OCMock/OCMock.h>
     #import <OHHTTPStubs/OHHTTPStubs.h>
     #import <Specta/Specta.h>
-    #import <OCHamcrest/OCHamcrest.h>
-    #import "OCMockito.h"
 
     #import "CRVSessionTaskManager.h"
     #import "CRVNetworkManager.h"
