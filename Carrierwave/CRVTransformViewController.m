@@ -12,7 +12,6 @@
 #import "CRVGeometry.h"
 #import "CRVNotificationIdentifiers.h"
 
-CRVWorkInProgress("This should be dynamically calculated");
 static CGFloat const CRVMinMarginOnPan = 80.f;
 static CGFloat const CRVMinPixelSizeOnZoom = 50.f;
 
@@ -159,7 +158,6 @@ static CGFloat const CRVMinPixelSizeOnZoom = 50.f;
     
     CGPoint translation = [recognizer translationInView:self.aView];
     
-    CRVWorkInProgress("This should be calculated with rotation taken into consideration");
     BOOL willLeftEdgeMoveOutsideRightScreenEdge = (CGRectGetMaxX(self.aView.imageView.frame) + translation.x - CRVMinMarginOnPan) < CGRectGetMinX(self.aView.frame);
     BOOL willRightEdgeMoveOutsideLeftScreenEdge = (CGRectGetMinX(self.aView.imageView.frame) + translation.x + CRVMinMarginOnPan) > CGRectGetMaxX(self.aView.frame);
     

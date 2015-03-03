@@ -28,6 +28,5 @@ Pod::Spec.new do |spec|
   spec.frameworks    = 'MobileCoreServices', 'UIKit'
 
   spec.dependency      'AFNetworking', '~> 2.5'
-  spec.dependency      'Masonry', '~> 0.5'
 
 end

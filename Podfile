@@ -9,6 +9,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 # Initial configuration
 platform :ios, '8.0'
+use_frameworks!
 inhibit_all_warnings!
 xcodeproj 'Carrierwave', 'Development' => :debug, 'Production' => :release, 'Staging' => :release, 'Test' => :debug
 

@@ -57,7 +57,7 @@
       buildConfiguration = "Test">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3A42F1241A4DBD5300A6F9CD"

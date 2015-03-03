@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		19BFBF53C95A518331BE35BA /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 553BAE2459278C5AFB5DF835 /* libPods-Tests.a */; };
+		197A14B276F856DA562AF5B0 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336975F2B9925CEA237545CC /* Pods_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 210E159D1A67C92700342A39 /* CRVVideoAsset.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		210E15A01A67C92700342A39 /* CRVVideoAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 210E159E1A67C92700342A39 /* CRVVideoAsset.m */; };
 		210E15A31A67EB4700342A39 /* CRVAssertTypeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 210E15A11A67EB4700342A39 /* CRVAssertTypeUtils.h */; };
@@ -28,24 +28,19 @@
 		3A6F28681A5039BB0049DC9F /* Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A6F28671A5039BB0049DC9F /* Carrierwave.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A6F286B1A5039C30049DC9F /* CRVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6F286A1A5039C30049DC9F /* CRVAppDelegate.m */; };
 		3AE3341E1A4ED2B10030F632 /* Carrierwave.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */; };
-		3AE334271A4ED2F30030F632 /* Carrierwave.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */; };
 		3AE334281A4ED2F30030F632 /* Carrierwave.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3AE3342C1A4ED3020030F632 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A42F1451A4DBEAD00A6F9CD /* Foundation.framework */; };
-		3AE3342D1A4ED3080030F632 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A42F1431A4DBEA900A6F9CD /* UIKit.framework */; };
-		3AE3342E1A4ED30D0030F632 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A42F1471A4DBEB700A6F9CD /* QuartzCore.framework */; };
 		3AE334321A4ED4840030F632 /* Carrierwave-Demo-Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE340C01A4DCC1500993352 /* Carrierwave-Demo-Main.m */; };
 		3AE3343B1A4ED4B70030F632 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AE334351A4ED4B00030F632 /* Main.storyboard */; };
 		3AE3343C1A4ED4BC0030F632 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE334371A4ED4B00030F632 /* Images.xcassets */; };
-		3AE334471A4EDCB60030F632 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A42F1451A4DBEAD00A6F9CD /* Foundation.framework */; };
 		3AF3BD941A50447A005BF9C4 /* CRVImageAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AF3BD921A50447A005BF9C4 /* CRVImageAsset.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3AF3BD951A50447A005BF9C4 /* CRVImageAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3BD931A50447A005BF9C4 /* CRVImageAsset.m */; };
 		3AF3BD9C1A50461D005BF9C4 /* CRVAssetType.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AF3BD9B1A50461D005BF9C4 /* CRVAssetType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3AF3BDA01A5061B0005BF9C4 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF3BD9F1A5061B0005BF9C4 /* MobileCoreServices.framework */; };
 		3AF3BDAD1A506D6B005BF9C4 /* pixel.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3BDA51A506D6B005BF9C4 /* pixel.gif */; };
 		3AF3BDAF1A506D6B005BF9C4 /* pixel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3BDA71A506D6B005BF9C4 /* pixel.jpg */; };
 		3AF3BDB01A506D6B005BF9C4 /* pixel.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3BDA81A506D6B005BF9C4 /* pixel.png */; };
 		3AF3BDB21A506D6B005BF9C4 /* pixel.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3BDAA1A506D6B005BF9C4 /* pixel.tiff */; };
 		3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3BDB61A5092E6005BF9C4 /* UIImage+CRVComposition.m */; };
+		56A83D449B2A21B2BF4DB356 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		5E06ABA31A77DE4200155F3E /* CRVScalableBorder+Anchors.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E06ABA11A77DE4200155F3E /* CRVScalableBorder+Anchors.h */; };
 		5E06ABA41A77DE4200155F3E /* CRVScalableBorder+Anchors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E06ABA21A77DE4200155F3E /* CRVScalableBorder+Anchors.m */; };
 		5E0B16491A82265100EB23D9 /* CRVNetworkManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0B16481A82265100EB23D9 /* CRVNetworkManagerSpec.m */; };
@@ -64,14 +59,21 @@
 		5E11A6B21A766D78001924ED /* CRVScalableBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11A6B01A766D78001924ED /* CRVScalableBorder.m */; };
 		5E11A6B51A766E3C001924ED /* CRVAnchorPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E11A6B31A766E3C001924ED /* CRVAnchorPoint.h */; };
 		5E11A6B61A766E3C001924ED /* CRVAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11A6B41A766E3C001924ED /* CRVAnchorPoint.m */; };
-		5E163CF01AA5D405008DE0CE /* CRVGalleryScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E163CEF1AA5D405008DE0CE /* CRVGalleryScreen.m */; };
-		5E2E5B691A9E354F00545A0E /* CRVHeaderFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B671A9E354F00545A0E /* CRVHeaderFooterView.h */; };
+		5E163CF51AA5E9FE008DE0CE /* Carrierwave.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */; };
+		5E163CFB1AA5ECDA008DE0CE /* CRVGalleryScreenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E163CFA1AA5ECDA008DE0CE /* CRVGalleryScreenSpec.m */; };
+		5E163D011AA5FA00008DE0CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E163D001AA5FA00008DE0CE /* UIKit.framework */; };
+		5E163D031AA5FA40008DE0CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E163D021AA5FA40008DE0CE /* QuartzCore.framework */; };
+		5E163D051AA5FA45008DE0CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E163D041AA5FA45008DE0CE /* Foundation.framework */; };
+		5E163D061AA5FA51008DE0CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E163D041AA5FA45008DE0CE /* Foundation.framework */; };
+		5E163D071AA5FA54008DE0CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E163D001AA5FA00008DE0CE /* UIKit.framework */; };
+		5E163D081AA5FA58008DE0CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E163D021AA5FA40008DE0CE /* QuartzCore.framework */; };
+		5E2E5B691A9E354F00545A0E /* CRVHeaderFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B671A9E354F00545A0E /* CRVHeaderFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E2E5B6A1A9E354F00545A0E /* CRVHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B681A9E354F00545A0E /* CRVHeaderFooterView.m */; };
-		5E2E5B6D1A9E35DF00545A0E /* CRVEventMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B6B1A9E35DF00545A0E /* CRVEventMessenger.h */; };
+		5E2E5B6D1A9E35DF00545A0E /* CRVEventMessenger.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B6B1A9E35DF00545A0E /* CRVEventMessenger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E2E5B6E1A9E35DF00545A0E /* CRVEventMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B6C1A9E35DF00545A0E /* CRVEventMessenger.m */; };
 		5E2E5B721A9E4A9F00545A0E /* CRVAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B701A9E4A9F00545A0E /* CRVAlertController.h */; };
 		5E2E5B731A9E4A9F00545A0E /* CRVAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B711A9E4A9F00545A0E /* CRVAlertController.m */; };
-		5E2E5B761A9E4E1E00545A0E /* CRVRatioItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B741A9E4E1E00545A0E /* CRVRatioItem.h */; };
+		5E2E5B761A9E4E1E00545A0E /* CRVRatioItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E5B741A9E4E1E00545A0E /* CRVRatioItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E2E5B771A9E4E1E00545A0E /* CRVRatioItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B751A9E4E1E00545A0E /* CRVRatioItem.m */; };
 		5E2E5B7A1A9E751400545A0E /* CRVRatioItemSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B791A9E751400545A0E /* CRVRatioItemSpec.m */; };
 		5E2E5B7C1A9E7B1700545A0E /* CRVHeaderFooterViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E5B7B1A9E7B1700545A0E /* CRVHeaderFooterViewSpec.m */; };
@@ -125,9 +127,9 @@
 		7C870E661A8C0AD6005B0343 /* UIAlertView+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C870E651A8C0AD6005B0343 /* UIAlertView+Carrierwave.m */; };
 		7CFA8FBF1A7BB4B800A92F22 /* NSError+Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFA8FBD1A7BB4B800A92F22 /* NSError+Carrierwave.h */; };
 		7CFA8FC01A7BB4B800A92F22 /* NSError+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFA8FBE1A7BB4B800A92F22 /* NSError+Carrierwave.m */; };
-		AEDB550759A9AEF7651E0F31 /* libPods-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C01D3A94DE874B22D125968A /* libPods-Demo.a */; };
-		D70A373E8F7C48093100A510 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 553BAE2459278C5AFB5DF835 /* libPods-Tests.a */; };
-		DA3E811AB06F8E706441C757 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 987A19A9BC396F78D9E7D440 /* libPods.a */; };
+		A142BBEE11AEF57810728133 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336975F2B9925CEA237545CC /* Pods_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CF553C4343553722128E6150 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DDB4581E2E5764261DF316C /* Pods_Demo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D41F517FCA43EAC0C9E7AF63 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92524D93DBD2A1B45108C776 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E33BEFB01A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BEFAF1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m */; };
 		E3781E1B1A89055100C95F83 /* CRVScalableViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = E3781E1A1A89055100C95F83 /* CRVScalableViewSpec.m */; };
 		E3AB00501A8D03F6000052D9 /* CRVFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = E3AB004E1A8D03F6000052D9 /* CRVFooterView.h */; };
@@ -192,6 +194,7 @@
 		21A75BED1A6E514E003A7E0A /* CRVVideoFileStreamProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVVideoFileStreamProvider.h; sourceTree = "<group>"; };
 		21A75BEE1A6E514E003A7E0A /* CRVVideoFileStreamProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVVideoFileStreamProvider.m; sourceTree = "<group>"; };
 		21E6F66B1A690273001505F8 /* seconds.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = seconds.mov; sourceTree = "<group>"; };
+		336975F2B9925CEA237545CC /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A05FEF81A4E00C5005E3C29 /* Tests-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Test.xcconfig"; sourceTree = "<group>"; };
 		3A05FEF91A4E018B005E3C29 /* Tests-Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Development.xcconfig"; sourceTree = "<group>"; };
 		3A05FEFA1A4E018B005E3C29 /* Tests-Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Tests-Production.xcconfig"; sourceTree = "<group>"; };
@@ -201,9 +204,6 @@
 		3A3FE8661A517CE60052C58E /* CRVImageEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVImageEditViewController.h; sourceTree = "<group>"; };
 		3A3FE8671A517CE60052C58E /* CRVImageEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVImageEditViewController.m; sourceTree = "<group>"; };
 		3A42F1251A4DBD5300A6F9CD /* Unit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A42F1431A4DBEA900A6F9CD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		3A42F1451A4DBEAD00A6F9CD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		3A42F1471A4DBEB700A6F9CD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3A42F1511A4DC7CE00A6F9CD /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		3A42F16C1A4DC81A00A6F9CD /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		3A42F16D1A4DC81A00A6F9CD /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
@@ -228,18 +228,15 @@
 		3AE340C21A4DCC1500993352 /* Unit-Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Unit-Tests-Info.plist"; sourceTree = "<group>"; };
 		3AE340C31A4DCC1500993352 /* Unit-Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Unit-Tests-Prefix.pch"; sourceTree = "<group>"; };
 		3AE340D51A4DD15500993352 /* Carrierwave-Features.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Carrierwave-Features.h"; sourceTree = "<group>"; };
-		3AE800F61A53229C00116CA3 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		3AF3BD921A50447A005BF9C4 /* CRVImageAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVImageAsset.h; sourceTree = "<group>"; };
 		3AF3BD931A50447A005BF9C4 /* CRVImageAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVImageAsset.m; sourceTree = "<group>"; };
 		3AF3BD9B1A50461D005BF9C4 /* CRVAssetType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVAssetType.h; sourceTree = "<group>"; };
-		3AF3BD9F1A5061B0005BF9C4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		3AF3BDA51A506D6B005BF9C4 /* pixel.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pixel.gif; sourceTree = "<group>"; };
 		3AF3BDA71A506D6B005BF9C4 /* pixel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pixel.jpg; sourceTree = "<group>"; };
 		3AF3BDA81A506D6B005BF9C4 /* pixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pixel.png; sourceTree = "<group>"; };
 		3AF3BDAA1A506D6B005BF9C4 /* pixel.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = pixel.tiff; sourceTree = "<group>"; };
 		3AF3BDB51A5092E6005BF9C4 /* UIImage+CRVComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CRVComposition.h"; sourceTree = "<group>"; };
 		3AF3BDB61A5092E6005BF9C4 /* UIImage+CRVComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CRVComposition.m"; sourceTree = "<group>"; };
-		553BAE2459278C5AFB5DF835 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E06ABA11A77DE4200155F3E /* CRVScalableBorder+Anchors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CRVScalableBorder+Anchors.h"; sourceTree = "<group>"; };
 		5E06ABA21A77DE4200155F3E /* CRVScalableBorder+Anchors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CRVScalableBorder+Anchors.m"; sourceTree = "<group>"; };
 		5E0B16481A82265100EB23D9 /* CRVNetworkManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVNetworkManagerSpec.m; sourceTree = "<group>"; };
@@ -262,7 +259,10 @@
 		5E163CDF1AA5CC56008DE0CE /* Functional Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Functional Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E163CEC1AA5D273008DE0CE /* Functional-Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Functional-Tests-Info.plist"; sourceTree = "<group>"; };
 		5E163CED1AA5D273008DE0CE /* Functional-Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Functional-Tests-Prefix.pch"; sourceTree = "<group>"; };
-		5E163CEF1AA5D405008DE0CE /* CRVGalleryScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVGalleryScreen.m; sourceTree = "<group>"; };
+		5E163CFA1AA5ECDA008DE0CE /* CRVGalleryScreenSpec.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRVGalleryScreenSpec.m; sourceTree = "<group>"; };
+		5E163D001AA5FA00008DE0CE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		5E163D021AA5FA40008DE0CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5E163D041AA5FA45008DE0CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5E2E5B671A9E354F00545A0E /* CRVHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVHeaderFooterView.h; sourceTree = "<group>"; };
 		5E2E5B681A9E354F00545A0E /* CRVHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVHeaderFooterView.m; sourceTree = "<group>"; };
 		5E2E5B6B1A9E35DF00545A0E /* CRVEventMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVEventMessenger.h; sourceTree = "<group>"; };
@@ -329,12 +329,12 @@
 		5EBDBE4C1A67D82F001C8ED5 /* OHHTTPStubs+CRVTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubs+CRVTests.m"; sourceTree = "<group>"; };
 		5EBDBE541A67FA4F001C8ED5 /* NSData+CRVComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CRVComposition.h"; sourceTree = "<group>"; };
 		5EBDBE551A67FA4F001C8ED5 /* NSData+CRVComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CRVComposition.m"; sourceTree = "<group>"; };
+		6DDB4581E2E5764261DF316C /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C870E641A8C0AD6005B0343 /* UIAlertView+Carrierwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Carrierwave.h"; sourceTree = "<group>"; };
 		7C870E651A8C0AD6005B0343 /* UIAlertView+Carrierwave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Carrierwave.m"; sourceTree = "<group>"; };
 		7CFA8FBD1A7BB4B800A92F22 /* NSError+Carrierwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Carrierwave.h"; sourceTree = "<group>"; };
 		7CFA8FBE1A7BB4B800A92F22 /* NSError+Carrierwave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Carrierwave.m"; sourceTree = "<group>"; };
-		987A19A9BC396F78D9E7D440 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C01D3A94DE874B22D125968A /* libPods-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		92524D93DBD2A1B45108C776 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E33BEFAE1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+CRVAnchorPoint.h"; sourceTree = "<group>"; };
 		E33BEFAF1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+CRVAnchorPoint.m"; sourceTree = "<group>"; };
 		E3781E1A1A89055100C95F83 /* CRVScalableViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVScalableViewSpec.m; sourceTree = "<group>"; };
@@ -349,7 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AE3341E1A4ED2B10030F632 /* Carrierwave.framework in Frameworks */,
-				19BFBF53C95A518331BE35BA /* libPods-Tests.a in Frameworks */,
+				197A14B276F856DA562AF5B0 /* Pods_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,9 +357,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AF3BDA01A5061B0005BF9C4 /* MobileCoreServices.framework in Frameworks */,
-				3AE334471A4EDCB60030F632 /* Foundation.framework in Frameworks */,
-				DA3E811AB06F8E706441C757 /* libPods.a in Frameworks */,
+				5E163D051AA5FA45008DE0CE /* Foundation.framework in Frameworks */,
+				5E163D031AA5FA40008DE0CE /* QuartzCore.framework in Frameworks */,
+				5E163D011AA5FA00008DE0CE /* UIKit.framework in Frameworks */,
+				D41F517FCA43EAC0C9E7AF63 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,11 +368,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE3342E1A4ED30D0030F632 /* QuartzCore.framework in Frameworks */,
-				3AE3342D1A4ED3080030F632 /* UIKit.framework in Frameworks */,
-				3AE3342C1A4ED3020030F632 /* Foundation.framework in Frameworks */,
-				3AE334271A4ED2F30030F632 /* Carrierwave.framework in Frameworks */,
-				AEDB550759A9AEF7651E0F31 /* libPods-Demo.a in Frameworks */,
+				5E163D081AA5FA58008DE0CE /* QuartzCore.framework in Frameworks */,
+				5E163D071AA5FA54008DE0CE /* UIKit.framework in Frameworks */,
+				5E163D061AA5FA51008DE0CE /* Foundation.framework in Frameworks */,
+				CF553C4343553722128E6150 /* Pods_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,7 +379,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D70A373E8F7C48093100A510 /* libPods-Tests.a in Frameworks */,
+				5E163CF51AA5E9FE008DE0CE /* Carrierwave.framework in Frameworks */,
+				56A83D449B2A21B2BF4DB356 /* (null) in Frameworks */,
+				A142BBEE11AEF57810728133 /* Pods_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,14 +491,12 @@
 		3A42F1411A4DBD8100A6F9CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3AE800F61A53229C00116CA3 /* CoreImage.framework */,
-				3AF3BD9F1A5061B0005BF9C4 /* MobileCoreServices.framework */,
-				3A42F1451A4DBEAD00A6F9CD /* Foundation.framework */,
-				3A42F1471A4DBEB700A6F9CD /* QuartzCore.framework */,
-				3A42F1431A4DBEA900A6F9CD /* UIKit.framework */,
-				987A19A9BC396F78D9E7D440 /* libPods.a */,
-				C01D3A94DE874B22D125968A /* libPods-Demo.a */,
-				553BAE2459278C5AFB5DF835 /* libPods-Tests.a */,
+				5E163D041AA5FA45008DE0CE /* Foundation.framework */,
+				5E163D021AA5FA40008DE0CE /* QuartzCore.framework */,
+				5E163D001AA5FA00008DE0CE /* UIKit.framework */,
+				92524D93DBD2A1B45108C776 /* Pods.framework */,
+				6DDB4581E2E5764261DF316C /* Pods_Demo.framework */,
+				336975F2B9925CEA237545CC /* Pods_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -724,7 +724,7 @@
 		5E163CE01AA5CC56008DE0CE /* Functional Tests */ = {
 			isa = PBXGroup;
 			children = (
-				5E163CEF1AA5D405008DE0CE /* CRVGalleryScreen.m */,
+				5E163CFA1AA5ECDA008DE0CE /* CRVGalleryScreenSpec.m */,
 			);
 			path = "Functional Tests";
 			sourceTree = "<group>";
@@ -882,7 +882,6 @@
 				5E5115611A9B4805008547EC /* CRVTransformViewController.h in Headers */,
 				5E5006A71A6E867B00444E5D /* NSURLSessionTask+Carrierwave.h in Headers */,
 				5E5006A31A6E866600444E5D /* NSDictionary+Carrierwave.h in Headers */,
-				5E2E5B6D1A9E35DF00545A0E /* CRVEventMessenger.h in Headers */,
 				3A6F28681A5039BB0049DC9F /* Carrierwave.h in Headers */,
 				5E4C99331A651228009AA040 /* CRVSessionUploadTaskWrapper.h in Headers */,
 				5E56EBFA1A5D68D2002E2484 /* CRVNetworkManager.h in Headers */,
@@ -891,13 +890,15 @@
 				5E11A6AC1A766CE0001924ED /* CRVScalableView.h in Headers */,
 				5E50069F1A6E84E900444E5D /* CRVUploadInfo.h in Headers */,
 				E3AB00501A8D03F6000052D9 /* CRVFooterView.h in Headers */,
+				5E2E5B761A9E4E1E00545A0E /* CRVRatioItem.h in Headers */,
+				5E2E5B6D1A9E35DF00545A0E /* CRVEventMessenger.h in Headers */,
 				5E4953FB1A9DE50C0082F2E2 /* CRVGeometry.h in Headers */,
+				5E2E5B691A9E354F00545A0E /* CRVHeaderFooterView.h in Headers */,
 				219BBFC71A6959DB003A97D3 /* CRVSaveAssetTask.h in Headers */,
 				5EBA9F0C1A66F4A900EBB82F /* CRVNetworkTypedefs.h in Headers */,
 				219BBFBC1A693BD3003A97D3 /* CRVVideoAssetTypedefs.h in Headers */,
 				210E159F1A67C92700342A39 /* CRVVideoAsset.h in Headers */,
 				5E06ABA31A77DE4200155F3E /* CRVScalableBorder+Anchors.h in Headers */,
-				5E2E5B691A9E354F00545A0E /* CRVHeaderFooterView.h in Headers */,
 				5E4C992F1A651210009AA040 /* CRVSessionDownloadTaskWrapper.h in Headers */,
 				21A75BEB1A6E513A003A7E0A /* CRVVideoDataStreamProvider.h in Headers */,
 				3AF3BD9C1A50461D005BF9C4 /* CRVAssetType.h in Headers */,
@@ -915,7 +916,6 @@
 				3A3FE8681A517CE60052C58E /* CRVImageEditViewController.h in Headers */,
 				5E4C992B1A642E5F009AA040 /* CRVSessionTaskWrapper.h in Headers */,
 				5E67292D1A9C8CE00039B818 /* CRVNotificationIdentifiers.h in Headers */,
-				5E2E5B761A9E4E1E00545A0E /* CRVRatioItem.h in Headers */,
 				5E4D0A6B1A60982100A1729B /* CRVSessionTaskManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -933,6 +933,7 @@
 				3A42F1221A4DBD5300A6F9CD /* Frameworks */,
 				3A42F1231A4DBD5300A6F9CD /* Resources */,
 				3ACF0A731A4DDA3000B95356 /* Copy Pods Resources */,
+				FAB14BF754F7F94F91DD023B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -956,6 +957,7 @@
 				3AE333CB1A4ED06B0030F632 /* Headers */,
 				3AE333CC1A4ED06B0030F632 /* Resources */,
 				86B82B85CBFD3008528174EB /* Copy Pods Resources */,
+				103CDD3A976792A54EFEE283 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -977,6 +979,7 @@
 				3AE333ED1A4ED0AC0030F632 /* Resources */,
 				3AE3342B1A4ED2F30030F632 /* Embed Frameworks */,
 				1EAB828C53648AFDD57977A4 /* Copy Pods Resources */,
+				3825B5CF23E736ED94B860EB /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -998,6 +1001,7 @@
 				5E163CDD1AA5CC56008DE0CE /* Resources */,
 				42EFB246739BA9BF4022A914 /* Copy Pods Resources */,
 				5E163CF11AA5DBB1008DE0CE /* Touch precompiled header */,
+				816216DACFA835A3B4B2BD28 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1095,6 +1099,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		103CDD3A976792A54EFEE283 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1EAB828C53648AFDD57977A4 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1108,6 +1127,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Demo/Pods-Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3825B5CF23E736ED94B860EB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Demo/Pods-Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3A1DDEC31A4DF6FE00AAAA02 /* Touch precompiled header */ = {
@@ -1259,6 +1293,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		816216DACFA835A3B4B2BD28 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		86B82B85CBFD3008528174EB /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1287,6 +1336,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FAB14BF754F7F94F91DD023B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1383,7 +1447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E163CF01AA5D405008DE0CE /* CRVGalleryScreen.m in Sources */,
+				5E163CFB1AA5ECDA008DE0CE /* CRVGalleryScreenSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1415,12 +1479,17 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"${SRCROOT}/Pods",
 				);
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -1433,7 +1502,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1447,12 +1521,17 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"${SRCROOT}/Pods",
 				);
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -1465,7 +1544,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1478,12 +1562,17 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"${SRCROOT}/Pods",
 				);
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -1496,7 +1585,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1509,12 +1603,17 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"${SRCROOT}/Pods",
 				);
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -1527,7 +1626,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Unit-Tests-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Supporting Files/Unit-Tests-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1542,6 +1646,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1558,6 +1666,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				PRODUCT_NAME = Carrierwave;
@@ -1573,6 +1685,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				PRODUCT_NAME = Carrierwave;
@@ -1588,6 +1704,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Prefix.pch";
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1604,7 +1724,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1621,7 +1746,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Carrierwave Demo";
@@ -1637,7 +1767,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Carrierwave Demo";
@@ -1653,7 +1788,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch-Image";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PREFIX_HEADER = "Supporting Files/Carrierwave-Demo-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Supporting Files/Carrierwave-Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1684,10 +1824,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
+				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1698,6 +1839,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1742,11 +1884,12 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "Supporting Files/Functional-Tests-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1790,11 +1933,12 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "Supporting Files/Functional-Tests-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1838,11 +1982,12 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(SDKROOT)/Developer/Library/Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "Supporting Files/Functional-Tests-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

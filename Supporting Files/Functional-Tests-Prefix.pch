@@ -14,9 +14,8 @@
 
     #define EXP_SHORTHAND
 
-    @import Foundation;
-    @import UIKit;
     @import Carrierwave;
+    @import Foundation;
 
     #import <Expecta/Expecta.h>
     #import <KIF/KIF.h>
