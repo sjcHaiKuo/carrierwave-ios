@@ -43,9 +43,11 @@
 }
 
 - (void)crv_openPhotoAlbum {
-    [self crv_tapCameraBarButton];
-    [self waitAndTapViewWithAccessibilityLabel:@"Photo Album"];
-    [self acknowledgeSystemAlert];
+    if ([self respondsToSelector:@selector(acknowledgeSystemAlert)]) {
+        [self crv_tapCameraBarButton];
+        [self waitAndTapViewWithAccessibilityLabel:@"Photo Album"];
+        [self acknowledgeSystemAlert];
+    }
 }
 
 - (void)crv_closePhotoAlbum {
