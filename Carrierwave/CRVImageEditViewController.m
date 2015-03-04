@@ -28,14 +28,10 @@
 #pragma mark - Object Lifecycle
 
 - (instancetype)initWithImageAsset:(CRVImageAsset *)asset {
-    if (self = [super init]) {
+    if (self = [super initWithNibName:nil bundle:nil]) {
         self.imageAsset = asset;
     }
     return self;
-}
-
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    return [self initWithImageAsset:nil];
 }
 
 - (instancetype)init {
