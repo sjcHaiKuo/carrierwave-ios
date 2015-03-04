@@ -76,10 +76,10 @@
     UIView *view = [self waitForViewWithAccessibilityLabel:@"Crop Image View"];
     
     CGRect newFrame = view.frame;
-    newFrame.origin = CGPointMake(-20, 100);
+    newFrame.origin = CGPointMake(-20.f, 100.f);
     
-    CGAffineTransform transform = CGAffineTransformScale(view.transform, 0.4, 0.4);
-    transform = CGAffineTransformRotate(transform, M_PI/2.5);
+    CGAffineTransform transform = CGAffineTransformScale(view.transform, 0.4f, 0.4f);
+    transform = CGAffineTransformRotate(transform, (CGFloat)M_PI/2.5);
     
     [UIView animateWithDuration:1 animations:^{
         view.frame = newFrame;
