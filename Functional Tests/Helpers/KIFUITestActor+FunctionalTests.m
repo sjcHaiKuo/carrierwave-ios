@@ -66,10 +66,10 @@
 
 - (void)crv_doubleTapInCropView {
     UIView *view = [self waitForViewWithAccessibilityLabel:@"Scalable View"];
-    [tester tapScreenAtPoint:view.center];
-    [tester waitForTimeInterval:0.1];
-    [tester tapScreenAtPoint:view.center];
-    [tester waitForTimeInterval:2];
+    [self tapScreenAtPoint:view.center];
+    [self waitForTimeInterval:0.1];
+    [self tapScreenAtPoint:view.center];
+    [self waitForTimeInterval:2];
 }
 
 - (void)crv_moveCropImageView {

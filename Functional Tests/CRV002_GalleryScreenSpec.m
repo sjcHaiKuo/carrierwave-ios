@@ -125,38 +125,6 @@ describe(@"Gallery screen", ^{
             XCTAssertTrue(existButtonsWithLabels(@"Crop", @"Upload"), @"Download and/or delete button doesn't not exist!");
         });
     });
-    
-    context(@"when tapping camera bar button", ^{
-        
-        beforeEach(^{
-            [tester crv_openPhotoAlbum];
-        });
-        
-        context(@"and closing photo album", ^{
-            
-            beforeEach(^{
-                [tester crv_closePhotoAlbum];
-            });
-            
-            it(@"should collection view have 1 image", ^{
-                UICollectionView *collectionView = (UICollectionView *)[tester waitForViewWithAccessibilityLabel:@"Collection View"];
-                expect([collectionView numberOfItemsInSection:0]).to.equal(1);
-            });
-        });
-        
-        context(@"and choosing a photo", ^{
-            
-            beforeEach(^{
-                [tester choosePhotoInAlbum:@"Camera Roll" atRow:1 column:0];
-            });
-            
-            it(@"should collection view have 2 images", ^{
-                UICollectionView *collectionView = (UICollectionView *)[tester waitForViewWithAccessibilityLabel:@"Collection View"];
-                expect([collectionView numberOfItemsInSection:0]).to.equal(2);
-            });
-        });
-    });
-
 });
 
 SpecEnd
