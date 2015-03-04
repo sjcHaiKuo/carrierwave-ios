@@ -79,7 +79,7 @@ def build_config
   }
 end
 
-def test_config(scheme, sdk_version: "iphonesimulator", configuration: "Test", destination: "platform=iOS Simulator,name=iPhone 4s,0S=8.1")
+def test_config(scheme, sdk_version: "iphonesimulator8.0", configuration: "Test", destination: "platform=iOS Simulator,name=iPhone Retina (4-inch 64-bit),OS=8.0")
   build_config.merge(
     scheme: scheme,
     sdk: sdk_version,
