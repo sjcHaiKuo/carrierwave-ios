@@ -27,6 +27,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.accessibilityLabel = @"Scalable View";
         _borderView = [[CRVScalableBorder alloc] init];
         [self addSubview:_borderView];
         

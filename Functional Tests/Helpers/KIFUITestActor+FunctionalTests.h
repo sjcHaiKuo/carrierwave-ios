@@ -30,4 +30,16 @@
 
 - (void)crv_closePhotoAlbum;
 
+- (void)crv_tapResetButton;
+
+- (void)crv_tapRatioButton;
+
+- (void)crv_tapDoneButton;
+
+- (void)crv_doubleTapInCropView;
+
+- (void)crv_moveCropImageView;
+
+- (void)waitAndTapViewWithAccessibilityLabel:(NSString *)label;
+
 @end

@@ -24,6 +24,7 @@ NSString *const CRVDemoCollectionViewCellIdentifier = @"Cell";
         self.contentView.backgroundColor = [UIColor whiteColor];
         
         _imageView = [[UIImageView alloc] init];
+        _imageView.accessibilityLabel = @"Cell ImageView";
         _imageView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.f];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.layer.borderWidth = 1.f;

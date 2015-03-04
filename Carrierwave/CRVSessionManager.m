@@ -100,19 +100,6 @@ static void executeAfter(NSTimeInterval delayInSeconds, dispatch_block_t block) 
     } completion:completion];
 }
 
-- (void)downloadWhitelistFromURL:(NSURL *)url completion:(void (^)(NSData *, NSError *))completion {
-    NSParameterAssert(url);
-    [self executeOperationWithName:@"whitelist" times:[self numberOfRetries] retriableBlock:^(CRVCompletionBlock block) {
-        [self GET:url.absoluteString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-            if (completion != NULL) completion(responseObject, nil);
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            if (completion != NULL) completion(nil, error);
-        }];
-    } completion:^(BOOL success, NSError *error) {
-        completion(nil, error);
-    }];
-}
-
 - (void)cancelProccessWithIdentifier:(NSString *)identifier {
     [self.taskManager cancelTaskForTaskWrapperIdentifier:identifier];
 }

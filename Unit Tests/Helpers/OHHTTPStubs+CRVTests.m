@@ -41,11 +41,12 @@ static NSUInteger CRVStubbedNumberOfRetries;
 
 #pragma mark - Functional Tests Public Methods
 
-+ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestAndTakeANap {
-    return [self crv_stubRequestsWithError:CRVStubErrorNone manager:nil response:^OHHTTPStubsResponse *(NSURLRequest *request) {
-        sleep(1);
++ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestAndResponseAfter:(NSTimeInterval)after {
+    return [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return YES;
+    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
         NSData *data = [NSData crv_defaultImageDataRepresentation];
-        return [OHHTTPStubsResponse responseWithData:data statusCode:200 headers:nil];
+        return [[OHHTTPStubsResponse responseWithData:data statusCode:200 headers:nil] requestTime:after responseTime:1];
     }];
 }
 

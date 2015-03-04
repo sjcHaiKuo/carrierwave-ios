@@ -32,6 +32,7 @@ NSString *const CRVCameraTitle = @"Camera";
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem.accessibilityLabel = @"Camera Bar Button";
+    self.collectionView.accessibilityLabel = @"Collection View";
     
     self.title = NSLocalizedString(@"Gallery", nil);
     self.contentArray = [NSMutableArray array];

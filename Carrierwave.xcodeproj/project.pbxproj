@@ -61,7 +61,7 @@
 		5E11A6B51A766E3C001924ED /* CRVAnchorPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E11A6B31A766E3C001924ED /* CRVAnchorPoint.h */; };
 		5E11A6B61A766E3C001924ED /* CRVAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E11A6B41A766E3C001924ED /* CRVAnchorPoint.m */; };
 		5E163CF51AA5E9FE008DE0CE /* Carrierwave.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE333CE1A4ED06B0030F632 /* Carrierwave.framework */; };
-		5E163CFB1AA5ECDA008DE0CE /* CRVGalleryScreenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E163CFA1AA5ECDA008DE0CE /* CRVGalleryScreenSpec.m */; };
+		5E163CFB1AA5ECDA008DE0CE /* CRV002_GalleryScreenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E163CFA1AA5ECDA008DE0CE /* CRV002_GalleryScreenSpec.m */; };
 		5E163D011AA5FA00008DE0CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E163D001AA5FA00008DE0CE /* UIKit.framework */; };
 		5E163D031AA5FA40008DE0CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E163D021AA5FA40008DE0CE /* QuartzCore.framework */; };
 		5E163D051AA5FA45008DE0CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E163D041AA5FA45008DE0CE /* Foundation.framework */; };
@@ -123,6 +123,7 @@
 		5EA4E0271A936A6900C537F2 /* CRVAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4E0261A936A6900C537F2 /* CRVAssetModel.m */; };
 		5EA4E0321A93789500C537F2 /* CRVCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4E0311A93789500C537F2 /* CRVCollectionViewController.m */; };
 		5EA4E0351A93793C00C537F2 /* CRVCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4E0341A93793C00C537F2 /* CRVCollectionViewCell.m */; };
+		5EB29F801AA6802400686C7E /* CRV001_ImageEditScreenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB29F7F1AA6802400686C7E /* CRV001_ImageEditScreenSpec.m */; };
 		5EB3E5151A9CB08500EFB9E7 /* CRVHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EB3E5131A9CB08500EFB9E7 /* CRVHeaderView.h */; };
 		5EB3E5161A9CB08500EFB9E7 /* CRVHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB3E5141A9CB08500EFB9E7 /* CRVHeaderView.m */; };
 		5EB53E9B1A93EC0100CCFB78 /* CRVManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB53E9A1A93EC0100CCFB78 /* CRVManager.m */; };
@@ -265,7 +266,7 @@
 		5E163CDF1AA5CC56008DE0CE /* Functional Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Functional Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E163CEC1AA5D273008DE0CE /* Functional-Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Functional-Tests-Info.plist"; sourceTree = "<group>"; };
 		5E163CED1AA5D273008DE0CE /* Functional-Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Functional-Tests-Prefix.pch"; sourceTree = "<group>"; };
-		5E163CFA1AA5ECDA008DE0CE /* CRVGalleryScreenSpec.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRVGalleryScreenSpec.m; sourceTree = "<group>"; };
+		5E163CFA1AA5ECDA008DE0CE /* CRV002_GalleryScreenSpec.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRV002_GalleryScreenSpec.m; sourceTree = "<group>"; };
 		5E163D001AA5FA00008DE0CE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5E163D021AA5FA40008DE0CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5E163D041AA5FA45008DE0CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -328,6 +329,7 @@
 		5EA4E0311A93789500C537F2 /* CRVCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVCollectionViewController.m; sourceTree = "<group>"; };
 		5EA4E0331A93793C00C537F2 /* CRVCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVCollectionViewCell.h; sourceTree = "<group>"; };
 		5EA4E0341A93793C00C537F2 /* CRVCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVCollectionViewCell.m; sourceTree = "<group>"; };
+		5EB29F7F1AA6802400686C7E /* CRV001_ImageEditScreenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRV001_ImageEditScreenSpec.m; sourceTree = "<group>"; };
 		5EB3E5131A9CB08500EFB9E7 /* CRVHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVHeaderView.h; sourceTree = "<group>"; };
 		5EB3E5141A9CB08500EFB9E7 /* CRVHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRVHeaderView.m; sourceTree = "<group>"; };
 		5EB53E991A93EC0100CCFB78 /* CRVManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRVManager.h; sourceTree = "<group>"; };
@@ -733,7 +735,8 @@
 			isa = PBXGroup;
 			children = (
 				5E82EAA51AA62615007C2C99 /* Helpers */,
-				5E163CFA1AA5ECDA008DE0CE /* CRVGalleryScreenSpec.m */,
+				5EB29F7F1AA6802400686C7E /* CRV001_ImageEditScreenSpec.m */,
+				5E163CFA1AA5ECDA008DE0CE /* CRV002_GalleryScreenSpec.m */,
 			);
 			path = "Functional Tests";
 			sourceTree = "<group>";
@@ -1407,7 +1410,8 @@
 				5E63B0741AA65B1A00F37ACC /* NSData+CRVComposition.m in Sources */,
 				5E63B0731AA65AC000F37ACC /* OHHTTPStubs+CRVTests.m in Sources */,
 				5E82EAAD1AA6267A007C2C99 /* KIFUITestActor+FunctionalTests.m in Sources */,
-				5E163CFB1AA5ECDA008DE0CE /* CRVGalleryScreenSpec.m in Sources */,
+				5E163CFB1AA5ECDA008DE0CE /* CRV002_GalleryScreenSpec.m in Sources */,
+				5EB29F801AA6802400686C7E /* CRV001_ImageEditScreenSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

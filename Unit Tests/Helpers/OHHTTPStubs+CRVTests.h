@@ -50,7 +50,7 @@ typedef NS_ENUM (NSInteger, CRVStubError) {
  *
  *  @return A stub description object.
  */
-+ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestAndTakeANap;
++ (id<OHHTTPStubsDescriptor>)crv_stubDownloadRequestAndResponseAfter:(NSTimeInterval)after;
 
 /**
  *  Stubs all incoming upload requests.

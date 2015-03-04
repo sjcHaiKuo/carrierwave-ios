@@ -20,6 +20,7 @@
         self.clipsToBounds = YES;
         
         _imageView = [[UIImageView alloc] init];
+        _imageView.accessibilityLabel = @"Crop Image View";
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.userInteractionEnabled = YES;
         _imageView.multipleTouchEnabled = YES;
