@@ -43,11 +43,14 @@
 }
 
 - (void)crv_openPhotoAlbum {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wundeclared-selector"
     if ([self respondsToSelector:@selector(acknowledgeSystemAlert)]) {
         [self crv_tapCameraBarButton];
         [self waitAndTapViewWithAccessibilityLabel:@"Photo Album"];
         [self acknowledgeSystemAlert];
     }
+    #pragma clang diagnostic pop
 }
 
 - (void)crv_closePhotoAlbum {
