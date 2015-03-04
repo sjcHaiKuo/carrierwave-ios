@@ -45,10 +45,13 @@
 - (void)crv_openPhotoAlbum {
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Wundeclared-selector"
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     if ([self respondsToSelector:@selector(acknowledgeSystemAlert)]) {
         [self crv_tapCameraBarButton];
         [self waitAndTapViewWithAccessibilityLabel:@"Photo Album"];
-        [self acknowledgeSystemAlert];
+        /* workaround for circle build-and-distribute issue:
+           no visible @interface for 'KIFUITestActor' declares the selector 'acknowledgeSystemAlert' */
+        [self performSelector:NSSelectorFromString(@"acknowledgeSystemAlert")];
     }
     #pragma clang diagnostic pop
 }
