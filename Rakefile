@@ -183,7 +183,7 @@ def build_and_distribute
 
   report_info "Building the application archive, this may take a while..."
   FileUtils.mkdir_p ipa_build_dir
-  sh "ipa build #{ipa_build_flags.join(" ")} | xcpretty -c"
+  sh "ipa build #{ipa_build_flags.join(" ")} | xcpretty -c; exit ${PIPESTATUS[0]}"
   report_failure "Failed to build the application archive", $?.exitstatus unless $?.success?
 
   FileUtils.cd ipa_build_dir do
@@ -198,7 +198,7 @@ def build_and_distribute
     ipa_distribute_flags << "--notes '#{hockeyapp_release_notes}'"
 
     report_info "Uploading the application archive to Hockeyapp, this may take a while..."
-    masked_sh "ipa distribute:hockeyapp #{ipa_distribute_flags.join(" ")}", [hockeyapp_api_token]
+    masked_sh "ipa distribute:hockeyapp #{ipa_distribute_flags.join(" ")}; exit ${PIPESTATUS[0]}", [hockeyapp_api_token]
     report_failure "Failed to upload the application archive to Hockeyapp", $?.exitstatus unless $?.success?
 
 
