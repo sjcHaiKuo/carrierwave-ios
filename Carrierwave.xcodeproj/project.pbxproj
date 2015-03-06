@@ -41,7 +41,6 @@
 		3AF3BDB21A506D6B005BF9C4 /* pixel.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3AF3BDAA1A506D6B005BF9C4 /* pixel.tiff */; };
 		3AF3BDB71A5092E6005BF9C4 /* UIImage+CRVComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3BDB61A5092E6005BF9C4 /* UIImage+CRVComposition.m */; };
 		4B9648A3CDAAC60357EA20AE /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F4EE8A94DC140F03B374623 /* libPods-Tests.a */; };
-		56A83D449B2A21B2BF4DB356 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		5E06ABA31A77DE4200155F3E /* CRVScalableBorder+Anchors.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E06ABA11A77DE4200155F3E /* CRVScalableBorder+Anchors.h */; };
 		5E06ABA41A77DE4200155F3E /* CRVScalableBorder+Anchors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E06ABA21A77DE4200155F3E /* CRVScalableBorder+Anchors.m */; };
 		5E0B16491A82265100EB23D9 /* CRVNetworkManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0B16481A82265100EB23D9 /* CRVNetworkManagerSpec.m */; };
@@ -135,7 +134,6 @@
 		7CFA8FBF1A7BB4B800A92F22 /* NSError+Carrierwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFA8FBD1A7BB4B800A92F22 /* NSError+Carrierwave.h */; };
 		7CFA8FC01A7BB4B800A92F22 /* NSError+Carrierwave.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFA8FBE1A7BB4B800A92F22 /* NSError+Carrierwave.m */; };
 		A115654142A1519D38EC89D8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A56972E9BC58C79D27480C /* libPods.a */; };
-		A142BBEE11AEF57810728133 /* (null) in Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Weak, ); }; };
 		E33BEFB01A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E33BEFAF1A88B12B00588B6F /* EXPMatchers+CRVAnchorPoint.m */; };
 		E3781E1B1A89055100C95F83 /* CRVScalableViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = E3781E1A1A89055100C95F83 /* CRVScalableViewSpec.m */; };
 		E3AB00501A8D03F6000052D9 /* CRVFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = E3AB004E1A8D03F6000052D9 /* CRVFooterView.h */; };
@@ -389,8 +387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E163CF51AA5E9FE008DE0CE /* Carrierwave.framework in Frameworks */,
-				56A83D449B2A21B2BF4DB356 /* (null) in Frameworks */,
-				A142BBEE11AEF57810728133 /* (null) in Frameworks */,
 				77C577586FA6241FA4280C2A /* libPods-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
