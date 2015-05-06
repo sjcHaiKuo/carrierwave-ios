@@ -12,9 +12,9 @@
     #import <Carrierwave/CRVImageAsset.h>
     #import <Carrierwave/CRVVideoAsset.h>
     #import <Carrierwave/CRVVideoAssetTypedefs.h>
-    #import <Carrierwave/CRVImageEditViewController.h>
+    #import <NGRCrop/NGRImageEditViewController.h>
     #import <Carrierwave/CRVNetworkManager.h>
-    #import <Carrierwave/CRVScalableView.h>
+    #import <NGRCrop/NGRScalableView.h>
     #import <Carrierwave/CRVSaveAssetTask.h>
 
 #endif

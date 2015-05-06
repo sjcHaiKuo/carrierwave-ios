@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="W1V-gC-m8W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="W1V-gC-m8W">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Collection View Controller-->
@@ -52,7 +52,7 @@
         <!--Image Edit View Controller-->
         <scene sceneID="KaQ-tB-3Jz">
             <objects>
-                <viewController storyboardIdentifier="CRVImageEditViewControllerIdentifier" id="a0p-Hx-phq" customClass="CRVImageEditViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NGRImageEditViewControllerIdentifier" id="a0p-Hx-phq" customClass="NGRImageEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dQX-Fc-m2b"/>
                         <viewControllerLayoutGuide type="bottom" id="yb9-np-AXO"/>

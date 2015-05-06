@@ -14,6 +14,7 @@ xcodeproj 'Carrierwave', 'Development' => :debug, 'Production' => :release, 'Sta
 
 # Global project dependencies
 pod 'AFNetworking', '~> 2.5'
+pod 'NGRCrop', :git => 'git@github.com:netguru/ngrcrop-ios.git'
 
 # Exclusive demo dependencies
 target 'Demo' do

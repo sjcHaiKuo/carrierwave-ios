@@ -24,6 +24,7 @@ PODS:
   - KIF (3.1.2):
     - KIF/XCTest (= 3.1.2)
   - KIF/XCTest (3.1.2)
+  - NGRCrop (0.0.1)
   - OCMock (3.1.2)
   - OHHTTPStubs (3.1.10):
     - OHHTTPStubs/Core (= 3.1.10)
@@ -34,26 +35,33 @@ DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - Expecta
   - KIF
+  - NGRCrop (from `git@github.com:netguru/ngrcrop-ios.git`)
   - OCMock
   - OHHTTPStubs
   - Specta (from `https://github.com/specta/specta.git`, tag `v0.3.0.beta1`)
 
 EXTERNAL SOURCES:
+  NGRCrop:
+    :git: git@github.com:netguru/ngrcrop-ios.git
   Specta:
     :git: https://github.com/specta/specta.git
     :tag: v0.3.0.beta1
 
 CHECKOUT OPTIONS:
+  NGRCrop:
+    :commit: cd2dae046b325764cf97b345074606090647f438
+    :git: git@github.com:netguru/ngrcrop-ios.git
   Specta:
     :git: https://github.com/specta/specta.git
     :tag: v0.3.0.beta1
 
 SPEC CHECKSUMS:
-  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
-  Expecta: ee641011fe10aa1855d487b40e4976dac50ec342
-  KIF: 068074b24dd455025e7f2a488ba4fb07b9ce047b
-  OCMock: ecdd510b73ef397f2f97274785c1e87fd147c49f
-  OHHTTPStubs: 2038e929b6abb94881000524c1cb4aba0a1bb4a2
+  AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
+  Expecta: 8c507baf13211207b1e9d0a741480600e6b4ed15
+  KIF: e08915d78a220480599837e9a760deee64453d76
+  NGRCrop: b34335c09768f51fa3973b244cb86f6d810635e4
+  OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
+  OHHTTPStubs: 00152a63400246fcbc4b772a2a547ea34c97cbd6
   Specta: d2158a483ad179e5f8d3a29f75ff4fc0ff6fab16
 
-COCOAPODS: 0.36.0.rc.1
+COCOAPODS: 0.37.0.rc.1

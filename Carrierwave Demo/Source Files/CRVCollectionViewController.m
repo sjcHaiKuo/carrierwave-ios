@@ -18,7 +18,7 @@ NSString *const CRVPhotoAlbumTitle = @"Photo Album";
 NSString *const CRVCameraTitle = @"Camera";
 
 
-@interface CRVCollectionViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, CRVImageEditViewControllerDelegate, CRVManagerDelegate, UIActionSheetDelegate>
+@interface CRVCollectionViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, NGRImageEditViewControllerDelegate, CRVManagerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSMutableArray *contentArray;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
@@ -102,13 +102,13 @@ NSString *const CRVCameraTitle = @"Camera";
     [[UIAlertView crv_alertWithError:error] show];
 }
 
-#pragma mark - CRVImageEditViewControllerDelegate methods
+#pragma mark - NGRImageEditViewControllerDelegate methods
 
-- (void)imageEditViewControllerDidCancelEditing:(CRVImageEditViewController *)controller {
+- (void)imageEditViewControllerDidCancelEditing:(NGRImageEditViewController *)controller {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)imageEditViewController:(CRVImageEditViewController *)controller didFinishEditingWithImageAsset:(CRVImageAsset *)asset {
+- (void)imageEditViewController:(NGRImageEditViewController *)controller didFinishEditingWithImageAsset:(CRVImageAsset *)asset {
     
     CRVAssetModel *model = self.contentArray[self.selectedIndexPath.row];
     model.asset = asset;
@@ -218,9 +218,9 @@ NSString *const CRVCameraTitle = @"Camera";
 
 - (void)presentCropControllerWithAssetModel:(CRVAssetModel *)model {
 
-    CRVImageEditViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"CRVImageEditViewControllerIdentifier"];
+    NGRImageEditViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"NGRImageEditViewControllerIdentifier"];
     controller.delegate = self;
-    controller.imageAsset = model.asset;
+    controller.imageAsset = [model.asset image];
     
     [self presentViewController:controller animated:YES completion:nil];
 }

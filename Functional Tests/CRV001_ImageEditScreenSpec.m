@@ -68,10 +68,10 @@ describe(@"Image edit screen", ^{
     
     context(@"when double tapping in crop view", ^{
         
-        __block CRVScalableView *view;
+        __block NGRScalableView *view;
         
         beforeEach(^{
-            view = (CRVScalableView *)[tester waitForViewWithAccessibilityLabel:@"Scalable View"];
+            view = (NGRScalableView *)[tester waitForViewWithAccessibilityLabel:@"Scalable View"];
             [tester crv_doubleTapInCropView];
         });
         

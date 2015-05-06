@@ -37,7 +37,7 @@ describe(@"CRVFooterView", ^{
         itShouldBehaveLike(@"button did tap", ^{
             return @{@"view": sut,
                      @"title": @"Cancel",
-                     @"notificationName": @"CRVImageEditViewControllerWillCancelEditingNotification"};
+                     @"notificationName": @"NGRImageEditViewControllerWillCancelEditingNotification"};
         });
     });
     
@@ -46,7 +46,7 @@ describe(@"CRVFooterView", ^{
         itShouldBehaveLike(@"button did tap", ^{
             return @{@"view": sut,
                      @"title": @"Ratio",
-                     @"notificationName": @"CRVImageEditViewControllerWillShowRatioAlertControllerNotification"};
+                     @"notificationName": @"NGRImageEditViewControllerWillShowRatioAlertControllerNotification"};
         });
     });
     
@@ -55,7 +55,7 @@ describe(@"CRVFooterView", ^{
         itShouldBehaveLike(@"button did tap", ^{
             return @{@"view": sut,
                      @"title": @"Done",
-                     @"notificationName": @"CRVImageEditViewControllerWillFinishEditingWithImageAssetNotification"};
+                     @"notificationName": @"NGRImageEditViewControllerWillFinishEditingWithImageAssetNotification"};
         });
     });
     
@@ -64,7 +64,7 @@ describe(@"CRVFooterView", ^{
         itShouldBehaveLike(@"button did tap", ^{
             return @{@"view": sut,
                      @"title": @"Reset",
-                     @"notificationName": @"CRVTransformViewControllerWillResetTransformationNotification"};
+                     @"notificationName": @"NGRTransformViewControllerWillResetTransformationNotification"};
         });
     });
 });

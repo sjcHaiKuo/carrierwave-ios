@@ -29,19 +29,19 @@ describe(@"CRVEventMessenger", ^{
         it(@"should post done notifiction", ^{
             expect(^{
                 [sut postDoneMessage];
-            }).will.notify(@"CRVImageEditViewControllerWillFinishEditingWithImageAssetNotification");
+            }).will.notify(@"NGRImageEditViewControllerWillFinishEditingWithImageAssetNotification");
         });
         
         it(@"should post cancel notifiction", ^{
             expect(^{
                 [sut postCancelMessage];
-            }).will.notify(@"CRVImageEditViewControllerWillCancelEditingNotification");
+            }).will.notify(@"NGRImageEditViewControllerWillCancelEditingNotification");
         });
         
         it(@"should post ratio notifiction", ^{
             expect(^{
                 [sut postShowRatioSheetMessage];
-            }).will.notify(@"CRVImageEditViewControllerWillShowRatioAlertControllerNotification");
+            }).will.notify(@"NGRImageEditViewControllerWillShowRatioAlertControllerNotification");
         });
         
         it(@"should post reset notifiction", ^{
