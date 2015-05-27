@@ -147,7 +147,8 @@ Usage example:
 ```
 
 ## UI Component
-	[NGRCrop pod] (https://github.com/netguru/ngrcrop-ios.git)
+
+[NGRCrop] (https://github.com/netguru/ngrcrop-ios.git)
 
 ## Demo
 
