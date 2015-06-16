@@ -148,6 +148,7 @@ Usage example:
 
 ## UI Component
 
+UI component for editing selected photos, is responsible for scaling, rotating and croping them.
 [NGRCrop] (https://github.com/netguru/ngrcrop-ios.git)
 
 ## Demo
